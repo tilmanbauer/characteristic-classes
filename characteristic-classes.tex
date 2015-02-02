@@ -1,0 +1,1845 @@
+%!TEX program = xelatex
+\documentclass[a4paper,openany]{scrbook}
+
+\usepackage{amsthm}
+\usepackage{tilmansdef}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usetikzlibrary{matrix,arrows,decorations}
+
+
+\usepackage{fontspec,xunicode}
+\setmainfont[Mapping=tex-text,
+	SmallCapsFont={Copperplate},
+	SmallCapsFeatures={Letters=SmallCaps}]{Georgia}
+\setmathrm[Mapping=tex-text]{Georgia}
+\setsansfont[Mapping=tex-text]{Helvetica Neue}
+\setmonofont[Mapping=tex-text]{Andale Mono}
+\usepackage[colorlinks]{hyperref}
+
+
+
+\usepackage{stmaryrd}
+
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Open}{Open}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Der}{Der}
+
+\renewcommand{\C}{\mathcal C}
+\newcommand{\nerve}{\mathcal N}
+
+\newtheorem{warning}[equation]{Warning}
+\subject{\textsc{Lecture Notes}}
+\title{Characteristic classes in topology, geometry, and algebra}
+\author{Tilman Bauer}
+\date{\today{}}
+\publishers{Kungliga Tekniska Högskolan, Stockholm, Sweden}
+
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\mainmatter
+
+\chapter{Introduction}
+
+Vector bundles can be thought of as vector spaces parametrized by a base space, where ``space'' can mean a topological space, an algebraic variety, or a manifold. They occurence is abundant in topology, geometry, and algebra. Characteristic classes are cohomological invariants of vector bundles and the most important and powerful tools to study them. This course is an advanced level course on characteristic classes in topology, algebra, and geometry, including an introduction to vector bundles, cohomology, and differential geometry.
+
+The course goal is to understand and be able to apply the concept of characteristic classes in a range of mathematical disciplines. At the end of the course, the student will be able to follow current research literature and, if desired, pursue own research projects in this area.
+
+
+
+\tableofcontents
+
+\chapter{Vector bundles}
+
+The theory of vector bundles can be described as linear algebra parametrized by a base space. The aim of this chapter is to make this slogan precise and give three equivalent but quite distinct definitions of what a vector bundle is. All three of these definitions have their advantages and disadvantages.
+
+A vector bundle is, roughly speaking, an assignment of a vector space $E_x$ to every point $x \in B$ of some topological space $B$. The space $B$ is called the \emph{base space}, and $E_x$ is the \emph{fiber at $x$} of the vector bundle. This assignment should satisfy two central conditions:
+
+\begin{description}
+\item[Continuity:] The fibers $E_x$ should vary continuously with the base point.
+\item[Local triviality:] Over small open subsets $U \subset B$ of the base space, we should have $E_x = E_y$ for all $x$, $y \in U$.
+\end{description}
+
+The reader should be aware that both of these conditions make no mathematical sense as stated.
+
+\section{Bundles as spaces over a base space}
+
+Let $B$ be a topological space. A \emph{space over $B$} is another topological space $E$ together with a map $p\colon E \to B$. We denote the category of spaces over $B$ by $\Top/B$. Here, a morphism from $p\colon E \to B$ to $p'\colon E' \to B$ is a map $f\colon E \to E'$ such that the triangle
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		E & & E'\\
+		& B\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$f$} 	(m-1-3)
+			edge node[auto,swap]{$p$}	(m-2-2)
+	(m-1-3)	edge node[auto]{$p'$}	(m-2-2);
+\end{tikzpicture}
+\]
+commutes, i.~e. such that $p' \circ f = p$. We denote the set of morphisms over $B$ by $\map_B(E,E')$. If $E$, $E' \in \Top/B$, we also define the \emph{fiber product} $E \times_B E' \in \Top/B$ to be
+\[
+E \times_B E' = \{(e,e') \mid p(e) = p'(e')\} \xrightarrow{(e,e') \mapsto p(e)} B
+\]
+It is customary to suppress the projection map $p$ in the notation and denote the fiber $p^{-1}(x)$ of $x \in B$ by $E_x$.
+
+\begin{defn}
+Let $B$ be a topological space and $k$ a field (typically $\R$ or $\CC$). A \emph{$k$-vector space over $B$} consists of:
+\begin{itemize}
+\item a space $E \in \Top/B$,
+\item a map $s_0\in \map_B(B,E)$, called the zero section,
+\item a map $+\in \map_B(E \times_B E,E)$, called addition, and
+\item a map $\cdot\in \map_B(k \times E,E)$, called scalar multiplication
+\end{itemize}
+such that for each $x \in B$, $E_x$ becomes a $k$-vector space with zero $s_0(x)$, addition $+|_{E_x}$, and scalar multiplication $\cdot|_{E_x}$.
+
+A morphism of vector spaces over $B$ is a map $f\in \map_B(E,E')$ compatible with $s$, $+$, and $\cdot$. In particular, $f|_{E_x}$ is a vector space homomorphism for all $x$.
+\end{defn}
+
+The most obvious $k$-vector space over $B$ is the product space $k^n \times B$, where the projection to $B$ is simply the projection onto the second factor of the product.
+\begin{defn}[local triviality of vector bundles]
+Let $E$ be a $k$-vector space over $B$. Then $E$ is called a \emph{$k$-vector bundle} if every $x \in B$ has a neighborhood $U \subset B$ such that $E_U = p^{-1}(U)$ is isomorphic to a product space $k^n \times U$ for some $n \geq 0$. The category of $k$-vector bundles over $B$ is denoted by $\Vect_k(B)$ or just $\Vect(B)$ if $k$ is understood or irrelevant. A morphism of $k$-vector bundles is simply a morphism of the underlying $k$-vector spaces over $B$.
+\end{defn}
+
+In a vector bundle $E \in \Vect(B)$, the dimension of each fiber $E_x$ must be finite, but it may vary with $x$. If it does not, and is constantly $n$, we say that $E$ is \emph{equidimensional} of dimension $n$. We denote the subcategory of $n$-dimensional vector bundles on $B$ by $\Vect^n(B)$.
+
+\begin{lemma}
+If $B$ is connected then any $E \in \Vect(B)$ is equidimensional.
+\end{lemma}
+\begin{proof}
+For $n \in \N_0$, let $U_n = \{ x \in B \mid \dim E_x = n\}$. By the local triviality condition, each $U_n$ is open and closed, the $U_n$ are disjoint, and they cover $B$. Thus $B=U_n$ for some $n$, and $U_i = \emptyset$ for $i \neq n$.
+\end{proof}
+
+So far, the only vector bundles we have encountered are trivial vector bundles (product bundles). It is thus time for some more interesting examples.
+
+\begin{example}[The Möbius strip] \label{exa:mobiusstrip}
+Let $E = \R \times [0,1]/\mathord\sim$, where the equivalence relation $\sim$ is generated by $(x,0) \sim (-x,1)$. There is a map $p\colon E \to B = [0,1]/\{0,1\} \cong \S^1$ defined by $p(x,t) = t$. Then $E$ is a $1$-dimensional real vector bundle over $B$, an infinite cylinder with a half twist. The bundle $E$ is known as the \emph{Möbius strip}.
+
+Explicitly, the zero section is given by $s_0(t) = (0,t)$, addition by
+\[
+(x,t) + (y,t) = (x+y,t)
+\]
+and scalar multiplication by
+\[
+\lambda \cdot (x,t) = (\lambda x,t).
+\]
+Note that the addition is well-defined. 
+
+\begin{figure}[h]
+\begin{center}\includegraphics[width=5cm]{mobius.jpg}\end{center}
+\caption{The Möbius strip $E$}
+\end{figure}
+
+To verify local triviality, let us first consider a point $t \neq \overline 0 \in B$, where $\overline 0$ denotes the equivalence class of $0=1$. Then we can choose a neighborhood $U \ni t$ such that $\overline 0 \not\in U$ and $E_U \xrightarrow{(x,t) \mapsto (x,t)} \R \times U$ is a well-defined isomorphism of vector spaces over $U$. On the other hand, for $t = \overline 0$, choose $U = B-\{\frac12\}$ and define
+\[
+E_U \xrightarrow{(x,t) \mapsto \begin{cases} (x,t); & t<\frac12\\ (-x,t); & x>\frac12\end{cases}} \R \times U
+\]
+This is also a an isomorphism of vector spaces over $U$, so we are done.
+
+The Möbius strip is a nontrivial line bundle. This can be seen by observing that the total space of a trivial line bundle falls apart into two components when one removes the zero section, whereas the Möbius strip stays connected.
+\end{example}
+
+\begin{example}[Projective space and the tautological bundle] \label{exa:tautological-bundles}
+Let $k$ be any field or skew field (typically $\R$, $\CC$, or the quaternions $\mathbf H$) and $P^n = kP^n$ the $n$-dimensional projective space over $k$. This is defined to be the quotient space
+\[
+P^n = \left(k^{n+1}-\{0\}\right)/\sim,
+\]
+where the equivalence relation $\sim$ is given by $(x_0,\dots,x_n) \sim (\lambda x_0,\dots,\lambda x_n)$ for $\lambda \in k^\times$. We will think of $P^n$ as the set of lines through the origin in $k^{n+1}$,
+\[
+P^n = \{ L \subseteq k^{n+1} \mid L \text{ one-dimensional subspace}\},
+\]
+although this description does not include what topology we want to have on $P^n$.
+We now define the \emph{tautological line bundle} $\mathcal O(-1)$ on $P^n$ by
+\[
+E = \{ (x,L) \mid L \in P^n, x \in L\}.
+\]
+It is called tautological because the fiber $E_L$ over a line $L \in P^n$ \emph{is that line}. The notation $\mathcal O(-1)$ will become clear \ref{later}. The total space $E_n$ is topologized as a subspace of $k^{n+1} \times P^n$, and the projection map is the obvious one, mapping $(x,L)$ to $L$. Much as in Example~\ref{exa:mobiusstrip}, we see that the vector-space-over-$P^n$ structure of the $(n+1)$-dimensional trivial vector bundle $k^{n+1} \times P^n$ restricts to the subspace $E$, and it remains to show local triviality.
+
+Choose an arbitrary scalar product $\langle \cdot,\cdot \rangle$ on $k^{n+1}$, let $L \in P^n$ be a line in $k^{n+1}$, $x_0 \in L$ a point of norm $1$, and choose $U = \{ L' \in P^n \mid L,L' \text{ are not orthogonal}\}$. Then there is a bijective map
+\[
+\phi\colon E_U \to k \times U, \quad \phi(x,L) = (\langle x,x_0\rangle,L)
+\]
+which constitutes a local trivialization of the tautological bundle near $L$.
+\end{example}
+
+\begin{example} \label{exa:coordinatecross}
+We give an example of a vector space over $B$ which is not locally trivial and hence not a vector bundle. Let $E=\{(x,b) \in \R^2 \mid xb=0\} \xrightarrow{(x,b) \mapsto b} \R = B$ be the projection of the coordinate cross to the $b$-axis. Then
+\[
+E \times_B E = \{(x_1,x_2,b) \mid x_1=x_2=0 \text{ if } b\neq 0\} \xrightarrow{(x_1,x_2,b) \mapsto (x_1+x_2,b)} E
+\]
+gives $E$ the structure of a real vector space over $B$ (the scalar multiplication is defined similarily). However, no neighborhood $U$ of $0 \in B$ has $E_U \cong U \times \R^n$ for any $n$ since the fiber over $0$ is $1$-dimensional, while all other fibers are $0$-dimensional.
+\end{example}
+
+According to the definition, an isomorphism of vector bundles is a map $f\in \map_B(E,E')$ of vector spaces over $B$ which has an inverse $g\in \map_B(E',E)$. The following characterization is less obvious than one might at first think:
+
+\begin{thm}
+A map $f\in \map_B(E,E')$ is an isomorphism of vector bundles iff $f|_{E_x}\colon E_x \to E'_x$ is an isomorphism on the fibers for every $x \in B$.
+\end{thm}
+\begin{proof}
+The “only if” direction is obvious, so assume that $f$ induces a vector space isomorphism on all fibers. Then $f$ is bijective and has an inverse map $f^{-1}\colon E'_x \to E_x$, but is $f^{-1}$ continuous?
+
+To show this, we will use local trivializations. Let $x \in B$ have a trivializing neighborhood $U \subset B$ for both $E$ and $E'$ and $\phi\colon E_U \to k^n \times U$, $\phi'\colon E'_U \to k^n \times U$ be local trivializations. The restriction $f|_U$ can be written as the composition of isomorphisms
+\[
+f|_{E_U}\colon E_U \xrightarrow{\phi} U \times k^n \xrightarrow{G} U \times k^n \xrightarrow{(\phi')^{-1}} E'_U
+\]
+for some map $G \in \map_U(U \times k^n,U \times k^n)$. As $G$ is an isomorphism over $U$, it must be of the form
+\[
+G(u,x) = (u,g(u)x) \quad \text{for some $g\colon U \to \GL_n(k)$}.
+\]
+But then $f^{-1}|_{E'_U} = \phi^{-1} \circ (\id \times g^{-1}) \circ \phi'$, where $g^{-1}$ denotes the pointwise matrix inverse $u \mapsto g(u)^{-1}$, not the inverse map. As a composite of continuous maps, $f^{-1}|_{E'_U}$ is therefore continuous at $x$. 
+\end{proof}
+
+\begin{exer} \label{exer:complement-of-tautological-bundle}
+Consider the spaces $kP^n$ from Example~\ref{exa:tautological-bundles} again. Choose a scalar product on $k^{n+1}$ and define an $n$-dimensional vector bundle on them by
+\[
+E = \{(x,L) \mid L \in kP^n,\; x \in L^\perp\}.
+\]
+That is, the point $x$ is in the hyperplane orthogonal to $L$. Shows that this defines a vector bundle, which we will call $\mathcal O(-1)^\perp$.
+\end{exer}
+
+\begin{exer}
+Let $k=\R$, $\CC$, or $\mathbf H$. Show that there is a homeomorphism between $kP^1$, the one-dimensional projective space over $k$, and $\S^{\dim_\R(k)}$, i.~e. $\S^1$, $\S^2$, and $\S^4$, respectively.
+
+Show that the Möbius bundle $\mu$ of Example~\ref{exa:mobiusstrip} is isomorphic to the tautological line bundle $\mathcal O(-1)$ on $\R P^1$.
+\end{exer}
+
+\section{Bundles as sheaves} \label{sec:bundlesassheaves}
+
+\begin{defn}
+Let $p\colon E \to B$ be a vector bundle and $U \subseteq B$. Then we define the set of \emph{sections} of $p$ to be
+\[
+\Gamma_p(U) = \map_U(U,E_U) = \{s\colon U \to E \mid p \circ s = \id_U\}.
+\]
+\end{defn}
+Using the vector space structure over $B$ of $E$, we can define an addition and scalar multiplication on $\Gamma_p(U)$,
+\[
+(s+s')(u) = s(u)+s'(u), \quad (\lambda s)(u) = \lambda \cdot s(u),
+\]
+so that $\Gamma_p(U)$ is actually a (usually infinite-dimensional) $k$-vector space. Loaning a term from algebraic geometry, $\Gamma_p$ is actually a \emph{sheaf} of $k$-vector spaces.
+
+\begin{defn}
+Let $B$ be a topological space. Let $\Open(B)$ be the category whose objects are the open subsets $U \subseteq B$ and which has precisely one morphism $U \to U'$ iff $U \subseteq U'$. Then a contravariant functor $F$ from $\Open(B)$ to sets (or spaces, groups, $k$-vector spaces) is called a \emph{presheaf} (of spaces, sets, groups, or $k$-vector spaces). That is, $F$ assigns to each open $U$ a set (space, group, vector space) $F(U)$, often called the sections of $F$ over $U$, and for each inclusion $U \subseteq U'$ there is a map (homomorphism, linear map) $F(U') \to F(U)$, usually denoted by $s \mapsto s|_U$. This assignment of maps is required to be transitive for double inclusions $U \subseteq U' \subseteq U''$ and $F$ must map the identity inclusion $U = U$ to the identity.
+
+A \emph{morphism of presheaves} is a natural transformation of functors. In other words, a morphism $f\colon F \to G$ consists of morphisms $f(U)\colon F(U) \to G(U)$ for each $U \in \Open(B)$ such that for any inclusion $V \subseteq U$ in $\Open(B)$, $f(U)(s)|_V = f(V)(s|_V)$.
+
+A presheaf $F$ on $B$ is called a \emph{sheaf} if it satisfies the \emph{gluing condition}: if $U \subseteq B$ is covered by open sets $\{U_\alpha\}_\alpha$ and we are given, for each $\alpha$, a section $s_\alpha \in F(U_\alpha)$ in such a way that on intersections $U_{\alpha\beta} = U_\alpha \cap U_\beta$, we have that
+\[
+s_\alpha|_{U_{\alpha\beta}} = s_\beta|_{U_{\alpha\beta}},
+\]
+then there exists a unique section $s \in F(U)$ such that $s|_{U_\alpha} = s_\alpha$ for all $\alpha$. In words, if we have separate sections over each element of the open cover, and they match up on intersections, then we can glue them together to obtain a section on all of $U$.
+
+A morphism of sheaves is just a morphism of the underlying presheaves; in other words, sheaves are a full subcategory of presheaves.
+\end{defn}
+
+It should come as no surprise that sections of a bundle actually form a sheaf:
+
+\begin{prop}
+Let $p\colon E \to B$ be a $k$-vector bundle. Then $\Gamma_p$ is a sheaf of $k$-vector spaces on $B$.
+\end{prop}
+\begin{proof}
+We begin by showing that $\Gamma_p$ is a presheaf. Given an inclusion $U \subseteq U'$, we have a canonical restriction map
+\[
+\Gamma_p(U') = \{s \colon U' \to E \mid p \circ s = \id\} \xrightarrow{-|_U} \{s \colon U \to E \mid p \circ s = \id\} = \Gamma_p(U),
+\]
+and the functoriality is obvious. Now let us check the gluing condition. Let $U_\alpha$ be an open cover of $U$ and $s_\alpha \in \Gamma_p(U_\alpha)$ such that $s_\alpha|_{U_{\alpha\beta}} = s_\beta|_{U_{\alpha\beta}}$. Then we define $s \in \Gamma_p(U)$ by
+\[
+s(x) = s_\alpha(x) \quad \text{if } x \in U_\alpha
+\]
+This is defined on all of $U$ because $\{U_\alpha\}$ covers $U$, and it is well-defined by the matching condition on intersections. Furthermore, $s$ is the only element of $\Gamma_p(U)$ which restricts to $s_\alpha$ on all $U_\alpha$ because if there was another $s' \in \Gamma_p(U)$, being a different function, it would have to disagree with $s$ on some point $x$ which lies in some $U_\alpha$, but we must have $s(x) = s_\alpha(x) = s'_\alpha(x) = s'(x)$.
+\end{proof}
+
+\begin{example}
+A particular case is the sheaf $\mathcal O_B$ of sections of the trivial line bundle $k \times B$ over $B$. In this case we have that $\mathcal O_B(U)$ is just the set of continuous functions from $U$ to $k$, and this is in fact a sheaf of $k$-algebras, where the multiplication is given pointwise. We will sometimes omit the index and just write $\mathcal O$ for this sheaf when the base space is obvious.
+\end{example}
+
+If $R$ is a sheaf of rings (or $k$-algebras) on a space $X$ then an \emph{$R$-module sheaf $M$} is a sheaf of abelian groups (or $k$-vector spaces) with an action
+\[
+R(U) \times M(U) \to M(U),
+\]
+natural in $U$, that makes $M(U)$ an $R(U)$-module for all $U$. A \emph{morphism of $R$-module sheaves} $f\colon M \to N$ is a morphism of sheaves such that for every $U$, $f(U)\colon M(U) \to M(U)$ is an $R(U)$-module homomorphism.
+
+\begin{prop}
+Let $p\colon E \to B$ be a $k$-vector bundle. Then $\Gamma_p$ is a sheaf of $\mathcal O_B$-modules. Moreover, $\Gamma_p$ is \emph{locally free}, i.~e. if for every $x \in B$ there exists a neighborhood $U \ni x$ such that $\Gamma_p|_U \cong \mathcal O_U^n$ for some $n \geq 0$.
+\end{prop}
+\begin{proof}
+The action
+\begin{align*}
+\mathcal O_B(U) \times \Gamma_p(U) =& \map(U,k) \times \map_U(U,E_U) = \map_U(U,k\times E_U)\\
+\xrightarrow{\map_U(U,\cdot)} &\map_U(U,E_U) = \Gamma_p(U)
+\end{align*}
+gives $\Gamma_p$ the desired structure.
+
+To show local freeness, let $x \in B$ and choose a trivializing neighborhood $U \ni x$ with $\phi\colon E_U \xrightarrow{\sim} k^n \times U$. Then for any $V \subseteq U$, we have $\Gamma_p(V) \cong \Gamma_{k^n \times U}(V) \cong \mathcal O_U(V)^n$, hence $\Gamma_p$ is indeed locally free.
+\end{proof}
+
+It is natural to ask whether the sheaf of sections associated to a vector bundle suffices to completely describe the vector bundle, and moreover, whether any sheaf of vector spaces can be realized as the sections of some vector bundle. The best way to formulate this is by an equivalence of categories.
+
+\begin{thm}\label{thm:vbsheafequivalence}
+The functor
+\[
+\Vect(B) \xrightarrow{p \mapsto \Gamma_p} \{\text{finitely generated locally free $\mathcal O$-module sheaves on $B$}\}
+\]
+is an equivalence of categories.
+\end{thm}
+
+In order to give an inverse construction, we need in particular to extract the fiber over a single point $b \in B$ from a sheaf $F$.
+
+\begin{defn}
+The \emph{stalk at $b \in B$} of a sheaf on $F$ is
+\[
+F_b = \colim_{U \in \Open_b(B)} F(U),
+\]
+where $\Open_b(X)$ denotes the poset of open sets in $X$ containing $b$.
+
+If $s \in F(U)$ is a section and $b \in U$ then the natural map $F(U) \to F_b$ sends $s$ to an element $s_b \in F_b$, which is called the \emph{germ} of $s$ at $b$.
+\end{defn}
+
+Since $F_b$ is defined using the restriction maps of the sheaf $F$, the stalk of a sheaf $F$ inherits whatever additional structure $F$ has: the stalk of a sheaf of groups is a group, the stalk of a sheaf of $k$-vector spaces is a $k$-vector space, etc. Furthermore, taking stalks is functorial, i.~e. a morphism of sheaves induces a morphism of stalks.
+
+\begin{example}
+Let $B$ be a space and $\mathcal O$ the sheaf of continuous functions on $B$. Then the stalk $\mathcal O_b$ consists of \emph{germs of continuous functions at $b$}. Those are function $f$ defined in some neighborhood $U$ of $b$ modulo the equivalence relation generated by
+\[
+(f,U) \sim (g,V) \quad \text{if} \quad  f|_{U\cap V} = g|_{U\cap V}.
+\]
+Note the $\mathcal O_b$ has an ideal $(\mathcal O_b)_+$ consisting of those germs of functions that vanish at $b$. This is the kernel of the evaluation map
+\[
+\mathcal O_b \xrightarrow{s \mapsto s(b)} k,
+\]
+thus the quotient $\mathcal O_b/(\mathcal O_b)_+$ is isomorphic with $k$.
+\end{example}
+
+Given any sheaf $M$ of $\mathcal O$-modules, the stalk $M_b$ is a module over $\mathcal O_b$. We define the \emph{fiber} of $M$ at $b$ to be the quotient
+\[
+\overline M_b = M_b / (\mathcal O_b)_+M_b.
+\]
+This is a $k$-vector space in a natural way, and it is finite-dimensional if $M$ was finitely generated.
+
+\begin{lemma}\label{lemma:fiberreconstruction}
+Let $p\colon E \to B$ be a vector bundle and $\Gamma=\Gamma_p$ the associated locally free $\mathcal O$-module sheaf. Then for every $b \in B$ there is a natural isomorphism of $k$-vector spaces
+\[
+\Phi\colon \overline\Gamma_b \to E_b
+\]
+\end{lemma}
+\begin{proof}
+For every $U \in \Open_b(B)$, we have a surjective evaluation map
+\[
+\Gamma_p(U) = \map_U(U,E_U) \xrightarrow{s \mapsto s(b)} E_b.
+\]
+These maps are compatible with inclusions of open sets in $\Open_b(B)$ and hence give rise to an epimorphism of $k$-vector spaces
+\[
+\Phi\colon \Gamma_b = \colim_{U \in \Open_b(B)} \map_U(U,E_U) \to E_b.
+\]
+whose kernel is $(\mathcal O_b)_+\Gamma_b$.
+\end{proof}
+
+
+\begin{proof}[Proof of Thm.~\ref{thm:vbsheafequivalence}]
+To show that $\Gamma$ is an equivalence of categories, it suffices to show that it is fully faithful and essentially surjective. Let $p\colon E \to B$ and $p'\colon E' \to B$ be two vector bundles on $B$ and $\Gamma$, $\Gamma'$ their associated locally free $\mathcal O$-module sheaves of sections. For the functor $\Gamma$ to be fully faithful in this setting means that the map
+\[
+\map_B(E,E') \xrightarrow{\Gamma} \Hom_{\Mod_{\mathcal O}}(\Gamma,\Gamma')
+\]
+is bijective, where the right hand side denotes the set of morphisms of $\mathcal O$-module sheaves.
+
+For injectivity, assume that two maps $f,\; g \in \map_B(E,E')$ induce the same map on the right hand side. By applying the functor $\Phi$ from Lemma~\ref{lemma:fiberreconstruction}, they induce the same maps between the fibers of $\Gamma$ and $\Gamma'$, which are the fibers $E_b \to E'_b$. Thus the maps agree on every fiber, hence $f=g$.
+
+For surjectivity, by Lemma~\ref{lemma:fiberreconstruction} again, any map $f\colon \Gamma \to \Gamma'$ of $\mathcal O$-module sheaves induces maps $f_b\colon E_b \to E'_b$ on every fiber, which almost shows surjectivity, except that we must show that the resulting map $f = \bigcup_{b \in B} f_b$ is continuous.
+
+This can be checked locally, so let us assume that $E = B \times k^m$ and $E' = B \times k^n$ are trivial vector bundles, and correspondingly, $\Gamma = \mathcal O^m$ and $\Gamma' = \mathcal O^n$. Then
+\[
+\Hom_{\mathcal O}(\Gamma,\Gamma') = \Hom_{\mathcal O}(\mathcal O^m,\mathcal O^n)  = \Hom(k^m,\mathcal O^n) = \map(-,\Hom_k(k^m,k^n)).
+\]
+Since the induced map on the fibers of $\Gamma$ and $\Gamma'$ at $b$ is just evaluation of an element of $\map(-,\Hom_k(k^m,k^n))$ at $b$, continuity is satisfied.
+
+For essential surjectivity we must show that every finitely generated locally free $\mathcal O$-module sheaf $M$ on $B$ is isomorphic to $\Gamma_p$ for some vector bundle $p\colon E\to B$. Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover of $B$ such that $ M|_{U_\alpha}$ is trivial, i.~e. such that there is an isomorphism
+\[
+\phi_\alpha\colon  M|_{U_\alpha} \to \mathcal O_{U_\alpha}^{n_\alpha}.
+\]
+In particular, for every $u \in U_\alpha$, we have a natural homomorphism
+\[
+\overline \phi_{\alpha,u}\colon M(U_\alpha) \to \overline M_u \to \map(\{b\},k^{n_\alpha}) = k^{n_\alpha}.
+\]
+Let
+\[
+\tilde E = \coprod_{\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{\tilde p\colon (x_\alpha,y_\alpha) \mapsto y_\alpha} B.
+\]
+We will construct the total space $E$ of the desired vector bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
+\[
+(x_\alpha,u_\alpha) \sim (x_\beta,u_\beta) \quad \text{iff} \quad \left\{\begin{matrix}
+u_\alpha=u_\beta \in U_{\alpha\beta} \quad\text{ and }\\
+\exists s \in M(U_{\alpha\beta})\colon \overline \phi_{\alpha,u_\alpha}(s) = \phi_{\beta,u_\beta}(s).\end{matrix}\right.
+\]
+
+Then $E = \tilde E/\sim$. Since only points in different components of the disjoint union are identified, we still have local triviality $E|_{U_\alpha} \cong k^{n_\alpha} \times U_\alpha$. 
+
+We now define a map of sheaves
+\[
+\Phi\colon M \to \Gamma_p
+\]
+by using the gluing condition. For $U_\alpha$, we define
+\[
+\Phi_\alpha\colon M|_{U_\alpha} \xrightarrow{\phi_\alpha} \mathcal O_{U_\alpha}^{n_\alpha} = \Gamma_{\tilde p}|_{U_\alpha} \to \Gamma_p|_{U_\alpha}.
+\]
+using the local trivializations $\phi_\alpha$. To see that these maps glue, we need to verify that
+\[
+\Phi_\alpha|_{U_{\alpha\beta}} = \Phi_\beta|_{U_{\alpha\beta}}.
+\]
+Thus, let $s \in M(U_{\alpha\beta})$ be a section and $u \in U_{\alpha\beta}$. Then $\Phi_\alpha(s)(u) = (\phi_{\alpha,u}(s),u) \sim (\phi_{\beta,u}(s),u) = \Phi_\beta(s)(u)$.
+\end{proof}
+
+\begin{remark}
+The inverse construction of a vector bundle from a sheaf given above depends heavily on the local trivialization and is therefore not functorial. But this is not needed to show that the functor $\Gamma$ is essentially surjective.
+\end{remark}
+
+
+\section{Bundles as cocycles}
+
+Let $p\colon E \to B$ be a $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, i.~e. we so that can choose isomorphisms
+\[
+\phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^{n_\alpha} \times U_{\alpha}).
+\]
+
+Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such trivializations and obtain an isomorphism
+\[
+\tilde g\colon k^{n_\alpha} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n_\beta} \times U_{\alpha\beta}.
+\]
+Note that $n_\alpha = n_\beta$ if $U_{\alpha\beta} \neq \emptyset$. Let us assume this. Then since $\tilde g$ is a map over $B$, we can write
+\[
+\tilde g(x,u) = (g(u)(x),u)
+\]
+for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k^{n_\alpha})$.
+
+\begin{lemma}
+Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$ for each pair $(\alpha,\beta)$ such that $U_{\alpha\beta} \neq \emptyset$. Then we have:
+\begin{enumerate}[label=\normalfont \bfseries{(COC\arabic*)},leftmargin=*]
+\item $g_{\alpha\alpha} = \id_{U_\alpha}$; \label{it:coc1}
+\item $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$; \label{it:coc2}
+\item $g_{\alpha\beta} g_{\beta\gamma} g_{\gamma\alpha} = \id_{U_{\alpha\beta\gamma}}$. \label{it:coc3}
+\end{enumerate}
+
+\end{lemma}
+
+\begin{proof}
+Condition \ref{it:coc2} is actually redundant and follows from \ref{it:coc1} and \ref{it:coc3} since
+\[
+\id_{U_{\alpha\beta}} \underset{\text{(COC3)}} = g_{\alpha\beta} g_{\beta_\alpha} g_{\alpha\alpha} \underset{\text{(COC1)}} = g_{\alpha\beta} g_{\beta_\alpha}.
+\]
+For \ref{it:coc1}, $g_{\alpha\alpha} = \phi_\alpha^{-1} \phi_\alpha = \id_{U_\alpha}$. Finally for \ref{it:coc3},
+\[
+g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha) = \id_{U_{\alpha\beta\gamma}}.
+\]
+\end{proof}
+
+
+\begin{defn}
+Let $\{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle for $\mathcal U$ with values in $\{G_n\}$} consists of continuous maps
+\[
+n\colon I \to \N
+\]
+such that $n_\alpha=n_\beta$ whenever $U_{\alpha\beta} \neq \emptyset$, together with continuous maps
+\[
+g_{\alpha\beta}\colon U_{\alpha\beta} \to G_{n_\alpha} \quad (\alpha,\;\beta \in I)
+\]
+such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $\mathcal G = \{G_n\}$ by $Z^1_{\mathcal U}(X,\mathcal G)$.
+\end{defn}
+
+A particular kind of cocycle is always easy to construct: given an $n \colon I \to \N$ and a collection of maps $c_\alpha\colon U_\alpha \to G_{n_\alpha}$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally, we say that two cocycles $g$, $g'$ are \emph{cohomologous} if there is such a $c_\alpha$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$.
+
+
+The assignment of a cocycle $g_{\alpha\beta}$ to a vector bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
+
+\begin{prop}
+Let $p\colon E \to B$ and $p'\colon E' \to B$ two vector bundles. Let $\{U_\alpha\}_\alpha$ be a cover of $B$ that trivializes both $p$ and $p'$, and let $g_{\alpha\beta}$ and $g'_{\alpha\beta}$ be cocycles associated to $p$ and $p'$, respectively. Then $p \cong p'$ iff and only $g$ and $g'$ are cohomologous.
+\end{prop}
+Note that one can always find a cover that trivializes both $p$ and $p'$, for instance, by taking all intersections of trivializing neighborhoods of $p$ with trivializing neighborhoods of $p'$.
+
+\begin{proof}
+We will show that ``if'' part first, so let us assume that
+\[
+g'_{\alpha\beta} = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in \map(U_{\alpha\beta},G_{n_\alpha})
+\]
+for some collection $c_\alpha\colon U_\alpha \to G_{n_\alpha}$. For $\alpha \in I$, define a map
+\[
+E_{U_\alpha} \xrightarrow{f_\alpha} E'_{U_\alpha}, \quad f_\alpha = (\phi'_{\alpha})^{-1} \circ (c_\alpha \times \id_{U_\alpha}) \circ \phi_\alpha.
+\]
+As a composition of three linear isomorphisms over $U_\alpha$, it is an isomorphism of vector bundles over $U_\alpha$. Furthermore, if $U_{\alpha\beta} \neq \emptyset$, we have that
+\begin{align*}
+f_\beta|_{U_{\alpha\beta}} \circ (f_\alpha|_{U_{\alpha\beta}})^{-1} =& (\phi'_\beta)^{-1} \circ (c_\beta \times \id) \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ (c_\alpha^{-1} \times \id) \circ \phi'_\alpha\\
+=& (\phi'_\beta)^{-1} \circ ((c_\beta g_{\alpha\beta}c_{\alpha}^{-1}) \times \id) \circ \phi'_\alpha\\
+= & (\phi'_\beta)^{-1} \circ (g'_{\alpha\beta} \times \id) \circ \phi'_\alpha = \id,
+\end{align*}
+where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of vector bundles
+\[
+f\colon E \to E', \quad f(x) = f_\alpha(x) \quad \text{if } x \in U_\alpha.
+\]
+
+Now assume that $f\colon E \to E'$ is an isomorphism of vector bundles. Define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by 
+\[
+c_\alpha \times \id_{U_\alpha} = \phi'_\alpha \circ f \circ \phi_\alpha^{-1}.
+\]
+Then
+\begin{align*}
+c_\beta g_{\alpha\beta} c_\alpha^{-1} \times \id = & \phi'_\beta \circ f \circ \phi_\beta^{-1} \circ \phi_\beta \circ \phi_\alpha^{-1} \circ \phi_\alpha \circ f^{-1} \circ (\phi'_\alpha)^{-1}\\
+ = & \phi'_\beta (\phi'_{\alpha})^{-1} = g'_{\alpha\beta},
+\end{align*}
+hence $g$ and $g'$ are cohomologous.
+\end{proof}
+
+Thus for a chosen trivializing cover, the cocycle of a vector bundle is unique up to homology. The following result gives the existence part of the characterization:
+
+\begin{prop}
+Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover on a space $B$ and $(n_\alpha,g_{\alpha\beta}) \in Z^1_{\mathcal U}(B,\{\GL_n(k)\})$. Then there is a vector bundle $p\colon E \to B$ and trivializations $\phi_\alpha\in \map_{U_\alpha}(E_{U_\alpha},k^{n_\alpha} \times U_{\alpha})$ whose associated cocycle is $(n,g)$.
+\end{prop}
+\begin{proof}
+Let
+\[
+\tilde E = \coprod_{\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{p\colon (x_\alpha,y_\alpha) \mapsto y_\alpha} B.
+\]
+We will construct the total space $E$ of the desired vector bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
+\[
+(x_\alpha,u_\alpha) \sim (x_\beta,u_\beta) \quad \text{iff} \quad u_\alpha=u_\beta \in U_{\alpha\beta} \text{ and } g_{\alpha\beta}(x_\alpha) = x_\beta.
+\]
+The cocycle conditions (COC1) -- (COC3) are equivalent, in this order, to the reflexivity, symmetry, and transitivity of the relation $\sim$, thus $\sim$ is an equivalence relation, and we define $E = \tilde E/\sim$. Since identifications under $\sim$ only occur within a fiber, $p$ factors through a projection map $p\colon E \to B$.
+
+We now define an addition
+\[
+E \times_B E \to E, \quad ([x_\alpha,b],[y_\alpha,b]) \mapsto [x_\alpha+y_\alpha,b],
+\]
+and a scalar multiplication in an analogous way. To see this is well-defined, observe that
+\[
+[g_{\alpha\beta}(x_\alpha),b] + [g_{\alpha\beta}(y_\alpha),b] = [g_{\alpha\beta}(x_\alpha+y_\alpha),b]
+\]
+since $g_{\alpha\beta}$ is linear. Thus $E$ is a $k$-vector space over $B$. Since $g_{\alpha\beta}$ is bijective, $\sim$ identifies distinct points in $k^{n_\alpha} \times U_\alpha$ with distinct points in $k^{n_\beta} \times U_\beta$, hence the map $k^{n_\alpha} \times U_\alpha \hookrightarrow \tilde E \to E$ is injective with image $E_{U_\alpha}$. We define the local trivialization $\phi_\alpha$ to be the inverse of this map. The clearly, $g_{\alpha\beta}$ is the change-of-coordinates map associated with $\phi_\alpha$ and $\phi_\beta$, and the proof is complete.
+\end{proof}
+
+We can thus define a vector bundle up to isomorphism by specifying a cocycle for some cover. However, maps of vector bundles cannot be described in this way, thus we cannot make a category out of the cocycle description for vector bundles. 
+
+\subsection{Cocycles as functors}
+
+It is useful both conceptually and for what comes later to phrase the definition of a cocycle in the context of \emph{topological categories}. A topological category, or more precisely, a small category object in topological spaces, is an ordinary category where the objects form a set (rather than a proper class) and where both objects and morphism sets carry a topology such that all the structure maps are continuous. We make this more precise in the following definition.
+
+\begin{defn}
+Let $C$ be a category, such as the category of topological spaces, that has fiber products. A \emph{category object $\C$ in $C$} is a pair of objects $(\ob \C, \mor \C)$ of $C$ together with morphisms
+\begin{itemize}
+\item a \emph{unit} $u\colon \ob \C \to \mor \C$;
+\item \emph{source} and \emph{target} maps $s$, $t\colon \mor C \to \ob \C$;
+\item a composition map $\mu\colon \mor \C \times_{\ob \C} \mor \C \to \mor \C$, where the fiber product denotes the pullback of the diagram
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		& \mor \C\\
+		\mor \C & \ob \C.\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-2)	edge node[auto]{$t$} (m-2-2)
+	(m-2-1)	edge node[auto]{$s$} (m-2-2);
+\end{tikzpicture}
+\]
+\end{itemize}
+These morphisms have to satisfy the following axioms:
+\begin{description}
+\item[(Associativity)] $\mu(\mu(f,g),h) = \mu(f,\mu(g,h))$ for $(f,g,h) \in \mor \C \times_{\ob\C} \mor \C \times_{\ob \C} \mor \C$;
+\item[(Identities)] $s\circ u = t \circ u = \id_{\ob \C}$.
+\item[(Unitality)] $\mu(f,u \circ s) = f = \mu(u \circ t,f)$ for all $f \in \mor \C$;
+\end{description}
+
+A \emph{functor} $F$ between category objects $\C$ and $\D$ in $C$ consists of two functors
+\[
+F_0\colon \ob \C \to \ob \D \quad \text{and} \quad F_1\colon \mor\C \to \mor \D
+\]
+that are compatible with the unit, source, target, and composition maps. (The reader may spend a minute to think about this compatibility in the case of contravariant functors.)
+
+A \emph{natural transformation} $\alpha\colon \C \to \D$ is a functor
+\[
+\alpha\colon \C \times [1] \to \D,
+\]
+where $[1]$ denotes the category with two objects $0$, $1$ and exactly one morphism $0 \to 1$ besides the identity morphisms. We say that the natural transformation goes from the functor $\alpha_0\colon \C \cong \C \times \{0\} \to \D$ to the functor $\alpha_1\colon \C \cong \C \times \{1\} \to \D$.
+
+We call a category object in topological spaces just a \emph{topological category}.
+\end{defn}
+
+Note that a category object in sets is just an ordinary category whose objects form a set. (This is called a \emph{small} category.)
+
+A special case of a topological category is a category $\C$ when $\ob\C$ is just a discrete set (but the morphism sets do carry a nontrivial topology). Some authors call this a topological category, rather than our more general definition. An unambiguous name for this kind of category is a \emph{category enriched in topological spaces}.
+
+\begin{example}
+If $G$ is a Lie group, such as $\GL_n(k)$ for $k=\R$ or $\CC$, then we can consider $G$ as a topological category with one object $*$ and $\mor = \Hom(*,*) = G$. We will not distinguish in notation between the group $G$ and the one-object category thus defined.
+\end{example}
+
+\begin{example}
+if $\{G_n\}_{n \geq 0}$ is a sequence of Lie groups, we can define a topological category $\mathcal G$ with objects $\N$ and $\mor \mathcal G = \coprod_{n \geq 0} G_n$, where $G_n = \Hom_{\mathcal G}(n,n)$. This is an example of a topological \emph{groupoid}, i.~e. a category where every morphism is invertible. 
+\end{example}
+
+\begin{example} \label{exa:covergroupoid}
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$, and let $\mathbf U = \coprod_{\alpha \in I} U_\alpha$. Define the map $p\colon \mathbf U \to X$ to be the standard inclusion on every summand, so that in total, $p$ is an open surjective map.
+The pair $(\mathbf U,\mathbf U \times_X \mathbf U)$ becomes a topological category if we define
+\begin{itemize}
+\item $u\colon \mathbf U \to \mathbf U \times_X \mathbf U$ by $u(x) = (x,x)$;
+\item $s(x,y) = x$ and $t(x,y) = y$;
+\item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x,y,z) \mapsto (x,z)$.
+\end{itemize}
+This is in fact a groupoid as well. We denote it by $\mathbf U$.
+\end{example}
+
+\begin{prop} \label{prop:cocyclesasgroupoidmaps}
+Let $\mathcal U$ be an open cover of $X$ with associated groupoid $\mathbf U$, and $\mathcal G$ the groupoid associated to a sequence of Lie groups $\{G_n\}_{n \geq 0}$. Assume that every set in the open cover $\mathcal U$ is connected. Then the natural map
+\[
+\Fun(\mathbf U,\mathcal G) \to Z^1_{\mathcal U}(X,\mathcal G), \quad F \mapsto (n_\alpha,g_{\alpha\beta}) = (F_0|_{U_\alpha},F_1|_{U_{\alpha\beta}})
+\]
+is a bijection.
+
+Furthermore, two cocycles are cohomologous if and only if their associated functors are naturally isomorphic.
+\end{prop}
+\begin{proof}
+Note that $F_0\colon \coprod_{\alpha \in I} U_\alpha \to \N$ is continuous, hence constant on connected components. Since $U_\alpha$ was assumed connected, this means that $F_0|_{U_\alpha} = n_{\alpha}$ is constant. If $U_{\alpha\beta} \neq \emptyset$ then there is some morphism in $\mathbf U$ with source in $U_\alpha$ and target in $U_\beta$. Thus this morphism must have an image in $\mathcal G$, i.~e. a morphism from $n_\alpha$ to $n_\beta$. Since $\mathcal G$ only has endomorphisms, we must have $n_\alpha=n_\beta$.
+
+We now verify the cocycle axioms. The functor $F$ has to map identity morphisms to identity morphisms. The identity morphism on $x \in \ob \mathbf U$, say $x \in U_\alpha$, is $x \in U_{\alpha\alpha} \subset \mathbf U \times_X \mathbf U$. Thus we must have that its image $g_{\alpha\alpha} = \id$ in $\mathcal G$ as well, proving \ref{it:coc1}. For \ref{it:coc2}, note that the inverse of $x \in U_{\alpha\beta} \subseteq \mathbf U \times_X \mathbf U$ is $x \in U_{\beta\alpha}$. The functor must preserve inverses, hence $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$. Finally, a functor must also satisfy $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$. In our case, this is
+\[
+g_{\alpha\gamma} = g_{\alpha\beta}g_{\beta\gamma}
+\]
+Using \ref{it:coc2}, this gives \ref{it:coc3}.
+
+Conversely, any cocycle defines a functor as described above.
+
+Now let $\alpha\colon \mathbf U \to \mathcal G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $(n_\alpha,g_{\alpha\beta})$ and $(n'_\alpha,g'_{\alpha\beta})$ are the cocycles associated to $F$ and $F'$, respectively. Since for $x \in U_\alpha$, $(x,0 \to 1)$ is a morphism in $\mathbf U \times [1]$, there must be a morphism between $n_\alpha$ and $n'_\alpha$ in $\mathcal G$, so $n_\alpha=n'_\alpha$ for all $\alpha$.
+
+Now define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by $c_\alpha = \alpha|_{U_\alpha}$. We want to show that
+\[
+g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in G_{n_\alpha} \quad \text{for all } \alpha,\beta \in I \text{ such that } U_{\alpha\beta} \neq \emptyset.
+\]
+This can be reformulated as $g'_{\alpha\beta}c_\alpha = c_\beta g_{\alpha\beta}$. This follows from the functoriality of $\alpha$ because the above identity is the image of the true identity
+\[
+(x \in U_{\alpha\beta},1 \to 1) \circ (x \in U_{\alpha\alpha},0 \to 1) = (x \in U_{\beta\beta},0\to 1) \circ (x \in U_{\alpha\beta},0 \to 0) \text{ in } \mathbf U \times [1].
+\]
+
+Conversely, if $(n,g)$ and $(n',g')$ are cohomologous by $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ then $\alpha(x \in U_\alpha,0) = \alpha(x \in U_\alpha,1) = n_\alpha=n'_\alpha$ defines the object part of a natural transformation. On morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $\alpha = \coprod_{\alpha} c_\alpha \colon \mathbf U \to \mathcal G$.
+\end{proof}
+
+We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarifying the terms “cocycle”, “coboundary”, and “homologous.”
+
+\section{Operations on bundles}
+
+In this section we study the structure of the set of $k$-vector bundles on a space $X$ and how to build new vector bundles from existing ones, mimicking standard constructions in linear algebra.
+
+\subsection{Pullbacks and pushforwards}
+
+Given a vector bundle $p\colon E \to B$ and a map $f\colon B' \to B$, the fiber product
+\[
+f^*E = E \times_B B' = \{(e,b) \in E \times B' \mid f(b) = p(e)\} \xrightarrow{(e,b) \mapsto b} B'
+\]
+becomes a vector bundle $f^*p$ over $B'$, called the \emph{pullback} of $p$ along $f$. That it is locally trivial is clear since $f^{-1}(U)$ is a trivializing neighborhood for $f^*p$ if $U$ is a trivializing neighborhood for $p$. This construction is functorial in the sense that $g^*f^*(p) \cong (f \circ g)^*(p)$ for maps $B'' \xrightarrow{g} B' \xrightarrow{f} B$.
+
+In terms of $\mathcal O_B$-module sheaves, there are pushforward and pullback functors defined as follows. First, given any sheaf $F$ on $B'$, we can define a sheaf $f_*F$ on $B$ by
+\[
+(f_*F)(U) = F(f^{-1}U) \quad (U \subset B \text{ open});
+\]
+this maps sheaves of algebras to sheaves of algebras, and in particular, it makes $f_*\mathcal O_{B'}$ a sheaf of rings on $B$. Moreover, there is a natural map of sheaves of rings
+\begin{equation}\label{eq:mapofstructuresheaves}
+\mathcal O_{B} \to f_*\mathcal O_{B'}; \quad \mathcal O_B(U) = \map(U,\R) \xrightarrow{\phi \mapsto \phi \circ f} \map(f^{-1}U,\R) = (f_*\mathcal O_{B'})(U).
+\end{equation}
+Given a $\mathcal O_{B'}$-module sheaf $F$, the pushforward $f_*F$ is naturally an $f_*\mathcal O_{B'}$-module sheaf and hence, by \eqref{eq:mapofstructuresheaves}, a $\mathcal O_B$-module sheaf.
+
+However, for vector bundles $F$, $f_*F$ is not usually a vector bundle, i.~e., the local freeness condition is violated. For instance the pushforward of the constant sheaf $\R$ along the inclusion $\{0\} \hookrightarrow \R$ is the so-called skyscraper sheaf $S$ with $S(U) = \R$ if $0 \in U$ and $S(U) = 0$ otherwise. In terms of vector spaces over $\R$, this is precisely Example~\ref{exa:coordinatecross}.
+
+For the pushforward along $f$ to preserve all vector bundles, it is necessary and sufficient that the map \eqref{eq:mapofstructuresheaves} makes $f_*\mathcal O_{B'}$ into a vector bundle, i.~e., $\map(f^{-1}U,\R) \cong \map(U,\R)^n$ for some $n$ and sufficiently small open sets $U$. But that means that $f^{-1}U \cong U \times \{1,\dots,\n\}$, and thus that $B'$ is a finite covering space of $B$. We have thus proved:
+
+\begin{thm}\label{thm:covpushforward}
+If $f\colon B' \to B$ is a finite covering space map of degree $n$ then $f_*$ maps vector bundles of dimension $k$ on $B'$ to vector bundles of dimension $kn$ on $B$.
+\end{thm}
+
+The sheaf-theoretic formulation of the pullback of a vector bundle is arguably most easily defined as the sheaf of sections of the pullback bundle associated to the sheaf, i.~e., using the equivalence between locally free $\mathcal O_B$-module sheaves and vector bundles.
+
+\begin{example}
+Let $f\colon \S^1 \to \S^1$ be the map of degree~$2$ and $\mu\colon E \to \S^1$ the Möbius bundle. I claim that $f^*\mu$ is the trivial line bundle on $\S^1$. Let us think of the Möbius bundle as defined by $E = \R \times [0,1]\mathord\sim$, where $(x,0) \sim (-x,1)$. Then
+\[
+f^*E \cong (\R \times \left[0,\frac12\right] \sqcup \R \times \left[\frac12,1\right])/\mathord\sim,
+\]
+where $(x,\frac12)_1 \sim (-x,\frac12)_2$ and $(x,0)_1 \sim (-x,1)_2$. Here the subscripts denote whether the subscripted pair lies in the first or in the second disjoint summand. This is a cylinder with two half-twists, thus trivial. In fact, the map
+\[
+\R \times [0,1]/\{0,1\} \to f^*E, \quad (x,t) \mapsto \begin{cases} (x,t)_1; & t \leq \frac12\\(-x,t)_2; & t \geq \frac12\end{cases}
+\]
+is an isomorphism over $B$.
+
+\end{example}
+
+
+\subsection{Whitney sums}
+
+The generalization of the direct sum $V \oplus W$ of $k$-vector spaces is the Whitney sum of vector bundles.
+
+\begin{defn}
+Given two vector spaces over $B$, $p\colon E \to B$, and $p'\colon E' \to B$, we define the (Whitney) sum $E \oplus E' \to B$ to be the vector space over $B$ given by $E \times_B E' \xrightarrow{(e,e') \mapsto p(e) = p'(e')} B$.
+\end{defn}
+
+\begin{lemma}
+The Whitney sum of vector bundles $E$, $E'$ is a vector bundle, and if $\dim E = m$ and $\dim E' = n$ then $\dim(E\oplus E') = m+n$.
+\end{lemma}
+
+\begin{proof}
+We only need to check the local triviality condition. Let $U \subset X$ be a trivializing neighborhood for both $p$ and $p'$. Then
+\[
+(E \times_B E')_U = E_U \times_U E'_U \xrightarrow{\cong} (U \times k^m) \times_U (U \times k^n) \cong U \times k^{m+n}.
+\]
+\end{proof}
+
+\begin{example}
+We will show that for the Möbius bundle $\mu$ on $\S^1$ of Example~\ref{exa:mobiusstrip}, the Whitney sum $2\mu = \mu \oplus \mu$ is a trivial bundle. For that, we define a global trivialization
+\[
+\R^2 \times \S^1 \to \mu \oplus \mu, \quad (x,y,t) \mapsto (x \cos \pi t + y \sin \pi t,-x \sin \pi t + y \cos \pi t),
+\]
+where, as before, $\S^1$ is considered as the quotient $[0,1]/\{0,1\}$.
+\end{example}
+
+An alternative definition of the Whitney sum in terms of locally free $\mathcal O_B$-module sheaves is implicit in the following Lemma:
+
+\begin{lemma}
+For two vector bundles $E$, $E'$ over $B$, we have an isomorphism of sheaves $\Gamma_{E \oplus E'} \cong \Gamma_E \oplus \Gamma_{E'}$.
+\end{lemma}
+\begin{proof}
+\[
+\Gamma_{E \oplus E'}(U) = \map_U(U,E_U \times_U E'_U) \cong \map_U(U,E_U) \times \map_U(U,E'_U) \cong \Gamma_E(U) \times \Gamma_{E'}(U).
+\]
+\end{proof}
+
+\begin{exer}
+Let $f\colon \S^1 \to \S^1$ be the map $z \mapsto z^2$ of degree~$2$, and $\mu$ the Möbius bundle on $\S^1$. Then $f_*\mu$ is isomorphic to the Whitney sum $\R \oplus \mu$ of a trivial line bundle and the Möbius bundle over $\S^1$.
+\end{exer}
+
+\subsection{Kernels and Cokernels*}
+
+Let $f\colon E \to E'$ be a morphism of vector bundles $E \xrightarrow{p} B$, $E' \xrightarrow{p'} B$. Then we can naively define:
+\[
+\ker f = \{x \in E \mid f(x)=s'(p(x))\} \quad \text{and} \quad \coker f = E'/\sim,
+\]
+where $x \sim y$ iff $p'(x) = p'(y)$ and $x-y \in \im f$. Since $x$ and $y$ are in the same fiber by the first condition, the expression $x-y$ in the second expression is well-defined. Since both are fiberwise kernels and cokernels of linear maps, it is clear that $\ker f$ and $\coker f$ are vector spaces over $B$.
+
+\begin{warning}
+These constructions of $\ker f$ and $\coker f$ are in general not locally trivial, so it is \textbf{not} a vector bundle. For instance, let $E=E'=\R\times \R$ be trivial bundles over $\R$, and define
+\[
+f\colon E \to E'; \quad f(x,b) = (bx,b).
+\]
+Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of Example~\ref{exa:coordinatecross}, which is not locally trivial because it is one-dimensional over $b=0$ and zero-dimensional everywhere else.
+\end{warning}
+
+
+\begin{exer}
+The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locally constant rank.
+\end{exer}
+
+\subsection{Hom bundles}
+
+
+\subsection{Tensor bundles}
+
+\subsection{Symmetric and exterior products}
+
+\subsection{The determinant line bundle}
+
+\section{Tangent and normal bundles}
+
+Many important vector bundles have their natural home on manifolds rather than arbitrary topological spaces. The most important one is probably the tangent bundle of a smooth manifold. We briefly recall the definition of a manifold, but the reader should consult other sources for a more in-depth treatment.
+
+\begin{defn}
+A topological space $M$ is called a (topological, real) manifold if it is Hausdorff, its topology has a countable basis (it is ``second-countable''), and every point has a neighborhood homeomorphic to $\R^n$ for some $n$.
+\end{defn}
+
+We now return to the point of view of Section~\ref{sec:bundlesassheaves}, where we thought of a vector bundle on a space $B$ as a locally finite-dimensional free sheaf of $\mathcal O_B$-modules.
+
+\begin{defn}
+A ring $R$ is called \emph{local} if it possesses a unique maximal ideal, which we will denote by $R_+$ in these notes. A \emph{morphism of local rings} is a ring morphism $f\colon R \to S$ such that $f(R_+) \subseteq S_+$.
+\end{defn}
+
+\begin{example}
+Fields are local rings, as their unique maximal ideal is $(0)$. The ring of integers is not local since $(p)$ is a maximal ideal for every prime $p$, but the ring $Z_{(p)}$ of integers localized at $p$ is local with maximal ideal $(p)$. 
+
+The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local with maximal ideal the ideal of germs which vanish at $0$. This is true because the quotient ring $C^0_0/(C^0_0)_+$ is isomorphic with $\R$. Similarily, the rings $C^n_0$ of germs at $0$ of $n$-fold continuously differentiable functions, $C^\infty_0$ of smooth (arbitrarily often differentiable) functions, $C^\omega_0$ of analytic functions, and $C$
+\end{example}
+
+\begin{defn}
+A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$ are local rings, i.~e. rings possessing a unique maximal ideal, which we denote by $(F_x)_+$. A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
+
+A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of sheaves of local rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
+\end{defn}
+
+In sheaf-theoretic terms, one could say that a manifold is a (second countable Hausdorff) space $M$ together with a sheaf of local $\R$-algebras $C^0$ such that the locally ringed space $(M,C^0)$ is locally isomorphic to $(\R^n,C^0$) for some $n$. That sounds like unwarranted complexity since the original definition just required $M$ to be locally homeomorphic with $\R^n$, without the need to refer to sheaves. Indeed, in this case the additional data of local isomorphisms
+\[
+\tilde f\colon C^0_{\R^n} \to f_*C^0_{U}
+\]
+just specifies an isomorphism of the sheaf $C^0_U$ with the sheaf of continuous functions on $U$. 
+However, this suggests a viable definition of a smooth (or $C^k$-) manifold. Although the definition would make perfect sense, we will ignore $C^k$-manifolds and just consider smooth (=$C^\infty$-) manifolds. 
+
+\begin{defn}
+A \emph{smooth structure} on a space $M$ is a sheaf $C^\infty$ of local $\R$-algebras on $M$, called the \emph{structure sheaf}, such $(M,C^\infty)$ is locally isomorphic , as a locally ringed space, to $(\R^n,C^\infty)$ for some $n$. A \emph{smooth manifold} is a second-countable Hausdorff space together with a smooth structure.
+
+A smooth map $M \to N$ between smooth manifolds is a morphism of locally ringed spaces.
+\end{defn}
+
+A more classical definition is via charts and atlases, and we will now show that these are equivalent.
+
+\begin{defn}
+Let $M$ be a second-countable Hausdorff space. A \emph{chart} on $M$ is a pair $(U,\phi)$ consisting of an open set $U \subset M$ and a homeomorphism $\phi\colon U \to \R^n$, for some $n \geq 0$. An \emph{atlas} is a collection $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the $U_\alpha$ cover $M$. An atlas is \emph{smooth} if for each $\alpha$, $\beta \in I$ such that $U_{\alpha\beta} \neq \emptyset$, the map
+\begin{equation}\label{eq:coordinatechange}
+g_{\alpha\beta}\colon \phi_\alpha(U_{\alpha\beta}) \xrightarrow{\phi_{\alpha}^{-1}} U_{\alpha\beta} \xrightarrow{\phi_\beta} \phi_\beta(U_{\alpha\beta})
+\end{equation}
+is a diffeomorphism between open subsets of $\R^n$.
+
+Two smooth atlases $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ and $(V_\beta,\psi_\beta)_{\beta \in J}$ are \emph{equivalent} if for every pair $(\alpha,\beta)$ such that $W = U_\alpha \cap V_\beta \neq \emptyset$, the map
+\[
+\phi_\alpha(W) \xrightarrow{\phi_\alpha^{-1}} W \xrightarrow{\psi_\beta} \psi_\beta(W)
+\]
+is a diffeomorphism.
+
+A map $f\colon M \to N$ of smooth manifolds is smooth if for every point $x \in M$ such that $(U,\phi)$ is a chart in $M$ with $x \in U$ and $(V,\psi)$ is a chart in $N$ with $f(U) \in V$, the composite
+\[
+\R^n \xrightarrow{\phi^{-1}} U \xrightarrow{f} V \xrightarrow{\psi} \R^m
+\]
+is smooth.
+\end{defn}
+
+\begin{thm}
+Every smooth manifold has a smooth atlas, and that atlas is unique up to equivalence. Conversely, an equivalence class of smooth atlases gives rise to a unique smooth structure.
+\end{thm}
+\begin{proof}
+We begin by constructing a smooth atlas from a manifold $M$ with smooth structure $C^\infty$.
+
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be the set of all open subsets of $M$ over which there is an local isomorphism $\Phi_\alpha\colon C^\infty|_{U_\alpha} \to C^\infty_{\R^{n_\alpha}}$. By assumption, $\mathcal U$ is a cover of $M$. Underlying the morphism $\Phi_\alpha$ there is a homeomorphism $\phi_\alpha\colon U_\alpha \to \R^{n_\alpha}$, which gives $M$ the structure of a manifold. To see that the coordinate change functions $g_{\alpha\beta}$ of \eqref{eq:coordinatechange} are smooth, observe that they are covered by isomorphisms of sheaves of local rings
+\[
+\tilde g_{\alpha_\beta}\colon C^\infty_{\phi_\beta(U_{\alpha\beta})} \to (\phi_\beta)_* C^\infty|_{U_{\alpha\beta}} \to (\phi_\beta \circ \phi_\alpha^{-1})_*C^\infty_{\phi_\alpha(U_{\alpha\beta})},
+\]
+which says that a function on $\phi_{\alpha}(U_{\alpha\beta})$ is smooth iff its composition with $\phi_b\circ\phi_\alpha^{-1}$ is a smooth function on $\phi_\beta(U_{\alpha\beta})$. This happens if and only if $\phi_b\circ\phi_\alpha^{-1}$ is smooth.
+
+Note that we have constructed what is called a ``maximal smooth atlas'': all possible smooth charts are already in $\mathcal U$.
+
+Conversely, let $(\{U_\alpha\},\phi_\alpha)_{\alpha \in I}$ be a maximal smooth atlas on $M$. Using the gluing condition, we define a sheaf of local rings on $M$ as follows: $C^\infty_{U_\alpha} = (\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}}$. For an intersection $U_{\alpha\beta}$, we must show that 
+\[
+C^\infty_{U_\alpha}|_{U_{\alpha\beta}} = C^\infty_{U_\beta}|_{U_{\alpha\beta}},
+\]
+that is,
+\[
+(\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}} = (\phi_\beta^{-1})_* C^\infty_{\R^{n_\beta}}
+\]
+when suitably restricted to $U_{\alpha\beta}$. But this is the same as showing that
+\[
+(\phi_\beta\phi_\alpha^{-1})_*C^\infty_{\R^{n_\alpha}} = C^\infty_{\R^{n_\beta}},
+\]
+which follows from the fact that $\phi_\beta\phi_\alpha^{-1}$ is smooth.
+\end{proof}
+
+The main tool to produce smooth manifolds is the implicit function theorem from multi-variable calculus:
+
+\begin{thm}
+Let $F\colon U \to \R^N$ be a smooth map, where $U \subseteq \R^{N+n}$ is open. Assume that $0$ is a regular value of $F$, i.~e., the differential $DF(x)$ has maximal rank $N$ at every point $x \in F^{-1}(0)$. Then $F^{-1}(0)$ is a smooth $n$-dimensional submanifold of $\R^{n+N}$.
+\end{thm}
+
+\begin{exer}
+Verify that the above is indeed the implicit function theorem.
+\end{exer}
+
+There are a number of pitfalls for our intuition regarding smooth structures, but the following remarks may help to circumnavigate them.
+
+Let $M = \{ (x,y) \in \R^2 \mid x \geq 0, y \geq 0, xy=0\} \subseteq \R^2$ be the union of the nonnegative $x$- and $y$-axes. Since $M$ has a corner, one might be tempted to assume that $M$ is not a smooth manifold. But all this shows is that $M$ is not a smooth submanifold of $\R^2$, i.~e. that the sheaf $C^\infty_{\R^2}|_M$ is not locally isomorphic to $C^\infty_{\R^1}$. Looking at $M$ as an abstract manifold, it is homeomorphic to $\R^1$ and a smooth structure is given by pulling back $C^\infty_{\R^1}$ along this isomorphism.
+
+Are there, then, any examples of topological manifolds which do not admit any smooth structure at all? This is a nontrivial question which we will answer in \ref{nonsmoothable}. The first example was given by Kervaire \cite{kervaire:nonsmoothable}. However, all manifolds in dimensions less than $4$ are smoothable.
+
+A related question is whether a manifold can have nonisomorphic smooth structures. This was answered affirmatively by Milnor in \cite{milnor:7spheres} where he showed that $\S^7$ admits exactly $28$ nonisomorphic smooth structures, of which only one is the standard structure from the embedding $\S^7 \hookrightarrow \R^8$.
+
+\subsection{The tangent bundle of a smooth manifold}
+
+The sheaf-theoretic definition of a smooth manifold $M$ allows for a concise construction of the tangent bundle.
+
+\begin{defn}
+Let $A$ be an $\R$-algebra. A \emph{derivation} on $A$ is a $k$-linear function $D\colon A \to A$ such that $D(ab) = D(a)b+D(b)a$. Denote the set of derivations on $A$ be $\Der(A)$; this is an $\R$-vector space.
+\end{defn}
+
+\begin{example}
+Let $A=C^\infty(\R^n)$ be the algebra of smooth real-valued functions on $\R^n$. For a chosen basis of $\R^n$, let $x_i\colon \R^n \to \R$ be the coordinate function $(x_1,\dots,x_n) \mapsto x_i$. Then $\frac\partial{\partial x_i}$ is a derivation on $A$.
+
+In fact, this is a derivation on the quotient algebra $C^\infty_0$ of germs of smooth functions at $0$.
+\end{example}
+
+\begin{defn}
+Let $M$ be a smooth manifold. Define a sheaf $TM$ by
+\[
+TM(U) = \Der(C^{\infty}_U).
+\]
+\end{defn}
+
+\begin{thm}
+For an $n$-dimensional manifold $M$, $TM$ is an $n$-dimensional real vector bundle.
+\end{thm}
+\begin{proof}
+We have to show that $TM$ is a finitely generated, locally free sheaf of $C^\infty_M$-modules. This is a local question, so we may assume that $M = \R^n$. After choosing a basis of $\R^n$, the differential operators $\frac\partial{\partial x_i}$ are linearly independent global sections of $TM$. We will show that the map $(C^\infty_M)^n \to TM$ which sends $(f_1,\cdots,f_n)$ to the derivation $f_1\frac\partial{\partial x_1}+\cdots+f_n\frac\partial{\partial x_n}$ is an isomorphism of $C^\infty_M$-module sheaves. Let $X \in \Der(C^\infty_{\R^n}$ and $f \in C^\infty(\R^n)$. Then 
+\[
+f(a) = f(0) + \int_0^1 \sum_{i=1}^n\left.\frac{\partial f}{\partial x_i}\right|_{ta} a_i\; dt
+\] 
+\end{proof}
+
+\subsection{Normal bundles of embeddings}
+
+\subsection{The cotangent bundle and differential forms}
+
+\section{Bundles with more structure}
+
+smooth, Euclidean, orientable
+
+
+\chapter{Lie groups, Grassmannians, and universal bundles}
+
+Motivate by Gauss map and classifying map of tangent bundle on embedded manifolds. Question of universal bundle and construction for non-manifolds.
+
+\section{Stiefel and Grassmann manifolds}
+
+In this section we will construct spaces $G_n(k^N)$ whose points correspond to $n$-dimensional linear subspaces of $k^N$. Obviously, for this to be nonempty, we need that $N \geq n$. These spaces are called \emph{Grassmann manifolds} or just \emph{Grassmannians} after their discoverer, 19th century mathematician Hermann Graßmann. They are in fact compact manifolds (when $k=\R$ or $\CC$) and, more generally, smooth projective varieties for any field $k$.
+
+Closely related is another family of manifolds, the \emph{Stiefel manifolds} $V_n(k^N)$, whose points correspond to $n$-frames in $k^N$. An \emph{$n$-frame} is a sequence $(v_1,\dots,v_n)$ of orthonormal vectors in $k^N$. One can thus think of a point in $V_n(k^N)$ as a point $V \in G_n(k^N)$, i.~e. an $n$-dimensional linear subspace of $k^N$, together with a choice of orthonormal basis of $V$. Forgetting this basis gives a canoncial projection map $V_n(k^N) \to G_n(k^N)$. If one does not want to (or cannot) use a scalar product on $k^N$ to define $V_n$, one can look at \emph{noncompact Stiefel varieties} $V_n^{\operatorname{nc}}$, where one relaxes the requirement of orthonormality to mere linear independence.
+
+Observe that we already know the spaces $V_1(k^N)$ and $G_1(k^N)$ by other names, namely:
+\begin{eqnarray*}
+V_1(\R^{N}) =& \S^{N-1}\\
+V_1(\CC^N) =& \S^{2N-1}\\
+G_1(k^N) =& k P^{N-1}.
+\end{eqnarray*}
+A set of one orthonormal vector in $k^N$ is just a unit vector in $k^N$, hence the first two equations, and a one-dimensional subspace in $k^N$ is a point in $k P^{N-1}$ by definition. The topologies we are about to define on $V_1$ and $G_1$ coincide with the familiar topologies.
+
+We topologize $V_n(k^N)$ and $V_n^{\operatorname{nc}}(k^N)$ as subspaces of a product $k^N \times \cdots \times k^N$ of $n$ copies of $k^N$, and $G_n(k^N)$ is endowed with the quotient topology. That is, we use the straightforward identifications
+\begin{align*}
+V_n(k^N) = & \{ U \in k^{N \times n} \mid U \text{ has orthonormal columns}\} \\
+\subseteq & V_n^{\operatorname{nc}}(k^N) = \{ U \in k^{N \times n} \mid U \text{ has maximal rank}\} \subseteq k^{N \times n}
+\end{align*}
+to define the topologies.
+
+\begin{lemma}[Gram-Schmidt]
+The inclusion map $V_n(k^N) \to V_n^{\operatorname{nc}}(k^N)$ is a homotopy equivalence for $k=\R$ or $k=\CC$.
+\end{lemma}
+\begin{proof}
+The Gram-Schmidt orthonormalization process says that
+\[
+V_n^{\operatorname{nc}}(k^n) \cong V_n(k^n) \times T_n(k),
+\]
+where $T_n(k)$ denotes the upper triangular matrices $n\times n$-matrices with positive real diagonal. But $T_n(k)$ is contractible.
+\end{proof}
+
+\begin{lemma}
+The group $O(n)$ of orthogonal $n\times n$-matrices acts freely on $V_n(\R^N)$, and the canonical map $V_n(\R^N)/O(n) \to G_n(\R^N)$ is a homeomorphism. 
+
+The same is true for over $\CC$ if one replaces $O(n)$ by the group $U(n)$ of unitary matrices.
+\end{lemma}
+\begin{proof}
+The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. The fiber of the projection map $V_n(\R^N) \to G_n(\R^N)$ over a point $V \in G_n(\R^N)$ is the set of orthonormal bases of $V$, on which $O(n)$ acts freely and transitively, thus the projection map factors through a homeomorphism $V_n(\R^N)/O(n) \to G_n(\R^N)$. The proof in the complex case is the same.
+\end{proof}
+
+Picking the $n$ first columns of an $N\times N$-matrix gives us surjective maps
+\[
+\phi\colon O(N) \to V_n(\R^n), \quad \phi\colon U(N) \to V_n(\CC^N), \quad \phi\colon \GL_N(k) \to V_n^{\operatorname{nc}}(k^N).
+\]
+
+\begin{lemma}\label{lemma:grassstiefelashomogeneousspaces}
+Consider the group $O(n) \times O(N-n)$ as the subgroup of $O(N)$ of matrices of the form $\begin{smallmatrix} A & 0\\ 0 & B\end{smallmatrix}$. Then $\phi$ factors through an $O(n)$-equivariant homeomorphism
+\[
+\overline\phi\colon O(N)/O(N-n) \to V_n(\R^N).
+\]
+In particular, there is a homeomorphism $\frac{O(n)}{O(n)\times O(N-n)} \to G_n(\R^n)$.
+
+Analogous statements hold in the unitary and noncompact cases.
+\end{lemma}
+\begin{proof}
+The group $O(N)$ acts on $V_n(\R^N)$ by mapping an orthogonal $n$-frame to another such $n$-frame. This action is transitive, and the stabilizer group of a frame $F=(v_1,\dots,v_n)$ is the orthogonal group $O(N-n)$ of the orthogonal complement of the span of $F$. Thus by the orbit-stabilizer theorem, $O(N)/O(N-n) \to V_n(\R^n)$ is a homeomorphism, which moreover is $O(n)$-equivariant.
+\end{proof}
+
+\begin{corollary}
+For $k=\R$, $\CC$, we have that
+\[
+G_n(k^N) \cong G_{N-n}(k^N)
+\]
+\end{corollary}
+\begin{proof}
+This follows directly from the $G_n(k^N) \cong \frac{O(N)}{O(n) \times O(N-n)}$. Geometrically, the homeomorphism $G_n(k^N) \to G_{N-n}(k^N)$ is given by mapping an $n$-dimensional subspace of $k^N$ to its orthogonal (or unitary) complement.
+\end{proof}
+
+Having exhibited $V_n(k^N)$ and $G_n(k^N)$ as homogeneous spaces, we get:
+
+\begin{thm}
+The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, of the following real dimensions:
+\begin{itemize}
+\item $\dim V_n(\R^N) = Nn - {n+1 \choose 2}$;
+\item $\dim V_n(\CC^N) = 2Nn - n^2$;
+\item $\dim G_n(\R^N) = n(N-n)$;
+\item $\dim G_n(\CC^N) = 2n(N-n)$.
+\end{itemize}
+\end{thm}
+\begin{proof}
+By Lemma~\ref{lemma:grassstiefelashomogeneousspaces}, they are quotients of compact Lie groups by closed compact subgroups, hence smooth manifolds. The claims about dimensions follow from the facts that $\dim O(n) = {n \choose 2}$ and $\dim U(n) = n^2$.
+\end{proof}
+
+To exhibit explicit charts for $G_n(k^N)$, it helps to do a little geometry. Let $V \in G_n(k^N)$ be a point, and let $V^\perp$ be its orthogonal (or unitary) complement. Now consider the set
+\begin{equation}\label{eq:grassmanncharts}
+U_V = \{ V' \in G_n(k^N) \mid V' \cap V^\perp = 0\}.
+\end{equation}
+Clearly, $V \in U_V$ and $U_V$ is open. The map
+\[
+\phi_V\colon \Hom(V,V^\perp) \cong k^{n(N-n)} \to U_V; \quad \alpha \mapsto \{v+\alpha(v) \mid v \in V\},
+\]
+which can be thought of as sending a homomorphism $\alpha$ to its graph in $k^N = V \oplus V^\perp$, is a homeomorphism.
+
+\subsection{The tautological bundle}
+
+Let $E_n(k^N) = \{ (V,v) \mid V \in G_n(k^N), \; v \in V \} \subseteq G_n(k^N) \times k^N$. The projection $\tau$ to the first coordinate gives a smooth surjection $E_n(k^N) \to G_n(k^N)$.
+
+\begin{prop}
+The map $\tau\colon E_n(k^N) \to G_n(k^N)$ is an $n$-dimensional vector bundle.
+\end{prop}
+\begin{proof}
+It is clear from the definition that $E_n(k^N)$ is a vector space over $G_n(k^N)$ and that the dimension is $n$, but we need to show local triviality. Consider the open sets $U_V$ of \eqref{eq:grassmanncharts}. We construct a trivialization over $U_V$ by
+\[
+\tau^{-1}(U_V) \to U_V \times V; \quad (V',v') \mapsto (V',p(v')),
+\]
+where $p'\colon V' \to V$ is the orthogonal projection of $V'$ to $V$, which is an isomorphism over $U_V$ since its kernel is $V^\perp$.
+\end{proof}
+
+The vector bundle $\tau\colon E_n(k^N) \to G_n(k^N)$ is called the \emph{tautological bundle} because the description of its fibers sounds like a tautology: the fiber of $\tau$ over a point $V \in G_n(k^N)$ is $V$.
+
+\begin{thm}
+Let $M \subseteq \R^N$ be an $n$-dimensional smooth submanifold of $\R^N$ and $TM \to M$ its tangent bundle. Then there is a map $f\colon M \to G_n(\R^N)$ such that $TM \cong f^*\tau$.
+\end{thm}
+\begin{proof}
+The map $f$ is defined by $f(x) = T_xM \subseteq \R^N$, where $T_xM$ is the tangent space of $M$ at $x$, considered as a linear subspace of $\R^N$. [..............]
+\end{proof}
+
+\section{Simplicial spaces}
+
+We have seen that the tangent bundle of a manifold embedded in Euclidean space has a “classifying map” to the Grassmannian $G_n(\R^N)$ in the sense that it is the pullback of the tautological bundle along this map. In the rest of this chapter, our aim is to make this construction independent of the embedding in Euclidean space, and to generalize it to arbitrary bundles. This requires the notion of a classifying space for a topological group, which is best understood in the context of \emph{simplicial spaces}.
+
+\begin{defn}
+A \emph{simplicial space} (or, more generally a simplicial object in a category $C$) is a functor
+\[
+X\colon \Delta^\op \to \Top \quad \text{(or $C$)},
+\]
+where $\Delta$ denotes the category with objects the totally ordered sets $[n] = \{0,\dots,n\}$ and morphisms the monotonic maps. Similarly, an \emph{augmented simplicial space} is a functor
+\[
+X\colon \Delta^\op_+ \to \Top \quad \text{(or $C$)},
+\]
+where $\Delta_+$ is the same category but also including the empty set $\emptyset = [-1]$.
+\end{defn}
+
+To specify a simplicial object, we thus need to define an object $X_n$ for each $n$, and a morphism $X_n \to X_m$ for each monotonic map $[m] \to [n]$. Note that any such monotonic map can uniquely be written as a surjective monotonic map $[m] \to [k]$ followed by an injective monotonic map $[k] \to [n]$. Moreover, any injective monotonic map is some composite of the so-called \emph{coface maps}
+\[
+d^i_n\colon [n-1] \to [n], \text{ which is injective and omits $i \in [n]$,}
+\]
+and any surjective monotonic map is some composite of the so-called \emph{codegeneracy maps}
+\[
+s^i_n\colon [n+1] \to [n], \text{ which is surjective and maps $i$ and $i+1$ to $i$.}
+\]
+
+The main source of simplicial spaces is the nerve construction for a topological category.
+
+
+\begin{defn}
+Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the simplicial space defined by $X_n = \mor \C \times_{\ob \C} \cdots \times_{\ob \C} \mor\C$, where the fiber product has $n$ factors. In particular, $X_0 = \ob \C$. We specify the morphism by defining the \emph{face maps} $d_i^n\colon X_n \to X_{n-1}$ induced by $d^i_n$ and the \emph{face maps} $s_i^n\colon X_n \to X_{n+1}$ induced by $s^i_n$:
+\begin{itemize}
+\item $d_i = \id_{\mor \C} \times \cdots \times \mu \times \cdots \times \id_{\mor \C}$, where $\mu$ appears in the $i$th place;
+\item $s_i = \id_{\mor \C} \times \cdots \times u \times \cdots \times \id_{\mor \C}$, where $u$ appears in the $i$th place.
+\end{itemize}
+The associativity and unitality axioms guarantee that this is a well-defined simplicial space.
+\end{defn}
+
+If $\C$ is an ordinary (small) category, we have explicitly that
+\[
+X_n = \coprod_{X_0,\dots,X_n \in C} \Hom(X_{n-1},X_n) \times \dots \times \Hom(X_1,X_2) \times \Hom(X_0,X_1),
+\]
+i.~e., $X_n$ is the space of composable chains of $n$ morphisms.
+
+\begin{example}
+Let $X$ be a space. We define the \emph{translation category} $T(X)$ of $X$ to have $\ob T(X) = X$ and $\mor T(X) = X \times X$, where the source and target maps are the two projections, the unit map is the diagonal, and the composition is the projection to the first and third factors:
+\[
+(X \times X) \times_X (X \times X) = X \times X \times X \to X \times X.
+\]
+For this category, $\nerve_n T(X) \cong X^{n+1}$, and we can describe the nerve functorially as the functor
+\[
+\nerve T(X) = \map(-,X)\colon \Delta^\op \to \Top
+\]
+where the argument is considered as a discrete topological space.
+\end{example}
+
+\begin{example}
+Let $G$ be a topological group. Then the translation category $T(G)$ has a natural action by $G$: it acts by left multiplication on $\ob T(G) = G$ and by diagonal left multiplication on $\mor T(G) = G \times G$. Thus by functoriality, $G$ also acts on the nerve $\nerve T(G)$. That is, it acts on every space $\nerve_n T(G)$, and the structure maps $f^*$ are $G$-equivariant for each $f\colon [m] \to [n]$. We denote the quotient of $\nerve T(G)$ by this action by $\nerve G$.
+\end{example}
+
+\begin{exer}
+Show that for a topological group $G$, $\nerve(G)$ is isomorphic to the nerve of the category with one object $*$ and endomorphisms $\map(*,*)=G$. Here, the composition is defined by the group multiplication, and the identity morphism is the identity element of $G$. In particular, $\nerve_nG = G^n$. Describe the maps $d_i$ and $s_i$ explicitly.
+\end{exer}
+
+\begin{example}
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$, and let $\mathbf U = \coprod_{\alpha \in I} U_\alpha$. Define the map $p\colon \mathbf U \to X$ to be the standard inclusion on every summand, so that in total, $p$ is an open surjective map.
+The pair $(\mathbf U,\mathbf U \times_X \mathbf U)$ becomes a topological category if we define
+\begin{itemize}
+\item $u\colon \mathbf U \to \mathbf U \times_X \mathbf U$ by $u(x) = (x,x)$;
+\item $s(x,y) = x$ and $t(x,y) = y$;
+\item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x,y,z) \mapsto (x,z)$.
+\end{itemize}
+The $\nerve(\mathbf U,\mathbf U \times_X \mathbf U)$ is called the \emph{big nerve} of the covering $\mathcal U$, and we denote it by $\nerve\mathbf U$.
+\end{example}
+
+\begin{example}
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
+\end{example}
+
+There is a simplicial map from $\nerve\mathbf U$ to $\nerve b(\mathcal U)$ given by
+\[
+\nerve_n\mathbf U \to \nerve_nb(\mathcal U); \quad (x_1,\dots,x_n) \mapsto \{p(x_1),\dots,p(x_n)\},
+\]
+where $p\colon \coprod_{\alpha \in I} U_\alpha \to I$ is the map that sends an element to the index of the summand it's contained in. 
+
+We will look at the differences between these two nerve constructions more closely later on, but we observe right now that we can recover the space $X$ from the big nerve $\nerve\mathbf U$ as the coequalizer
+\[
+\mathbf U \times_X \mathbf U \overset{s}{\underset{t}{\rightrightarrows}} \mathbf U \to X.
+\]
+
+whereas we cannot, in general, recover $X$ from the small nerve, as the example of the trivial cover $\mathcal U = \{X\}$ shows. The small nerve keeps track of which intersections of sets of the open cover are empty and which aren't, not more. We might guess that if all opens in the cover, along with all their finite nonempty intersections, are contractible, we might recover $X$ up to homotopy. We will show in the next section that this is the case.\ref{where?}
+
+We remark in passing that the nerve construction is functorial: a functor $F\colon \C \to \D$ between topological categories induces a simplicial map $\nerve F\colon \nerve\C \to \nerve\D$ in the obvious way. 
+
+What information do we lose by passing from a topological category to its nerve? The answer is nothing; a topological category can be considered as a special kind of simplicial space:
+
+\begin{prop}
+The nerve functor is full and faithful. 
+\end{prop}
+\begin{proof}
+
+\end{proof}
+
+In particular, Proposition~\ref{prop:cocyclesasgroupoidmaps} implies:
+
+\begin{corollary}
+Let $X$ be a space with an open cover $\mathcal U$ and $G$ a topological groupoid. Then there is a bijection between the set of cocycles for $\mathcal U$ with values in $G$ and the set of simplicial maps $\nerve \mathbf U \to \nerve G$. 
+\end{corollary}
+
+\subsection{Simplicial homotopy}
+
+Denote by $I=\nerve [1]$ the nerve of the category which has two objects $\{0,1\}$ and one non-identity morphism $0 \to 1$. In other words, $I$ is the functor $\Delta^\op\to\Set$ which is represented by the object $[1] \in \Delta$, i.~e.
+\[
+I_n = \Hom_{\Delta}([n],[1]).
+\]
+Given any simplicial object $X$ in a category $C$, we can form the \emph{cyclinder object} $X \times I$ as
+\[
+(X \times I)_n = X_n \times I_n,
+\]
+where we think of the cartesian product of an object $Z$ of $C$ with a set $I$ as the coproduct $\coprod_I Z$. This is thus also a simplicial object in $C$.
+
+\begin{defn}
+A \emph{simplicial homotopy} between two simplicial maps $f$, $g\colon X \to Y$ is a simplicial map $h\colon X \times [1] \to Y$ such that $h|_{X \times \{0\}} = f$ and $h|_{X \times \{1\}} = g$
+\end{defn}
+
+\begin{prop}
+Let $F$, $G\colon C \to D$ be functors of topological categories. Then the nerve functor gives a homeomorphism between the space of natural transformations from $F$ to $G$ and the space of simplicial homotopies from $\nerve F$ to $\nerve G$.
+\end{prop}
+
+\subsection{Geometric realization}
+
+A simplicial space is called “simplicial” because one can use its functorial information to glue together simplices to produce a space. Let $\Delta^n$ denote the standard $n$-simplices, i.~e. the convex hull of the standard basis vectors $e_0,\dots,e_n$ of $\R^{n+1}$. The following definition is central:
+
+\begin{defn}
+Let $X$ be a simplicial space. Its \emph{geometric realization} $|X|$ is the coequalizer
+\[
+\coprod_{f\colon [m] \to [n]} X_n \times \Delta^m \rightrightarrows \coprod_{n \geq 0} X_n \times \Delta^n \to |X|,
+\]
+where the first coproduct is over the set of all monotonic maps from $[m]$ to $[n]$ (so $m \leq n$), and the two maps are given by
+\[
+(x,t) \mapsto (f^*x,t) \in X_m \times \Delta^m \quad \text{and} \quad (x,t) \mapsto (x,f_*t) \in X_n \times \Delta^n.
+\]
+Here $f^*$ is the map induced on the simplicial set $X$ by $f$, and $f_*\colon \Delta^m \to \Delta^n$ is the affine map from $\Delta^m$ to $\Delta^n$ with corners $e_{f(0)},\dots,e_{f(m)}$.
+\end{defn}
+
+It is clear from the definition that geometric realization is a functor:
+
+\begin{lemma}
+The geometric realization is functorial, i.~e. a map of simplicial spaces induces a map between their geometric realizations. \qed
+\end{lemma}
+
+The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and $k$-products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the $k$-product coincides with the usual product. 
+\begin{thm} \label{thm:geomrealizationandproduct}
+The geometric realization commutes with products in the category of Kelley spaces. In other words,
+\[
+| X \times Y | \cong |X| \times_k |Y|,
+\]
+where $\times_k$ denotes the Kelley product.
+\end{thm}
+\begin{proof}
+\cite{.....}
+\end{proof}
+
+\begin{defn}
+The geometric realization of the nerve of a topological group or category $G$ is called the \emph{classifying space} of $G$ and is denoted by
+\[
+BG = |\nerve G|.
+\]
+\end{defn}
+
+
+
+\begin{lemma}\label{lemma:classifyinghomotopy}
+A functor $F\colon \C \to \D$ between topological categories induces a map $BF\colon B\C \to B\D$ of classifying spaces. A natural transformation $\alpha$ between functors $F$, $G\colon \C \to \D$ induces a homotopy between $BF$ and $BG$. In particular, $B\C \simeq B\D$ if $\C$ and $\D$ are equivalent categories.
+\end{lemma}
+\begin{proof}
+We have seen in the previous section that a functor $F\colon \C \to \D$ induces a map of nerves, and the geometric realization construction is functorial as well, so that $B$ becomes a functor. Now let $\alpha\colon \C \times [1] \to \D$ be a natural transformation. By the above, it induces a map
+\[
+B\alpha\colon B(\C \times [1]) \to \D,
+\]
+and by Thm~\ref{thm:geomrealizationandproduct}, $B(\C \times [1]) \cong B\C \times B[1]$ by the projection maps. The proof is finished by noting that $B[1] \cong \Delta^1 \cong [0,1]$.
+\end{proof}
+
+
+\begin{corollary}
+For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realization of the nerve of the translation category of $X$, is contractible.
+\end{corollary}
+\begin{proof}
+By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category $T(X)$ is contractible, i.~e. equivalent to the one-point category. This is true since every object in $X$ is initial (and terminal): there is exactly one morphism between any two objects $x$, $y$, namely $(x,y)$.
+\end{proof}
+
+\section{Classifying spaces of Lie groups} \label{sec:classifying-spaces}
+
+Consider again the Grassmannians $G_n(k^N)$ for $k=\R$ or $\CC$. There are maps $i\colon G_n(k^N) \to G_n(k^{N+1})$ given by a linear inclusion of $k^N$ into $k^{N+1}$ (for instance by letting the last coordinate be zero).
+\begin{thm}
+There are maps $j_n\colon G_n(\R^N) \to BO(n)$ and $j_n\colon G_n(\CC^n) \to BU(n)$ such that
+\begin{itemize}
+\item $j_n = j_{n+1} \circ i$, and
+\item The induced maps $j_\infty\colon \colim_N G_n(\R^N) \to BO(n)$ and $j_\infty\colon \colim_N G_n(\CC^N) \to BU(n)$ are homotopy equivalences.
+\end{itemize}
+\end{thm}
+\begin{proof}
+We'll deal with the real case, the complex case is analogous. For instructive reasons, we'll consider the case $n=1$ first. In this case, $V_1(k^N) = \S^{N-1}$ and $EO(1) = E\{\pm 1\}$.
+Choose an orthogonal basis $\{e_1,e_2,\dots\}$ of $\R^\infty$ (for instance, the standard basis vectors). 
+
+We define a $\Z/2$-equivariant map
+\[
+f\colon \{\pm 1\}^N \times \Delta^N \to \S^N
+\]
+by sending $(\epsilon_1,\dots,\epsilon_N,s_1,\dots,s_N)$ to the point $P = \epsilon_1s_1e_1+\epsilon_2s_2e_2+\cdots+\epsilon_Ns_Ne_N$, where $s_1+\cdots+s_N = 1$ and $s_i \geq 0$. This map is clearly surjective, and it is injective unless the point $P$ lies on some coordinate hyperplane $s_k=0$. In that case, the sign $\epsilon_k$ does not matter, which we can express by saying that
+\[
+f(d_k\epsilon,s) = f(\epsilon,d^ks) \quad \text{for }\epsilon \in \{\pm 1\}^N, \; s \in \Delta^{N-1}.
+\]
+here $d_k\colon \{\pm 1\}^N \to \{\pm 1\}^{N-1}$ is the projection map that forgets the $k$th factor. [......Details?......]
+
+It follows that the inverse maps assemble to an equivariant homeomorphism
+\[
+EO(1) \to \S^\infty;
+\]
+in particular, by dividing out the $\Z/2$-action, $BO(1) \cong \R P^\infty$.
+
+.....Grassmannians using Schubert cells..........
+\end{proof}
+
+\section{Paracompactness}
+
+\begin{defn}
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that is contained in $U_\alpha$ for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
+
+A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$.
+\end{defn}
+
+The following is a standard fact of point-set topology \cite{...}:
+\begin{prop}
+A space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
+\end{prop}
+
+Let us study the geometric realizations of big nerves of open covers. 
+
+Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \in U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
+
+\begin{prop} \label{prop:refinementhomotopyinvariant}
+Let $\{V_\beta\}_{\beta \in J}$ be a refinement of an open cover $\{U_\alpha\}_{\alpha \in I}$ of a space $X$, and let $\rho_1,\;\rho_2\colon J \to I$ be two functions such that $V_\beta \in U_{\rho_i(\beta)}$ for all $\beta \in J$. Then $\rho_1$ and $\rho_2$ induce naturally isomorphic functors between the topological groupoids $\mathbf V$ and $\mathbf U$.
+
+In particular, the map $|\rho_*|\colon |\nerve\mathbf V| \to |\nerve \mathbf U|$ is independent of $\rho$ up to homotopy.
+\end{prop}
+\begin{proof}
+We construct map over $X$,
+\[
+H\colon \mathbf V \to \mathbf U \times_X \mathbf U; \quad (x,\beta) \mapsto ((x,\rho_1(\beta)),(x,\rho_2(\beta))).
+\]
+We use this map to define a natural transformation $h\colon (\mathbf V,\mathbf V \times_X \mathbf V) \times [1] \to (\mathbf U,\mathbf U \times_X \mathbf U)$ between $\rho_1$ and $\rho_2$. We define
+\[
+h(-,0) = \rho_1, \quad h(-,1) = \rho_2, \quad h((x,\beta),0 \to 1) = H(x,\beta).
+\]
+It is the straightforward to veryfiy that $h$ is a functor. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
+\end{proof}
+
+If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find that $|\nerve \mathbf X| \cong X$, and we get a natural map
+\[
+|\nerve\mathbf V| \to X
+\]
+for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there only is one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
+
+\begin{thm}\label{thm:paracompactnerve}
+A space $X$ is paracompact iff for every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ is a deformation retraction.
+\end{thm}
+\begin{proof} \marginpar{Need to rephrase to avoid assuming the space is sequential}
+First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. We may assume that $\mathcal U$ is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $f_\alpha^{-1}(0,1] \subseteq U_\alpha$.
+
+Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x,f_{\alpha_0}(x),\cdots,f_{\alpha_n}(x)) \in U_J \times \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. If $J'=J$ then by local finiteness a neighborhood $U$ of $x$ lies in $U_J$ and does not intersect any other $U_\alpha$. Thus by continuity of the partition of unity, $r$ is continuous at $x$.
+
+For any $y \in U_{J'}$, we have that $r(y) \in U_{J'} \times \Delta^m$ and
+\[
+\lim_{y \to x \atop y \in U_{J'}} r(y) = [x,i_*(f_{\alpha_0}(x),\cdots,f_{\alpha_n}(x))],
+\]
+ where $i_*\colon \Delta^n \to \Delta_m$ denotes the map induces by the inclusion $i\colon J' \to J$. But by the identification in the definition of the geometric realization,
+ \[
+ [x,i_*(f_{\alpha_0},\cdots,f_{\alpha_n}(x))] = [i^*x,f_{\alpha_0},\cdots,f_{\alpha_n}(x)] = r(x)
+ \]
+since $i^*x = x$, considered as an element of the intersection $U_J$ rather than $U_{J'}$. This shows that $r$ is continuous.
+
+Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x,t_0,\dots,d_n)$ to $x$, we have that $p \circ r = \id_X$, but the converse composition $r \circ p$ depends on the chosen partition of unity and in particular is not usually the identity. ................
+
+Conversely, assume that $p\colon |\nerve \mathbf U| \to X$ has a section $r$, i.~e. a right inverse. Define $f_\alpha\colon X \to [0,1]$ as follows:
+\[
+f_\alpha(x) = \begin{cases} t_i; & r(x) = (x,t_0,\dots,t_n) \in U_J \times \Delta^n, \; x \in U_J \text{ and $\alpha$ is the $i$th member of $J$;}\\
+0; & \text{otherwise.} 
+\end{cases}
+\]
+Then $f_\alpha$ is a partition of unity with $f_{\alpha}^{-1}(0,1] \subseteq U_\alpha$.
+\end{proof}
+
+\begin{thm}\label{thm:homotopicpullbacks}
+Let $f,\; g\colon X \to B$ be homotopic maps, $p\colon E \to B$ a vector bundle, and assume that $X$ is paracompact. Then $f^*p \cong g^*p$.
+\end{thm}
+\marginpar{Find a conceptual proof!}
+
+\section{Universal bundles}
+
+In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. If $G$ acts linearly on some vector space $V$, we can use the free action $G$-action on $EG$ to define a vector space over $BG$ by defining
+\[
+E = EG \times_G V.
+\]
+\begin{lemma}
+For Lie groups $G$, the vector space $u\colon E \to BG$ over $BG$ is a vector bundle.
+\end{lemma}
+\begin{proof}
+To show local triviality, it suffices to show local triviality of the map $p\colon EG \to BG$ in the following sense: every point $x \in BG$ has a neighborhood $U \ni x$ such that there exists a $G$-equivariant isomorphism
+\[
+p^{-1}U \to U \times G
+\]
+of vector spaces over $U$. [.....Check Segal's article on this......]
+\end{proof}
+
+For $G=O(n)$ and $V=\R^n$ with the standard action, or for $G=U(n)$ and $V=\CC^n$ with the standard action, the vector bundle $u\colon E \to BG$ is called the \emph{universal bundle} for the following reason:
+
+\begin{thm}
+Let $G=O(n)$, $k=\R$, and $V=\R^n$ with the standard action, or for $G=U(n)$, $k=\C$, and $V=\CC^n$ with the standard action. Then for any paracompact space $X$, there is a bijection
+\[
+\Phi\colon [X,BG] \to \Vect_k^n(X)/\operatorname{iso}, \quad [f] \mapsto f^*u,
+\]
+where $\Vect_k^n(X)/\operatorname{iso}$ denotes the set of isomorphism classes of $n$-dimensional $k$-vector bundles.
+\end{thm}
+\begin{proof}
+by Thm.~\ref{thm:homotopicpullbacks}, $\Phi$ is well-defined, that is, that it maps homotopic maps to isomorphic vector bundles over $X$.
+
+To construct an inverse map $\Psi\colon \Vect_k^n(X) \to [X,BG]$, let $p\colon E \to X$ be an $n$-dimensional vector bundle. Choose a cover $\mathcal U$ of $X$ consisting of trivializing neighborhoods for $p$. The cocycle corresponding to $p$ with respect to $\mathcal U$ gives us a simplicial map
+\[
+\nerve \mathbb U \to \nerve G
+\]
+and thus a map on realizations
+\[
+X \simeq |\nerve\mathbb U| \to |\nerve G| = BG.
+\]
+\end{proof}
+
+\chapter{Cohomology} \label{ch:cohomology}
+
+\section{Čech cohomology}
+
+In order to turn the cocycle characterization into an alternative definition for vector bundles, we need to get rid of the dependence on a particular open cover $\{U_\alpha\}$. A good approach to doing this is via \emph{Čech cohomology}, which has the added benefit of being a suitable definition of singular cohomology. This is where characteristic classes live.
+
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. As before, we denote by $\mathbf U = \coprod_{\alpha \in I} U_{\alpha}$ the disjoint union of all elements of the cover, by $p\colon \mathbf U \to X$ the canonical projection. We also abuse notation and write $\mathbf U$ for the topological groupoid $(\mathbf U, \mathbf U \times_X \mathbf U)$ (cf. Example~\ref{exa:covergroupoid}). The nerve $\nerve\mathbf U$ is thus a simplicial space whose geometric realization is homotopy equivalent with $X$ (Theorem~\ref{thm:paracompactnerve}) as long as $X$ is paracompact.
+
+Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
+
+\begin{defn}
+A map $f\colon Y \to X$ of topological spaces is called a \emph{partial cover} if it is a disjoint union of open inclusions. It is called a \emph{cover} if it is also surjective. Define a category $S(X)$ with objects the partial covers of $X$ and morphisms commuting triangles
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		Y_1 && Y_2\\
+		 & X\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{f} (m-1-3)
+			edge (m-2-2)
+	(m-1-3)	edge (m-2-2);
+\end{tikzpicture}
+\]
+Such a map is called a \emph{cover} if $f$ is a cover.
+\end{defn}
+
+We can now extend the definition of a sheaf:
+\begin{defn}
+A \emph{sheaf on $X$ with values in $C$} is a contravariant functor $F\colon S(X) \to C$ which sends coproducts to products and such that for each cover $f \in \Hom_{S(X)}(U,Y)$, the diagram
+\[
+F(Y) \to F(U) \rightrightarrows F(U \times_Y U)
+\]
+is an equalizer.
+\end{defn}
+
+The reason for this extension is that we can now apply the sheaf $F$ to the simplicial space $\nerve \mathbf U$ to get a cosimplicial object in $C$:
+
+\begin{defn}
+For a cover $\mathcal U$, we define the \emph{Čech $n$-cochains} of $X$ with respect to the cover $\mathcal U$ and values in the sheaf $F\colon S(X) \to C$ to be
+\[
+C^n_{\mathcal U}(X;F) =  F(\nerve_n(\mathbf U)).
+\]
+The Čech cochains form a cosimplicial object in $C$, coaugmented by $F(X)$:
+\[
+F(X) \to F(\mathbf U) \rightrightarrows F(\mathbf U \times_X \mathbf U) \cdots.
+\]
+\end{defn}
+
+\begin{example}
+We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^0_0\colon C^{-1} \to C^0$ is just restriction: $d^0_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
+\[
+C^1_{\mathcal U}(X;F) = \prod_{\alpha,\beta} F(U_{\alpha\beta})
+\]
+and the two maps $d^1_0$ and $d^1_1$ are given by
+\[
+d^1_0((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \quad d^1_1((c_\alpha))_{\alpha,\beta} = c_\alpha|_{U_{\alpha\beta}}
+\]
+We see that the diagram
+\[
+1 \to C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^0_0} C^{0}_{\mathcal U}(X;F) \overset{d^1_0}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
+\]
+is an equalizer diagram.
+\end{example}
+
+\begin{defn}
+Given a cosimplicial abelian group $A$, we define maps
+\[
+d^n\colon A^{n-1} \to A^n \text{ by } d^n(x) = d^n_0(x)-d^n_1(x)+d^n_2(x)-\cdots\pm d^n_n(x)
+\]
+and groups
+\begin{align*}
+Z^n(A) =& \ker(d^{n+1}\colon A^n \to A^{n+1},\\
+B^n(A) =& \im(d^n\colon A^{n-1} \to A^{n},\\
+\intertext{and}
+H^n(A) =& Z^n(A)/B^n(A)
+\end{align*}
+If $A$ is merely a cosimplicial (possible nonabelian) group, we can still define
+\[
+Z^1(A) = \{x \in A^1 \mid d^0(x)d^1(x)^{-1}d^2(x)=1\}
+\]
+and
+\[
+H^1(A) = Z^1(A)/A^0,
+\]
+where $A^0$ acts on $Z^1(A)$ by $a_0.a_1 = d^1_0(a_0) a_1 d^1_1(a_0)^{-1}$. Note that for abelian $A$, the two definitions of $H^1_{\mathcal U}$ coincide.
+
+If $A$ is just a cosimplical set, we can only define
+\[
+H^0(A) = Z^0(A) = \{x \in A^0 \mid d^0_0(x) = d^1_0(x)\}.
+\]
+\end{defn}
+
+\begin{defn}
+Let $F$ be a sheaf of abelian groups on a space $X$ and $\mathcal U$ an open cover of $X$. Then the \emph{Čech $n$-cocycles, Čech $n$-coboundaries, and the $n$th Čech cohomology groups with respect to the cover $\mathcal U$} are defined by
+\[
+Z^n_{\mathcal U}(X;F) = Z^n(F(\nerve \mathbf U)); \quad B^n {\mathcal U}(X;F) = B^n(F(\nerve \mathbf U)); \quad H^n {\mathcal U}(X;F) = H^n(F(\nerve \mathbf U)).
+\]
+If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $H^i_{\mathcal U}$ for $i \leq 1$; for $F$ a sheaf of sets only for $i=0$.
+\end{defn}
+
+Given a refinement $\{V_\beta\}$ of an open cover $\{U_\alpha\}$ of $X$, the map of nerves $\nerve \mathbf V \to \nerve \mathbf U$ is well-defined up to homotopy by Proposition~\ref{prop:refinementhomotopyinvariant} and therefore induces a well-defined 
+
+..............
+ and such a function $\rho$, we also have
+\[
+V_{\beta_0\dots\beta_n} \subseteq U_{\rho(\beta_0)\cdots\rho(\beta_n)}
+\]
+and thus an induced restriction map
+\[
+\rho^*\colon C^n_{\mathcal U}(X;G) \to C^n_{\mathcal V}(X;G).
+\]
+Note that this map depends heavily on the choice of $\rho$. However, it commutes with the various $d^i_j$ and hence we obtain induced maps $Z^n_{\mathcal V}(X;G) \to Z^n_{\mathcal U}(X;G)$, $B^n_{\mathcal V}(X;G) \to B^n_{\mathcal U}(X;G)$, and $H^n_{\mathcal V}(X;G) \to H^n_{\mathcal U}(X;G)$, which we will all denote by $\rho^*$.
+
+\begin{thm}
+Let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ with a refinement $\{V_\beta\}_{\beta \in J}$. Let $\rho$, $\sigma\colon J \to I$ be two functions such that $V_{\beta} \subseteq U_{\rho(\beta)}$, $V_\beta \subseteq U_{\sigma(\beta)}$. Then
+\[
+\rho^* = \sigma^*\colon H^*_{\mathcal U}(X;G) \to H^*_{\mathcal V}(X;G).
+\]
+\end{thm}
+\begin{proof}
+Let us abbreviate $C^n_{\mathcal U}=C^n_{\mathcal U}(X;G)$, etc. We will show a slightly stronger statement, namely the existence of a map
+\[
+h\colon C^n_{\mathcal V} \to C^{n-1}_{\mathcal U}; \quad n \geq 0
+\]
+such that 
+\begin{description}
+\item[(Ho1)] (boundary)
+\item[(Ho2)] (homotopy)
+\end{description}
+
+Define $h\colon C^n_{\mathcal V} = \prod_{\beta \in \mathcal V^{n+1}} G(V_\beta) \to C^{n-1}_{\mathcal U} = \prod_{\alpha \in \mathcal U^{n}} G(U_\alpha)$ by
+
+\end{proof}
+
+\begin{lemma}
+The category $C = \Cov(X)$ has the following properties:
+\begin{description}
+\item[(Fi1)] For every $\mathcal U$, $\mathcal V \in C$ there is another object $\mathcal W \in C$ with morphisms $\mathcal U \leftarrow \mathcal W \to \mathcal V$.
+\item[(Fi2)] For every two morphisms $\alpha,\;\beta\colon \mathcal V \to \mathcal W$ there is another object $\mathcal W$ with a morphism $\gamma\colon \mathcal W \to \mathcal V$ such that $\alpha\gamma = \beta\gamma$.
+\end{description}
+\end{lemma}
+\begin{proof}
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ and $\mathcal V = \{V_\beta\}_{\beta \in J}$.
+Then for (Fi1), let $K = I \times J$, $\mathcal W = \{W_{\alpha,\beta} = U\alpha \cap V_\beta\}_{(\alpha,\beta) \in K}$ and $\rho\colon K \to I$ and $\rho'\colon K \to J$ be the projections. Then $\mathcal W$ is a cover, $(\mathcal W,\rho)$ is a refinement of $\mathcal U$, and $(\mathcal W,\rho')$ is a refinement of $\mathcal V$.
+
+For (Fi2), let $\alpha = (\mathcal V,\rho)$ and $\beta = (\mathcal V,\rho')$ for $\rho$, $\rho'\colon J \to I$. Define $K = J \times J$ and $\mathcal W = \{W_{\beta,\beta'}\}_{(\beta,\beta') \in K}$, where $W_{\beta,\beta'} = $
+
+...............................
+\end{proof}
+
+\begin{defn}
+A category $C$ with the properties (Fi1) and (Fi2) is called \emph{cofiltered}.
+\end{defn}
+
+\begin{defn}
+The \emph{$n$th Čech cohomology group} of $X$ with coefficients in $G$ ($n \in \mathbf N_0$, $n \leq 1$ if is $G$ nonabelian) is the colimit
+\[
+H^n(X;G) = \colim_{\mathcal U} H^n_{\mathcal U}(X;G),
+\]
+where $\mathcal U$ runs over the filtered category of open covers of $X$ with morphisms refinements.
+\end{defn}
+
+\begin{thm}
+Let $X$ be a paracompact space and $\mathcal GL = \coprod_{n \geq 0} \GL(n)$ be the groupoid of orthogonal groups
+The natural map
+\[
+\{\text{vector bundles on $X$}\}/\text{iso} \to H^1(X,\mathcal GL)
+\]
+which sends a vector bundle to the equivalence class of its cocycle, is a bijection.
+\end{thm}
+
+\section{The long exact sequence}
+
+\begin{lemma}\label{lemma:les}
+Let $0 \to A' \xrightarrow{i} A \xrightarrow{j} A'' \to 0$ be a short exact sequence of cosimplicial abelian groups. Then there is a long exact sequence in cohomology
+\[
+0 \to H^0(A') \xrightarrow{j^*} H^0(A) \xrightarrow{i^*} H^0(A'') \xrightarrow{\delta} H^1(A') \xrightarrow{j^*} H^1(A) \xrightarrow{i^*} H^1(A'') \xrightarrow{\delta} \cdots.
+\]
+If $0 \to A' \xrightarrow{i} G \xrightarrow{j} G'' \to 1$ is merely a short exact sequence of groups with $A'$ abelian (and normal in $A$), we still have a somewhat long exact sequence of pointed sets
+\[
+0 \to H^0(A') \xrightarrow{j^*} H^0(G) \xrightarrow{i^*} H^0(G'') \xrightarrow{\delta} H^1(A') \xrightarrow{j^*} H^1(G) \xrightarrow{i^*} H^1(G'') \xrightarrow{\delta} H^2(A').
+\]
+%If $1 \to G' \to X \to X'' \to *$ is a “short exact sequence of sets,” i.e. $G'$ is a group acting on $X$ with quotient $X'' \cong X/G'$, we still have a “short exact sequence”
+%\[
+%0 \to H^0(G') \xrightarrow{j^*} H^0(X) \xrightarrow{i^*} H^0(X'') \xrightarrow{\delta} H^1(G') 
+%\]
+\end{lemma}
+\begin{proof}
+The first statement is a standard result from homological algebra once we notice that a short exact sequence of cosimplicial abelian groups gives rise to a short exact sequence of cochain complexes.
+
+The second part is a good exercise .............
+\end{proof}
+
+\begin{corollary}
+Let $0 \to A' \xrightarrow{i} A \xrightarrow{j} A'' \to 0$ be a short exact sequence of sheaves of abelian groups. \marginpar{Does it have to be short exact as presheaves? See Godement 5.10/11}
+Then for any space $X$, there is a natural long exact sequence of Čech cohomology groups
+\[
+0 \to H^0_{\mathcal U}(X;A') \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(X;A'') \xrightarrow{d} H^1_{\mathcal U}(X;A') \to \cdots
+\]
+as well as their colimits
+\[
+0 \to H^0(X;A') \to H^0(X;A) \to H^0(X;A'') \xrightarrow{d} H^1(X;A') \to \cdots
+\]
+\end{corollary}
+\begin{proof}
+\end{proof}
+
+\section{The product in cohomology}
+
+Let $X$, $Y$ be spaces and $A$, $B$ sheaves of (abelian) groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. We write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
+
+Then we can define an “external product”
+\[
+C^m_{\mathcal U}(X;A) \otimes C^n_{\mathcal V}(y;B) \to C^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
+\]
+by sending $\alpha \otimes \beta$ to the cochain $\alpha \times \beta$ defined on the summand $(U_{i_0} \times V_{j_0}) \cap \cdots \cap U_{i_{m+n}} \cap V_{j_{m+n}}$ by
+\[
+(\alpha \times \beta)(x,y) = \alpha()
+\] 
+\[
+A(U_{i_0\cdots i_m}) \otimes B(V_{j_0\cdots j_n}) \to (A \otimes B)(U_{i_0\cdots i_n} \cap V_{j_0\cdots j_m})
+\]
+
+\section{De Rham cohomology of manifolds}
+
+Let $M$ be a smooth manifold and $E \to M$ a real vector bundle. Then we define the sheaf of alternating $k$-forms with values in $E$ as
+\[
+\Omega^k(M;E) = \bigwedge_{i=1}^k T^*M \otimes E,
+\]
+where $T^*M = \Hom(TM,\R)$ is the cotangent bundle, i.~e. the linear dual of the tangent bundle. These sheaves fit into a chain complex
+\begin{equation}\label{eq:omegasequence}
+0 \to \Omega^0(M;E) = E \xrightarrow{d} \Omega^1(M;E) \xrightarrow{d} \cdots,
+\end{equation}
+where $d\colon \Omega^k(M;E) \to \Omega^{k+1}(M;E)$ is the exterior differential:
+\[
+d(\omega \otimes x) = (d\omega) \otimes x. 
+\]
+Note that $\Omega^k(M;E) = 0$ if $k > \dim(M)$.
+
+\begin{lemma}[Poincaré lemma]
+The sequence \eqref{eq:omegasequence} is exact.
+\end{lemma}
+
+\begin{defn}
+The $k$th de Rham cohomology of $M$ with coefficients in $E$ is the $k$th cohomology of the chain complex of global sections of \eqref{eq:omegasequence}:
+\[
+H^k_{dR}(M;E) = H^k(\Gamma(\Omega^\bullet(M;E))).
+\]
+\end{defn}
+
+\begin{thm}
+There is a natural isomorphism $H^k(M;E) \to H^k_{dR}(M;E)$ between \v Cech cohomology and de Rham cohomology on a smooth manifold $M$.
+\end{thm}
+\begin{proof}
+Since the sequence \eqref{eq:omegasequence} is exact, we have short exact sequences of sheaves
+\[
+0 \to d\Omega^{k-1}(M;E) \to \Omega^k(M;E) \to d\Omega^k(M;E) \to 0.
+\]
+Since $\Omega^k(M;E)$ is a module sheaf over $C^\infty(M)$, its \v Cech cohomology vanishes by \ref{......}. Thus the long exact sequence in \v Cech cohomology induced by the above short exact sequence splits up into a sequence of isomorphisms
+\[
+H^n(M;d\Omega^k(M;E)) \xrightarrow{\sim} H^{n+1}(M;d\Omega^{k-1}(M;E)).
+\]
+In particular,
+\[
+H^0(M;\Omega^n(M;E))
+\]
+
+\end{proof}
+
+\chapter{Characteristic classes}
+
+\section{Stiefel-Whitney classes}
+\section{Chern classes}
+\section{Pontryagin classes}
+
+\chapter{Chern-Weil theory}
+
+\section{Riemannian manifolds}
+\section{Connections}
+\section{Curvature}
+
+\section{The genereralized Gauß-Bonnet theorem}
+
+\chapter{Characteristic classes in algebraic geometry}
+\section{Varieties and algebraic vector bundles}
+
+\section{Chow groups}
+\section{Chern classes}
+\section{Segre classes}
+
+\appendix
+
+\chapter{Notions from category theory}
+
+In this appendix, we collect some basic notions of category theory needed in these notes. A much more thorough and comprehensive treatment can be found in, e.g., \cite{maclane:cwm,borceux:volone}. If the reader is completely unfamiliar with the language of category theory, he or she may find it helpful to consider one of these sources.
+
+\begin{defn}
+A \emph{category} $\C$ consists of a class $\ob \C$ of \emph{objects} and, for each pair $x$, $y \in \ob \C$, a set $\Hom_\C(x,y)$ of \emph{morphisms}, together with the following structure:
+\begin{itemize}
+\item for each $x \in \ob \C$, a distinguished element $\id_x \in \Hom_\C(x,x)$, called the \emph{identity},
+\item for each triple $(x,y,z)$ of objects, a \emph{composition map} $\mu\colon \Hom_\C(y,z) \times \Hom_\C(x,y) \to \Hom(x,z)$.
+\end{itemize}
+Usually, composition $\mu(g,f)$ is denoted suggestively by $g \circ f$.
+These have to satisfy the axims that composition must be associative and unital with respect to the identities.
+
+A (covariant) \emph{functor} $F\colon \C \to \D$ between two categories $\C$ and $\D$ is a collections of map
+\[
+F\colon \ob \C \to \ob \C \quad \text{and} \quad F\colon \Hom_\C(x,y) \to \Hom_\D(F(x),F(y)) \text{ for each } x,\;y \in \ob \C
+\]
+such that $F(\id_x) = \id_{F(x)}$ for each $x \in \ob \C$, and $F(g \circ f) = F(g) \circ F(f)$ for each composable pair of morphisms $f$, $g$.
+\end{defn}
+
+Examples of categories abound: sets and functions, ordered sets and monotonic maps, vector spaces and linear maps, groups and homomorphisms, topological spaces and continuous maps, and so on. These are all examples of so-called \emph{large} categories, where the class $\ob \C$ of objects indeed is a proper class, not a set. A category where this is not the case, i.~e., where $\ob \C$ is a set, is called \emph{small}. An example of a small category is the category $\Delta$ whose objects are the totally ordered sets $[n] = \{0,\dots,n\}$ and whose morphisms are monotonic maps. In this case, $\ob \Delta$ is countable.
+
+\begin{example} \label{exa:posetcat}
+Partially ordered sets (posets) can be thought of as small categories. If $(X,\leq)$ is a poset, we construct a category with object set $X$ and
+\[
+\Hom(x,y) = \begin{cases} \{*\};& x \leq y\\ \emptyset; &\text{otherwise}\end{cases}
+\]
+Note that reflexivity of the order relation corresponds to the existence of identities, transitivity gives a unique composition rule, and antisymmetry translates to the fact that there are no non-identity isomorphisms. The category thus obtained is also denoted by $X$.
+\end{example}
+
+\begin{defn}
+Let $\C$ be a category. The category $\C^\op$, called the \emph{opposite category} of $\C$, has the same objects as $\C$, but it has $\Hom_{\C^\op}(x,y) = \Hom_\C(y,x)$. The identities are the same, but composition is defined in the opposite order:
+\[
+\mu_{\C^\op}(g,f) = \mu_\C(f,g).
+\]
+A \emph{contravariant functor} $F\colon \C \to \D$ is simply a covariant functor $\C^\op \to \D$.
+\end{defn}
+
+\section{Natural transformations and equivalences}
+
+One can perfectly well talk about isomorphism of categories, but often this is a notion too strict to be useful in practice. One therefore mimicks homotopy theory and defines ``homotopies'' between functors (natural transformations) and ``homotopy equivalences'' of categories (equivalences).
+
+\begin{defn}
+Let $F$, $G\colon \C to \D$ be two functors between categories. A \emph{natural transformation} $\eta\colon F \rightsquigarrow G$ consists of a morphism $\eta_x\colon F(x) \to G(x)$ for each $x \in \ob(\C)$ such that the following diagram commutes for each morphism $f\in\Hom_\C(x,y)$:
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		F(x) & G(x)\\
+		F(y) & G(y)\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$\eta_x$} 	(m-1-2)
+			edge node[auto]{$F(f)$}		(m-2-1)
+	(m-1-2)	edge node[auto]{$G(f)$}		(m-2-2)
+	(m-2-1) edge node[auto]{$\eta_y$}	(m-2-2);
+\end{tikzpicture}
+\]
+If $\eta_x$ is an isomorphism for each $x$, we call $\eta$ a natural isomorphism and the functors $F$, $G$ isomorphic.
+A pair of functors $F\colon \C \to \D$ and $G \colon \D \to \C$ together with natural isomorphisms $F\circ G \cong \id_\D$ and $G \circ F \cong \id_\C$ is called an \emph{equivalence of categories}.
+\end{defn}
+
+Often, one loosely says that a certain map is ``natural.'' This has a very concrete meaning, as opposed to ``canonical'' maps. 
+
+\section{Limits and colimits}
+
+One of the most powerful concepts of category theory is the notions of (co)limits. Let $I$ be any small category, which we will call the \emph{indexing category}, and let $F\colon I \to \C$ be a functor into another, not necessarily small, category $\C$. We sometimes refer to $F$ as a \emph{diagram} in $\C$.
+
+\begin{defn} An object $X \in \C$ together with morphisms $p_i\colon X \to F(i)$ for each $i \in \ob(I)$ is called a \emph{cone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\alpha \circ F(p_i) = F(p_j)$, i.~e. if the maps $p_i$ are compatible with the maps in the diagram. A cone $(X,p_i)$ is called a \emph{limit} for $F$ if it is universal. This means that for any other cone $(Y,q_i)$ there is a unique morphism $f \in \Hom_\C(Y,X)$ such that $q_i = p_i \circ f$ for all $i \in I$.
+\end{defn}
+
+A \emph{cocone} resp. \emph{colimit} of $F$ is defined as a cone resp. limit of the functor $F^\op\colon I^\op \to \C^\op$; however, since we will be using this quite often, here is what this means explicitly:
+
+\begin{defn} An object $X \in \C$ together with morphisms $\iota_i\colon F(i) \to X$ for each $i \in \ob(I)$ is called a \emph{cocone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\iota_j \circ \alpha = \iota_i$. A cocone $(X,\iota_i)$ is called a \emph{colimit} for $F$ if for any other cocone $(Y,\eta_i)$ there is a unique morphism $f \in \Hom_\C(X,Y)$ such that $\iota_i = f \circ \eta_i$ for all $i \in I$.
+\end{defn}
+
+(Co)limits need not exist, but if they do exist, they are unique up to unique isomorphism. One denotes the unique limit by $\lim F = \lim_{i \in I} F(i)$, neglecting the cone maps $p_i$ in the notation, and the colimit by $\colim F = \colim_{i \in I} F(i)$.
+
+A category that has (co)limits for all diagrams is called (co)complete.
+
+The limit for the empty diagram ($\ob I = \emptyset$) is called a \emph{initial object}, if it exists, and the colimit a \emph{terminal object}. By definition, an object $x$ is initial if $\Hom(x,y)$ is a singleton for every $y \in \C$; analogously $x$ is terminal if $\Hom(y,x)$ is a singleton for every $y \in \C$.
+
+A category $I$ is called \emph{discrete} if 
+\[
+\Hom_\C(x,y) =\begin{cases} \emptyset; & x \neq y\\ \{\id_x\}; & x = y.\end{cases}
+\]
+Small discrete categories are thus the same as sets (and functors between small discrete categories the same as functions). A diagram $F\colon I \to \C$ indexed by a small discrete category $I$ is just a collection $x_i$ of objects of $\C$. A (co)limit of such a functor, if it exists, is called a (co)product and denoted by
+\[
+\lim F = \prod_{i \in I} X_i \quad\text{and}\quad \colim F = \coprod_{i \in I} X_i.
+\]
+Products of two objects are usually denoted as $X \times Y$.
+
+Another special kind of limit that deserves a name is that of a diagram of the shape
+\[
+X \rightrightarrows Y,
+\]
+i.~e. where $I$ consists of two objects $a$ and $b$ and $\Hom_I(a,b) = \{f,g\}$, whereas $\Hom_I(a,a) = \{\id_a\}$, $\Hom_I(b,b) = \{\id_b\}$, and $\Hom_I(b,a) = \emptyset$. One can, for instance, think of this category as the category whose objects are the ordered sets $[0]$ and $[1]$ and the morphisms the strictly monotonic maps. If the limit of a functor $F\colon I \to \C$ exists for such a diagram, it is called the \emph{equalizer} of $F(f)$ and $F(g)$ and denoted by $\eq(X \rightrightarrows Y)$. Unsurprisingly, the dual notion is called the \emph{coequalizer} $\coeq(X \rightrightarrows Y)$.
+
+In the special case of set-valued functors, limits and colimits have useful element-wise descriptions:
+\begin{lemma}\label{lem:setvaluedlim}
+Let $F\colon I \to \Set$ be a functor. Then
+\begin{enumerate}
+\item For every $x \in \colim F$ there is an $i \in I$ and an $x_i \in F(i)$ such that $\iota_i(x_i) = x$.\label{lem:setvaluedlim:colim}
+\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(x')$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,\1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
+
+For \eqref{lem:setvaluedlim:lim}, we employ a similar argument. Let $f,\;g \colon \{0\} \to \lim F$ be given by $f(0) = x$, $g(0) = y$. Since $p_i \circ f = p_i \circ g$ for all $i$ by assumption, $p_i \circ f$ and $p_i \circ g$ are identical cones for $F$, hence the maps $f$ and $g$ are the same. Hence $x=y$.
+\end{proof}
+
+Finally, we will consider a special case of (co)limits whose usefulness is not that apparent.
+
+\begin{defn}
+A category $I$ is called \emph{cofiltered} if it is small and:
+\begin{description}
+\item[(Fi1)] For every $i,\;j \in \ob(I)$ there is another object $k \in \ob(I)$ with morphisms $i \leftarrow k \to j$;
+\item[(Fi2)] For every two morphisms $f,g\colon i \to j$ there is another object $k$ with a morphism $h\colon k \to i$ such that $f \circ h = g \circ h$.
+\end{description}
+The category $I$ is called \emph{filtered} if $I^\op$ is filtered.
+\end{defn}
+A complete category is clearly cofiltered since one can take $k = i \times j$ in (Fi1) and $k = \eq(f,g)$ in (Fi2). However, small categories are almost never complete by a theorem of Freyd (they will be complete lattices).
+
+A particular kind of filtered category is a poset (Ex.~\ref{exa:posetcat}) which is filtered. This goes by the name of a \emph{directed set}:
+
+\begin{defn}
+A poset $(X,\leq)$ is called \emph{inverse} if for all pairs $x$, $y \in X$ there is a $z \in X$ such that $x \leq z$ and $y \leq z$ (in other words, if any finite subset has an upper bound). The dual notion is called an \emph{inverse set}.
+\end{defn}
+
+The reason filtered categories have a special place when computing limits and colimits are the following results:
+
+\begin{lemma} \label{lem:filteredcolimitset}
+Let $I$ be a filtered category and $F\colon I \to \Set$ a functor to the category of sets. Denote the structure maps $F(i) \to \colim F$ by $\iota_i$. Then
+\begin{enumerate}
+\item For any $x$, $x' \in \colim F$ there is some $i \in \ob(I)$ and $x_i,\; x'_i \in F(i)$ such that $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$. \label{lem:filteredcolimitset:ex}
+\item If $x_i$, $x_i' \in F(i)$ are such that $\iota_i(x_i) = \iota_i(x'_i) \in \colim F$ then there is a $j \in I$ and a morphism $\alpha \in \Hom_I(i,j)$ such that $F(\alpha)(x_i) = F(\alpha)(x'_i) \in F(j)$. \label{lem:filteredcolimitset:un}
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+For \eqref{lem:filteredcolimitset:ex}, Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim} guarantees the existence of $i'$ and $i'' \in I$ with elements $y_{i'} \in F(i')$ and $y_{i''} \in F(i'')$ such that $\iota_{i'}(y_{i'}) = x$ and $\iota_{i''}(y_{i''}) = x'$. By (Fi1), choose morphisms $i' \xrightarrow{\alpha} i \xleftarrow{\beta} i''$ and define $x_i = F(\alpha)(x_{i'})$ and $x'_i = F(\beta)(x_{i''})$. Then $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$.
+
+For \eqref{lem:filteredcolimitset:un}, ..........
+
+\end{proof}
+
+\begin{lemma} \label{lemma:filteredcolimfinitelim}
+Filtered colimits commute with finite limits in sets. More precisely:
+
+Let $I$ be a filtered category and $J$ a finite category (that is, with finitely many morphisms). Let $F\colon I \times J \to \Set$ be a functor to the category of sets. Then there is a natural bijection
+\[
+\phi\colon \colim_{i \in I} \lim_{j \in J} F(i,j) \to \lim_{j \in J} \colim_{i \in I} F(i,j).
+\]
+\end{lemma}
+\begin{proof}
+The natural map $\phi$ exists for any kind of indexing categories $I$ and $J$ and is constructed as follows:
+
+Abbreviate
+\[
+F_i = \lim_{j \in J} F(-,j)\colon I \to \Set \quad\text{and}\quad F_2 = \colim_{i \in I} F(i,-)\colon J \to Set
+\]
+By the universal property of limits and colimits, a map $\phi$ as above is given by a compatible collection of maps $\phi_{ij}\colon F_1(i) \to F_2(j)$. Here compatibility means that for any $\alpha\in \Hom_J(i,i')$ and any $\beta\in \Hom_I(j,j')$ we have that
+\[
+F_2(\beta) \circ \phi_{ij'} = \phi_{i'j} \circ F_1(\alpha)\colon F_1(i) \to F_2(j').
+\]
+Such a collection is naturally given as
+\[
+\phi_{ij}\colon F_1(i) \xrightarrow{p_j} F(i,j) \xrightarrow{\iota_i} F_2(j).
+\]
+Indeed, the compatibility condition then reads
+\[
+F_2(\beta) \circ p_{j'} \circ \iota_i = p_j \circ \iota_i = \iota_{i'} \circ p_j \circ F_1(\alpha).
+\]
+\emph{Surjectivity of $\phi$:} Given $y \in \lim_j \colim_i F(i,j) = \lim F_2$, the element $p_j(y) \in F_2(j) = \colim_i F(i,j)$ has to be in the image of $\phi_{i_jj}$ for some $i_j \in I$ by Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim}. Let $x_j \in F_1(i_j)$ be such a preimage. The surjectivity of $\phi$ is equivalent to asking that we can find an $i \in I$ \emph{independent of $j$} such that $p_j(y) \in \im(\phi_{ij})$ for all $j$. But since $J$ is finite and $I$ filtered, there is an object $i \in I$ with maps $\alpha_j \colon i_j \to i$. Then $\alpha_j(x_j) \in F_1(i)$ for all $j$, and $\phi_{ij}(\alpha_j(x_j)) = p_j(y)$.
+
+\emph{Injectivity of $\phi$:} Let $x$, $x' \in \colim_i F_1$ be two elements such that $\phi(x) = \phi(x')$. By Lemma~\ref{lem:filteredcolimitset} there are elements $x_i$ and $x'_i \in F_1(i)$ such that $\iota_i(x_i) = x$ and $\iota_i(x'_i) = x'$. Then for all $j \in J$, the elements $y = p_j(\phi(x)) = \phi_{ij}(x_i)$ and $p_j(\phi(x')) = \phi_{ij}(x'_i)$ in $F_2(j)$ are equal. By Lemma~\ref{lem:filteredcolimitset}, there is an $\alpha \in \Hom_I(i,i')$ and $y_j \in F(i',j)$ such that $p_j(\alpha(x_i) = p_j(\alpha(x'_i) = y_j$ and $\iota_{i'}(y_j) = y$ for all $j$. Since this is true for all $j$, $\alpha(x_i) = \alpha(x'_i)$ by Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:lim} and hence $x=x'$.
+\end{proof}
+
+\section{Exactness}
+
+Let $\mathcal A$ denote the category of abelian groups (or $R$-modules for some ring $R$). Then for any small category $I$, the category $\mathcal A^I$ of functors $I \to \mathcal A$ is also abelian; kernels and cokernels are computed objectwise. In particular, a sequence $X \to Y \to Z$ in $\mathcal A^I$ is exact if and only if for each $i \in I$, $X(i) \to Y(i) \to Z(i)$ is exact.
+
+\begin{thm}\label{thm:filteredcolimexact}
+If $I$ is filtered then the functor
+\[
+\colim_I \colon \mathcal A^I \to \mathcal A
+\]
+is exact, i.~e. it maps exact sequences to exact sequences.
+\end{thm}
+\begin{proof}
+We only have to show left exactness, i.~e. that $\colim_I$ preserves kernels. But the kernel of a map $f\colon X \to Y$ is the limit of the finite diagram $X \xrightarrow{f} Y \leftarrow 0$ in any abelian category, hence by Lemma~\ref{lemma:filteredcolimfinitelim}, $\colim_I$ preserves them.
+\end{proof}
+
+\nocite{milnor-stasheff}
+\nocite{holme:royal-road}
+\nocite{hatcher:K-theory}
+\nocite{bruner-catanzaro-may}
+
+\bibliographystyle{amsalpha}
+\bibliography{bibliography}
+
+\end{document}
+
