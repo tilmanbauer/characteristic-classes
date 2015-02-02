@@ -1,0 +1,188 @@
+\ProvidesPackage{tilmansdef}
+
+\DeclareOption{ps}{\PassOptionsToPackage{dvips}{xy}\PassOptionsToPackage{dvips}{sseq}}
+\DeclareOption{sseq}{\def\loadsseq{1}}
+\DeclareOption{tikz}{\def\loadtikz{1}}
+
+\ProcessOptions
+\RequirePackage{amsmath,amssymb,amsthm} % ,mathpazo,microtype}
+\if1\csname loadtikz\endcsname
+  \RequirePackage{tikz}
+  \usetikzlibrary{matrix,arrows,decorations}
+\else
+  \RequirePackage[all]{xy}
+\fi
+\if1\csname loadsseq\endcsname
+\RequirePackage{sseq}
+\fi
+
+\SelectTips{cm}{10}
+
+\newcommand {\Spin}{\operatorname{Spin}}
+\newcommand {\modmod}{\;/\!\!/\;}
+\newcommand {\Ho}{\operatorname{Ho}}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\Ab}{Ab}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\StMod}{StMod}
+\DeclareMathOperator{\fgMod}{mod}
+\DeclareMathOperator{\Nil}{Nil}
+\DeclareMathOperator{\Fin}{Fin}
+\newcommand {\Gr}{\operatorname{Gr}}
+\newcommand {\g}{\mathfrak g}
+\newcommand {\h}{\mathfrak h}
+\renewcommand {\t}{\mathfrak t}
+\newcommand {\n}{\mathfrak n}
+\newcommand {\s}{\mathfrak s}
+\renewcommand {\S} {\mathbf S}
+\newcommand {\C}{\mathcal C}
+\newcommand {\A}{\mathcal A}
+\newcommand{\D}{\mathcal D}
+\newcommand{\V}{\mathcal V}
+\newcommand{\I}{\mathcal I}
+\newcommand{\J}{\mathcal J}
+\newcommand {\CC}{\mathbf C}
+\newcommand {\F}{\mathbf F}
+\newcommand {\Q}{\mathbf Q}
+\newcommand {\R}{\mathbf R}
+\newcommand {\CP}{\mathbf C P}
+\renewcommand {\sp}{\Sigma^\infty}
+\newcommand{\Z}{\mathbf Z}
+\newcommand{\ho}{h}
+\newcommand{\op}{{\operatorname{op}}}
+\newcommand{\map}{\operatorname{map}}
+\newcommand{\hofib}{\operatorname{hofib}}
+\newcommand{\compl}[1]{\hat{{}_{#1}}}
+\newcommand{\pc}{\compl{p}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\cofib}{\operatorname{cofib}}
+\newcommand{\pow}[1]{[\![#1]\!]}
+\newcommand{\nop}{\qed\medskip}
+\newcommand{\bu}[1]{\langle{#1}\rangle} 
+\newcommand {\sm}{\wedge} 
+\newcommand{\KH}{\underline{\smash{K(n)}}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\expandafter\def\csname c@figure\endcsname{\csname c@equation\endcsname}
+
+\@ifundefined{c@section}{
+ \newcounter{section}\setcounter{section}{0}
+}{}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{thm} [equation]{Theorem}
+\newtheorem{corollary} [equation]{Corollary}
+\newtheorem{prop} [equation]{Proposition}
+\newtheorem{Bemerkung}[equation]{Bemerkung}
+\newtheorem{Satz}[equation]{Satz}
+\newtheorem{Kor}[equation]{Korollar}
+\newtheorem{numb} [equation]{} 
+\newtheorem{assumption}[equation]{Assumption}
+\theoremstyle{definition}
+\newtheorem{example}[equation]{Example}
+\newtheorem{bsp}[equation]{Beispiel}
+\newtheorem*{defn}{Definition} 
+\newtheorem{remark}[equation]{Remark}
+\newtheorem*{notation}{Notation}
+\newtheorem{exer}{Exercise}
+
+\DeclareMathOperator{\Cotor}{Cotor}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\eq}{eq}
+\DeclareMathOperator{\coeq}{coeq}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Fun}{Fun}
+\DeclareMathOperator{\Ar}{Ar}
+\newcommand{\holim}{\operatornamewithlimits{holim}}
+\newcommand{\hocolim}{\operatornamewithlimits{hocolim}}
+\newcommand{\colim}{\operatornamewithlimits{colim}}
+\newcommand{\LKan}{\operatornamewithlimits{LKan}}
+\newcommand{\RKan}{\operatornamewithlimits{RKan}}
+\newcommand{\weakprod}{\bigoplus}
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\Tot}{Tot}
+\renewcommand {\Im}{\operatorname{Im}}
+\newcommand{\Ker}{\operatorname{Ker}}
+\DeclareMathOperator{\Cobar}{Cobar}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Sq}{Sq}
+
+\def\smashop#1_#2{%
+\displaystyle{#1_{%
+\hbox to 0pt{\hss$\scriptstyle{#2}$\hss}}\;}}
+\hyphenation{pro-duct}
+\hyphenation{pro-ducts}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\End}{End}
+\makeatother
+\newdir { >} {{}*!/-5pt/@{>}}
+
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Top}{Top}
+%\newcommand{\spp}[1]{\Sigma^\infty_+ #1}
+\newcommand{\spp}[1]{\S^0[#1]}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Alg}{Alg}
+\DeclareMathOperator{\Coalg}{Coalg}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Ch}{Ch}
+\DeclareMathOperator{\GrpMod}{GrpMod}
+\DeclareMathOperator{\Grp}{Grp}
+\newcommand{\Cat}{\mathcal Cat}
+\DeclareMathOperator{\ab}{ab}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Out}{Out}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Coind}{Coind}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Comod}{Comod}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\odd}{odd}
+\newcommand{\N}{\mathbf{N}}
+\DeclareMathOperator{\cyl}{cyl}
+\DeclareMathOperator{\cone}{cone}
+\newcommand{\LL}{\mathbf{L}}
+\newcommand{\II}{\mathbf{I}}
+\newcommand{\cotens}{\mathbin\square}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\dlim}{\displaystyle\lim}
+\newcommand{\threevec}[3]{\begin{pmatrix}{#1}\\{#2}\\{#3}\end{pmatrix}}
+\DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\Pro}{Pro}
+\DeclareMathOperator{\Bi}{Bi}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\FilCat}{\mathbf{FilCat}}
+\DeclareMathOperator{\CofilCat}{\mathbf{CofilCat}}
+\DeclareMathOperator{\FinCat}{\mathbf{FinCat}}
+\DeclareMathOperator{\FinComp}{\mathbf{FinComp}}
+\DeclareMathOperator{\FinCocomp}{\mathbf{FinCocomp}}
+\DeclareMathOperator{\Fr}{Fr}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ch}{char}
+
+% The following adapted from Heise c't example code.
+\makeatletter
+\DeclareRobustCommand{\doubleindex}[1]{%
+    {
+     \edef\resetfontdimens{\noexpand%
+         \fontdimen16\textfont2=\the\fontdimen16\textfont2
+         \fontdimen17\textfont2=\the\fontdimen17\textfont2\relax}%
+     \fontdimen16\textfont2=2.7pt \fontdimen17\textfont2=2.7pt
+     #1
+     \resetfontdimens}}
+\makeatother
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Sym}{Sym}
+
+\newcommand{\¤}[1]{\underline{\smash{#1}}}
+\def\citep#1#2{\cite[{#1}]{#2}} % LaTeX gets confused by constructions like \begin{thm}[\cite[page 3]{bauer}], use this instead (copied from MIT thmp2e package)
