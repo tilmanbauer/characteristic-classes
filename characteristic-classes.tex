@@ -853,8 +853,10 @@ A related question is whether a manifold can have nonisomorphic smooth structure
 The sheaf-theoretic definition of a smooth manifold $M$ allows for a concise construction of the tangent bundle.
 
 \begin{defn}
-Let $A$ be an $\R$-algebra. A \emph{derivation} on $A$ is a $k$-linear function $D\colon A \to A$ such that $D(ab) = D(a)b+D(b)a$. Denote the set of derivations on $A$ be $\Der(A)$; this is an $\R$-vector space.
+Let $A$ be a $k$-algebra. A \emph{derivation} on $A$ is a $k$-linear function $D\colon A \to A$ such that $D(ab) = D(a)b+D(b)a$ (the so-called \emph{Leibniz rule}). Denote the set of derivations on $A$ be $\Der(A)$; this is an $k$-vector space.
 \end{defn}
+
+Note that $D(1)=0$ since $D(1) = D(1\cdot 1)=2D(1)$.
 
 \begin{example}
 Let $A=C^\infty(\R^n)$ be the algebra of smooth real-valued functions on $\R^n$. For a chosen basis of $\R^n$, let $x_i\colon \R^n \to \R$ be the coordinate function $(x_1,\dots,x_n) \mapsto x_i$. Then $\frac\partial{\partial x_i}$ is a derivation on $A$.
@@ -873,10 +875,17 @@ TM(U) = \Der(C^{\infty}_U).
 For an $n$-dimensional manifold $M$, $TM$ is an $n$-dimensional real vector bundle.
 \end{thm}
 \begin{proof}
-We have to show that $TM$ is a finitely generated, locally free sheaf of $C^\infty_M$-modules. This is a local question, so we may assume that $M = \R^n$. After choosing a basis of $\R^n$, the differential operators $\frac\partial{\partial x_i}$ are linearly independent global sections of $TM$. We will show that the map $(C^\infty_M)^n \to TM$ which sends $(f_1,\cdots,f_n)$ to the derivation $f_1\frac\partial{\partial x_1}+\cdots+f_n\frac\partial{\partial x_n}$ is an isomorphism of $C^\infty_M$-module sheaves. Let $X \in \Der(C^\infty_{\R^n}$ and $f \in C^\infty(\R^n)$. Then 
+We have to show that $TM$ is a finitely generated, locally free sheaf of $C^\infty_M$-modules. This is a local question, so we may assume that $M = \R^n$. After choosing a basis of $\R^n$, the differential operators $\frac\partial{\partial x_i}$ are linearly independent global sections of $TM$. We will show that the map $(C^\infty_M)^n \to TM$ which sends $(f_1,\cdots,f_n)$ to the derivation $f_1\frac\partial{\partial x_1}+\cdots+f_n\frac\partial{\partial x_n}$ is an isomorphism of $C^\infty_M$-module sheaves. Let $X \in \Der(C^\infty_{\R^n})$ and $f \in C^\infty(\R^n)$. Then for any two points $x$, $p \in \R^n$ we have
+\begin{align*}
+f(x) = & f(p)+\int_0^1 \frac d {dt} f(tx+(1-t)p)\; dt = f(p) + \int_0^1 \sum_{i=1}^n\left.\frac{\partial f}{\partial x_i}\right|_{tx+(1-t)p} (x_i-p_i)\; dt \\
+= & f(p) + \sum_{i=1}^n (x_i-p_i) \int_0^1 \left.\frac{\partial f}{\partial x_i}\right|_{tx+(1-t)p}\; dt.
+\end{align*}
+
+Applying $X$ and evaluating at $p$ using the Leibniz rule, we get
 \[
-f(a) = f(0) + \int_0^1 \sum_{i=1}^n\left.\frac{\partial f}{\partial x_i}\right|_{ta} a_i\; dt
-\] 
+X(f)(p) = \sum_{i=1}^n X(x_i-p_i)(p) \left.\frac{\partial f}{\partial x_i}\right|_p.
+\]
+Since $X(x_i-p_i)(p) = g(p)$ is a real-valued continuous function of $p$, we have shown that $X(f)$ is a linear combination of $\frac{\partial f}{\partial x_i}$.
 \end{proof}
 
 \subsection{Normal bundles of embeddings}
