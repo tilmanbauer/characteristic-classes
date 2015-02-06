@@ -25,6 +25,7 @@
 \DeclareMathOperator{\Open}{Open}
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Pic}{Pic}
 
 \renewcommand{\C}{\mathcal C}
 \newcommand{\nerve}{\mathcal N}
@@ -408,10 +409,10 @@ Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such 
 \tilde g\colon k^{n_\alpha} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n_\beta} \times U_{\alpha\beta}.
 \]
 Note that $n_\alpha = n_\beta$ if $U_{\alpha\beta} \neq \emptyset$. Let us assume this. Then since $\tilde g$ is a map over $B$, we can write
-\[
+\begin{equation}\label{eq:cocycletobundlemap}
 \tilde g(x,u) = (g(u)(x),u)
-\]
-for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k^{n_\alpha})$.
+\end{equation}
+for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, given any map $g\colon U \to \GL_n(k)$, we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
 
 \begin{lemma}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$ for each pair $(\alpha,\beta)$ such that $U_{\alpha\beta} \neq \emptyset$. Then we have:
@@ -436,7 +437,7 @@ g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta
 
 
 \begin{defn}
-Let $\{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle for $\mathcal U$ with values in $\{G_n\}$} consists of continuous maps
+Let $\{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle $g$ for $\mathcal U$ with values in $\{G_n\}$} consists of a function
 \[
 n\colon I \to \N
 \]
@@ -450,10 +451,10 @@ such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $
 A particular kind of cocycle is always easy to construct: given an $n \colon I \to \N$ and a collection of maps $c_\alpha\colon U_\alpha \to G_{n_\alpha}$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally, we say that two cocycles $g$, $g'$ are \emph{cohomologous} if there is such a $c_\alpha$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$.
 
 
-The assignment of a cocycle $g_{\alpha\beta}$ to a vector bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
+The assignment of a cocycle $g$ to a vector bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
 
 \begin{prop}
-Let $p\colon E \to B$ and $p'\colon E' \to B$ two vector bundles. Let $\{U_\alpha\}_\alpha$ be a cover of $B$ that trivializes both $p$ and $p'$, and let $g_{\alpha\beta}$ and $g'_{\alpha\beta}$ be cocycles associated to $p$ and $p'$, respectively. Then $p \cong p'$ iff and only $g$ and $g'$ are cohomologous.
+Let $p\colon E \to B$ and $p'\colon E' \to B$ two vector bundles. Let $\{U_\alpha\}_\alpha$ be a cover of $B$ that trivializes both $p$ and $p'$, and let $g$ and $g'$ be cocycles associated to $p$ and $p'$, respectively. Then $p \cong p'$ iff and only $g$ and $g'$ are cohomologous.
 \end{prop}
 Note that one can always find a cover that trivializes both $p$ and $p'$, for instance, by taking all intersections of trivializing neighborhoods of $p$ with trivializing neighborhoods of $p'$.
 
@@ -462,34 +463,34 @@ We will show that ``if'' part first, so let us assume that
 \[
 g'_{\alpha\beta} = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in \map(U_{\alpha\beta},G_{n_\alpha})
 \]
-for some collection $c_\alpha\colon U_\alpha \to G_{n_\alpha}$. For $\alpha \in I$, define a map
+for some collection $c_\alpha\colon U_\alpha \to \GL_{n_\alpha}(k)$. For $\alpha \in I$, define a map
 \[
-E_{U_\alpha} \xrightarrow{f_\alpha} E'_{U_\alpha}, \quad f_\alpha = (\phi'_{\alpha})^{-1} \circ (c_\alpha \times \id_{U_\alpha}) \circ \phi_\alpha.
+f_\alpha\colon E_{U_\alpha} \xrightarrow{\phi_\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{\tilde c_\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{(\phi_\alpha')^{-1}} E'_{U_\alpha}.
 \]
 As a composition of three linear isomorphisms over $U_\alpha$, it is an isomorphism of vector bundles over $U_\alpha$. Furthermore, if $U_{\alpha\beta} \neq \emptyset$, we have that
+
 \begin{align*}
-f_\beta|_{U_{\alpha\beta}} \circ (f_\alpha|_{U_{\alpha\beta}})^{-1} =& (\phi'_\beta)^{-1} \circ (c_\beta \times \id) \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ (c_\alpha^{-1} \times \id) \circ \phi'_\alpha\\
-=& (\phi'_\beta)^{-1} \circ ((c_\beta g_{\alpha\beta}c_{\alpha}^{-1}) \times \id) \circ \phi'_\alpha\\
-= & (\phi'_\beta)^{-1} \circ (g'_{\alpha\beta} \times \id) \circ \phi'_\alpha = \id,
+f_\beta \circ f_\alpha^{-1} =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ \tilde c_\alpha^{-1} \circ \phi'_\alpha\\
+=& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1}) \circ \phi'_\alpha\\
+= & (\phi'_\beta)^{-1} \circ \tilde g_{\alpha\beta} \circ \phi'_\alpha = \id,
 \end{align*}
-where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of vector bundles
+where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of vector bundles
 \[
 f\colon E \to E', \quad f(x) = f_\alpha(x) \quad \text{if } x \in U_\alpha.
 \]
 
-Now assume that $f\colon E \to E'$ is an isomorphism of vector bundles. Define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by 
+Now assume that $f\colon E \to E'$ is an isomorphism of vector bundles. Define $c_\alpha\colon U_\alpha \to \GL_{n_\alpha}(k)$ by 
 \[
-c_\alpha \times \id_{U_\alpha} = \phi'_\alpha \circ f \circ \phi_\alpha^{-1}.
+\tilde c_\alpha = \phi'_\alpha \circ f \circ \phi_\alpha^{-1}.
 \]
 Then
-\begin{align*}
-c_\beta g_{\alpha\beta} c_\alpha^{-1} \times \id = & \phi'_\beta \circ f \circ \phi_\beta^{-1} \circ \phi_\beta \circ \phi_\alpha^{-1} \circ \phi_\alpha \circ f^{-1} \circ (\phi'_\alpha)^{-1}\\
- = & \phi'_\beta (\phi'_{\alpha})^{-1} = g'_{\alpha\beta},
-\end{align*}
+\[
+\tilde c_\beta \tilde g_{\alpha\beta} \tilde c_\alpha^{-1} = \phi'_\beta \circ f \circ \phi_\beta^{-1} \circ \phi_\beta \circ \phi_\alpha^{-1} \circ \phi_\alpha \circ f^{-1} \circ (\phi'_\alpha)^{-1} =  \phi'_\beta (\phi'_{\alpha})^{-1} = \tilde g'_{\alpha\beta},
+\]
 hence $g$ and $g'$ are cohomologous.
 \end{proof}
 
-Thus for a chosen trivializing cover, the cocycle of a vector bundle is unique up to homology. The following result gives the existence part of the characterization:
+Thus for a chosen trivializing cover, the cocycle of a vector bundle is unique up to cohomology. The following result gives the existence part of the characterization:
 
 \begin{prop}
 Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover on a space $B$ and $(n_\alpha,g_{\alpha\beta}) \in Z^1_{\mathcal U}(B,\{\GL_n(k)\})$. Then there is a vector bundle $p\colon E \to B$ and trivializations $\phi_\alpha\in \map_{U_\alpha}(E_{U_\alpha},k^{n_\alpha} \times U_{\alpha})$ whose associated cocycle is $(n,g)$.
@@ -517,6 +518,31 @@ since $g_{\alpha\beta}$ is linear. Thus $E$ is a $k$-vector space over $B$. Sinc
 \end{proof}
 
 We can thus define a vector bundle up to isomorphism by specifying a cocycle for some cover. However, maps of vector bundles cannot be described in this way, thus we cannot make a category out of the cocycle description for vector bundles. 
+
+\begin{example}[Real bundles on $\S^1$] \label{exa:bundlesons1}
+The circle $\S^1$ has an open cover $\mathcal U_\epsilon = \{U_+,U_-\}$, where $U_+ = \{e^{it} \mid -\pi/2-\epsilon < t < \pi/2+\epsilon\}$ and $U_- = \{e^{it} \mid \pi/2-\epsilon < t < 3\pi/2+\epsilon\}$. The intersection $U_{+,-}$ consists of two small circle segments centered at $i$ and $-i$.
+
+A real-valued cocycle with respect to this cover is given by a single $g\colon U_{+,-} \to \GL_n(\R)$. We want to be able to extend $g$ to the boundary of $U_{+,-}$, which might of course not be possibly if $\det(g(u)) \to 0$ as $u \to \partial U_{+,-}$. But we may restrict $g$ to the smaller cover $\mathcal U_{\frac12\epsilon} = \{V_+,V_-\}$ without changing the vector bundle. 
+Denote by $V_{\pm i}$ the component of $V_+ \cap V_-$ which contains $\pm i$.
+
+Two cocycles $g$, $g'$ are cohomologous if there are maps $c_\pm\colon V_\pm \to \GL_n(\R)$ such that $g'(x)=c_+(x)g(x)c_-(x)^{-1}$ for $x \in U_{+,-}$.
+
+The Lie group $GL_n(\R)$ consists of two connected components, corresponding to the sign of the determinant. We may, without loss of generality, assume that $\det g(x)>0$ for all $x \in V_i$; if not, we change $g$ cohomologously by choosing constant maps $c_+$ and $c_-$ of determinant $1$ and $-1$, respectively.
+
+Now choose $c_+\colon V_+ \to \GL_n(\R)$ such that $c_+|_{V_i} = g|_{V_i}^{-1}$ and $c_+|_{V_{-i}} =  \id$. This is possible by the connectedness of the space of matrices of positive determinant. Similarily, choose $c_-\colon V_- \to \GL_n(\R)$ such that $c_-|_{V_{-i}} = g|_{V_{-i}}$ and $c_-|_{V_{i}}$ either constant with value the identity matrix, or constant with value $I_- = \begin{pmatrix}-1\\&1\\&& \ddots\\&&&1\end{pmatrix}$, depending on the determinant of $g|_{V_{-i}}$. Then $g' = c_+gc_-^{-1}$ has the following properties:
+\begin{itemize}
+\item $g'$ is cohomologous to $g$;
+\item $g'(x) = \id$ for $x \in V_{-i}$;
+\item $g'(x) = \id$ or $g'(x) = I_-$ for $x \in V_{i}$.
+\end{itemize}
+The the $n$-dimensional vector bundle associated with $g$ is either the $n$-dimensional trivial bundle or the Möbius bundle plus an $(n-1)$-dimensional trivial bundle. (What it means to add vector bundles will be explained in more detail in Section~\ref{ssec:whitneysums}.)
+
+This does not quite lead to a classification of all real vector bundles over $\S^1$ since we only consider bundles which are trivial on half-circles.
+\end{example}
+
+\begin{exer} \label{exer:bundlesons1}
+Classify all vector bundles on $\S^1$ for arbitrary coverings by trivializing neighborhoods. Tip: use compactness of $\S^1$ to reduce to the case where the cover consists of finitely many overlapping circle intervals.
+\end{exer}
 
 \subsection{Cocycles as functors}
 
@@ -548,17 +574,17 @@ These morphisms have to satisfy the following axioms:
 \item[(Unitality)] $\mu(f,u \circ s) = f = \mu(u \circ t,f)$ for all $f \in \mor \C$;
 \end{description}
 
-A \emph{functor} $F$ between category objects $\C$ and $\D$ in $C$ consists of two functors
+A \emph{functor} $F$ between category objects $\C$ and $\D$ in $C$ consists of two morphisms in $C$,
 \[
-F_0\colon \ob \C \to \ob \D \quad \text{and} \quad F_1\colon \mor\C \to \mor \D
+F_0\colon \ob \C \to \ob \D \quad \text{and} \quad F_1\colon \mor\C \to \mor \D,
 \]
 that are compatible with the unit, source, target, and composition maps. (The reader may spend a minute to think about this compatibility in the case of contravariant functors.)
 
-A \emph{natural transformation} $\alpha\colon \C \to \D$ is a functor
+A \emph{natural transformation} $h\colon \C \to \D$ is a functor
 \[
-\alpha\colon \C \times [1] \to \D,
+h\colon \C \times [1] \to \D,
 \]
-where $[1]$ denotes the category with two objects $0$, $1$ and exactly one morphism $0 \to 1$ besides the identity morphisms. We say that the natural transformation goes from the functor $\alpha_0\colon \C \cong \C \times \{0\} \to \D$ to the functor $\alpha_1\colon \C \cong \C \times \{1\} \to \D$.
+where $[1]$ denotes the category with two objects $0$, $1$ and exactly one morphism $0 \to 1$ besides the identity morphisms. We say that the natural transformation goes from the functor $h_0\colon \C \cong \C \times \{0\} \to \D$ to the functor $h_1\colon \C \cong \C \times \{1\} \to \D$.
 
 We call a category object in topological spaces just a \emph{topological category}.
 \end{defn}
@@ -589,7 +615,7 @@ This is in fact a groupoid as well. We denote it by $\mathbf U$.
 \begin{prop} \label{prop:cocyclesasgroupoidmaps}
 Let $\mathcal U$ be an open cover of $X$ with associated groupoid $\mathbf U$, and $\mathcal G$ the groupoid associated to a sequence of Lie groups $\{G_n\}_{n \geq 0}$. Assume that every set in the open cover $\mathcal U$ is connected. Then the natural map
 \[
-\Fun(\mathbf U,\mathcal G) \to Z^1_{\mathcal U}(X,\mathcal G), \quad F \mapsto (n_\alpha,g_{\alpha\beta}) = (F_0|_{U_\alpha},F_1|_{U_{\alpha\beta}})
+\Fun(\mathbf U,\mathcal G) \to Z^1_{\mathcal U}(X,\mathcal G), \quad F \mapsto (n,g) \quad \text{where } n_\alpha = F_0|_{U_\alpha},\; g_{\alpha\beta} = F_1|_{U_{\alpha\beta}}
 \]
 is a bijection.
 
@@ -606,21 +632,21 @@ Using \ref{it:coc2}, this gives \ref{it:coc3}.
 
 Conversely, any cocycle defines a functor as described above.
 
-Now let $\alpha\colon \mathbf U \to \mathcal G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $(n_\alpha,g_{\alpha\beta})$ and $(n'_\alpha,g'_{\alpha\beta})$ are the cocycles associated to $F$ and $F'$, respectively. Since for $x \in U_\alpha$, $(x,0 \to 1)$ is a morphism in $\mathbf U \times [1]$, there must be a morphism between $n_\alpha$ and $n'_\alpha$ in $\mathcal G$, so $n_\alpha=n'_\alpha$ for all $\alpha$.
+Now let $h\colon \mathbf U \to \mathcal G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $(n,g)$ and $(n',g')$ are the cocycles associated to $F$ and $F'$, respectively. Since $(x,0 \to 1)$ is a morphism in $\mathbf U \times [1]$ for any $x \in U_\alpha$, there must be a morphism $h(x,0\to1)$ between $n_\alpha$ and $n'_\alpha$ in $\mathcal G$, so $n_\alpha=n'_\alpha$ for all $\alpha$.
 
-Now define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by $c_\alpha = \alpha|_{U_\alpha}$. We want to show that
+Now define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by $c_\alpha = h|_{U_\alpha}$. We want to show that
 \[
 g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in G_{n_\alpha} \quad \text{for all } \alpha,\beta \in I \text{ such that } U_{\alpha\beta} \neq \emptyset.
 \]
-This can be reformulated as $g'_{\alpha\beta}c_\alpha = c_\beta g_{\alpha\beta}$. This follows from the functoriality of $\alpha$ because the above identity is the image of the true identity
+This can be reformulated as $g'_{\alpha\beta}c_\alpha = c_\beta g_{\alpha\beta}$. This follows from the functoriality of $h$ because the above identity is the image under $h$ of the true identity
 \[
 (x \in U_{\alpha\beta},1 \to 1) \circ (x \in U_{\alpha\alpha},0 \to 1) = (x \in U_{\beta\beta},0\to 1) \circ (x \in U_{\alpha\beta},0 \to 0) \text{ in } \mathbf U \times [1].
 \]
 
-Conversely, if $(n,g)$ and $(n',g')$ are cohomologous by $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ then $\alpha(x \in U_\alpha,0) = \alpha(x \in U_\alpha,1) = n_\alpha=n'_\alpha$ defines the object part of a natural transformation. On morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $\alpha = \coprod_{\alpha} c_\alpha \colon \mathbf U \to \mathcal G$.
+Conversely, if $(n,g)$ and $(n',g')$ are cohomologous by $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ then $h(x \in U_\alpha,0) = h(x \in U_\alpha,1) = n_\alpha=n'_\alpha$ defines the object part of a natural transformation. On morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $h = \coprod_{\alpha} c_\alpha \colon \mathbf U \to \mathcal G$.
 \end{proof}
 
-We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarifying the terms “cocycle”, “coboundary”, and “homologous.”
+We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarifying the terms “cocycle”, “coboundary”, and “cohomologous.”
 
 \section{Operations on bundles}
 
@@ -668,7 +694,7 @@ is an isomorphism over $B$.
 \end{example}
 
 
-\subsection{Whitney sums}
+\subsection{Whitney sums} \label{ssec:whitneysums}
 
 The generalization of the direct sum $V \oplus W$ of $k$-vector spaces is the Whitney sum of vector bundles.
 
@@ -733,10 +759,86 @@ The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locall
 
 \subsection{Hom bundles}
 
+Let $M$ and $N$ be vector bundles over $B$ from the sheaf point of view. Define a new sheaf $\Hom(M,N)$ by
+\[
+\Hom(M,N)(U) = \Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U).
+\]
+This is a presheaf by restriction, and the gluing condition is clearly satisfied since $M$ and $N$ are sheaves. Moreover, $\Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U)$ is an $\mathcal O(U)$-module by the restriction map $\mathcal O(U) \to \mathcal O_U$ from the constant presheaf to $\mathcal O_U$. It remains to show local freeness. For this we may assume that $M = \mathcal O_B^n$ and $N = \mathcal O_B^m$ since $M$ and $N$ are locally free. But then
+\[
+\Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U) = \Hom_{\Mod_{\mathcal O_U}}(\mathcal O_U^m,\mathcal O_U^n) = \Hom_k(k^m,\mathcal O_U^n),
+\]
+which is free over $\mathcal O_U$ of dimension $mn$.
+
+Note that a global section of $\Hom(M,N)$ is precisely a morphism of vector bundles $M \to N$. Thus the Hom bundle is an internal homomorphism object in $\Vect(B)$.
+
+A particular case is the bundle
+\[
+M^* = \Hom(M,\mathcal O_B),
+\]
+called the dual vector bundle, whose fibers are the dual vector spaces of the fibers of $M$.
 
 \subsection{Tensor bundles}
 
+The previous constructions give a pattern to how one should define the tensor product $M \otimes N$ of two vector bundles. But instead of treating each such construction separately, we will now develop a general method of lifting functors from vector spaces to vector bundles.
+
+\begin{defn}
+An \emph{$(p,q)$-ary continuous functor of $k$-vector spaces} is a functor $F\colon (\Vect_k)^p \times (\Vect_k^\op)^q \to \Vect_k$ from $n$-tuples of finite-dimensional $k$-vector spaces to finite-dimensional $k$-vector spaces which is continuous in the sense that for $V_1,\dots,V_{p+q}, W_1,\dots,W_{p+q} \in \Vect_k$,
+\begin{align*}
+\Hom_k(V_1,W_1) \times \cdots \times \Hom_k(V_{p},W_{p}) \times \Hom_k(W_{p+1},V_{p+1}) \times \cdots \times \Hom_k(W_{p+q},V_{p+q}) \\
+\xrightarrow{F} \Hom_k(F(V_1,\dots,V_{p+q}),F(W_1,\dots,W_{p+q}))
+\end{align*}
+is continuous, where the sets $\Hom_k(V,W)$ carry the usual finite-dimensional vector space topology inherited from $k$.
+\end{defn} 
+
+\begin{prop}\label{prop:continuousfunctorlift}
+Given any $(p,q)$-ary continuous functor $F$ of $k$-vector spaces, there is an induced functor
+\[
+F\colon \Vect_k(B)^p \times (\Vect_k(B)^\op)^q \to \Vect_k(B)
+\]
+which restricts to $F$ on each fiber.
+\end{prop}
+\begin{proof}
+Let $E_1,\dots,E_{p+q}$ be vector bundles on $B$. Define
+\[
+F(E_1,\dots,E_{p+q}) = \coprod_{b \in B} F((E_1)_b,(E_2)_b,\dots,(E_{p+q})_b).
+\]
+Of course, we don't want the disjoint union topology on this space over $B$, but the construction is functorial and restricts to $F$ on each fiber.
+
+For the correct topology around $b \in B$, choose a trivializing neighborhood $U$ containing $b$ for all $E_i$ at once. (Since there are finitely many, this exists.) Let $\phi_i\colon E_i \to k^{n_i} \times U$ be trivializations for $E_i$. Let $\phi_{b,i}\colon k^{n_i} \to (E_i)_b$ be the restriction of $\phi_i$ to the fiber over $b$. Now define a bijection
+\[
+\Phi\colon F(k^{n_1},\dots,k^{n_{p+q}}) \times U \to F(E_1,\dots,E_{p+q})|_U
+\]
+by
+\[
+\Phi(y,b) = T(\phi_{b,1}^{-1},\dots,\phi_{b,p}^{-1},\phi_{b,p+1},\dots,\phi_{b,p+q})(y).
+\]
+We define a subset $V$ of $F(E_1,\dots,E_{p+q})|_U$ to be open iff $\Phi^{-1}(V)$ is open.
+
+To see that this does not lead to conflicting definitions of open sets on intersections $U \cap U'$, note that the map
+\[
+F(k^{n_1},\dots,k^{n_{p+q}}) \times (U \cap U') \xrightarrow{\Phi} F(E_1,\dots,E_{p+q})|_{U\cap U'} \xrightarrow{\Phi'} F(k^{n_1},\dots,k^{n_{p+q}})
+\]
+is continuous because it is $F$ applied to a product of (continuous) change-of-coordinate maps.
+\end{proof}
+
+We are now in a position to define the tensor product $E \otimes E'$ of two vector bundles by applying Proposition~\ref{prop:continuousfunctorlift} to the $(2,0)$-ary functor $- \otimes -$.
+
+\begin{lemma}
+For any line bundle $E$, $E \otimes E^* \cong k \times B$, the trivial bundle.
+\end{lemma}
+\begin{proof}
+The evaluation map $\operatorname{ev}\colon V \otimes V^* \xrightarrow{(v \otimes \phi) \mapsto \phi(v)}$ on vector spaces induces a map $E \otimes E^* \to k \times B$ of vector bundles. If $V$ is one-dimensional then $\operatorname{ev}$ is an isomorphism, thus so is the induced map on line bundles.
+\end{proof}
+
+It follows that the set of isomorphism classes of line bundles on a space $B$ form a group with unit $k \times B$, called the \emph{Picard group} $\Pic(B)$ of line bundles on $B$.
+
+\begin{example}
+By Example~\ref{exa:bundlesons1} and Exercise~\ref{exer:bundlesons1}, $\Pic(\S^1) \cong \Z/2\Z$, generated by the Möbius bundle.
+\end{example}
+
 \subsection{Symmetric and exterior products}
+
+
 
 \subsection{The determinant line bundle}
 
@@ -749,6 +851,8 @@ A topological space $M$ is called a (topological, real) manifold if it is Hausdo
 \end{defn}
 
 We now return to the point of view of Section~\ref{sec:bundlesassheaves}, where we thought of a vector bundle on a space $B$ as a locally finite-dimensional free sheaf of $\mathcal O_B$-modules.
+
+\subsection{Smooth manifolds}
 
 \begin{defn}
 A ring $R$ is called \emph{local} if it possesses a unique maximal ideal, which we will denote by $R_+$ in these notes. A \emph{morphism of local rings} is a ring morphism $f\colon R \to S$ such that $f(R_+) \subseteq S_+$.
@@ -765,6 +869,8 @@ A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if a
 
 A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of sheaves of local rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
 \end{defn}
+
+Note that a local sheaf of rings is not the same as a sheaf of local rings, i.~e. a sheaf $F$ of rings such that $F(U)$ is local for all $U \in \Open(X)$. This would preclude $C^0$ from being an example.
 
 In sheaf-theoretic terms, one could say that a manifold is a (second countable Hausdorff) space $M$ together with a sheaf of local $\R$-algebras $C^0$ such that the locally ringed space $(M,C^0)$ is locally isomorphic to $(\R^n,C^0$) for some $n$. That sounds like unwarranted complexity since the original definition just required $M$ to be locally homeomorphic with $\R^n$, without the need to refer to sheaves. Indeed, in this case the additional data of local isomorphisms
 \[
@@ -886,6 +992,14 @@ Applying $X$ and evaluating at $p$ using the Leibniz rule, we get
 X(f)(p) = \sum_{i=1}^n X(x_i-p_i)(p) \left.\frac{\partial f}{\partial x_i}\right|_p.
 \]
 Since $X(x_i-p_i)(p) = g(p)$ is a real-valued continuous function of $p$, we have shown that $X(f)$ is a linear combination of $\frac{\partial f}{\partial x_i}$.
+\end{proof}
+
+\begin{thm}
+For any smooth map $f\colon M \to N$ of smooth manifolds, there is an induced map $Tf\colon f_*TM \to TN \in \Vect(N)$ which is functorial in the sense that $T\id=\id$ and $T(f \circ g)=Tf \circ Tg$.
+\end{thm}
+\begin{proof}
+Given $D \in (f_*TM)(U) = \Der(C^\infty_{f^{-1}U})$ for $U \in \Open(N)$, define $Tf(D) \in \Der(C^\infty_U)$ by $Tf(D) = D \circ f$.
+
 \end{proof}
 
 \subsection{Normal bundles of embeddings}
@@ -1242,7 +1356,7 @@ in particular, by dividing out the $\Z/2$-action, $BO(1) \cong \R P^\infty$.
 .....Grassmannians using Schubert cells..........
 \end{proof}
 
-\section{Paracompactness}
+\section{Paracompactness}\label{sec:paracompactness}
 
 \begin{defn}
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that is contained in $U_\alpha$ for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
