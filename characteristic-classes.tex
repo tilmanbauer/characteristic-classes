@@ -912,7 +912,7 @@ The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local 
 \end{example}
 
 \begin{defn}
-A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$ are local rings, i.~e. rings possessing a unique maximal ideal, which we denote by $(F_x)_+$. A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
+A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$, for $x\in X$, are local rings, i.~e. rings possessing a unique maximal ideal, which we denote by $(F_x)_+$. A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
 
 A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of local sheaves of rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
 \end{defn}
@@ -927,7 +927,7 @@ just specifies an isomorphism of the sheaf $C^0_U$ with the sheaf of continuous 
 However, this suggests a viable definition of a smooth (or $C^k$-) manifold. Although the definition would make perfect sense, we will ignore $C^k$-manifolds and just consider smooth (=$C^\infty$-) manifolds. 
 
 \begin{defn}
-A \emph{smooth structure} on a space $M$ is a local sheaf $C^\infty$ of $\R$-algebras on $M$, called the \emph{structure sheaf}, such $(M,C^\infty)$ is locally isomorphic , as a locally ringed space, to $(\R^n,C^\infty)$ for some $n$. A \emph{smooth manifold} is a second-countable Hausdorff space together with a smooth structure.
+A \emph{smooth structure} on a space $M$ is a local sheaf of $\R$-algebras $C^\infty$ on $M$, called the \emph{structure sheaf}, such $(M,C^\infty)$ is locally isomorphic , as a locally ringed space, to $(\R^n,C^\infty)$ for some $n$. A \emph{smooth manifold} is a second-countable Hausdorff space together with a smooth structure.
 
 A smooth map $M \to N$ between smooth manifolds is a morphism of locally ringed spaces.
 \end{defn}
@@ -960,7 +960,7 @@ Every smooth manifold has a smooth atlas, and that atlas is unique up to equival
 \begin{proof}
 We begin by constructing a smooth atlas from a manifold $M$ with smooth structure $C^\infty$.
 
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be the set of all open subsets of $M$ over which there is an local isomorphism $\Phi_\alpha\colon C^\infty|_{U_\alpha} \to C^\infty_{\R^{n_\alpha}}$. By assumption, $\mathcal U$ is a cover of $M$. Underlying the morphism $\Phi_\alpha$ there is a homeomorphism $\phi_\alpha\colon U_\alpha \to \R^{n_\alpha}$, which gives $M$ the structure of a manifold. To see that the coordinate change functions $g_{\alpha\beta}$ of \eqref{eq:coordinatechange} are smooth, observe that they are covered by isomorphisms of local sheaves of rings
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be the set of all open subsets of $M$ over which there is an local isomorphism $\Phi_\alpha\colon C^\infty|_{U_\alpha} \to C^\infty_{\R^{n}}$. By assumption, $\mathcal U$ is a cover of $M$. Underlying the morphism $\Phi_\alpha$ there is a homeomorphism $\phi_\alpha\colon U_\alpha \to \R^{n}$, which gives $M$ the structure of a manifold. To see that the coordinate change functions $g_{\alpha\beta}$ of \eqref{eq:coordinatechange} are smooth, observe that they are covered by isomorphisms of local sheaves of rings
 \[
 \tilde g_{\alpha_\beta}\colon C^\infty_{\phi_\beta(U_{\alpha\beta})} \to (\phi_\beta)_* C^\infty|_{U_{\alpha\beta}} \to (\phi_\beta \circ \phi_\alpha^{-1})_*C^\infty_{\phi_\alpha(U_{\alpha\beta})},
 \]
@@ -968,19 +968,19 @@ which says that a function on $\phi_{\alpha}(U_{\alpha\beta})$ is smooth iff its
 
 Note that we have constructed what is called a ``maximal smooth atlas'': all possible smooth charts are already in $\mathcal U$.
 
-Conversely, let $(\{U_\alpha\},\phi_\alpha)_{\alpha \in I}$ be a maximal smooth atlas on $M$. Using the gluing condition, we define a local sheaf of rings on $M$ as follows: $C^\infty_{U_\alpha} = (\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}}$. For an intersection $U_{\alpha\beta}$, we must show that 
+Conversely, let $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ be a maximal smooth atlas on $M$. Using the gluing condition, we define a local sheaf of rings on $M$ as follows: $C^\infty_{U_\alpha} = (\phi_\alpha^{-1})_* C^\infty_{\R^{n}}$. For an intersection $U_{\alpha\beta}$, we must show that 
 \[
 C^\infty_{U_\alpha}|_{U_{\alpha\beta}} = C^\infty_{U_\beta}|_{U_{\alpha\beta}},
 \]
 that is,
 \[
-(\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}} = (\phi_\beta^{-1})_* C^\infty_{\R^{n_\beta}}
+(\phi_\alpha^{-1})_* C^\infty_{\phi_\alpha(U_{\alpha\beta})} = (\phi_\beta^{-1})_* C^\infty_{\phi_\beta(U_{\alpha\beta})}
 \]
-when suitably restricted to $U_{\alpha\beta}$. But this is the same as showing that
+but this is the same as showing that
 \[
-(\phi_\beta\phi_\alpha^{-1})_*C^\infty_{\R^{n_\alpha}} = C^\infty_{\R^{n_\beta}},
+(\phi_\beta\circ\phi_\alpha^{-1})_*C^\infty_{\phi_\alpha(U_{\alpha\beta})} = C^\infty_{\phi_\beta(U_{\alpha\beta})},
 \]
-which follows from the fact that $\phi_\beta\phi_\alpha^{-1}$ is smooth.
+which follows from the fact that $\phi_\beta\circ\phi_\alpha^{-1}$ is smooth.
 \end{proof}
 
 The main tool to produce smooth manifolds is the implicit function theorem from multi-variable calculus:
