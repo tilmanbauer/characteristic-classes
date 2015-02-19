@@ -181,7 +181,7 @@ gives $E$ the structure of a real vector space over $B$ (the scalar multiplicati
 
 According to the definition, an isomorphism of vector bundles is a map $f\in \map_B(E,E')$ of vector spaces over $B$ which has an inverse $g\in \map_B(E',E)$. The following characterization is less obvious than one might at first think:
 
-\begin{thm}
+\begin{thm} \label{thm:fiberwiseiso}
 A map $f\in \map_B(E,E')$ is an isomorphism of vector bundles iff $f|_{E_x}\colon E_x \to E'_x$ is an isomorphism on the fibers for every $x \in B$.
 \end{thm}
 \begin{proof}
@@ -914,12 +914,12 @@ The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local 
 \begin{defn}
 A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$ are local rings, i.~e. rings possessing a unique maximal ideal, which we denote by $(F_x)_+$. A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
 
-A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of sheaves of local rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
+A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of local sheaves of rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
 \end{defn}
 
 Note that a local sheaf of rings is not the same as a sheaf of local rings, i.~e. a sheaf $F$ of rings such that $F(U)$ is local for all $U \in \Open(X)$. This would preclude $C^0$ from being an example.
 
-In sheaf-theoretic terms, one could say that a manifold is a (second countable Hausdorff) space $M$ together with a sheaf of local $\R$-algebras $C^0$ such that the locally ringed space $(M,C^0)$ is locally isomorphic to $(\R^n,C^0$) for some $n$. That sounds like unwarranted complexity since the original definition just required $M$ to be locally homeomorphic with $\R^n$, without the need to refer to sheaves. Indeed, in this case the additional data of local isomorphisms
+In sheaf-theoretic terms, one could say that a manifold is a (second countable Hausdorff) space $M$ together with a local sheaf of $\R$-algebras $C^0$ such that the locally ringed space $(M,C^0)$ is locally isomorphic to $(\R^n,C^0$) for some $n$. That sounds like unwarranted complexity since the original definition just required $M$ to be locally homeomorphic with $\R^n$, without the need to refer to sheaves. Indeed, in this case the additional data of local isomorphisms
 \[
 \tilde f\colon C^0_{\R^n} \to f_*C^0_{U}
 \]
@@ -927,7 +927,7 @@ just specifies an isomorphism of the sheaf $C^0_U$ with the sheaf of continuous 
 However, this suggests a viable definition of a smooth (or $C^k$-) manifold. Although the definition would make perfect sense, we will ignore $C^k$-manifolds and just consider smooth (=$C^\infty$-) manifolds. 
 
 \begin{defn}
-A \emph{smooth structure} on a space $M$ is a sheaf $C^\infty$ of local $\R$-algebras on $M$, called the \emph{structure sheaf}, such $(M,C^\infty)$ is locally isomorphic , as a locally ringed space, to $(\R^n,C^\infty)$ for some $n$. A \emph{smooth manifold} is a second-countable Hausdorff space together with a smooth structure.
+A \emph{smooth structure} on a space $M$ is a local sheaf $C^\infty$ of $\R$-algebras on $M$, called the \emph{structure sheaf}, such $(M,C^\infty)$ is locally isomorphic , as a locally ringed space, to $(\R^n,C^\infty)$ for some $n$. A \emph{smooth manifold} is a second-countable Hausdorff space together with a smooth structure.
 
 A smooth map $M \to N$ between smooth manifolds is a morphism of locally ringed spaces.
 \end{defn}
@@ -960,7 +960,7 @@ Every smooth manifold has a smooth atlas, and that atlas is unique up to equival
 \begin{proof}
 We begin by constructing a smooth atlas from a manifold $M$ with smooth structure $C^\infty$.
 
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be the set of all open subsets of $M$ over which there is an local isomorphism $\Phi_\alpha\colon C^\infty|_{U_\alpha} \to C^\infty_{\R^{n_\alpha}}$. By assumption, $\mathcal U$ is a cover of $M$. Underlying the morphism $\Phi_\alpha$ there is a homeomorphism $\phi_\alpha\colon U_\alpha \to \R^{n_\alpha}$, which gives $M$ the structure of a manifold. To see that the coordinate change functions $g_{\alpha\beta}$ of \eqref{eq:coordinatechange} are smooth, observe that they are covered by isomorphisms of sheaves of local rings
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be the set of all open subsets of $M$ over which there is an local isomorphism $\Phi_\alpha\colon C^\infty|_{U_\alpha} \to C^\infty_{\R^{n_\alpha}}$. By assumption, $\mathcal U$ is a cover of $M$. Underlying the morphism $\Phi_\alpha$ there is a homeomorphism $\phi_\alpha\colon U_\alpha \to \R^{n_\alpha}$, which gives $M$ the structure of a manifold. To see that the coordinate change functions $g_{\alpha\beta}$ of \eqref{eq:coordinatechange} are smooth, observe that they are covered by isomorphisms of local sheaves of rings
 \[
 \tilde g_{\alpha_\beta}\colon C^\infty_{\phi_\beta(U_{\alpha\beta})} \to (\phi_\beta)_* C^\infty|_{U_{\alpha\beta}} \to (\phi_\beta \circ \phi_\alpha^{-1})_*C^\infty_{\phi_\alpha(U_{\alpha\beta})},
 \]
@@ -968,7 +968,7 @@ which says that a function on $\phi_{\alpha}(U_{\alpha\beta})$ is smooth iff its
 
 Note that we have constructed what is called a ``maximal smooth atlas'': all possible smooth charts are already in $\mathcal U$.
 
-Conversely, let $(\{U_\alpha\},\phi_\alpha)_{\alpha \in I}$ be a maximal smooth atlas on $M$. Using the gluing condition, we define a sheaf of local rings on $M$ as follows: $C^\infty_{U_\alpha} = (\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}}$. For an intersection $U_{\alpha\beta}$, we must show that 
+Conversely, let $(\{U_\alpha\},\phi_\alpha)_{\alpha \in I}$ be a maximal smooth atlas on $M$. Using the gluing condition, we define a local sheaf of rings on $M$ as follows: $C^\infty_{U_\alpha} = (\phi_\alpha^{-1})_* C^\infty_{\R^{n_\alpha}}$. For an intersection $U_{\alpha\beta}$, we must show that 
 \[
 C^\infty_{U_\alpha}|_{U_{\alpha\beta}} = C^\infty_{U_\beta}|_{U_{\alpha\beta}},
 \]
@@ -1177,7 +1177,7 @@ The vector bundle $\tau\colon E_n(k^N) \to G_n(k^N)$ is called the \emph{tautolo
 Let $M \subseteq \R^N$ be an $n$-dimensional smooth submanifold of $\R^N$ and $TM \to M$ its tangent bundle. Then there is a map $f\colon M \to G_n(\R^N)$ such that $TM \cong f^*\tau$.
 \end{thm}
 \begin{proof}
-The map $f$ is defined by $f(x) = T_xM \subseteq \R^N$, where $T_xM$ is the tangent space of $M$ at $x$, considered as a linear subspace of $\R^N$. [..............]
+The map $f$ is defined by $f(x) = T_xM \subseteq \R^N$, where $T_xM$ is the tangent space of $M$ at $x$, considered as a linear subspace of $\R^N$. We thus get a vector bundle map $TM \to f^*\tau$ over $M$ which is a fiberwise isomorphism, hence an isomorphism by Theorem~\ref{thm:fiberwiseiso}.
 \end{proof}
 
 \section{Simplicial spaces}
@@ -1279,13 +1279,19 @@ What information do we lose by passing from a topological category to its nerve?
 The nerve functor is full and faithful. 
 \end{prop}
 \begin{proof}
-
+We clearly have that $(\nerve\C)_0 = \ob\C$ and $(\nerve\C)_1 = \mor\C$. The unit maps are recovered as $s^0_0$, the source and target maps by $d^1_0$ and $d^1_1$. Finally, the composition map in $\C$ is the map $d^2_1\colon (\nerve_\C)_2 \to (\nerve\C)_1$ since $(\nerve_\C)_2 = \mor\C \times_{\ob\C} \mor\C$.
 \end{proof}
+
+Note that it is also easy to describe when a simplicial set $X$ is the nerve of a category: precisely when it is determined by its $1$-skeleton in the sense that
+\[
+X_n \xrightarrow{(p_1,\dots,p_n)} X_1^{\times_{X_0} n} = X_1 \times_{X_0} \cdots \times_{X_0} X_1
+\]
+is an isomorphism, where $p_i$ is the map induced by the cosimplicial map $[1] \to [n]$ with image $\{i-1,i\}$.
 
 In particular, Proposition~\ref{prop:cocyclesasgroupoidmaps} implies:
 
 \begin{corollary}
-Let $X$ be a space with an open cover $\mathcal U$ and $G$ a topological groupoid. Then there is a bijection between the set of cocycles for $\mathcal U$ with values in $G$ and the set of simplicial maps $\nerve \mathbf U \to \nerve G$. 
+Let $X$ be a space with an open cover $\mathcal U$ and $G$ a topological groupoid. Then there is a bijection between the set of cocycles for $\mathcal U$ with values in $G$ and the set of simplicial maps $\nerve \mathbf U \to \nerve G$. \qed
 \end{corollary}
 
 \subsection{Simplicial homotopy}
