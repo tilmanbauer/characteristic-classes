@@ -27,6 +27,7 @@
 \DeclareMathOperator{\Der}{Der}
 \DeclareMathOperator{\Pic}{Pic}
 \DeclareMathOperator{\chr}{char}
+\DeclareMathOperator{\SL}{SL}
 
 \renewcommand{\C}{\mathcal C}
 \newcommand{\nerve}{\mathcal N}
@@ -1046,7 +1047,26 @@ For any smooth map $f\colon M \to N$ of smooth manifolds, there is an induced ma
 \end{thm}
 \begin{proof}
 Given $D \in (f_*TM)(U) = \Der(C^\infty_{f^{-1}U})$ for $U \in \Open(N)$, define $Tf(D) \in \Der(C^\infty_U)$ by $Tf(D) = D \circ f$.
+\end{proof}
 
+The definition of the tangent bundle is quite abstract and it is maybe not immediately clear that this really carries tangential information. To see that it does, let us compare the tangent bundle with a more obvious construction when $M$ is embedded in $\R^N$.
+
+\begin{defn}
+Let $M \subseteq \R^N$ be a smooth submanifold. Define a vector bundle $T^gM \to M$ (the ``g'' stands for ``geometric'') by
+\[
+T^gM = \{(m,v) \in \R^N \times M \mid v = \gamma'(0) \text{ for some smooth curve }\gamma\colon (-1,1) \to M \text{ with } \gamma(0)=m\}.
+\]
+\end{defn}
+This is obviously a vector space over $M$. That it is a vector bundle follows in particular from the proposition that follows. We define a map
+\[
+\Phi\colon \Gamma_{T^gM}(U) \to TM(U)
+\]
+by $\Phi(s)(f)(x) = D_{s(x)}f$ for $s\colon U \to T^gM|_U$, $f \in C^\infty_U(V)$, $V \subseteq U$ open, and $x \in V$. Here $D_v$ denotes the directional derivative in the direction $v \in \R^N$.
+
+\begin{prop}
+The map $\Phi$ is an isomorphism of vector bundles.
+\end{prop}
+\begin{proof}
 \end{proof}
 
 \subsection{Normal bundles of embeddings}
@@ -1055,8 +1075,40 @@ Given $D \in (f_*TM)(U) = \Der(C^\infty_{f^{-1}U})$ for $U \in \Open(N)$, define
 
 \section{Bundles with more structure}
 
-smooth, Euclidean, orientable
+When $M$ is a smooth manifolds, it is natural to consider vector bundles that are compatible with this smooth structure, as is modelled by the tangent bundle. To be more precise, we define
 
+\begin{defn}
+A \emph{smooth vector bundle} on a smooth manifold $M$ is a locally finitely generated free $C^\infty_M$-module sheaf.
+\end{defn}
+
+The forgetful map of local sheaves of rings $u\colon C^\infty_M \to C^0_M$ allows us to construct an ordinary (continuous) vector bundle $E'$ from a smooth vector bundle $E$ by tensoring down:
+\[
+E' = E \otimes_{C^\infty_M} C^0_M.
+\]
+
+We can also interpret this definition in terms of vector spaces over $M$. A \emph{smooth atlas} for a (ordinary, continuous) vector bundle $E \to M$ is a collection of local trivializations $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the change-of-coordinate functions
+\[
+g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_n(k)
+\]
+are smooth. A smooth vector bundle is a continuous vector bundle together with an equivalence class of smooth atlases much analogously to the definition of a smooth structure on a manifold.
+
+The characterization of additional structure by change-of-coordinate functions is a powerful tool and lets us, among other things, make the following definitions:
+
+\begin{defn}
+An \emph{orientation} on a vector bundle is a choice of equivalence class of atlases whose transition functions take values in $\SL_n(k) < \GL_n(k)$.
+\end{defn}
+
+
+\begin{defn}
+A \emph{Euclidean structure} on a real vector bundle is a choice of equivalence class of atlases whose transition functions take values in $O(n) < \GL_n(\R)$. A \emph{Hermitian structure} on a complex vector bundle is an equivalence class of atlases whose transition functions take values in $U(n) < \GL_n(\C)$.
+\end{defn}
+
+\begin{thm}
+Any real vector bundle can be given a Euclidean structure.
+\end{thm}
+\begin{proof}
+...............
+\end{proof}
 
 \chapter{Lie groups, Grassmannians, and universal bundles}
 
@@ -1337,16 +1389,13 @@ The geometric realization is functorial, i.~e. a map of simplicial spaces induce
 \end{lemma}
 
 The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and $k$-products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the $k$-product coincides with the usual product. 
-\begin{thm} \label{thm:geomrealizationandproduct}
+\begin{thm}[{\cite[Theorem 11.5]{may:72}}] \label{thm:geomrealizationandproduct}
 The geometric realization commutes with products in the category of Kelley spaces. In other words,
 \[
 | X \times Y | \cong |X| \times_k |Y|,
 \]
 where $\times_k$ denotes the Kelley product.
 \end{thm}
-\begin{proof}
-\cite{.....}
-\end{proof}
 
 \begin{defn}
 The geometric realization of the nerve of a topological group or category $G$ is called the \emph{classifying space} of $G$ and is denoted by
@@ -1830,16 +1879,16 @@ H^0(M;\Omega^n(M;E))
 
 % This is the definition we should work with. If it is correct. I think it is, but verify.
 \begin{defn}
-Let $E$ be a smooth $k$-vector bundle on a smooth manifold $M$, considered as a sheaf of locally free $C^\infty_M$-modules. A \emph{connection} on $E$ is a map of $C^\infty_M$-module sheaves
+Let $E$ be a smooth $k$-vector bundle on a smooth manifold $M$, considered as a sheaf of locally free $C^\infty_M$-modules. A \emph{connection} on $E$ is a map of sheaves
 \[
-\nabla\colon E \to \Omega^1_M \otimes E
+\nabla\colon E \to \Omega^1_M \otimes_\R E
 \]
 which satisfies the following Leibniz rule for $f \in C^\infty_M(U)$, $s \in E(U)$:
 \[
 \nabla(fs) = df \otimes s + f \nabla(s) \in \Omega^1_M(U) \otimes E(U).
 \]
 \end{defn}
-Note that $\nabla$ is \emph{not} a map of vector bundles: it is not required to be a map of \emph{local} $C^\infty_M$-module sheaves. That is, $\nabla$ is not determined by its values on fibers alone, much as the derivative of a function at a point $x$ is not determined by the value $f(x)$ alone.
+Note that $\nabla$ is \emph{not} a map of vector bundles: the target is not a vector bundle as we're tensoring over $\R$, not over $C^\infty$.
 
 % Particular case where $E = TM$: covariant derivative
 % Interpretation in local coordinates, Christoffel symbols etc. ONLY IF NECESSARY
