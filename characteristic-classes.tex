@@ -1801,11 +1801,139 @@ H^0(M;\Omega^n(M;E))
 
 \chapter{Chern-Weil theory}
 
+% References for this chapter:
+% * Milnor-Stasheff, Characteristic Classes, Appendix C
+% * any book on riemannian geometry
+% * Madsen-Tornehave: From Calculus to Cohomology
+%
+% Try to keep the discussion in sheaf-theoretic terms as much as possible.
+%
+
+%%%%%%%
+
+% Introduction -- motivate by Gauss-Bonnet theorem in dimension 2
+% https://en.wikipedia.org/wiki/Gauss–Bonnet_theorem
+% Does curvature tell us something else about characteristic classes of the tangent bundle?
+% What about more general bundles? (You might skip connections and curvature of bundles
+% which are not the tangent bundle completely, that might be material for a later section.
+% Or treat it in full generality right away.)
+
+
 \section{Riemannian manifolds}
+
+% Check section 2.6 if you need to say more about the definition of Riemannian manifolds.
+
 \section{Connections}
+
+% Introduction -- a connection is a way to differentiate vector fields and get a new vector field
+% add geometric intuition if possible / parallel transport
+
+% This is the definition we should work with. If it is correct. I think it is, but verify.
+\begin{defn}
+Let $E$ be a smooth $k$-vector bundle on a smooth manifold $M$, considered as a sheaf of locally free $C^\infty_M$-modules. A \emph{connection} on $E$ is a map of $C^\infty_M$-module sheaves
+\[
+\nabla\colon E \to \Omega^1_M \otimes E
+\]
+which satisfies the following Leibniz rule for $f \in C^\infty_M(U)$, $s \in E(U)$:
+\[
+\nabla(fs) = df \otimes s + f \nabla(s) \in \Omega^1_M(U) \otimes E(U).
+\]
+\end{defn}
+Note that $\nabla$ is \emph{not} a map of vector bundles: it is not required to be a map of \emph{local} $C^\infty_M$-module sheaves. That is, $\nabla$ is not determined by its values on fibers alone, much as the derivative of a function at a point $x$ is not determined by the value $f(x)$ alone.
+
+% Particular case where $E = TM$: covariant derivative
+% Interpretation in local coordinates, Christoffel symbols etc. ONLY IF NECESSARY
+
+\begin{defn}
+A connection $\nabla$ on $\Omega^1_M = (TM)^*$ is called \emph{torsion-free} if the following diagram of $C^\infty_M$-module sheaves commutes:
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=10ex,row sep=6ex]
+	{
+		 \Omega^1_M & \Omega^1_M \otimes \Omega^1_M\\
+		& \Omega^2_M\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$\nabla$} 	(m-1-2)
+			edge node[auto,swap]{$d$}		(m-2-2)
+	(m-1-2)	edge node[auto]{$\wedge$}		(m-2-2);
+\end{tikzpicture}
+\]
+\end{defn}
+
+\begin{defn}
+Let $M$ be a smooth manifold and $E$ a smooth vector bundle with metric $\langle,\rangle$. A connection on $E$ is called \emph{compatible with $\langle,\rangle$} if the following diagram of $C^\infty_M$-module sheaves commutes:
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=10ex,row sep=6ex]
+	{
+		E \otimes E & C^\infty_M\\
+		\Omega^1_M \otimes E \otimes E & \Omega^1_M\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$\langle,\rangle$} 	(m-1-2)
+			edge node[auto,swap]{$\nabla \otimes \id + \id \otimes \nabla$}		(m-2-1)
+	(m-1-2)	edge node[auto]{$d$}		(m-2-2)
+	(m-2-1) edge node[auto]{$\id \otimes \langle,\rangle$}	(m-2-2);
+\end{tikzpicture}
+\]
+A connection on $TM$ compatible with a Riemannian metric is called a \emph{Riemannian connection}.
+\end{defn}
+
+% Compare connections on E and on the E^* in the presence of a Riemannian metric. So it makes sense to talk about a connection on TM being torsion-free. Define a Levi-Civita connection to be a torsion-free Riemannian connection.
+
+\begin{thm}
+On every Riemannian manifold, there exists exactly one Levi-Civita connection.
+\end{thm}
+
+% proof.
+
+% Examples
+
+
 \section{Curvature}
 
+% Construction of a connection on $\Omega^1_M \otimes E$ from a connection on $E$ satisfying a Leibniz rule (Milnor-Stasheff Lemma 4)
+% This gives a sequence
+% E \to \Omega^1_M \otimes E \to \Omega^1_M \otimes \Omega^1 \otimes E \to \cdots.
+%
+% This actually factors as
+% E \to \Omega^1 M \otimes E \to \Omega^2_M \otimes E \to \Omega^3_M \otimes E \to \cdots.
+% Call all the maps \nabla.
+%
+% This is not in general a chain complex. Curvature = \nabla^2.
+%
+\begin{lemma}
+The morphism $\nabla^2\colon E \to \Omega^2_M \otimes E$ is a map of vector bundles.
+\end{lemma}
+% That means it's a map of *local* sheaves of $C^\infty_M$-algebras.
+
+% Subsection on flat vector bundles. Two points of view: curvature zero or classified by locally
+% constant maps into BO / BU. We can skip that. Might be a "*"-section.
+
+% Examples. spheres and projective spaces with positive curvature. Surfaces of genus > 1 with negative curvature, flat torus, maybe non-flat tori (as embedded in R^3).
+
+\section{Characteristic classes from curvature}
+
+% Maybe we'll only consider the real or the complex case here. For the complex case, everything has to be complexified.
+
+% Construction of characteristic classes from application of an invariant polynomial p to the curvature tensor K. Show that the image is always a closed form and independent of the connection (and hence the curvature).
+% Characterization of invariant polynomials and identification with Chern classes (complex case) or Pontryagin classes (real case)
+
+
+
 \section{The genereralized Gauß-Bonnet theorem}
+
+% Definition of the Pfaffian
+
+\begin{thm}
+Let $E$ be an oriented $n$-dimensional real vector bundle, where $n$ is even. Choose a Euclidean metric on $E$ and a compatible connection, and let $K\colon E \to \Omega^2_M \otimes E$ denote the corresponding curvature tensor. Then
+\[
+\operatorname{Pf}(K) = e(E).
+\]
+\end{thm}
+
+% Examples, reduction to 2D case
 
 \chapter{Characteristic classes in algebraic geometry}
 \section{Varieties and algebraic vector bundles}
