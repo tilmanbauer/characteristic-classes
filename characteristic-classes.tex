@@ -1007,7 +1007,7 @@ A related question is whether a manifold can have nonisomorphic smooth structure
 The sheaf-theoretic definition of a smooth manifold $M$ allows for a concise construction of the tangent bundle.
 
 \begin{defn}
-Let $A$ be a $k$-algebra. A \emph{derivation} on $A$ is a $k$-linear function $D\colon A \to A$ such that $D(ab) = D(a)b+D(b)a$ (the so-called \emph{Leibniz rule}). Denote the set of derivations on $A$ be $\Der(A)$; this is an $k$-vector space.
+Let $A$ be a $k$-algebra. A \emph{derivation} on $A$ is a $k$-linear function $D\colon A \to A$ such that $D(ab) = D(a)b+D(b)a$ (the so-called \emph{Leibniz rule}). Denote the set of derivations on $A$ be $\Der(A)$; this is an $A$-module.
 \end{defn}
 
 Note that $D(1)=0$ since $D(1) = D(1\cdot 1)=2D(1)$.
@@ -1025,7 +1025,7 @@ TM(U) = \Der(C^{\infty}_U).
 \]
 \end{defn}
 
-\begin{thm}
+\begin{thm} \label{thm:tangentspacebundle}
 For an $n$-dimensional manifold $M$, $TM$ is an $n$-dimensional real vector bundle.
 \end{thm}
 \begin{proof}
@@ -1054,10 +1054,16 @@ The definition of the tangent bundle is quite abstract and it is maybe not immed
 \begin{defn}
 Let $M \subseteq \R^N$ be a smooth submanifold. Define a vector bundle $T^gM \to M$ (the ``g'' stands for ``geometric'') by
 \[
-T^gM = \{(m,v) \in \R^N \times M \mid v = \gamma'(0) \text{ for some smooth curve }\gamma\colon (-1,1) \to M \text{ with } \gamma(0)=m\}.
+T^gM = \{(m,v) \in M \times \R^N \mid v = \gamma'(0) \text{ for some smooth curve }\gamma\colon (-1,1) \to M \text{ with } \gamma(0)=m\}.
 \]
 \end{defn}
-This is obviously a vector space over $M$. That it is a vector bundle follows in particular from the proposition that follows. We define a map
+This is obviously a vector space over $M$. Let $n = \dim M$. To verify local triviality, let $x \in M$ and $p\colon \R^N \to V$ be a projection onto an $n$-dimensional subspace $V$ of $\R^N$ such that $p(x)=0$ and $p$ is a chart in a neighborhood $U$ of $x$ in $M$. Now define
+\[
+\tilde p\colon T^gM|_U \to V \times V; \quad \tilde p(m,v) = (p(m),p(v)).
+\]
+This is an isomorphism of vector bundles covering the map $p$ and therefore gives a local trivialization.
+
+We now define a map
 \[
 \Phi\colon \Gamma_{T^gM}(U) \to TM(U)
 \]
@@ -1067,11 +1073,41 @@ by $\Phi(s)(f)(x) = D_{s(x)}f$ for $s\colon U \to T^gM|_U$, $f \in C^\infty_U(V)
 The map $\Phi$ is an isomorphism of vector bundles.
 \end{prop}
 \begin{proof}
+It is clear that $\Phi$ is a map of vector spaces over $B$. Since isomorphism can be tested locally, we may assume that $M \cong \R^n \subseteq \R^N$ is the standard embedding.
+It suffices to show that $\Phi$ is an isomorphism on the fibers by Theorem~\ref{thm:fiberwiseiso}. Without loss of generality we will consider the fiber over $0 \in \R^n$. But then
+\[
+\Phi_x\colon \{ \gamma'(0) \mid \gamma\colon (-1,1) \to \R^n, \gamma(0)=0\} = \R^n \to \Der(C^\infty_{\R^n})_0
+\]
+is an isomorphism by the proof of Theorem~\ref{thm:tangentspacebundle}.
 \end{proof}
 
 \subsection{Normal bundles of embeddings}
 
 \subsection{The cotangent bundle and differential forms}
+
+Let $M$ be a smooth manifold. Then the cotangent bundle $T^*M$ is the linear dual of the tangent bundle of $M$, that is, $T^*M = \Hom_M(TM,\R \times M)$.
+
+A section of $T^*M$ can be considered a differential $1$-form $\omega$. There is a canonical derivation
+\[
+d\colon C^\infty_M \to T^*M 
+\]
+given by $d(f)(D) = D(f)$. Locally, any section of $T^*M$ is a $C^\infty$-linear combination of $df$.
+
+The vector space of differential $i$-forms is the $i$th exterior power of $T^*M$:
+\[
+\Omega^i(M) = \bigwedge^i T^*M.
+\]
+We define $\Omega^0(M) = C^\infty_M$.
+
+We can extend the derivation $d$ to a chain complex of vector bundles, the \emph{de Rham complex} of $M$,
+\[
+\Omega^0(M) \xrightarrow{d} \Omega^1(M) \xrightarrow{d} \cdots \xrightarrow{d} \Omega^n(M) \to 0
+\]
+by inductively defining
+\[
+d(\omega \wedge \tau) = d(\omega) \wedge \tau + (-1)^{p} \omega \wedge d(\tau)
+\]
+where $\omega \in \Omega^p(M)$ and $\tau \in \Omega^q(M)$, and decreeing that $d^2=0$.
 
 \section{Bundles with more structure}
 
