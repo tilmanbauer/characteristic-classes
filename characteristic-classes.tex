@@ -548,7 +548,7 @@ This does not quite lead to a classification of all real vector bundles over $\S
 Classify all vector bundles on $\S^1$ for arbitrary coverings by trivializing neighborhoods. Tip: use compactness of $\S^1$ to reduce to the case where the cover consists of finitely many overlapping circle intervals.
 \end{exer}
 
-\subsection{Cocycles as functors}
+\subsection{Cocycles as functors} \label{subsec:cocyclesasfunctors}
 
 It is useful both conceptually and for what comes later to phrase the definition of a cocycle in the context of \emph{topological categories}. A topological category, or more precisely, a small category object in topological spaces, is an ordinary category where the objects form a set (rather than a proper class) and where both objects and morphism sets carry a topology such that all the structure maps are continuous. We make this more precise in the following definition.
 
@@ -1356,14 +1356,13 @@ We will look at the differences between these two nerve constructions more close
 \[
 \mathbf U \times_X \mathbf U \overset{s}{\underset{t}{\rightrightarrows}} \mathbf U \to X.
 \]
-
 whereas we cannot, in general, recover $X$ from the small nerve, as the example of the trivial cover $\mathcal U = \{X\}$ shows. The small nerve keeps track of which intersections of sets of the open cover are empty and which aren't, not more. We might guess that if all opens in the cover, along with all their finite nonempty intersections, are contractible, we might recover $X$ up to homotopy. We will show in the next section that this is the case.\ref{where?}
 
 We remark in passing that the nerve construction is functorial: a functor $F\colon \C \to \D$ between topological categories induces a simplicial map $\nerve F\colon \nerve\C \to \nerve\D$ in the obvious way. 
 
 What information do we lose by passing from a topological category to its nerve? The answer is nothing; a topological category can be considered as a special kind of simplicial space:
 
-\begin{prop}
+\begin{prop}\label{prop:nervefullyfaithful}
 The nerve functor is full and faithful. 
 \end{prop}
 \begin{proof}
@@ -1398,8 +1397,10 @@ where we think of the cartesian product of an object $Z$ of $C$ with a set $I$ a
 A \emph{simplicial homotopy} between two simplicial maps $f$, $g\colon X \to Y$ is a simplicial map $h\colon X \times [1] \to Y$ such that $h|_{X \times \{0\}} = f$ and $h|_{X \times \{1\}} = g$
 \end{defn}
 
+The following proposition follows from the definition of natural transformations of functors of topological categories (Section~\ref{subsec:cocyclesasfunctors}) and Proposition~\ref{prop:nervefullyfaithful}.
+
 \begin{prop}
-Let $F$, $G\colon C \to D$ be functors of topological categories. Then the nerve functor gives a homeomorphism between the space of natural transformations from $F$ to $G$ and the space of simplicial homotopies from $\nerve F$ to $\nerve G$.
+Let $F$, $G\colon C \to D$ be functors of topological categories. Then the nerve functor gives a homeomorphism between the space of natural transformations from $F$ to $G$ and the space of simplicial homotopies from $\nerve F$ to $\nerve G$. \qed
 \end{prop}
 
 \subsection{Geometric realization}
@@ -1423,6 +1424,16 @@ It is clear from the definition that geometric realization is a functor:
 \begin{lemma}
 The geometric realization is functorial, i.~e. a map of simplicial spaces induces a map between their geometric realizations. \qed
 \end{lemma}
+
+The geometric realization $|X|$ can be given a somewhat smaller presentation by only considering \emph{nondegenerate} simplices, i.~e. elements $x \in X_n$ which are not in the image of $s_i$ for any $0 \leq i \leq n$, or equivalently, which are not of the form $f^*(y)$ for some $y \in X_m$ and a non-injective map $f\colon [n] \to [m]$. The collection $X^{\operatorname{nd}}_n \subseteq X_n$ of nondegenerate simplices forms a ``semi-simplicial\footnote{Historically, e.~g. in \cite{milnor:57}, the term ``semisimplicial set'' was used for what we nowadays call a simplicial set, freeing up the term ``semisimplicial'' for a new use.}'' or ``facial'' set, i.~e. a functor from the subcategory $\Lambda$ of $\Delta$ with the same objects but only injective maps as morphisms. We then have a coequalizer diagram
+\begin{equation}\label{eq:realizationwithnondegenerates}
+\coprod_{f\colon [m] \hookrightarrow [n]} X^{\operatorname{nd}}_n \times \Delta^m \rightrightarrows \coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \Delta^n \to |X|.
+\end{equation}
+Moreover, every point in $|X|$ is represented by a unique pair $(x,t) \in X^{\operatorname{nd}}_n \times \mathring\Delta^n$, where $\mathring\Delta^n$ denotes the interior of $\Delta^n$. That is, the map
+\[
+\coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \mathring \Delta^n \to |X|
+\]
+is continuous and bijective (but clearly not a homeomorphism). Details can be found in \cite{milnor:57}.
 
 The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and $k$-products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the $k$-product coincides with the usual product. 
 \begin{thm}[{\cite[Theorem 11.5]{may:72}}] \label{thm:geomrealizationandproduct}
@@ -1570,7 +1581,8 @@ Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. 
 A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$.
 \end{defn}
 
-The following is a standard fact of point-set topology \cite{...}:
+The following is a standard fact of point-set topology (cf. for example \cite[Chapter I.12]{bredon:topology-geometry}):
+
 \begin{prop}
 A space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
 \end{prop}
@@ -1620,7 +1632,19 @@ For any $y \in U_{J'}$, we have that $r(y) \in U_{J'} \times \Delta^m$ and
  \]
 since $i^*x = x$, considered as an element of the intersection $U_J$ rather than $U_{J'}$. This shows that $r$ is continuous.
 
-Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x,t_0,\dots,d_n)$ to $x$, we have that $p \circ r = \id_X$, but the converse composition $r \circ p$ depends on the chosen partition of unity and in particular is not usually the identity. ................
+Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x,t_0,\dots,d_n)$ to $x$, we have that $p \circ r = \id_X$, but the converse composition $r \circ p$ depends on the chosen partition of unity and in particular is not usually the identity. We want to produce a homotopy of this map,
+\[
+|\nerve \mathbf U| \to X \to |\nerve \mathbf U|; \quad (x,t_0,\dots,t_n) \mapsto x \mapsto (x,f_{\alpha_0}(x),\dots,f_{\alpha_m}(x))
+\]
+with the identity map on $|\nerve\mathbf U|$. Note that $x \in \mathbf U_n$ lies in the interior of a nondegenerate simplex if and only if $n=m$, which we may assume by \eqref{eq:realizationwithnondegenerates}. We now define a linear homotopy
+\[
+h\colon [0,1] \times |\nerve \mathbf U| \to |\nerve \mathbf U|
+\]
+from $r\circ p$ to the identity by
+\[
+h(s,[x,t_0,\dots,t_m]) = [x,st_0+(1-s)f_{\alpha_0}(x),\dots,st_m+(1-s)f_{\alpha_m}(x)].
+\]
+\marginpar{Show that the homotopy is continuous.}
 
 Conversely, assume that $p\colon |\nerve \mathbf U| \to X$ has a section $r$, i.~e. a right inverse. Define $f_\alpha\colon X \to [0,1]$ as follows:
 \[
