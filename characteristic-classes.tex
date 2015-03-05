@@ -1332,15 +1332,21 @@ Show that for a topological group $G$, $\nerve(G)$ is isomorphic to the nerve of
 \end{exer}
 
 \begin{example}
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$, and let $\mathbf U = \coprod_{\alpha \in I} U_\alpha$. Define the map $p\colon \mathbf U \to X$ to be the standard inclusion on every summand, so that in total, $p$ is an open surjective map.
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$, and let $\mathbf U = \coprod_{\alpha \in I} U_\alpha$. We denote the element $x \in U_\alpha \subseteq \mathbf U$ by $x^{\alpha}$ to make explicit in which disjoint summand $x$ lies. Define the map $p\colon \mathbf U \to X$ to be the standard inclusion on every summand, so that in total, $p$ is an open surjective map.
 The pair $(\mathbf U,\mathbf U \times_X \mathbf U)$ becomes a topological category if we define
 \begin{itemize}
-\item $u\colon \mathbf U \to \mathbf U \times_X \mathbf U$ by $u(x) = (x,x)$;
-\item $s(x,y) = x$ and $t(x,y) = y$;
-\item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x,y,z) \mapsto (x,z)$.
+\item $u\colon \mathbf U \to \mathbf U \times_X \mathbf U$ by $u(x^\alpha) = (x^\alpha,x^\alpha)$;
+\item $s(x^\alpha,y^\beta) = x^\alpha$ and $t(x^\alpha,y^\beta) = y^\beta$;
+\item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x^\alpha,y^\beta,z^\gamma) \mapsto (x^\alpha,z^\gamma)$.
 \end{itemize}
 The $\nerve(\mathbf U,\mathbf U \times_X \mathbf U)$ is called the \emph{big nerve} of the covering $\mathcal U$, and we denote it by $\nerve\mathbf U$.
 \end{example}
+
+Note that
+\[
+\nerve_n\mathbf U = \mathbf U \times_X \cdots \times_X \mathbf U = \coprod_{\alpha_0,\dots,\alpha_n \in I} U_{\alpha_0\cdots\alpha_n};
+\]
+we will denote an element in $\nerve_n\mathbf U$ by $x^{\alpha_0\cdots\alpha_n}$.
 
 \begin{example}
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
@@ -1348,9 +1354,8 @@ Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before
 
 There is a simplicial map from $\nerve\mathbf U$ to $\nerve b(\mathcal U)$ given by
 \[
-\nerve_n\mathbf U \to \nerve_nb(\mathcal U); \quad (x_1,\dots,x_n) \mapsto \{p(x_1),\dots,p(x_n)\},
+\nerve_n\mathbf U \to \nerve_nb(\mathcal U); \quad x^{\alpha_0\cdots\alpha_n} \mapsto \{\alpha_0,\dots,\alpha_n\}.
 \]
-where $p\colon \coprod_{\alpha \in I} U_\alpha \to I$ is the map that sends an element to the index of the summand it's contained in. 
 
 We will look at the differences between these two nerve constructions more closely later on, but we observe right now that we can recover the space $X$ from the big nerve $\nerve\mathbf U$ as the coequalizer
 \[
@@ -1597,13 +1602,13 @@ Let $\{V_\beta\}_{\beta \in J}$ be a refinement of an open cover $\{U_\alpha\}_{
 In particular, the map $|\rho_*|\colon |\nerve\mathbf V| \to |\nerve \mathbf U|$ is independent of $\rho$ up to homotopy.
 \end{prop}
 \begin{proof}
-We construct map over $X$,
+Let $H$ be the map over $X$ defined by
 \[
-H\colon \mathbf V \to \mathbf U \times_X \mathbf U; \quad (x,\beta) \mapsto ((x,\rho_1(\beta)),(x,\rho_2(\beta))).
+H\colon \mathbf V \to \mathbf U \times_X \mathbf U; \quad x^\beta \mapsto x^{\rho_1(\beta),\rho_2(\beta)}.
 \]
 We use this map to define a natural transformation $h\colon (\mathbf V,\mathbf V \times_X \mathbf V) \times [1] \to (\mathbf U,\mathbf U \times_X \mathbf U)$ between $\rho_1$ and $\rho_2$. We define
 \[
-h(-,0) = \rho_1, \quad h(-,1) = \rho_2, \quad h((x,\beta),0 \to 1) = H(x,\beta).
+h(-,0) = \rho_1, \quad h(-,1) = \rho_2, \quad h(x^\beta,0 \to 1) = H(x^\beta).
 \]
 It is the straightforward to veryfiy that $h$ is a functor. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
 \end{proof}
@@ -1615,44 +1620,66 @@ If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find t
 for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there only is one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
 
 \begin{thm}\label{thm:paracompactnerve}
-A space $X$ is paracompact iff for every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ is a deformation retraction.
+The following are equivalent for a space $X$:
+\begin{enumerate}
+\item $X$ is paracompact\label{thm:paracompactnerve:paracompact}
+\item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ has a section (i.~e., a right inverse)\label{thm:paracompactnerve:section}
+\item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ is a deformation retraction.\label{thm:paracompactnerve:deformationretraction}
+\end{enumerate}
 \end{thm}
-\begin{proof} \marginpar{Need to rephrase to avoid assuming the space is sequential}
-First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. We may assume that $\mathcal U$ is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $f_\alpha^{-1}(0,1] \subseteq U_\alpha$.
+\begin{proof}
+\noindent\textbf{\eqref{thm:paracompactnerve:paracompact}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:}
+First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. We may assume that $\mathcal U$ is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
 
-Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x,f_{\alpha_0}(x),\cdots,f_{\alpha_n}(x)) \in U_J \times \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. If $J'=J$ then by local finiteness a neighborhood $U$ of $x$ lies in $U_J$ and does not intersect any other $U_\alpha$. Thus by continuity of the partition of unity, $r$ is continuous at $x$.
+Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x^J,f_J(x) \in U_J \times \Delta^n$, where $x^J = x^{\alpha_0,\dots,\alpha_n} \in U_J \subseteq \nerve_n\mathbf U$ and $f_J(x)=(f_{\alpha_0}(x),\dots,f_{\alpha_n}(x)) \in \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. 
 
-For any $y \in U_{J'}$, we have that $r(y) \in U_{J'} \times \Delta^m$ and
+To show continuity at $x$ when $m>n$, note that
 \[
-\lim_{y \to x \atop y \in U_{J'}} r(y) = [x,i_*(f_{\alpha_0}(x),\cdots,f_{\alpha_n}(x))],
+V = U_J - \bigcup_{\beta \in J'-J} \overline{f_\beta^{-1}(0,1]}
 \]
- where $i_*\colon \Delta^n \to \Delta_m$ denotes the map induces by the inclusion $i\colon J' \to J$. But by the identification in the definition of the geometric realization,
- \[
- [x,i_*(f_{\alpha_0},\cdots,f_{\alpha_n}(x))] = [i^*x,f_{\alpha_0},\cdots,f_{\alpha_n}(x)] = r(x)
- \]
-since $i^*x = x$, considered as an element of the intersection $U_J$ rather than $U_{J'}$. This shows that $r$ is continuous.
-
-Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x,t_0,\dots,d_n)$ to $x$, we have that $p \circ r = \id_X$, but the converse composition $r \circ p$ depends on the chosen partition of unity and in particular is not usually the identity. We want to produce a homotopy of this map,
+is an open neighborhood of $x$ contained in $U_J$. For every $y \in V$, $f_{\beta}(y) = 0$ for $\beta \in J'-J$, hence there exists a monotonic map $\sigma\colon [n] \to [m]$ such that
 \[
-|\nerve \mathbf U| \to X \to |\nerve \mathbf U|; \quad (x,t_0,\dots,t_n) \mapsto x \mapsto (x,f_{\alpha_0}(x),\dots,f_{\alpha_m}(x))
+(y^{J'},f_{J'}(y)) = (y^{J'},\sigma_*(f_J(y)) \sim (y^J,f_J(y)).
 \]
-with the identity map on $|\nerve\mathbf U|$. Note that $x \in \mathbf U_n$ lies in the interior of a nondegenerate simplex if and only if $n=m$, which we may assume by \eqref{eq:realizationwithnondegenerates}. We now define a linear homotopy
+Thus any open neighborhood of $x$ which is contained in $V$ is contained in the equivalence class of $U_J \times \Delta^n$. Thus by continuity of the partition of unity, $r$ is continuous at $x$. Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x^{\alpha_0,\dots,\alpha_n},t_0,\dots,t_n)$ to $x$, we have that $p \circ r = \id_X$, hence $r$ is a section of $p$.
+
+\medskip
+\noindent\textbf{\eqref{thm:paracompactnerve:section}$\Longrightarrow$\eqref{thm:paracompactnerve:paracompact}:}
+Assume that $p\colon |\nerve \mathbf U| \to X$ has a section $r$, i.~e.\ a right inverse. Define $f_\alpha\colon X \to [0,1]$ as follows:
+\[
+f_\alpha(x) = \begin{cases} t_i; & r(x) = [x^J,t_0,\dots,t_n] \in U_J \times \Delta^n \text{ and $\alpha$ is the $i$th index in $J$}\\
+0; & \text{otherwise.} 
+\end{cases}
+\]
+To see that $f_\alpha$ is well-defined, let $f\colon J \to J'$ be a monotonic map to another subset $J' \subseteq I$ and $x \in U_{J'}$. Then
+\[
+(x^J,t_0,\dots,t_n) \sim (x^{J'},f_*(t_0,\dots,t_n))
+\]
+and $f_\alpha$ picks out the the same coefficient $t_i$.
+
+Thus $f_\alpha$ is a partition of unity with $f_{\alpha}^{-1}(0,1] \subseteq U_\alpha$. However, we do not necessarily know that $\overline{f_{\alpha}^{-1}(0,1]} \subseteq U_\alpha$. To fix this, define a refinement $\mathbf V$ of $\mathbf U$ with the same indexing set and
+\[
+V_{\alpha} = f_{\alpha}^{-1}(\frac12,1].
+\]
+Then $\overline V_{\alpha} \subset U_\alpha$, and repeating the above argument for $\mathbf V$, we get a partition of unity associated with $\mathbf U$.
+
+\medskip
+\noindent\textbf{\eqref{thm:paracompactnerve:section}$\Longrightarrow$\eqref{thm:paracompactnerve:deformationretraction}:}
+Let $r\colon X \to |\nerve \mathbf U|$ be any continuous section of $p$.
+
+We want to produce a homotopy of the map $r \circ p$ to the identity map on $|\nerve\mathbf U|$. 
+
+By \eqref{eq:realizationwithnondegenerates}, any element of $|\nerve U|$ has a unique representative $[x^J,t_0,\dots,t_n]$ where all $t_i>0$ and $x^J$ is nondegenerate. This means that $J$ is the set of all the $\alpha$ such that $x \in U_\alpha$. This element is mapped under $r \circ p$ to $p(x)=[x^{J'},u_0,\dots,u_m]$ where $J' \subseteq J$, but this element is equal to $[x^J,i_*(u_0,\dots,u_m)]$, where $i\colon J' \to J$ is the inclusion map. We may thus assume that $m=n$ and $J=J'$. We now define a linear homotopy
 \[
 h\colon [0,1] \times |\nerve \mathbf U| \to |\nerve \mathbf U|
 \]
 from $r\circ p$ to the identity by
 \[
-h(s,[x,t_0,\dots,t_m]) = [x,st_0+(1-s)f_{\alpha_0}(x),\dots,st_m+(1-s)f_{\alpha_m}(x)].
+h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)u_0,\dots,st_n+(1-s)u_n(x)].
 \]
 \marginpar{Show that the homotopy is continuous.}
 
-Conversely, assume that $p\colon |\nerve \mathbf U| \to X$ has a section $r$, i.~e. a right inverse. Define $f_\alpha\colon X \to [0,1]$ as follows:
-\[
-f_\alpha(x) = \begin{cases} t_i; & r(x) = (x,t_0,\dots,t_n) \in U_J \times \Delta^n, \; x \in U_J \text{ and $\alpha$ is the $i$th member of $J$;}\\
-0; & \text{otherwise.} 
-\end{cases}
-\]
-Then $f_\alpha$ is a partition of unity with $f_{\alpha}^{-1}(0,1] \subseteq U_\alpha$.
+\medskip\noindent\textbf{\eqref{thm:paracompactnerve:deformationretraction}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:} obvious.
 \end{proof}
 
 \begin{thm}\label{thm:homotopicpullbacks}
@@ -1662,7 +1689,7 @@ Let $f,\; g\colon X \to B$ be homotopic maps, $p\colon E \to B$ a vector bundle,
 
 \section{Universal bundles}
 
-In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. If $G$ acts linearly on some vector space $V$, we can use the free action $G$-action on $EG$ to define a vector space over $BG$ by defining
+In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. If $G$ acts linearly on some vector space $V$, we can use the free $G$-action on $EG$ to define a vector space over $BG$ by defining
 \[
 E = EG \times_G V.
 \]
@@ -1674,7 +1701,7 @@ To show local triviality, it suffices to show local triviality of the map $p\col
 \[
 p^{-1}U \to U \times G
 \]
-of vector spaces over $U$. [.....Check Segal's article on this......]
+of vector spaces over $U$. Segal notes in \cite{segal:68} that this fails to be true for a general topological group $G$, but it does hold for Lie groups. See, for instance, \cite{may:classifying-spaces}, where May shows that it suffices for a topological group $G$ to be well-pointed for this to hold.
 \end{proof}
 
 For $G=O(n)$ and $V=\R^n$ with the standard action, or for $G=U(n)$ and $V=\CC^n$ with the standard action, the vector bundle $u\colon E \to BG$ is called the \emph{universal bundle} for the following reason:
