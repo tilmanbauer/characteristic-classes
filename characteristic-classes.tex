@@ -1139,12 +1139,7 @@ An \emph{orientation} on a vector bundle is a choice of equivalence class of atl
 A \emph{Euclidean structure} on a real vector bundle is a choice of equivalence class of atlases whose transition functions take values in $O(n) < \GL_n(\R)$. A \emph{Hermitian structure} on a complex vector bundle is an equivalence class of atlases whose transition functions take values in $U(n) < \GL_n(\C)$.
 \end{defn}
 
-\begin{thm}
-Any real vector bundle can be given a Euclidean structure.
-\end{thm}
-\begin{proof}
-...............
-\end{proof}
+We will see later (Cor.~\ref{cor:euclideanstructure}) that any vector bundle can be given a Euclidean resp. Hermitian structure under mild conditions on the topology of the base space.
 
 \chapter{Lie groups, Grassmannians, and universal bundles}
 
@@ -1685,7 +1680,67 @@ h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)u_0,\dots,st_n+(1-s)u_n(x)].
 \begin{thm}\label{thm:homotopicpullbacks}
 Let $f,\; g\colon X \to B$ be homotopic maps, $p\colon E \to B$ a vector bundle, and assume that $X$ is paracompact. Then $f^*p \cong g^*p$.
 \end{thm}
-\marginpar{Find a conceptual proof!}
+
+To prove this, we need a technical result about covering homotopies:
+
+\begin{thm}\label{thm:homotopylifting}
+Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a vector bundle. Denote by $E_t \to B$ the vector bundle $p^{-1}(B \times \{t\} \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		E & E_1\\
+		B \times [0,1] & B\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$r$} (m-1-2)
+			edge node[auto]{$p$} (m-2-1)
+	(m-1-2)	edge node[auto]{$p$} (m-2-2)
+	(m-2-1) edge (m-2-2);
+\end{tikzpicture}
+\]
+is a pullback diagram.
+\end{thm}
+\begin{proof}
+This proof follows tom Dieck \cite{tomdieck:algebraic-topology}[Chapter 14.3].
+By the compactness of $[0,1]$ and paracompactness of $B$, there exists a locally finite cover $U_\alpha \times [0,1]$ of trivializing neighborhoods for $p$. Let $f_\alpha\colon B \to [0,1]$ be a partition of unity with respect to $U_\alpha$. Now define
+\[
+F(x) = \max_{\alpha \in I} f_\alpha(x) \quad \text{and} \quad u_\alpha(x) = \frac{f_\alpha(x)}{F(x)}.
+\]
+Then for every $x \in B$ there is an $\alpha \in I$ such that $f_\alpha(x)=1$ and $\supp(f_\alpha) \subset U_\alpha$. Now define
+\[
+r_\alpha\colon B \times [0,1] \to B \times [0,1] \quad \text{by} \quad (x,t) \mapsto (x,\max(t,u_\alpha(x))).
+\]
+This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is the identity outside of $E_{U_\alpha \times [0,1]}$ and on the the trivial piece $E_{U_\alpha \times [0,1]} \cong U_\alpha \times [0,1] \times k^n$, $\tilde r_\alpha$ is given by $(x,t,v) \mapsto (x,\max(t,u_\alpha(x)),v)$. Then $\tilde r_\alpha|_{E_1} = \id$ and the diagram
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	{
+		E & E\\
+		B \times [0,1] & B \times [0,1]\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$\tilde r_\alpha$} (m-1-2)
+			edge node[auto]{$p$} (m-2-1)
+	(m-1-2)	edge node[auto]{$p$} (m-2-2)
+	(m-2-1) edge node[auto]{$r_\alpha$}(m-2-2);
+\end{tikzpicture}
+\]
+is a pullback. Choose a total ordering on $I$ and let $r$ be the (infinite) composition of all the maps $\tilde r_\alpha$. This is well-defined since fro every $x \in E$, only finitely many $\alpha$ have $\tilde r_\alpha(x) \neq x$. Since $\max(u_\alpha)=1$, $r$ takes values in $E_1$.
+\end{proof}
+
+In particular, we have a bundle isomorphism $r\in \map_{B \times [0,1]}(E, E_1 \times [0,1])$ which is the identity on $E_1$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:homotopicpullbacks}]
+Let $h\colon X \times [0,1] \to B$ be a homotopy from $f$ to $g$ and denote by $H = h^*p$ the pullback bundle over $X \times [0,1]$. Then $f^*p = H_0$, $g^*p=H_1$, and by Theorem~\ref{thm:homotopylifting}, $H \cong H_1 \times [0,1]$. Hence $H_0 \cong H_1$.
+\end{proof}
+
+\begin{corollary}\label{cor:bundlesovercontractiblespaces}
+Let $B$ be a paracompact, contractible space. Then any vector bundle $E \to B$ is trivial.
+\end{corollary}
+\begin{proof}
+The identity map on $B$ is homotopic to a constant map. The pullback of $E$ along a constant map is a trivial vector bundle. By Theorem~\ref{thm:homotopicpullbacks}, $E$ is thus trivial.
+\end{proof}
 
 \section{Universal bundles}
 
@@ -1718,12 +1773,23 @@ by Thm.~\ref{thm:homotopicpullbacks}, $\Phi$ is well-defined, that is, that it m
 
 To construct an inverse map $\Psi\colon \Vect_k^n(X) \to [X,BG]$, let $p\colon E \to X$ be an $n$-dimensional vector bundle. Choose a cover $\mathcal U$ of $X$ consisting of trivializing neighborhoods for $p$. The cocycle corresponding to $p$ with respect to $\mathcal U$ gives us a simplicial map
 \[
-\nerve \mathbb U \to \nerve G
+\nerve \mathbf U \to \nerve G
 \]
 and thus a map on realizations
 \[
-X \simeq |\nerve\mathbb U| \to |\nerve G| = BG.
+X \simeq |\nerve\mathbf U| \to |\nerve G| = BG.
 \]
+\end{proof}
+
+\begin{corollary}\label{cor:euclideanstructure}
+Any real vector bundle over a paracompact space can be given a Euclidean structure, and any complex vector bundle a Hermitian structure. 
+\end{corollary}
+\begin{proof}
+The inclusion maps $O(n) \to \GL_n(\R)$ and $U(n) \to \GL_n(\CC)$ are homotopy equivalences, hence so are $BO(n) \to B\GL_n(\R)$ and $BU(n) \to B\GL_n(\CC)$. Thus
+\[
+[X,BO(n)] \to [X,B\GL_n(\R)] \quad \text{and} \quad [X,BU(n)] \to [X,B\GL_n(\CC)]
+\]
+are isomorphisms.
 \end{proof}
 
 \chapter{Cohomology} \label{ch:cohomology}
@@ -1799,8 +1865,8 @@ d^n\colon A^{n-1} \to A^n \text{ by } d^n(x) = d^n_0(x)-d^n_1(x)+d^n_2(x)-\cdots
 \]
 and groups
 \begin{align*}
-Z^n(A) =& \ker(d^{n+1}\colon A^n \to A^{n+1},\\
-B^n(A) =& \im(d^n\colon A^{n-1} \to A^{n},\\
+Z^n(A) =& \ker(d^{n+1}\colon A^n \to A^{n+1}),\\
+B^n(A) =& \im(d^n\colon A^{n-1} \to A^{n}),\\
 \intertext{and}
 H^n(A) =& Z^n(A)/B^n(A)
 \end{align*}
