@@ -1742,6 +1742,8 @@ Let $B$ be a paracompact, contractible space. Then any vector bundle $E \to B$ i
 The identity map on $B$ is homotopic to a constant map. The pullback of $E$ along a constant map is a trivial vector bundle. By Theorem~\ref{thm:homotopicpullbacks}, $E$ is thus trivial.
 \end{proof}
 
+
+
 \section{Universal bundles}
 
 In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. If $G$ acts linearly on some vector space $V$, we can use the free $G$-action on $EG$ to define a vector space over $BG$ by defining
@@ -1761,7 +1763,7 @@ of vector spaces over $U$. Segal notes in \cite{segal:68} that this fails to be 
 
 For $G=O(n)$ and $V=\R^n$ with the standard action, or for $G=U(n)$ and $V=\CC^n$ with the standard action, the vector bundle $u\colon E \to BG$ is called the \emph{universal bundle} for the following reason:
 
-\begin{thm}
+\begin{thm}\label{thm:classifying-space}
 Let $G=O(n)$, $k=\R$, and $V=\R^n$ with the standard action, or for $G=U(n)$, $k=\C$, and $V=\CC^n$ with the standard action. Then for any paracompact space $X$, there is a bijection
 \[
 \Phi\colon [X,BG] \to \Vect_k^n(X)/\operatorname{iso}, \quad [f] \mapsto f^*u,
@@ -1790,6 +1792,26 @@ The inclusion maps $O(n) \to \GL_n(\R)$ and $U(n) \to \GL_n(\CC)$ are homotopy e
 [X,BO(n)] \to [X,B\GL_n(\R)] \quad \text{and} \quad [X,BU(n)] \to [X,B\GL_n(\CC)]
 \]
 are isomorphisms.
+\end{proof}
+
+We can also use universal bundles to compare $BG$ with Grassmannians up to homotopy.
+
+\begin{corollary}\label{cor:characterizationfouniversalGspaces}
+Let $G$ be a Lie group and $E$ a contractible space with a free $G=\GL_n(k)$-action. Then $E/G \simeq BG$ and, moreover, the vector bundle $E \times_G k^n \to E/G$ is universal.
+\end{corollary}
+\begin{proof}
+By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \times_G k^n \cong f^*u$. By looking at automorphisms of this vector bundle, we see that this bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence.
+\end{proof}
+
+\begin{corollary}
+The maps $G_n(\R^\infty) \to B\GL_n(\R)$ and $G_n(\CC^\infty) \to B\GL_n(\C)$ are homotopy equivalences.
+\end{corollary}
+\begin{proof}
+If suffices by Corollary~\ref{cor:characterizationfouniversalGspaces} to show that the infinite-dimensional Stiefel ``manifolds'' $V_n(\R^\infty)$ of $n$-frames in $\R^\infty$ are contractible. This follows from the observation that the linear homotopy
+\[
+V_n(k^N)\times [0,1] \to V_n(k^{N+n})
+\]
+from an $n$-frame in $k^N$ to the constant map which takes as value the standard $n$-frame in the last $n$ coordinates of $k^{N+n}$, is well-defined. 
 \end{proof}
 
 \chapter{Cohomology} \label{ch:cohomology}
@@ -2252,7 +2274,7 @@ There are plenty of ways to construct new categories from old. Here follows some
 \mu_{\C^\op}(g,f) = \mu_\C(f,g).
 \]
 This also gives a trivial yet important \emph{duality principle} in category theory:
-"If some statement $P$ holds in a category, then so does the dualized statement $P^{\op}$ with the direction of morphisms reversed".
+``If some statement $P$ holds in a category, then so does the dualized statement $P^{\op}$ with the direction of morphisms reversed''.
 \item $\D$ is a \emph{subcategory} of $\C$ if $\ob \D \subseteq \ob \C$ and for $x,y \in \ob \D$ we have $\Hom_{\D}(x,y) \subseteq \Hom_{\C}(x,y)$. For example the category of   Abelian groups form a subcategory of the category of groups, the category of sheaves form a subcategory of the category of presheaves and the category of $n$-dimensional vector bundles over a space $B$ forms a subcategory of the catgeory of all vector bundles over $B$ etc. 
 \item Given categories $\C$ and $\D$ the \emph{product category} $\C \times \D$ has objects $(x,y)$ where $x \in \ob C$ and $y \in \ob \D$, and morphisms $(f,g):(x,y) \to (u,v)$ where $f:x \to u$ in $\C$ and $g:y \to v$ in $\D$.
 \item Let $\C$ be a category and $b \in \ob \C$. The \emph{slice category} $\C / b$ is the category with $\ob \C/b = \Hom_{\C}(\ob \C, b)$, that is, the morphisms in $\C$ with codomain $b$. The morphisms $(f:x \to b) \to (g:y \to b)$ in $\C/b$ are given by morphisms $h \in \Hom_{\C}(x,y)$ making below triangle commute
@@ -2317,7 +2339,7 @@ Often, one loosely says that a certain map is ``natural.'' This has a very concr
 
 \begin{defn}
 Let $F: \C \to \D$ be a functor.
-We say that $F$ is \emph{faithful} if for every $f,h \in \Hom_{\C}(x,y)$ the equation $Ff = Fg$ implies $f = g$ (in other words "the map" $F: \Hom_{\C}(x,y) \to \Hom_{\D}(Fx,Fy)$ is injective). We say that $F$ is \emph{full} if for all $x,y \in \ob C$ and morphisms $g:Fx \to Fy$ in $\D$ there exists  $f \in Hom_{\C}(x,y)$ with $Ff = g$ (in other words "the map" $F: \Hom_{\C}(x,y) \to \Hom_{\D}(Fx,Fy)$ is surjective). We say that $F$ is \emph{essentially surjective on objects} if for every $y \in \ob \D$ there exists $x \in \ob \C$ such that $Fx \cong Fy$. 
+We say that $F$ is \emph{faithful} if for every $f,h \in \Hom_{\C}(x,y)$ the equation $Ff = Fg$ implies $f = g$ (in other words ``the map'' $F: \Hom_{\C}(x,y) \to \Hom_{\D}(Fx,Fy)$ is injective). We say that $F$ is \emph{full} if for all $x,y \in \ob C$ and morphisms $g:Fx \to Fy$ in $\D$ there exists  $f \in Hom_{\C}(x,y)$ with $Ff = g$ (in other words ``the map'' $F: \Hom_{\C}(x,y) \to \Hom_{\D}(Fx,Fy)$ is surjective). We say that $F$ is \emph{essentially surjective on objects} if for every $y \in \ob \D$ there exists $x \in \ob \C$ such that $Fx \cong Fy$. 
 \end{defn}
 \begin{prop}
 Let $F: \C \to \D$ be a functor. Then $F$ is part of an equivalence $(F,G, \alpha, \beta)$ if and only if $F$ is full, faithful and essentially surjective on objects.
