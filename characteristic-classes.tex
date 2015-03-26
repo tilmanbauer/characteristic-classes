@@ -1904,12 +1904,12 @@ is an equalizer diagram.
 \begin{defn}
 Given a cosimplicial abelian group $A$, we define maps
 \[
-d^n\colon A^{n-1} \to A^n \text{ by } d^n(x) = d^0_n(x)-d^1_n(x)+d^2_n(x)-\cdots\pm d^n_n(x)
+d^n\colon A^{n} \to A^{n+1} \text{ by } d^n(x) = d^0_n(x)-d^1_n(x)+d^2_n(x)-\cdots\pm d^n_n(x)
 \]
 and groups
 \begin{align*}
-Z^n(A) =& \ker(d^{n+1}\colon A^n \to A^{n+1}),\\
-B^n(A) =& \im(d^n\colon A^{n-1} \to A^{n}),\\
+Z^n(A) =& \ker(d^n\colon A^n \to A^{n+1}),\\
+B^n(A) =& \im(d^{n-1}\colon A^{n-1} \to A^{n}),\\
 \intertext{and}
 H^n(A) =& Z^n(A)/B^n(A)
 \end{align*}
@@ -2046,21 +2046,87 @@ as well as their colimits
 By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
+\section{The Mayer-Vietoris sequence}
+
+Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups on $X$. By the gluing axiom of sheaves, we have that
+\[
+0 \to A(X) \to A(U) \oplus A(V) \to A(U \cap V)
+\]
+is exact, where the right hand side map is the difference of the restriction maps. Let us assume in addition that for every inclusion of open sets $U' \subseteq U''$, the induced map of sheaves $A(U'') \to A(U')$ is surjective. Then the above sequence is also right exact.
+
+Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \bigsqcup \mathcal U$. For a subspace $Y \subset X$, denote by $\mathbf U|_Y$ the cover $\coprod_{U \in \mathcal U} U \cap Y$. Then
+\[
+0 \to A(\nerve \mathbf U) \to A(\nerve (\mathbf U|_U)) \oplus A(\nerve (\mathbf U|_V)) \to A(\nerve (\mathbf U|_{U \cap V})) \to 0
+\]
+is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in \v Cech cohomology:
+\[
+0 \to H^0(U \cap V,A) \to H^0(U,A) \oplus H^0(V,A) \to H^0(X,A) \to H^1(U \cap V,A) \to \cdots.
+\]
+This is known as the Mayer-Vietoris sequence.
+
 \section{The product in cohomology}
 
-Let $X$, $Y$ be spaces and $A$, $B$ sheaves of (abelian) groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. We write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
+Let $X$, $Y$ be spaces and $A$, $B$ sheaves of abelian groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. 
+
+We can now consider the presheaf on $X \times Y$ given by
+\[
+U \times V \mapsto A(U) \otimes B(V),
+\]
+and extended to all opens of $X \times Y$ by the gluing condition. This, unfortunately, is often not a sheaf due to the fact that the tensor product does not preserve the equalizer diagram in the sheaf condition. We need to “sheafify”.
+
+\begin{prop}
+Let $X$ be a topological space and $F\colon B^\op \to C$ a presheaf defined on some basis $B \subseteq \Open(X)$ of the topology of $X$ with values in a category $C$ that has all limits and directed colimits. As for sheaves, let $F_x$ denote the stalk of $F$ at $x \in B$ and, for $t \in F(V)$ and $x \in V$, let $t_x$ denote the image of $t$ in $F_x$. Let $\mathcal U = \{U_\alpha\}_{\alpha \in I} \subseteq B$ be an open cover of $U \subseteq X$. Define
+\[
+\tilde F\colon \Open(X)^\op \to C
+\]
+by $F(U) = \colim_{\mathcal U} F_{\mathcal U}(U)$ over all open covers of $U$, where $F_{\mathcal U}(U)$ is the equalizer
+\[
+F_{\mathcal U}(U) \to \prod_{\alpha} F(U_\alpha) \rightrightarrows \prod_{\alpha,\beta \in I,\; x \in U_{\alpha\beta}} F_x,
+\]
+where the maps are given by $t^\alpha \mapsto (t_x)^{\alpha,\beta}$ and $t^\alpha \mapsto (t_x)^{\beta,\alpha}$, respectively.
+
+Then $\tilde F$ is a sheaf on $X$ and the map of presheaves $F \to \tilde F$ given by restriction has the universal property that for any other sheaf $G$ on $X$,
+\[
+\Hom(F,G|_B) \cong \Hom(\tilde F,G).
+\]
+\end{prop}
+\begin{proof}
+Exercise.
+\end{proof}
+
+We apply this proposition for the basis $B=\{U \times V\}$ of $X \times Y$ to construct the sheaf $A \otimes B$ on $X \times Y$ as
+\[
+A \otimes B = (U \times V \mapsto A(U) \otimes B(V))^{\sim}
+\]
+
+Now write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
 
 Then we can define an “external product”
 \[
-C^m_{\mathcal U}(X;A) \otimes C^n_{\mathcal V}(y;B) \to C^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
+C^m_{\mathcal U}(X;A) \otimes C^n_{\mathcal V}(Y;B) \to C^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
 \]
 by sending $\alpha \otimes \beta$ to the cochain $\alpha \times \beta$ defined on the summand $(U_{i_0} \times V_{j_0}) \cap \cdots \cap (U_{i_{m+n}} \times V_{j_{m+n}})$ by
 \[
-(\alpha \times \beta)(x,y) = \alpha(....................)
-\] 
-\[
-A(U_{i_0\cdots i_m}) \otimes B(V_{j_0\cdots j_n}) \to (A \otimes B)(U_{i_0\cdots i_n} \cap V_{j_0\cdots j_m})
+\alpha \times \beta = \alpha|_{U_{i_0\cdots i_m}} \otimes \beta|_{V_{j_m\cdots j_{m+n}}}.
 \]
+
+This product is compatible with the differentials $d^n$ in the sense that
+\[
+d^{m+n}(\alpha \times \beta) = d^m(\alpha) \times \beta + (-1)^m \alpha \times d^n(\beta)
+\]
+as can be seen directly from the definition. In particular, it induces a well-defined product
+\[
+H^m_{\mathcal U}(X;A) \otimes H^n_{\mathcal V}(Y;B) \xrightarrow{\times} H^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
+\]
+since if $\alpha$ and $\beta$ are cycles then so is $\alpha \times \beta$, and if $\alpha=d^{m-1}(\gamma)$ and $\beta$ is a cycle then $d^{m+n-1}(\gamma \times \beta) = \alpha \times \beta + (-1)^{m-1}\gamma \times 0$, thus $\alpha \times \beta$ is a boundary, and similarly if $\beta$ is a boundary.
+
+Since the product $\times$ is natural with respect to refinements of coverings, it thus induces an external product in \v Cech cohomology.
+
+Now if $R$ is a sheaf of rings on a space $X$, we can construct a product
+\[
+H^m(X;R) \otimes H^n(X;R) \xrightarrow{\times} H^{m+n}(X \times X; R \times R) \xrightarrow{\Delta^*} H^{m+n}(X;R\otimes R) \xrightarrow{\text{mult.}} H^{m+n}(X;R).
+\]
+This turns $H^*(X;R)$ into a graded ring.
 
 \section{De Rham cohomology of manifolds}
 
