@@ -111,6 +111,8 @@ The most obvious $k$-vector space over $B$ is the product space $k^n \times B$, 
 Let $E$ be a $k$-vector space over $B$. Then $E$ is called a \emph{$k$-vector bundle} if every $x \in B$ has a neighborhood $U \subset B$ such that $E_U = p^{-1}(U)$ is isomorphic to a product space $k^n \times U$ for some $n \geq 0$. The category of $k$-vector bundles over $B$ is denoted by $\Vect_k(B)$ or just $\Vect(B)$ if $k$ is understood or irrelevant. A morphism of $k$-vector bundles is simply a morphism of the underlying $k$-vector spaces over $B$.
 \end{defn}
 
+%I would put a comment about how the continuity condition stated before is satisfied.
+
 In a vector bundle $E \in \Vect(B)$, the dimension of each fiber $E_x$ must be finite, but it may vary with $x$. If it does not, and is constantly $n$, we say that $E$ is \emph{equidimensional} of dimension $n$. We denote the subcategory of $n$-dimensional vector bundles on $B$ by $\Vect^n(B)$.
 
 \begin{lemma}
@@ -416,7 +418,9 @@ Note that $n_\alpha = n_\beta$ if $U_{\alpha\beta} \neq \emptyset$. Let us assum
 \begin{equation}\label{eq:cocycletobundlemap}
 \tilde g(x,u) = (g(u)(x),u)
 \end{equation}
-for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, given any map $g\colon U \to \GL_n(k)$, we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
+for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, given any map $g\colon U \to \GL_n(k)$,
+%what is U here?
+we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
 
 \begin{lemma}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$ for each pair $(\alpha,\beta)$ such that $U_{\alpha\beta} \neq \emptyset$. Then we have:
@@ -441,7 +445,7 @@ g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta
 
 
 \begin{defn}
-Let $\{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle $g$ for $\mathcal U$ with values in $\{G_n\}$} consists of a function
+Let $\mathcal G = \{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle $g$ for $\mathcal U$ with values in $\{G_n\}$} consists of a function
 \[
 n\colon I \to \N
 \]
@@ -449,7 +453,7 @@ such that $n_\alpha=n_\beta$ whenever $U_{\alpha\beta} \neq \emptyset$, together
 \[
 g_{\alpha\beta}\colon U_{\alpha\beta} \to G_{n_\alpha} \quad (\alpha,\;\beta \in I)
 \]
-such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $\mathcal G = \{G_n\}$ by $Z^1_{\mathcal U}(X,\mathcal G)$.
+such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $\mathcal G$ by $Z^1_{\mathcal U}(X,\mathcal G)$.
 \end{defn}
 
 A particular kind of cocycle is always easy to construct: given an $n \colon I \to \N$ and a collection of maps $c_\alpha\colon U_\alpha \to G_{n_\alpha}$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally, we say that two cocycles $g$, $g'$ are \emph{cohomologous} if there is such a $c_\alpha$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$.
@@ -544,7 +548,7 @@ Now choose $c_+\colon V_+ \to \GL_n(\R)$ such that $c_+|_{V_i} = g|_{V_i}^{-1}$ 
 \item $g'(x) = \id$ for $x \in V_{-i}$;
 \item $g'(x) = \id$ or $g'(x) = I_-$ for $x \in V_{i}$.
 \end{itemize}
-The the $n$-dimensional vector bundle associated with $g$ is either the $n$-dimensional trivial bundle or the Möbius bundle plus an $(n-1)$-dimensional trivial bundle. (What it means to add vector bundles will be explained in more detail in Section~\ref{ssec:whitneysums}.)
+The $n$-dimensional vector bundle associated with $g$ is either the $n$-dimensional trivial bundle or the Möbius bundle plus an $(n-1)$-dimensional trivial bundle. (What it means to add vector bundles will be explained in more detail in Section~\ref{ssec:whitneysums}.)
 
 This does not quite lead to a classification of all real vector bundles over $\S^1$ since we only consider bundles which are trivial on half-circles.
 \end{example}
@@ -604,6 +608,7 @@ A special case of a topological category is a category $\C$ when $\ob\C$ is just
 
 \begin{example}
 If $G$ is a Lie group, such as $\GL_n(k)$ for $k=\R$ or $\CC$, then we can consider $G$ as a topological category with one object $*$ and $\mor = \Hom(*,*) = G$. We will not distinguish in notation between the group $G$ and the one-object category thus defined.
+%Isn't this an example of grupoid (like the next one)? It may worth mention it already here
 \end{example}
 
 \begin{example}
@@ -708,7 +713,10 @@ is an isomorphism over $B$.
 The generalization of the direct sum $V \oplus W$ of $k$-vector spaces is the Whitney sum of vector bundles.
 
 \begin{defn}
-Given two vector spaces over $B$, $p\colon E \to B$, and $p'\colon E' \to B$, we define the (Whitney) sum $E \oplus E' \to B$ to be the vector space over $B$ given by $E \times_B E' \xrightarrow{(e,e') \mapsto p(e) = p'(e')} B$.
+Given two vector spaces over $B$, $p\colon E \to B$, and $p'\colon E' \to B$, we define the (Whitney) sum $E \oplus E' \to B$ to be the vector space over $B$ given by 
+\[
+E \times_B E' \xrightarrow{(e,e') \mapsto p(e) = p'(e')} B
+\].
 \end{defn}
 
 \begin{lemma}
@@ -791,7 +799,9 @@ called the dual vector bundle, whose fibers are the dual vector spaces of the fi
 The previous constructions give a pattern to how one should define the tensor product $M \otimes N$ of two vector bundles. But instead of treating each such construction separately, we will now develop a general method of lifting functors from vector spaces to vector bundles.
 
 \begin{defn}
-An \emph{$(p,q)$-ary continuous functor of $k$-vector spaces} is a functor $F\colon (\Vect_k)^p \times (\Vect_k^\op)^q \to \Vect_k$ from $n$-tuples of finite-dimensional $k$-vector spaces to finite-dimensional $k$-vector spaces which is continuous in the sense that for $V_1,\dots,V_{p+q}, W_1,\dots,W_{p+q} \in \Vect_k$,
+An \emph{$(p,q)$-ary continuous functor of $k$-vector spaces} is a functor $F\colon (\Vect_k)^p \times (\Vect_k^\op)^q \to \Vect_k$ from $n$-tuples
+%What is n??
+of finite-dimensional $k$-vector spaces to finite-dimensional $k$-vector spaces which is continuous in the sense that for $V_1,\dots,V_{p+q}, W_1,\dots,W_{p+q} \in \Vect_k$,
 \begin{align*}
 \Hom_k(V_1,W_1) \times \cdots \times \Hom_k(V_{p},W_{p}) \times \Hom_k(W_{p+1},V_{p+1}) \times \cdots \times \Hom_k(W_{p+q},V_{p+q}) \\
 \xrightarrow{F} \Hom_k(F(V_1,\dots,V_{p+q}),F(W_1,\dots,W_{p+q}))
@@ -836,7 +846,7 @@ We are now in a position to define the tensor product $E \otimes E'$ of two vect
 For any line bundle $E$, $E \otimes E^* \cong k \times B$, the trivial bundle.
 \end{lemma}
 \begin{proof}
-The evaluation map $\operatorname{ev}\colon V \otimes V^* \xrightarrow{(v \otimes \phi) \mapsto \phi(v)}$ on vector spaces induces a map $E \otimes E^* \to k \times B$ of vector bundles. If $V$ is one-dimensional then $\operatorname{ev}$ is an isomorphism, thus so is the induced map on line bundles.
+The evaluation map $\operatorname{ev}\colon V \otimes V^* \xrightarrow{(v \otimes \phi) \mapsto \phi(v)} k$ on vector spaces induces a map $E \otimes E^* \to k \times B$ of vector bundles. If $V$ is one-dimensional then $\operatorname{ev}$ is an isomorphism, thus so is the induced map on line bundles.
 \end{proof}
 
 It follows that the set of isomorphism classes of line bundles on a space $B$ form a group with unit $k \times B$, called the \emph{Picard group} $\Pic(B)$ of line bundles on $B$.
@@ -912,7 +922,7 @@ A ring $R$ is called \emph{local} if it possesses a unique maximal ideal, which 
 \end{defn}
 
 \begin{example}
-Fields are local rings, as their unique maximal ideal is $(0)$. The ring of integers is not local since $(p)$ is a maximal ideal for every prime $p$, but the ring $Z_{(p)}$ of integers localized at $p$ is local with maximal ideal $(p)$. 
+Fields are local rings, as their unique maximal ideal is $(0)$. The ring of integers is not local since $(p)$ is a maximal ideal for every prime $p$, but the ring $\Z_{(p)}$ of integers localized at $p$ is local with maximal ideal $(p)$. 
 
 The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local with maximal ideal the ideal of germs which vanish at $0$. This is true because the quotient ring $C^0_0/(C^0_0)_+$ is isomorphic with $\R$. Similarily, the rings $C^n_0$ of germs at $0$ of $n$-fold continuously differentiable functions, $C^\infty_0$ of smooth (arbitrarily often differentiable) functions, $C^\omega_0$ of analytic functions, and $C$
 \end{example}
