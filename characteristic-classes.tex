@@ -26,6 +26,7 @@
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\Der}{Der}
 \DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Princ}{Princ}
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\SL}{SL}
 
@@ -112,6 +113,8 @@ Let $E$ be a $k$-vector space over $B$. Then $E$ is called a \emph{$k$-vector bu
 \end{defn}
 
 %I would put a comment about how the continuity condition stated before is satisfied.
+%% TB: I don't understand what you mean by that.
+
 
 In a vector bundle $E \in \Vect(B)$, the dimension of each fiber $E_x$ must be finite, but it may vary with $x$. If it does not, and is constantly $n$, we say that $E$ is \emph{equidimensional} of dimension $n$. We denote the subcategory of $n$-dimensional vector bundles on $B$ by $\Vect^n(B)$.
 
@@ -418,9 +421,7 @@ Note that $n_\alpha = n_\beta$ if $U_{\alpha\beta} \neq \emptyset$. Let us assum
 \begin{equation}\label{eq:cocycletobundlemap}
 \tilde g(x,u) = (g(u)(x),u)
 \end{equation}
-for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, given any map $g\colon U \to \GL_n(k)$,
-%what is U here?
-we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
+for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g\colon U \to \GL_n(k)$, we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
 
 \begin{lemma}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$ for each pair $(\alpha,\beta)$ such that $U_{\alpha\beta} \neq \emptyset$. Then we have:
@@ -462,7 +463,32 @@ A particular kind of cocycle is always easy to construct: given an $n \colon I \
 
 If vector bundles give rise to cocycles with values in $\{\GL_n(k)\}_{n\geq 0}$, it is natural to ask if there is some geometric origin of cocycles with values in other sequences of topological groups $\{G_n\}_n$.
 
-..............Put in stuff from later sections here!.................
+\begin{defn}
+Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $\phi \in \map_B(E,E)$, $f \circ (g.\phi) = g.(f\circ\phi) \in \map_B(E,F)$.
+
+A \emph{principal $G$-bundle} over $B$ is a free and transitive $G$-space which is locally trivial, i.~e.\ such that every point $x \in B$ has a neighborhood $U \ni x$ such that there exists a $G$-equivariant isomorphism
+\[
+p^{-1}U \to U \times G
+\]
+Denote the full subcategory of principal $G$-bundles over $B$ by $\Princ_G(B)$.
+\end{defn}
+
+\begin{lemma}
+The category $\Princ_G(B)$ is a groupoid, i.~e., every morphism is an isomorphism.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+
+If $\phi\colon G \to \GL_n(k)$ is some homomorphism then any principal $G$-bundle $E \to B$ gives rise to a vector bundle $E \times_G k^n$, where $G$ acts on $k^n$ through $\GL_n(k)$. In fact, this is an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles:
+
+\begin{prop}
+The functor $\Phi\colon $
+\end{prop}
+ Conversely, for $G=\GL_n(k)$, any vector bundle $E \to B$ gives rise to a principal $G$-bundle
+$\Aut_B(E) \to B$.
+
 
 The assignment of a cocycle $g$ to a vector bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
 
@@ -608,11 +634,12 @@ A special case of a topological category is a category $\C$ when $\ob\C$ is just
 
 \begin{example}
 If $G$ is a Lie group, such as $\GL_n(k)$ for $k=\R$ or $\CC$, then we can consider $G$ as a topological category with one object $*$ and $\mor = \Hom(*,*) = G$. We will not distinguish in notation between the group $G$ and the one-object category thus defined.
-%Isn't this an example of grupoid (like the next one)? It may worth mention it already here
 \end{example}
 
+This is the one-object case of the following more general construction:
+
 \begin{example}
-if $\{G_n\}_{n \geq 0}$ is a sequence of Lie groups, we can define a topological category $\mathcal G$ with objects $\N$ and $\mor \mathcal G = \coprod_{n \geq 0} G_n$, where $G_n = \Hom_{\mathcal G}(n,n)$. This is an example of a topological \emph{groupoid}, i.~e. a category where every morphism is invertible. 
+If $\{G_n\}_{n \geq 0}$ is a sequence of Lie groups, we can define a topological category $\mathcal G$ with objects $\N$ and $\mor \mathcal G = \coprod_{n \geq 0} G_n$, where $G_n = \Hom_{\mathcal G}(n,n)$. This is an example of a topological \emph{groupoid}, i.~e. a category where every morphism is invertible. 
 \end{example}
 
 \begin{example} \label{exa:covergroupoid}
@@ -715,8 +742,8 @@ The generalization of the direct sum $V \oplus W$ of $k$-vector spaces is the Wh
 \begin{defn}
 Given two vector spaces over $B$, $p\colon E \to B$, and $p'\colon E' \to B$, we define the (Whitney) sum $E \oplus E' \to B$ to be the vector space over $B$ given by 
 \[
-E \times_B E' \xrightarrow{(e,e') \mapsto p(e) = p'(e')} B
-\].
+E \times_B E' \xrightarrow{(e,e') \mapsto p(e) = p'(e')} B.
+\]
 \end{defn}
 
 \begin{lemma}
@@ -799,9 +826,7 @@ called the dual vector bundle, whose fibers are the dual vector spaces of the fi
 The previous constructions give a pattern to how one should define the tensor product $M \otimes N$ of two vector bundles. But instead of treating each such construction separately, we will now develop a general method of lifting functors from vector spaces to vector bundles.
 
 \begin{defn}
-An \emph{$(p,q)$-ary continuous functor of $k$-vector spaces} is a functor $F\colon (\Vect_k)^p \times (\Vect_k^\op)^q \to \Vect_k$ from $n$-tuples
-%What is n??
-of finite-dimensional $k$-vector spaces to finite-dimensional $k$-vector spaces which is continuous in the sense that for $V_1,\dots,V_{p+q}, W_1,\dots,W_{p+q} \in \Vect_k$,
+An \emph{$(p,q)$-ary continuous functor of $k$-vector spaces} is a functor $F\colon (\Vect_k)^p \times (\Vect_k^\op)^q \to \Vect_k$ from $(p+q)$-tuples of finite-dimensional $k$-vector spaces to finite-dimensional $k$-vector spaces which is continuous in the sense that for $V_1,\dots,V_{p+q}, W_1,\dots,W_{p+q} \in \Vect_k$,
 \begin{align*}
 \Hom_k(V_1,W_1) \times \cdots \times \Hom_k(V_{p},W_{p}) \times \Hom_k(W_{p+1},V_{p+1}) \times \cdots \times \Hom_k(W_{p+q},V_{p+q}) \\
 \xrightarrow{F} \Hom_k(F(V_1,\dots,V_{p+q}),F(W_1,\dots,W_{p+q}))
@@ -1770,16 +1795,8 @@ In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $E
 E = EG \times_G V.
 \]
 
-But it is also useful to work with the map $p\colon EG \to BG$ directly, which behaves like a vector bundle in many ways.
-\begin{defn}
-Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A \emph{principal $G$-bundle} over $B$ is a free and transitive $G$-space which is locally trivial, i.~e.\ such that every point $x \in B$ has a neighborhood $U \ni x$ such that there exists a $G$-equivariant isomorphism
-\[
-p^{-1}U \to U \times G
-\]
-\end{defn}
+..........Take up principal bundles
 
-If $\phi\colon G \to \GL_n(k)$ is some homomorphism then any principal $G$-bundle $E \to B$ gives rise to a vector bundle $E \times_G k^n$, where $G$ acts on $k^n$ through $\GL_n(k)$. Conversely, for $G=\GL_n(k)$, any vector bundle $E \to B$ gives rise to a principal $G$-bundle
-$\Aut_B(E) \to B$.
 
 \begin{lemma}
 For Lie groups $G$, $EG \to BG$ is a principal $G$-bundle. Hence the vector space $u\colon E \to BG$ over $BG$ is a vector bundle.
