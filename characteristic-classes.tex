@@ -193,7 +193,7 @@ A map $f\in \map_B(E,E')$ is an isomorphism of vector bundles iff $f|_{E_x}\colo
 \begin{proof}
 The “only if” direction is obvious, so assume that $f$ induces a vector space isomorphism on all fibers. Then $f$ is bijective and has an inverse map $f^{-1}\colon E'_x \to E_x$, but is $f^{-1}$ continuous?
 
-To show this, we will use local trivializations. Let $x \in B$ have a trivializing neighborhood $U \subset B$ for both $E$ and $E'$ and $\phi\colon E_U \to k^n \times U$, $\phi'\colon E'_U \to k^n \times U$ be local trivializations. The restriction $f|_U$ can be written as the composition of isomorphisms
+To show this, we will use local trivializations. Let $x \in B$ have a trivializing neighborhood $U \subset B$ for both $E$ and $E'$ and $\phi\colon E_U \to k^n \times U$, $\phi'\colon E'_U \to k^n \times U$ be local trivializations. The restriction $f|_{E_U}$ can be written as the composition of isomorphisms
 \[
 f|_{E_U}\colon E_U \xrightarrow{\phi} U \times k^n \xrightarrow{G} U \times k^n \xrightarrow{(\phi')^{-1}} E'_U
 \]
@@ -1228,7 +1228,7 @@ The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. 
 
 Picking the $n$ first columns of an $N\times N$-matrix gives us surjective maps
 \[
-\phi\colon O(N) \to V_n(\R^n), \quad \phi\colon U(N) \to V_n(\CC^N), \quad \phi\colon \GL_N(k) \to V_n^{\operatorname{nc}}(k^N).
+\phi\colon O(N) \to V_n(\R^N), \quad \phi\colon U(N) \to V_n(\CC^N), \quad \phi\colon \GL_N(k) \to V_n^{\operatorname{nc}}(k^N).
 \]
 
 \begin{lemma}\label{lemma:grassstiefelashomogeneousspaces}
@@ -1236,7 +1236,7 @@ Consider the group $O(n) \times O(N-n)$ as the subgroup of $O(N)$ of matrices of
 \[
 \overline\phi\colon O(N)/O(N-n) \to V_n(\R^N).
 \]
-In particular, there is a homeomorphism $\frac{O(n)}{O(n)\times O(N-n)} \to G_n(\R^n)$.
+In particular, there is a homeomorphism $\frac{O(n)}{O(n)\times O(N-n)} \to G_n(\R^N)$.
 
 Analogous statements hold in the unitary and noncompact cases.
 \end{lemma}
@@ -1332,7 +1332,7 @@ The main source of simplicial spaces is the nerve construction for a topological
 
 
 \begin{defn}
-Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the simplicial space defined by $X_n = \mor \C \times_{\ob \C} \cdots \times_{\ob \C} \mor\C$, where the fiber product has $n$ factors. In particular, $X_0 = \ob \C$. We specify the morphism by defining the \emph{face maps} $d_i^n\colon X_n \to X_{n-1}$ induced by $d^i_n$ and the \emph{face maps} $s_i^n\colon X_n \to X_{n+1}$ induced by $s^i_n$:
+Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the simplicial space defined by $X_n = \mor \C \times_{\ob \C} \cdots \times_{\ob \C} \mor\C$, where the fiber product has $n$ factors. In particular, $X_0 = \ob \C$. We specify the morphism by defining the \emph{face maps} $d_i^n\colon X_n \to X_{n-1}$ induced by $d^i_n$ and the \emph{degeneracy maps} $s_i^n\colon X_n \to X_{n+1}$ induced by $s^i_n$:
 \begin{itemize}
 \item $d_i = \id_{\mor \C} \times \cdots \times \mu \times \cdots \times \id_{\mor \C}$, where $\mu$ appears in the $i$th place;
 \item $s_i = \id_{\mor \C} \times \cdots \times u \times \cdots \times \id_{\mor \C}$, where $u$ appears in the $i$th place.
@@ -1344,6 +1344,7 @@ If $\C$ is an ordinary (small) category, we have explicitly that
 \[
 X_n = \coprod_{X_0,\dots,X_n \in C} \Hom(X_{n-1},X_n) \times \dots \times \Hom(X_1,X_2) \times \Hom(X_0,X_1),
 \]
+%bad notation for the X_i
 i.~e., $X_n$ is the space of composable chains of $n$ morphisms.
 
 \begin{example}
