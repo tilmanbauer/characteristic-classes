@@ -408,29 +408,28 @@ The inverse construction of a vector bundle from a sheaf given above depends hea
 
 \section{Bundles as cocycles}
 
-Let $p\colon E \to B$ be a $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, i.~e. we so that can choose isomorphisms
+Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, i.~e. we so that can choose isomorphisms
 \[
-\phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^{n_\alpha} \times U_{\alpha}).
+\phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^n \times U_{\alpha}).
 \]
 
 Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such trivializations and obtain an isomorphism
 \[
-\tilde g\colon k^{n_\alpha} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n_\beta} \times U_{\alpha\beta}.
+\tilde g\colon k^{n} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n} \times U_{\alpha\beta}.
 \]
-Note that $n_\alpha = n_\beta$ if $U_{\alpha\beta} \neq \emptyset$. Let us assume this. Then since $\tilde g$ is a map over $B$, we can write
+Then since $\tilde g$ is a map over $B$, we can write
 \begin{equation}\label{eq:cocycletobundlemap}
 \tilde g(x,u) = (g(u)(x),u)
 \end{equation}
-for some function $g\colon U_{\alpha\beta} \to \map(k^{n_\alpha},k^{n_\beta})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g\colon U \to \GL_n(k)$, we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
+for some function $g\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$. Furthermore, since $\tilde g$ is a linear isomorphism on fibers, we actually have that $g\colon U_{\alpha\beta} \to \GL_{n}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g\colon U \to \GL_n(k)$, we denote by $\tilde g\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
 
-\begin{lemma}
-Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n_\alpha}(k)$ for each pair $(\alpha,\beta)$ such that $U_{\alpha\beta} \neq \emptyset$. Then we have:
+\begin{lemma} \label{lemma:vectorbundlegivescocycle}
+Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$ for each pair $(\alpha,\beta)$. Then we have:
 \begin{enumerate}[label=\normalfont \bfseries{(COC\arabic*)},leftmargin=*]
 \item $g_{\alpha\alpha} = \id_{U_\alpha}$; \label{it:coc1}
 \item $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$; \label{it:coc2}
 \item $g_{\alpha\beta} g_{\beta\gamma} g_{\gamma\alpha} = \id_{U_{\alpha\beta\gamma}}$. \label{it:coc3}
 \end{enumerate}
-
 \end{lemma}
 
 \begin{proof}
@@ -446,29 +445,28 @@ g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta
 
 
 \begin{defn}
-Let $\mathcal G = \{G_n\}_{n \geq 0}$ be a sequence of topological groups and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle $g$ for $\mathcal U$ with values in $\{G_n\}$} consists of a function
+Let $G$ be a topological group and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an open cover of some space $B$. Then a \emph{cocycle $g$ for $\mathcal U$ with values in $G$} is a family of continuous maps
 \[
-n\colon I \to \N
+g_{\alpha\beta}\colon U_{\alpha\beta} \to G \quad (\alpha,\;\beta \in I)
 \]
-such that $n_\alpha=n_\beta$ whenever $U_{\alpha\beta} \neq \emptyset$, together with continuous maps
-\[
-g_{\alpha\beta}\colon U_{\alpha\beta} \to G_{n_\alpha} \quad (\alpha,\;\beta \in I)
-\]
-such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $\mathcal G$ by $Z^1_{\mathcal U}(X,\mathcal G)$.
+such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $G$ by $Z^1_{\mathcal U}(X;G)$.
 \end{defn}
 
-A particular kind of cocycle is always easy to construct: given an $n \colon I \to \N$ and a collection of maps $c_\alpha\colon U_\alpha \to G_{n_\alpha}$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally, we say that two cocycles $g$, $g'$ are \emph{cohomologous} if there is such a $c_\alpha$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$.
+A particular kind of cocycle is always easy to construct: given a collection of maps $c_\alpha\colon U_\alpha \to G$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally:
+
+\begin{defn} Two cocycles $g$, $g'$ are \emph{cohomologous} if there is collection of maps $c_\alpha\colon U_{\alpha} \to G$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$. We denote the set of cocycles modulo this equivalence relation by $H^1_{\mathcal U}(X;G)$.
+\end{defn}
 
 \subsection{Fiber bundles and principal $G$-bundles}
 
-If vector bundles give rise to cocycles with values in $\{\GL_n(k)\}_{n\geq 0}$, it is natural to ask if there is some geometric origin of cocycles with values in other sequences of topological groups $\{G_n\}_n$.
+If vector bundles give rise to cocycles with values in $\GL_n(k)$, it is natural to ask if there is some geometric origin of cocycles with values in other topological groups $G$.
 
 \begin{defn}
 Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $\phi \in \map_B(E,E)$, $f \circ (g.\phi) = g.(f\circ\phi) \in \map_B(E,F)$.
 
 A \emph{principal $G$-bundle} over $B$ is a free and transitive $G$-space which is locally trivial, i.~e.\ such that every point $x \in B$ has a neighborhood $U \ni x$ such that there exists a $G$-equivariant isomorphism
 \[
-p^{-1}U \to U \times G
+p^{-1}U \to G \times U
 \]
 Denote the full subcategory of principal $G$-bundles over $B$ by $\Princ_G(B)$.
 \end{defn}
@@ -477,48 +475,65 @@ Denote the full subcategory of principal $G$-bundles over $B$ by $\Princ_G(B)$.
 The category $\Princ_G(B)$ is a groupoid, i.~e., every morphism is an isomorphism.
 \end{lemma}
 \begin{proof}
-
+As in the proof of Theorem~\ref{thm:fiberwiseiso}, it suffices to check the isomorphism condition locally, i.~e., we may assume source and target of the morphism $f\colon E \to F$ in $\Princ_G(B)$ are $B \times G$. Any $G$-equivariant endomorphism of $G \times B$ is given by $(x,b) \mapsto (g(b)x,b)$, where $g\colon B \to G$ is some continuous map. But then the inverse of $f$ is given by $(x,b) \mapsto (g(b)^{-1}x,b)$.
 \end{proof}
 
-
-If $\phi\colon G \to \GL_n(k)$ is some homomorphism then any principal $G$-bundle $E \to B$ gives rise to a vector bundle $E \times_G k^n$, where $G$ acts on $k^n$ through $\GL_n(k)$. In fact, this is an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles:
+If $\phi\colon G \to \GL_n(k)$ is some homomorphism then any principal $G$-bundle $E \to B$ gives rise to a vector bundle $E \times_G k^n$, where $G$ acts on $k^n$ through $\GL_n(k)$. In fact, this is an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles with isomorphisms. For a category $C$, let $C^{\cong}$ denote the subgroupoid with the same objects but only isomorphisms as morphisms.
 
 \begin{prop}
-The functor $\Phi\colon $
+The functor $\Phi\colon \Princ_{\GL_n(k)}(B) \to (\Vect^n_k(B))^{\cong}$ is an equivalence of groupoids.
 \end{prop}
- Conversely, for $G=\GL_n(k)$, any vector bundle $E \to B$ gives rise to a principal $G$-bundle
-$\Aut_B(E) \to B$.
+\begin{proof}
+Let $p\colon E \to B$ be a vector bundle and define a space $\Psi(E)$ over $B$ by
+\[
+\Psi(E) = \{(v_1,\cdots,v_n) \in E \times_B \cdots \times_B E \mid v_i \text{ linearly independent over $B$}\}.
+\]
+Clearly, $\GL_n(k)$ acts freely and fiberwise transitively on $\Psi(E)$, and over a trivializing neighborhood $U$ we have a local trivialization $\Psi(E)_U = \Psi(E_U) \cong \GL_n(k) \times U$. Moreover, $\Psi$ becomes a functor on the subcategory of vector bundle isomorphisms; a non-isomorphism does not preserve the linear independence condition. It is straightforward to see that $\Psi\circ\Phi$ and $\Phi\circ\Psi$ are naturally isomorphic to the identity functors.
+\end{proof}
 
+Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon p^{-1}U_{\alpha} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta in I$ defined by
+\[
+\phi_\beta|_{U_\alpha\beta}\left((\phi_\alpha|_{U_\alpha\beta})^{-1}(\gamma,x)\right) = (g_{\alpha\beta}(x)\gamma,x) \in G \times U_{\alpha\beta}.
+\]
+The following is a straightforward generalization of Lemma~\ref{lemma:vectorbundlegivescocycle} whose proof we leave to the diligent reader:
 
-The assignment of a cocycle $g$ to a vector bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
+\begin{lemma}\label{lemma:principalbundlegivescocycle}
+Let $G$ be a topological group and $p\colon E \to B$ a principal $G$-bundle with a trivializing open cover $\{U_\alpha\}_{\alpha}$ and change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$. Then $(g_{\alpha\beta})$ is a cocycle for $\mathcal U$ with values in $G$.
+
+In the case where $G=\GL_n(k)$, this cocycle is equal to the cocycle of the associated vector bundle $\Phi(E)$.\qed
+\end{lemma}
+
+\bigskip
+
+The assignment of a cocycle $g$ to a vector bundle or principal $G$-bundle $p$ is not well-defined as it depends both on a choice of trivializing neighborhoods and a choice of trivializations over the latter. The following proposition clarifies, among other things, what happens when we choose different trivializations.
 
 \begin{prop}\label{prop:cocycleisomorphisms}
-Let $p\colon E \to B$ and $p'\colon E' \to B$ two vector bundles. Let $\{U_\alpha\}_\alpha$ be a cover of $B$ that trivializes both $p$ and $p'$, and let $g$ and $g'$ be cocycles associated to $p$ and $p'$, respectively. Then $p \cong p'$ iff and only $g$ and $g'$ are cohomologous.
+Let $p\colon E \to B$ and $p'\colon E' \to B$ be two principal $G$-bundles for some topological group $G$. Let $\{U_\alpha\}_\alpha$ be a cover of $B$ that trivializes both $p$ and $p'$, and let $g$ and $g'$ be cocycles associated to $p$ and $p'$, respectively. Then $p \cong p'$ iff and only $g$ and $g'$ are cohomologous.
 \end{prop}
 Note that one can always find a cover that trivializes both $p$ and $p'$, for instance, by taking all intersections of trivializing neighborhoods of $p$ with trivializing neighborhoods of $p'$.
 
 \begin{proof}
 We will show that ``if'' part first, so let us assume that
 \[
-g'_{\alpha\beta} = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in \map(U_{\alpha\beta},G_{n_\alpha})
+g'_{\alpha\beta} = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in \map(U_{\alpha\beta},G)
 \]
-for some collection $c_\alpha\colon U_\alpha \to \GL_{n_\alpha}(k)$. For $\alpha \in I$, define a map
+for some collection $c_\alpha\colon U_\alpha \to G$. For $\alpha \in I$, define a map
 \[
-f_\alpha\colon E_{U_\alpha} \xrightarrow{\phi_\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{\tilde c_\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{(\phi_\alpha')^{-1}} E'_{U_\alpha}.
+f_\alpha\colon E_{U_\alpha} \xrightarrow{\phi_\alpha} G \times U_\alpha \xrightarrow{\tilde c_\alpha} G \times U_\alpha \xrightarrow{(\phi_\alpha')^{-1}} E'_{U_\alpha}.
 \]
-As a composition of three linear isomorphisms over $U_\alpha$, it is an isomorphism of vector bundles over $U_\alpha$. Furthermore, if $U_{\alpha\beta} \neq \emptyset$, we have that
+As a composition of three $G$-equivariant maps over $U_\alpha$, it is an isomorphism of principal $G$-bundles over $U_\alpha$. Furthermore, if $U_{\alpha\beta} \neq \emptyset$, we have that
 
 \begin{align*}
 f_\beta \circ f_\alpha^{-1} =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ \tilde c_\alpha^{-1} \circ \phi'_\alpha\\
 =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1}) \circ \phi'_\alpha\\
 = & (\phi'_\beta)^{-1} \circ \tilde g_{\alpha\beta} \circ \phi'_\alpha = \id,
 \end{align*}
-where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of vector bundles
+where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of principal $G$-bundles
 \[
 f\colon E \to E', \quad f(x) = f_\alpha(x) \quad \text{if } x \in U_\alpha.
 \]
 
-Now assume that $f\colon E \to E'$ is an isomorphism of vector bundles. Define $c_\alpha\colon U_\alpha \to \GL_{n_\alpha}(k)$ by 
+Now assume that $f\colon E \to E'$ is an isomorphism of principal $G$-bundles. Define $c_\alpha\colon U_\alpha \to G$ by 
 \[
 \tilde c_\alpha = \phi'_\alpha \circ f \circ \phi_\alpha^{-1}.
 \]
@@ -529,31 +544,31 @@ Then
 hence $g$ and $g'$ are cohomologous.
 \end{proof}
 
-Thus for a chosen trivializing cover, the cocycle of a vector bundle is unique up to cohomology. The following result gives the existence part of the characterization:
+Thus for a chosen trivializing cover, the cocycle of a vector bundle or principal $G$-bundle is unique up to cohomology. The following result gives the existence part of the characterization:
 
 \begin{prop}\label{prop:cocycleexistence}
-Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover on a space $B$ and $(n_\alpha,g_{\alpha\beta}) \in Z^1_{\mathcal U}(B,\{\GL_n(k)\})$. Then there is a vector bundle $p\colon E \to B$ and trivializations $\phi_\alpha\in \map_{U_\alpha}(E_{U_\alpha},k^{n_\alpha} \times U_{\alpha})$ whose associated cocycle is $(n,g)$.
+Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover on a space $B$ and $(g_{\alpha\beta}) \in Z^1_{\mathcal U}(B;G)$. Then there is a principal $G$-bundle $p\colon E \to B$ and trivializations $\phi_\alpha\in \map_{U_\alpha}(E_{U_\alpha},G \times U_{\alpha})$ whose associated cocycle is $g$.
 \end{prop}
 \begin{proof}
 Let
 \[
-\tilde E = \coprod_{\alpha} k^{n_\alpha} \times U_\alpha \xrightarrow{p\colon (x_\alpha,y_\alpha) \mapsto y_\alpha} B.
+\tilde E = \coprod_{\alpha} G \times U_\alpha \xrightarrow{p\colon (x_\alpha,y_\alpha) \mapsto y_\alpha} B.
 \]
-We will construct the total space $E$ of the desired vector bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
+We will construct the total space $E$ of the desired $G$-bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
 \[
-(x_\alpha,u_\alpha) \sim (x_\beta,u_\beta) \quad \text{iff} \quad u_\alpha=u_\beta \in U_{\alpha\beta} \text{ and } g_{\alpha\beta}(x_\alpha) = x_\beta.
+(x_\alpha,u_\alpha) \sim (x_\beta,u_\beta) \quad \text{iff} \quad u_\alpha=u_\beta \in U_{\alpha\beta} \text{ and } g_{\alpha\beta}x_\alpha = x_\beta.
 \]
 The cocycle conditions (COC1) -- (COC3) are equivalent, in this order, to the reflexivity, symmetry, and transitivity of the relation $\sim$, thus $\sim$ is an equivalence relation, and we define $E = \tilde E/\sim$. Since identifications under $\sim$ only occur within a fiber, $p$ factors through a projection map $p\colon E \to B$.
 
-We now define an addition
+We now define a $G$-action $G \to \map_B(E,E)$ by
 \[
-E \times_B E \to E, \quad ([x_\alpha,b],[y_\alpha,b]) \mapsto [x_\alpha+y_\alpha,b],
+\gamma.[x_\alpha,b] = [x_\alpha\gamma^{-1},b].
 \]
-and a scalar multiplication in an analogous way. To see this is well-defined, observe that
+To see this is well-defined, observe that
 \[
-[g_{\alpha\beta}(x_\alpha),b] + [g_{\alpha\beta}(y_\alpha),b] = [g_{\alpha\beta}(x_\alpha+y_\alpha),b]
+\gamma.[g_{\alpha\beta}x_\alpha,b] = [g_{\alpha\beta}x_\alpha\gamma^{-1},b].
 \]
-since $g_{\alpha\beta}$ is linear. Thus $E$ is a $k$-vector space over $B$. Since $g_{\alpha\beta}$ is bijective, $\sim$ identifies distinct points in $k^{n_\alpha} \times U_\alpha$ with distinct points in $k^{n_\beta} \times U_\beta$, hence the map $k^{n_\alpha} \times U_\alpha \hookrightarrow \tilde E \to E$ is injective with image $E_{U_\alpha}$. We define the local trivialization $\phi_\alpha$ to be the inverse of this map. The clearly, $g_{\alpha\beta}$ is the change-of-coordinates map associated with $\phi_\alpha$ and $\phi_\beta$, and the proof is complete.
+Furthermore, the $G$-action is clearly free and transitive on every fiber. Thus $E$ is a principal $G$-bundle over $B$. Since $g_{\alpha\beta}$ is bijective, $\sim$ identifies distinct points in $G \times U_\alpha$ with distinct points in $G \times U_\beta$, hence the map $G \times U_\alpha \hookrightarrow \tilde E \to E$ is injective with image $E_{U_\alpha}$. We define the local trivialization $\phi_\alpha$ to be the inverse of this map. Then clearly, $g_{\alpha\beta}$ is the change-of-coordinates map associated with $\phi_\alpha$ and $\phi_\beta$, and the proof is complete.
 \end{proof}
 
 We can thus define a vector bundle up to isomorphism by specifying a cocycle for some cover. However, maps of vector bundles cannot be described in this way, thus we cannot make a category out of the cocycle description for vector bundles. 
@@ -654,18 +669,16 @@ This is in fact a groupoid as well. We denote it by $\mathbf U$.
 \end{example}
 
 \begin{prop} \label{prop:cocyclesasgroupoidmaps}
-Let $\mathcal U$ be an open cover of $X$ with associated groupoid $\mathbf U$, and $\mathcal G$ the groupoid associated to a sequence of Lie groups $\{G_n\}_{n \geq 0}$. Assume that every set in the open cover $\mathcal U$ is connected. Then the natural map
+Let $\mathcal U$ be an open cover of $X$ with associated groupoid $\mathbf U$, and $G$ a Lie group, considered as a topological groupoid with one object. Assume that every set in the open cover $\mathcal U$ is connected. Then the natural map
 \[
-\Fun(\mathbf U,\mathcal G) \to Z^1_{\mathcal U}(X,\mathcal G), \quad F \mapsto (n,g) \quad \text{where } n_\alpha = F_0|_{U_\alpha},\; g_{\alpha\beta} = F_1|_{U_{\alpha\beta}}
+\Fun(\mathbf U,\mathcal G) \to Z^1_{\mathcal U}(X,G), \quad F \mapsto g \quad \text{where } g_{\alpha\beta} = F_1|_{U_{\alpha\beta}}
 \]
 is a bijection.
 
 Furthermore, two cocycles are cohomologous if and only if their associated functors are naturally isomorphic.
 \end{prop}
 \begin{proof}
-Note that $F_0\colon \coprod_{\alpha \in I} U_\alpha \to \N$ is continuous, hence constant on connected components. Since $U_\alpha$ was assumed connected, this means that $F_0|_{U_\alpha} = n_{\alpha}$ is constant. If $U_{\alpha\beta} \neq \emptyset$ then there is some morphism in $\mathbf U$ with source in $U_\alpha$ and target in $U_\beta$. Thus this morphism must have an image in $\mathcal G$, i.~e. a morphism from $n_\alpha$ to $n_\beta$. Since $\mathcal G$ only has endomorphisms, we must have $n_\alpha=n_\beta$.
-
-We now verify the cocycle axioms. The functor $F$ has to map identity morphisms to identity morphisms. The identity morphism on $x \in \ob \mathbf U$, say $x \in U_\alpha$, is $x \in U_{\alpha\alpha} \subset \mathbf U \times_X \mathbf U$. Thus we must have that its image $g_{\alpha\alpha} = \id$ in $\mathcal G$ as well, proving \ref{it:coc1}. For \ref{it:coc2}, note that the inverse of $x \in U_{\alpha\beta} \subseteq \mathbf U \times_X \mathbf U$ is $x \in U_{\beta\alpha}$. The functor must preserve inverses, hence $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$. Finally, a functor must also satisfy $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$. In our case, this is
+We verify the cocycle axioms. The functor $F$ has to map identity morphisms to identity morphisms. The identity morphism on $x \in \ob \mathbf U$, say $x \in U_\alpha$, is $x \in U_{\alpha\alpha} \subset \mathbf U \times_X \mathbf U$. Thus we must have that its image $g_{\alpha\alpha} = \id$ in $G$ as well, proving \ref{it:coc1}. For \ref{it:coc2}, note that the inverse of $x \in U_{\alpha\beta} \subseteq \mathbf U \times_X \mathbf U$ is $x \in U_{\beta\alpha}$. The functor must preserve inverses, hence $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$. Finally, a functor must also satisfy $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$. In our case, this is
 \[
 g_{\alpha\gamma} = g_{\alpha\beta}g_{\beta\gamma}
 \]
@@ -673,27 +686,36 @@ Using \ref{it:coc2}, this gives \ref{it:coc3}.
 
 Conversely, any cocycle defines a functor as described above.
 
-Now let $h\colon \mathbf U \to \mathcal G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $(n,g)$ and $(n',g')$ are the cocycles associated to $F$ and $F'$, respectively. Since $(x,0 \to 1)$ is a morphism in $\mathbf U \times [1]$ for any $x \in U_\alpha$, there must be a morphism $h(x,0\to1)$ between $n_\alpha$ and $n'_\alpha$ in $\mathcal G$, so $n_\alpha=n'_\alpha$ for all $\alpha$.
-
-Now define $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ by $c_\alpha = h|_{U_\alpha}$. We want to show that
+Now let $h\colon \mathbf U \to G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $g$ and $g'$ are the cocycles associated to $F$ and $F'$, respectively. Define $c_\alpha\colon U_\alpha \to G$ by $c_\alpha = h|_{U_\alpha}$. We want to show that
 \[
-g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in G_{n_\alpha} \quad \text{for all } \alpha,\beta \in I \text{ such that } U_{\alpha\beta} \neq \emptyset.
+g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in G \quad \text{for all } \alpha,\beta \in I \text{ such that } U_{\alpha\beta} \neq \emptyset.
 \]
 This can be reformulated as $g'_{\alpha\beta}c_\alpha = c_\beta g_{\alpha\beta}$. This follows from the functoriality of $h$ because the above identity is the image under $h$ of the true identity
 \[
 (x \in U_{\alpha\beta},1 \to 1) \circ (x \in U_{\alpha\alpha},0 \to 1) = (x \in U_{\beta\beta},0\to 1) \circ (x \in U_{\alpha\beta},0 \to 0) \text{ in } \mathbf U \times [1].
 \]
 
-Conversely, if $(n,g)$ and $(n',g')$ are cohomologous by $c_\alpha\colon U_\alpha \to G_{n_\alpha}$ then $h(x \in U_\alpha,0) = h(x \in U_\alpha,1) = n_\alpha=n'_\alpha$ defines the object part of a natural transformation. On morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $h = \coprod_{\alpha} c_\alpha \colon \mathbf U \to \mathcal G$.
+Conversely, if $g$ and $g'$ are cohomologous by $c_\alpha\colon U_\alpha \to G$ then on morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $h = \coprod_{\alpha} c_\alpha \colon \mathbf U \to G$.
 \end{proof}
 
+Encouraged by this proposition, we will extend the definition of cocyles with values in a topological groupoid $\mathcal G$ and write $Z^1_{\mathcal U}(X;\mathcal G)$ for the set of functors $\Fun(\mathbf U,\mathcal G)$ and call two such cocycles cohomologous if the associated functors are naturally isomorphic. We also write $H^1_{\mathcal U}(X;\mathcal G)$ for the set of cocycles modulo cohomology.
+
+The following corollary is a straightforward consequence of Propositions~\ref{prop:cocycleisomorphisms}, \ref{prop:cocycleexistence}, and \ref{prop:cocyclesasgroupoidmaps}:
+\begin{corollary} \label{cor:cocycleidentification}
+There is a bijection
+\[
+\{\text{$k$-vector bundles on $B$ with trivializing cover $\mathcal U$}\}/\text{iso} \leftrightarrow H^1_{\mathcal U}(B;\coprod_{n \geq 0} \GL_n(k)).
+\]
+\end{corollary}
+
 We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarifying the terms “cocycle”, “coboundary”, and “cohomologous.”
+
 
 \section{Operations on bundles}
 
 In this section we study the structure of the set of $k$-vector bundles on a space $X$ and how to build new vector bundles from existing ones, mimicking standard constructions in linear algebra.
 
-\subsection{Pullbacks and pushforwards}
+\subsection{Pullbacks and pushforwards} \label{subsec:pullback-pushforward}
 
 Given a vector bundle $p\colon E \to B$ and a map $f\colon B' \to B$, the fiber product
 \[
@@ -1232,7 +1254,7 @@ Picking the $n$ first columns of an $N\times N$-matrix gives us surjective maps
 \]
 
 \begin{lemma}\label{lemma:grassstiefelashomogeneousspaces}
-Consider the group $O(n) \times O(N-n)$ as the subgroup of $O(N)$ of matrices of the form $\begin{smallmatrix} A & 0\\ 0 & B\end{smallmatrix}$. Then $\phi$ factors through an $O(n)$-equivariant homeomorphism
+Consider the group $O(n) \times O(N-n)$ as the subgroup of $O(N)$ of matrices of the form $\left(\begin{smallmatrix} A & 0\\ 0 & B\end{smallmatrix}\right)$. Then $\phi$ factors through an $O(n)$-equivariant homeomorphism
 \[
 \overline\phi\colon O(N)/O(N-n) \to V_n(\R^N).
 \]
@@ -1256,7 +1278,7 @@ This follows directly from the $G_n(k^N) \cong \frac{O(N)}{O(n) \times O(N-n)}$.
 
 Having exhibited $V_n(k^N)$ and $G_n(k^N)$ as homogeneous spaces, we get:
 
-\begin{thm}
+\begin{thm}\label{thm:grassmannianmanifolds}
 The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, of the following real dimensions:
 \begin{itemize}
 \item $\dim V_n(\R^N) = Nn - {n+1 \choose 2}$;
@@ -1545,7 +1567,7 @@ in particular, by dividing out the $\Z/2$-action, $BO(1) \cong \R P^\infty$.
 \end{proof}
 
 \section{Schubert cells}
-In~\ref{sec:Grassmann manifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
+In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
 It is not a coincidence that these spaces are named \textit{cells}, they in fact make up a CW-complex of $G_n(k^N)$. 
 This allows for the computation of the cohomology ring of the Grassmannian via the cellular cohomology that comes along with CW-complexes. 
@@ -1718,18 +1740,16 @@ h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)u_0,\dots,st_n+(1-s)u_n(x)].
 \medskip\noindent\textbf{\eqref{thm:paracompactnerve:deformationretraction}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:} obvious.
 \end{proof}
 
-\subsection{Fiber bundles and homotopy invariance}
-
-[Define $G$-fiber bundles here and phrase the following in terms of general fiber bundles.]
+\subsection{Homotopy invariance}
 
 \begin{thm}\label{thm:homotopicpullbacks}
-Let $f,\; g\colon X \to B$ be homotopic maps, $p\colon E \to B$ a vector bundle, and assume that $X$ is paracompact. Then $f^*p \cong g^*p$.
+Let $G$ be a topological group, $p\colon E \to B$ a principal $G$-bundle, $X$ a paracompact space, and$f,\; g\colon X \to B$ be two homotopic maps. Then $f^*p \cong g^*p$.
 \end{thm}
 
 To prove this, we need a technical result about covering homotopies:
 
 \begin{thm}\label{thm:homotopylifting}
-Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a vector bundle. Denote by $E_t \to B$ the vector bundle $p^{-1}(B \times \{t\} \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
+Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G$-bundle. Denote by $E_t \to B$ the $G$-bundle $p^{-1}(B \times \{t\}) \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
 \[
 \begin{tikzpicture}
 	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
@@ -1756,7 +1776,7 @@ Then for every $x \in B$ there is an $\alpha \in I$ such that $f_\alpha(x)=1$ an
 \[
 r_\alpha\colon B \times [0,1] \to B \times [0,1] \quad \text{by} \quad (x,t) \mapsto (x,\max(t,u_\alpha(x))).
 \]
-This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is the identity outside of $E_{U_\alpha \times [0,1]}$ and on the the trivial piece $E_{U_\alpha \times [0,1]} \cong U_\alpha \times [0,1] \times k^n$, $\tilde r_\alpha$ is given by $(x,t,v) \mapsto (x,\max(t,u_\alpha(x)),v)$. Then $\tilde r_\alpha|_{E_1} = \id$ and the diagram
+This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is the identity outside of $E_{U_\alpha \times [0,1]}$ and on the the trivial piece $E_{U_\alpha \times [0,1]} \cong U_\alpha \times [0,1] \times G$, $\tilde r_\alpha$ is given by $(x,t,\gamma) \mapsto (x,\max(t,u_\alpha(x)),\gamma)$. Then $\tilde r_\alpha|_{E_1} = \id$ and the diagram
 \[
 \begin{tikzpicture}
 	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
@@ -1771,7 +1791,7 @@ This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is
 	(m-2-1) edge node[auto]{$r_\alpha$}(m-2-2);
 \end{tikzpicture}
 \]
-is a pullback. Choose a total ordering on $I$ and let $r$ be the (infinite) composition of all the maps $\tilde r_\alpha$. This is well-defined since fro every $x \in E$, only finitely many $\alpha$ have $\tilde r_\alpha(x) \neq x$. Since $\max(u_\alpha)=1$, $r$ takes values in $E_1$.
+is a pullback. Choose a total ordering on $I$ and let $r$ be the (infinite) composition of all the maps $\tilde r_\alpha$. This is well-defined since for every $x \in E$, only finitely many $\alpha$ have $\tilde r_\alpha(x) \neq x$. Since $\max(u_\alpha)=1$, $r$ takes values in $E_1$.
 \end{proof}
 
 In particular, we have a bundle isomorphism $r\in \map_{B \times [0,1]}(E, E_1 \times [0,1])$ which is the identity on $E_1$.
@@ -1791,36 +1811,30 @@ The identity map on $B$ is homotopic to a constant map. The pullback of $E$ alon
 
 \section{Universal bundles}
 
-In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. If $G$ acts linearly on some vector space $V$, we can use the free $G$-action on $EG$ to define a vector space over $BG$ by defining
-\[
-E = EG \times_G V.
-\]
-
-..........Take up principal bundles
-
+In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. 
 
 \begin{lemma}
-For Lie groups $G$, $EG \to BG$ is a principal $G$-bundle. Hence the vector space $u\colon E \to BG$ over $BG$ is a vector bundle.
+For Lie groups $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
 \end{lemma}
 \begin{proof}
 Segal notes in \cite{segal:68} that this fails to be true for a general topological group $G$, but it does hold for Lie groups. See, for instance, \cite{may:classifying-spaces}, where May shows that it suffices for a topological group $G$ to be well-pointed for this to hold.
 \end{proof}
 
-For $G=O(n)$ and $V=\R^n$ with the standard action, or for $G=U(n)$ and $V=\CC^n$ with the standard action, the vector bundle $u\colon E \to BG$ is called the \emph{universal bundle} for the following reason:
+The principal $G$-bundle $u\colon EG \to BG$ is called the \emph{universal principal $G$-bundle} for the following reason:
 
 \begin{thm}\label{thm:classifying-space}
-Let $G=O(n)$, $k=\R$, and $V=\R^n$ with the standard action, or for $G=U(n)$, $k=\C$, and $V=\CC^n$ with the standard action. Then for any paracompact space $X$, there is a bijection
+For any paracompact space $X$, there is a bijection
 \[
-\Phi\colon [X,BG] \to \Vect_k^n(X)/\operatorname{iso}, \quad [f] \mapsto f^*u,
+\Phi\colon [X,BG] \to \Princ_G(X)/\operatorname{iso}, \quad [f] \mapsto f^*u,
 \]
-where $\Vect_k^n(X)/\operatorname{iso}$ denotes the set of isomorphism classes of $n$-dimensional $k$-vector bundles.
+where $\Princ_G(X)/\operatorname{iso}$ denotes the set of isomorphism classes of principal $G$-bundles.
 \end{thm}
 \begin{proof}
-by Thm.~\ref{thm:homotopicpullbacks}, $\Phi$ is well-defined, that is, that it maps homotopic maps to isomorphic vector bundles over $X$.
+By Thm.~\ref{thm:homotopicpullbacks}, $\Phi$ is well-defined, that is, it maps homotopic maps to isomorphic $G$-bundles over $X$.
 
-To construct an inverse map $\Psi\colon \Vect_k^n(X) \to [X,BG]$, let $p\colon E \to X$ be an $n$-dimensional vector bundle. Choose a cover $\mathcal U$ of $X$ consisting of trivializing neighborhoods for $p$. The cocycle corresponding to $p$ with respect to $\mathcal U$ gives us a simplicial map
+To construct an inverse map $\Psi\colon \Princ_G(X) \to [X,BG]$, let $p\colon E \to X$ be a principal $G$-bundle. Choose a cover $\mathcal U$ of $X$ consisting of trivializing neighborhoods for $p$. The cocycle corresponding to $p$ with respect to $\mathcal U$ gives us a simplicial map
 \[
-\nerve \mathbf U \to \nerve G
+\nerve \mathbf U \to G
 \]
 and thus a map on realizations
 \[
@@ -1842,10 +1856,10 @@ are isomorphisms.
 We can also use universal bundles to compare $BG$ with Grassmannians up to homotopy.
 
 \begin{corollary}\label{cor:characterizationfouniversalGspaces}
-Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G=\GL_n(k)$-action. Then $E/G \simeq BG$ and, moreover, the vector bundle $E \times_G k^n \to E/G$ is universal.
+Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G$-action. Then $E/G \simeq BG$ and, moreover, the principal $G$-bundle $E \to E/G$ is universal.
 \end{corollary}
 \begin{proof}
-By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \times_G k^n \cong f^*u$. By looking at automorphisms of this vector bundle, we see that this bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
+By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \cong f^*u$. This bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
 \end{proof}
 
 \begin{corollary}
@@ -1996,22 +2010,36 @@ where $\mathcal U$ runs over the poset $\Cov(X)$ of open covers of $X$ with a mo
 \end{defn}
 
 
-\begin{lemma}\label{lemma:dircolimitofsets}
+\begin{lemma}
 The poset $C = \Cov(X)$ is \emph{directed}, i.~e. for every two elements $\mathcal U$, $\mathcal V \in C$ there is a third element $\mathcal W$ with $\mathcal U \leq \mathcal W \geq \mathcal V$.
 \end{lemma}
 \begin{proof}
 If $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ and $\mathcal V = \{V_\beta\}_{\beta \in J}$, define $\mathcal W = \{U_\alpha \cap V_\beta\}_{(\alpha,\beta) \in I \times J}$.
 \end{proof}
 
-\begin{lemma}\label{lemma:directedcolimits}
-Let $F\colon C \to \Set$ be a functor, where $C$ is a directed ordered set. Then
+\begin{lemma}\label{lemma:dircolimitofabeliangroups}
+Let $F\colon C \to \Ab$ be a functor, where $C$ is a directed ordered set and $\Ab$ is the category of abelian groups. Then
 \begin{enumerate}
 \item For every $x \in \colim_C F$, there exists $c \in C$ and $x_c \in F(c)$ such that $\iota_c(c)=x$.
 \item If $x \in F(c)$ and $y \in F(d)$ are such that $\iota_c(x)=\iota_d(y) \in \colim_C F$ then there exists $e \in C$, $c \leq e \geq d$ such that $x \mapsto e$ and $y \mapsto e$ in $F(e)$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-The first part is obvious. For the second part, we may assume $c=d$ since we can otherwise pass to a common upper bound of $c$ and $d$ in $C$ because $C$ is directed. If $\alpha_*(x) \neq \alpha_*(x)$ for all $\alpha\colon c \to e$ then we can construct compatible maps from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(c) \mapsto 0$ and $\alpha(d) \mapsto 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
+For $c \leq d$ in $C$, let $\iota_{cd}\colon F(c) \to F(d)$ denote the induced map. Then one easily sees that $\colim F$ can be constructed as
+\[
+\colim_C F = \bigoplus_{c \in C} F(c)/\sim,
+\]
+where $\sim$ is generated additively by $x \sim \iota_{cd}(x)$ for $x \in F(c)$. Thus every element $x \in \colim_C F$ has a representative $(y_d)_{d \in C} \in \bigoplus_{d \in C}$. Since all but finitely many $y_d$ are zero and $C$ is directed, there exists a $c$ such that $d \leq c$ for all $c$ such that $y_d \neq 0$. Thus $x_c = \sum_{d \in C} \iota_{dc}(y_d)$ is well-defined, and $\iota_c(x_c) = x$. This proves the first part.
+
+For the second part, we may assume $c=d$ since we can otherwise pass to a common upper bound of $c$ and $d$ in $C$ because $C$ is directed. Moreover, the first part showed that the colimit in abelian groups is actually equal to the colimit in sets, thus we verify the claim using the universal property for colimits of set-valued functors.
+If $\iota_{ce}(x) \neq \iota_{ce}(y)$ for all $e \geq c$ then we can construct compatible maps from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(c) \mapsto 0$ and $\alpha(d) \mapsto 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
+\end{proof}
+
+\begin{lemma}\label{lemma:cofinalcolimit}
+Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that for every $c \in C$ there is a $d \in D$ with $c \leq D$. Let $F\colon C \to \Set$ be a functor. Then $\colim_C F \cong \colim_D F|_D$.
+\end{lemma}
+\begin{proof}
+Since there are compatible maps $F(d) \to \colim_C F$ for every $d \in D$, there is a natural map $\colim_D F|_D \to \colim_C F$, and we have to show it is bijective. For surjectivity, any $x \in \colim_C F$ has a representative $x_c \in F(c)$, thus also $\iota_{cd}(x_c) \in F(d)$ for some $d \geq c$. For injectivity, if $x_d$, $y_{d'}$ map to the same element in $\colim_C F$ then there is a $c \in C$ such that $\iota_{dc}(x_d) = \iota_{d'c}(y_{d'})$ by Lemma~\ref{lemma:dircolimitofabeliangroups}. By cofinality, we can choose $c \in D$ and thus $x_d$ and $y_{d'}$ become equivalent in $\colim_D F|_D$.
 \end{proof}
 
 \begin{thm}
@@ -2029,6 +2057,85 @@ By Propositions~\ref{prop:cocycleisomorphisms} and~\ref{prop:cocycleexistence}, 
 is a bijection and induces a well-defined map $\Phi$ as in the statement of the theorem. For injectivity, assume two vector bundles induce the same cohomology class in the colimit. Then by the above lemma, they have to agree already for some cover $\mathcal U$. Hence the cocycles are cohomologous for the cover $\mathcal U$ and the corresponding vector bundles are isomorphic. For surjectivity, any cohomology class lies in $H^1_{\mathcal U}$ for some $\mathcal U$ by the above lemma and hence comes from a vector bundle trivialized over $\mathcal U$.
 \end{proof}
 
+\section{Functoriality}
+
+A morphism of sheaves of abelian groups $A \to B$ on $X$ induces a map between \v Cech cocycles and hence a homomorphism $H^*(X;A) \to H^*(X;B)$. This makes $H^*(X;-)$ into a covariant functor. But there is also a contravariant functoriality with respect to maps $f\colon X \to Y$ of spaces. Given an open cover $\mathcal V$ of $Y$, write $f^{-1}\mathcal V$ for the open cover of $X$ consisting of $f^{-1}(V)$ with $V \in \mathcal V$, and $f^{-1}\mathbf V$ for the associated topological groupoid. Then $f$ induces a simplicial map
+\[
+f\colon\nerve f^{-1}\mathbf V \to \nerve \mathbf V.
+\]
+
+If $A$ is a sheaf of abelian groups on $X$ then $f_*A$ is a sheaf of abelian groups on $Y$ defined by $f_*A(V) = A(f^{-1}V)$ (cf.\ Section~\ref{subsec:pullback-pushforward}). By this definition, we have a natural isomorphism
+\[
+A(\nerve f^{-1}\mathbf V) \cong f_*A(\nerve \mathbf V)
+\]
+which is compatible with the simplicial structure, and thus an induced isomorphism
+\[
+H_{f^{-1}\mathcal V}^n(X;A) \cong H_{\mathcal V}^n(Y;f_*A).
+\]
+By passing to the colimit over all open covers $\mathcal V$, we thus get an induced map
+\begin{equation}\label{eq:inducedmaponcohomology}
+f^*\colon H^n(Y;f_*A) \to H^n(X;A)
+\end{equation}
+which may or may not be an isomorphism; the reason being that $f^{-1}\mathcal V$ does not, in general, range over \emph{all} open covers of $X$. For instance, if $f$ is a constant map, $f^{-1}\mathcal V$ only produces the trivial cover on $X$.
+
+\begin{lemma}\label{lemma:basechangeiso}
+If $f\colon X \hookrightarrow Y$ is the inclusion of a subspace, the map $f^*\colon H^n(Y;f_*A) \to H^n(X;A)$ is an isomorphism.
+\end{lemma}
+\begin{proof}
+By the definition of the subspace topology, every open set $U \subseteq X$ is the intersection $V \cap X$ of an open set $V \subseteq Y$ with $X$. Thus every open cover $\mathcal U$ of $X$ is contained in $f^*\mathcal V$ for an open cover $\mathcal V$ of $Y$. By Lemma~\ref{lemma:cofinalcolimit},
+\[
+H^n(X;A) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;A).
+\]
+\end{proof}
+
+We will now restrict out attention on a particular class of sheaves: representable sheaves, and in particular, locally constant sheaves.
+
+\begin{defn}
+A sheaf $F$ of topological spaces (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,X)$ for some topological space (group, abelian group) $X$. If $X$ is discrete, we call $F$ \emph{locally constant}.
+\end{defn}
+
+If $A$ is a (topological) group, we will denote the sheaf $\map(-,A)$ on any space $X$ simply by $A$, without danger of confusion.
+
+\begin{lemma}
+Let $A$ be an abelian group and $f\colon X \to Y$ a map of topological spaces. Then there is an induced map
+\[
+f^*\colon H^n(Y;A) \to H^n(X;A)
+\]
+making $H^n(-;A)$ a contravariant functor on the category of topological spaces.
+\end{lemma}
+\begin{proof}
+The pushforward sheaf $f_*A$ on $Y$ is given by $f_*A(V) = \map(f^{-1}(V),A)$ and thus there is a natural map $A \to f_*A$ on $Y$ given by
+\[
+\map(V,A) \xrightarrow{g \mapsto f \circ g} \map(f^{-1}(V),A).
+\] 
+Composing this map with the map $f^*\colon H^n(Y;f_*A) \to H^n(X;A)$ of \eqref{eq:inducedmaponcohomology} gives the desired map.
+\end{proof}
+
+
+%\section{Homotopy invariance}%
+
+%\begin{prop}\label{prop:cohomologyhomotopyinvariant}
+%Let $\iota_t\colon B \to B \times [0,1]$ denote the inclusion $\iota_t(x)=(x,t)$ and $\pi\colon B \times [0,1] \to B$ the standard projection. Let $A$ be an abelian group. Then $(\iota_t)^*\colon H^*(B \times [0,1];A) \to H^*(B;A)$ is an isomorphism.
+%\end{prop}
+%\begin{proof}
+%By Lemma~\ref{lemma:basechangeiso}, we have that $H^*(B \times [0,1];(\iota_t)_*A) \cong H^*(B;A)$, so it would suffice to show that $A \to (\iota_t)_*A$ is an isomorphism, but this is not the case. However, note that
+%\[
+%\map(V,A) \to \map(\iota_t^{-1}V,A)
+%\]
+%is an isomorphism for every $V \subseteq B \times [0,1]$ of the form $U \times (a,b)$ where $a <t<b$.
+%.........
+%\end{proof}%
+%
+
+%\begin{thm}
+%Let $f,\;g\colon X \to Y$ be two homotopic maps and $A$ a locally constant sheaf on $Y$. Then $f^*=g^*\colon H^*(Y;A) \to H^*(X;A)$.
+%\end{thm}
+%\begin{proof}
+%Let $h\colon X \times [0,1] \to Y$ be a homotopy from $f$ to $g$. Then by Proposition~\ref{prop:cohomologyhomotopyinvariant}, $h^*A \cong h^*\pi_Y^*A_1 = \pi_X^*g^*A$, where $\pi_B\colon B \times [0,1] \to B$ is the standard projection. In the same way, $h^*A \cong \pi_X^*f^*A$. %
+
+%............%
+
+%\end{proof}
 
 \section{The long exact sequence}
 
@@ -2036,7 +2143,7 @@ is a bijection and induces a well-defined map $\Phi$ as in the statement of the 
 Let $F', \; F,\; F''\colon C \to \Ab$ be functors from a directed set $C$ to abelian groups and assume there are natural transformations $F' \to F \to F''$ such that $F'(c) \to F(c) \to F''(c) $ is exact for all $c$. Then $\colim_C F' \to \colim_C F \to \colim_C F''$ is also exact.
 \end{lemma}
 \begin{proof}
-Let $x \in \colim_C F$ map to $0$ in $\colim_C F''$. Choose a representative $x_c \in F(c)$, which exists by Lemma~\ref{lemma:dircolimitofsets}. While $x_c$ might not map to $0$ in $F''(c)$, it maps to $0$ in $F''(d)$ for some $d \geq c$ by Lemma~\ref{lemma:dircolimitofsets} again. Replacing $c$ by $d$, we can thus assume without loss of generality that it does map to $0$ in $F''(c)$. By exactness at $c$, there is thus a preimage in $F'(c)$, which maps to a preimage in $\colim_C F'$.
+Let $x \in \colim_C F$ map to $0$ in $\colim_C F''$. Choose a representative $x_c \in F(c)$, which exists by Lemma~\ref{lemma:dircolimitofabeliangroups}. While $x_c$ might not map to $0$ in $F''(c)$, it maps to $0$ in $F''(d)$ for some $d \geq c$ by Lemma~\ref{lemma:dircolimitofabeliangroups} again. Replacing $c$ by $d$, we can thus assume without loss of generality that it does map to $0$ in $F''(c)$. By exactness at $c$, there is thus a preimage in $F'(c)$, which maps to a preimage in $\colim_C F'$.
 \end{proof}
 
 \begin{lemma}\label{lemma:les}
@@ -2080,9 +2187,9 @@ Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups o
 \[
 0 \to A(X) \to A(U) \oplus A(V) \to A(U \cap V)
 \]
-is exact, where the right hand side map is the difference of the restriction maps. Let us assume in addition that for every inclusion of open sets $U' \subseteq U''$, the induced map of sheaves $A(U'') \to A(U')$ is surjective. Then the above sequence is also right exact.
+is exact, where the right hand side map is the difference of the restriction maps. Let us assume in addition that for every inclusion of open sets $U' \subseteq U''$, the induced map of sheaves $A(U'') \to A(U')$ is surjective. This is true for representable sheaves for instance, as any continuous map on $U'$ can be extended to $U''$ in some way. Then the above sequence is also right exact.
 
-Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \bigsqcup \mathcal U$. For a subspace $Y \subset X$, denote by $\mathbf U|_Y$ the cover $\coprod_{U \in \mathcal U} U \cap Y$. Then
+Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal U$. For a subspace $Y \subset X$, denote by $\mathbf U|_Y$ the cover $\coprod_{U \in \mathcal U} U \cap Y$. Then
 \[
 0 \to A(\nerve \mathbf U) \to A(\nerve (\mathbf U|_U)) \oplus A(\nerve (\mathbf U|_V)) \to A(\nerve (\mathbf U|_{U \cap V})) \to 0
 \]
