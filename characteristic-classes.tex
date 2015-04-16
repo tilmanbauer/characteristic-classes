@@ -1369,7 +1369,7 @@ X_n = \coprod_{X_0,\dots,X_n \in C} \Hom(X_{n-1},X_n) \times \dots \times \Hom(X
 %bad notation for the X_i
 i.~e., $X_n$ is the space of composable chains of $n$ morphisms.
 
-\begin{example}
+\begin{example}\label{ex:translationcat}
 Let $X$ be a space. We define the \emph{translation category} $T(X)$ of $X$ to have $\ob T(X) = X$ and $\mor T(X) = X \times X$, where the source and target maps are the two projections, the unit map is the diagonal, and the composition is the projection to the first and third factors:
 \[
 (X \times X) \times_X (X \times X) = X \times X \times X \to X \times X.
@@ -1381,7 +1381,7 @@ For this category, $\nerve_n T(X) \cong X^{n+1}$, and we can describe the nerve 
 where the argument is considered as a discrete topological space.
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:translationcatofgroup}
 Let $G$ be a topological group. Then the translation category $T(G)$ has a natural action by $G$: it acts by left multiplication on $\ob T(G) = G$ and by diagonal left multiplication on $\mor T(G) = G \times G$. Thus by functoriality, $G$ also acts on the nerve $\nerve T(G)$. That is, it acts on every space $\nerve_n T(G)$, and the structure maps $f^*$ are $G$-equivariant for each $f\colon [m] \to [n]$. We denote the quotient of $\nerve T(G)$ by this action by $\nerve G$.
 \end{example}
 
@@ -1528,11 +1528,13 @@ and by Thm~\ref{thm:geomrealizationandproduct}, $B(\C \times [1]) \cong B\C \tim
 \end{proof}
 
 
-\begin{corollary}
-For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realization of the nerve of the translation category of $X$, is contractible.
+\begin{corollary}\label{cor:EG}
+For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realization of the nerve of the translation category of $X$, is contractible. If moreover $X$ is a group then it acts freely on $EX$.
 \end{corollary}
 \begin{proof}
 By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category $T(X)$ is contractible, i.~e. equivalent to the one-point category. This is true since every object in $X$ is initial (and terminal): there is exactly one morphism between any two objects $x$, $y$, namely $(x,y)$.
+
+The $X$-action on $EX$ when $X$ is a group follows from functoriality and the free $X$-action on $T(X)$, cf.~Example~\ref{ex:translationcatofgroup}.
 \end{proof}
 
 \section{Classifying spaces of Lie groups} \label{sec:classifying-spaces}
@@ -1811,7 +1813,7 @@ The identity map on $B$ is homotopic to a constant map. The pullback of $E$ alon
 
 \section{Universal bundles}
 
-In the Section~\ref{sec:classifying-spaces} we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. 
+In Corollary~\ref{cor:EG}, we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. 
 
 \begin{lemma}
 For Lie groups $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
@@ -2111,32 +2113,6 @@ The pushforward sheaf $f_*A$ on $Y$ is given by $f_*A(V) = \map(f^{-1}(V),A)$ an
 Composing this map with the map $f^*\colon H^n(Y;f_*A) \to H^n(X;A)$ of \eqref{eq:inducedmaponcohomology} gives the desired map.
 \end{proof}
 
-
-%\section{Homotopy invariance}%
-
-%\begin{prop}\label{prop:cohomologyhomotopyinvariant}
-%Let $\iota_t\colon B \to B \times [0,1]$ denote the inclusion $\iota_t(x)=(x,t)$ and $\pi\colon B \times [0,1] \to B$ the standard projection. Let $A$ be an abelian group. Then $(\iota_t)^*\colon H^*(B \times [0,1];A) \to H^*(B;A)$ is an isomorphism.
-%\end{prop}
-%\begin{proof}
-%By Lemma~\ref{lemma:basechangeiso}, we have that $H^*(B \times [0,1];(\iota_t)_*A) \cong H^*(B;A)$, so it would suffice to show that $A \to (\iota_t)_*A$ is an isomorphism, but this is not the case. However, note that
-%\[
-%\map(V,A) \to \map(\iota_t^{-1}V,A)
-%\]
-%is an isomorphism for every $V \subseteq B \times [0,1]$ of the form $U \times (a,b)$ where $a <t<b$.
-%.........
-%\end{proof}%
-%
-
-%\begin{thm}
-%Let $f,\;g\colon X \to Y$ be two homotopic maps and $A$ a locally constant sheaf on $Y$. Then $f^*=g^*\colon H^*(Y;A) \to H^*(X;A)$.
-%\end{thm}
-%\begin{proof}
-%Let $h\colon X \times [0,1] \to Y$ be a homotopy from $f$ to $g$. Then by Proposition~\ref{prop:cohomologyhomotopyinvariant}, $h^*A \cong h^*\pi_Y^*A_1 = \pi_X^*g^*A$, where $\pi_B\colon B \times [0,1] \to B$ is the standard projection. In the same way, $h^*A \cong \pi_X^*f^*A$. %
-
-%............%
-
-%\end{proof}
-
 \section{The long exact sequence}
 
 \begin{lemma}\label{lemma:colimexact}
@@ -2166,7 +2142,7 @@ The first statement is a standard result from homological algebra once we notice
 The second part is a good exercise.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary} \label{cor:lesfromsesofsheaves}
 Let $0 \to A' \xrightarrow{i} A \xrightarrow{j} A'' \to 0$ be a sequence of sheaves of abelian groups which is exact as a sequence of presheaves. \marginpar{Counterexample for short exact sequences of sheaves? Cf. Godement 5.10/11}
 Then for any space $X$, there is a natural long exact sequence of Čech cohomology groups
 \[
@@ -2180,6 +2156,125 @@ as well as their colimits
 \begin{proof}
 By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
+
+\section{Homotopy invariance}
+
+\begin{defn} A sheaf $F$ on a paracompact topological space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
+
+It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft, i.~e. if every sheaf homomorphism $F|_K \to F|_K$ can be extended to all of $X$.
+\end{defn}
+
+\begin{example}
+The sheaf $C^0$ is soft by the Tietze extension theorem. The same is true for the sheaf $C^\infty$ of smooth functions on a manifold by using a smooth bump function.
+\end{example}
+
+\begin{lemma}\label{lemma:sheafpartitionofunity}
+Let $F$ be a soft sheaf of (topological) abelian groups on a paracompact space $X$ and $s \in F(X)$ a global section. Then for any open cover $\mathcal U = \{U_\alpha\}_{\alpha \in I}$, there exists a partition of $s$ with respect to $\mathcal U$. This means that there are $s_\alpha \in F(X)$ such that
+\begin{itemize}
+\item $\supp(s_\alpha) \subseteq U_\alpha$ and the supports are locally finite;
+\item $\sum_{\alpha \in I} s_\alpha = s$.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+This is an application of Zorn's Lemma to the poset
+\[
+\{(J,(s_\alpha)_{\alpha \in J}) \mid J \subseteq I,\; (s_\alpha)_{\alpha \in J} \text{ partition of }s|_{\bigcup_{\alpha \in J} U_\alpha}\}
+\]
+whose details we leave to the reader.
+\end{proof}
+
+\begin{prop}\label{prop:finesoftsheaves}
+Let $X$ be paracompact. Then fine sheaves of abelian groups on $X$ are soft, and soft sheaves of rings are fine. Any module sheaf over a soft (fine) sheaf of rings is also soft (fine).
+\end{prop}
+\begin{proof}
+Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U) \to M(K)$, where $U$ is some open set containing $K$. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R$ consisting of two sections $\{s_U,s_{X-K}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
+
+If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a soft sheaves of rings, over which $A$ is a module sheaf, thus $A$ is soft.
+\end{proof}
+
+\begin{prop}\label{prop:finesheafcohomology}
+Let $X$ be a paracompact space and $A$ a soft sheaf of abelian groups on it. Then $H^n(X;A)=0$ for $n>0$.
+\end{prop}
+\begin{proof}
+Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J\colon U_J \to A)_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by paracompactness, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
+
+Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K) = (c_J)$. If $\{1,\dots,n-1\} \subseteq K$, choose $u_K$ arbitrarily, for instant as the trivial function. Now we use induction and assume that $u_K$ is defined for every $K$ such that $|K \cap \{1,\dots,N\}| = n-1$ for some $N$. If $|K \cap \{1,\dots,N+1\}| = n$, i.~e. $N+1 \in K$, let $k$ denote the smallest integer not in $K$ (necessarily less or equal to $N$) and define
+\[
+u_K = c_{K\cup\{k\}}+\sum_{i=1}^{n} (-1)^i u_{K_i \cup \{k\}},
+\]
+extended to all of $U_K$ in any way. Here $K_i$ denotes $K$ with the $i$th element omitted. The cocycle condition on $c_J$ guarantees that $d((u_K))=(c_J)$.
+\end{proof}
+
+
+\begin{corollary}\label{cor:Omodulecohomology}
+Let $X$ be a paracompact space and $N$ a $C^0_X$-module sheaf. Then $H^n(X;N)=0$ for $n>0$. Similarly, for $M$ a smooth manifold and $N$ a $C^\infty_X$-module sheaf, $H^n(X;N)=0$ for $n>0$.\qed
+\end{corollary}
+
+
+Now let $A$ be a topological abelian group. As shown in Corollary~\ref{cor:EG}, $A$ acts freely on $EA$, but in the case of an \emph{abelian} group $A$, $EA$ is actually itself a group which has $A$ as a normal subgroup acting by left multiplication with quotient group $BA$. Thus
+\[
+0 \to A \to EA \to BA \to 0
+\]
+is a short exact sequence of topological abelian groups.
+
+\begin{lemma}\label{lemma:EAfine}
+For any contractible space $F$ the sheaf on a paracompact space $X$ represented by $F$ is soft.
+\end{lemma}
+\begin{proof}
+Let $h\colon F \times [0,1] \to F$ be a contracting homotopy, that is, $F_0$ is constant ($=p$) and $F_1=\id$. Let $K \subset X$ and $s\colon U \to F$ represent a section of $F$ over $X$ for some open $U \supset K$. Choose another open set $V \supset K$ such that $\overline V \subset U$. It suffices to extend $s|_V$ over all of $X$. Choose a map $f\colon X \to [0,1]$ with $f|_{\overline V} = 1$ and $f_{X-U}=0$. Now define $\tilde s\colon X \to F$ by
+\[
+\tilde s(x) = \begin{cases} h(x,f(x)); & x \in U\\
+p\; & x \not\in U.\end{cases}
+\]
+Then $\tilde s|_V = s|_V$ and we are done.
+\end{proof}
+
+\begin{corollary} \label{cor:cechdimensionshift}
+For any space $X$, topological abelian group $A$, and integer $n\geq 1$, we have a natural isomorphism
+\[
+H^{n+1}(X;A) \cong H^n(X;BA).
+\]
+\end{corollary}
+\begin{proof}
+The short exact sequence $0 \to A \to EA \to BA \to 0$ induces a long exact sequence in \v Cech cohomology by Corollary~\ref{cor:lesfromsesofsheaves}. By Lemma~\ref{lemma:EAfine}, $EA$ is soft and hence, by Proposition~\ref{prop:finesheafcohomology}, $H^n(X;EA)=0$ for $n>0$. Thus the long exact sequence splits into isomorphisms
+\[
+H^n(X;BA) \xrightarrow{d} H^{n+1}(X;A)
+\]
+for $n \geq 1$.
+\end{proof}
+
+\begin{corollary}\label{cor:cechcohomologyhomotopyinvariance}
+Let $f,\;g\colon X \to Y$ by two homotopic maps between paracompact spaces and $A$ a discrete abelian group. Then
+\[
+f^*=g^*\colon H^n(Y;A) \to H^n(X;A).
+\]  
+\end{corollary}
+\begin{proof}
+For $n\geq 1$, by repeated application of Corollary~\ref{cor:cechdimensionshift}, there is a natural isomorphism $H^n(-;A) \cong H^1(-;B^{n-1}A)$. Thus cohomology classes in $H^n(X;A)$ can be identified with principal $B^{n-1}A$-bundles on $X$. Homotopy invariance for these was shown in Thm~\ref{thm:homotopicpullbacks}.
+
+If $A$ is discrete then the statement also holds for $H^0$ since in that case,
+\[
+H^0(Y;A) = \map(Y,A) = [Y,A] = [X,A] = H^0(X;A).
+\]
+\end{proof}
+
+The homotopy invariance is not only a strong rigidity result but also shows that in almost all cases, taking a colimit over all covers of a space can be avoided:
+
+\begin{defn}
+An open cover $\mathcal U$ of a space $X$ is called \emph{contractible} (or \emph{good}) if all finite intersections of elements of $\mathcal U$ are either empty or contractible.
+\end{defn}
+
+\begin{thm}\label{thm:contractible-covers}
+Let $\mathcal U$ be a contractible cover of a paracompact space. Then the canonical map
+\[
+H^n_{\mathcal U}(X;A) \to H^n(X;A) 
+\]
+is an isomorphism for all $n \geq 0$ and all sheaves of abelian groups $A$.
+\end{thm}
+\begin{proof}
+The standard proof is a spectral sequence argument on the double complex associated to $H^*(\nerve \mathbf U;A)$, which has \v Cech cohomology as horizontal cohomology and $\mathcal U$-based \v Cech cohomology as vertical cohomology; both spectral sequences collapse at $E_2$. Can we avoid this argument using dimension shift (Corollary~\ref{cor:cechdimensionshift})?
+\end{proof}
+
 
 \section{The Mayer-Vietoris sequence}
 
@@ -2263,6 +2358,10 @@ H^m(X;R) \otimes H^n(X;R) \xrightarrow{\times} H^{m+n}(X \times X; R \times R) \
 \]
 This turns $H^*(X;R)$ into a graded ring.
 
+\section{Examples of cohomology rings}
+
+spheres, $\CP^n$, $\RR P^n$
+
 \section{De Rham cohomology of manifolds}
 
 Let $M$ be a smooth manifold and $E \to M$ a real vector bundle. Then we define the sheaf of alternating $k$-forms with values in $E$ as
@@ -2298,7 +2397,7 @@ Since the sequence \eqref{eq:omegasequence} is exact, we have short exact sequen
 \[
 0 \to d\Omega^{k-1}(M;E) \to \Omega^k(M;E) \to d\Omega^k(M;E) \to 0.
 \]
-Since $\Omega^k(M;E)$ is a module sheaf over $C^\infty(M)$, its \v Cech cohomology vanishes by \ref{......}. Thus the long exact sequence in \v Cech cohomology induced by the above short exact sequence splits up into a sequence of isomorphisms
+Since $\Omega^k(M;E)$ is a module sheaf over $C^\infty(M)$, its \v Cech cohomology vanishes by Corollary~\ref{cor:Omodulecohomology}. Thus the long exact sequence in \v Cech cohomology induced by the above short exact sequence splits up into a sequence of isomorphisms
 \[
 H^n(M;d\Omega^k(M;E)) \xrightarrow{\sim} H^{n+1}(M;d\Omega^{k-1}(M;E)).
 \]
