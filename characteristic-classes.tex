@@ -30,6 +30,11 @@
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\SL}{SL}
 
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\Rat}{Rat}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\divisor}{div}
+
 \renewcommand{\C}{\mathcal C}
 \newcommand{\nerve}{\mathcal N}
 
@@ -2569,10 +2574,146 @@ Let $E$ be an oriented $n$-dimensional real vector bundle, where $n$ is even. Ch
 
 % Examples, reduction to 2D case
 
-\chapter{Characteristic classes in algebraic geometry}
-\section{Varieties and algebraic vector bundles}
+\chapter{Characteristic classes in algebraic geometry (Draft)}
+\section{Introduction to schemes}
+Let $A$ be a ring and denote by $\Spec A$ the set of all its prime ideals. For any ideal $I$ of $A$ put
+$V(I)=\{\mathfrak p \in \Spec A : I \subseteq \mathfrak p\}$
+and for $f\in A$
+$D(f)= \Spec A\setminus V(fA)$.
+It follows immediately that there exists a unique topology on $\Spec A$ whose close subsets are of the form $V(I)$ and, moreover, the sets of the form $D(f)$ constitute a basis of open subsets. This topology is called the \emph{Zariski tolopology}. Note that a point is closed if and only if the corresponding prime ideal is maximal.\\
+Given a ring homomorphism $\varphi:A\to B$ we obtain a induced continuous map $\Spec \varphi: \Spec B \to \Spec A$ defined by $\mathfrak p \mapsto \varphi^{-1}(\mathfrak p)$. Hence $\Spec$ is a contravariant functor form the category of rings to topological spaces.\\
+\begin{example}
+ Given a field $K$, then $\Spec K$ consists of a point corresponding to the zero ideal.\\
+ The \emph{affine complex line} $\mathbb A_\CC^1=\Spec \CC[T]$ consists of a "generic`` point $(0)$ and closed points $(T-z)$, with $z\in \CC$.
+\end{example}
+Let us consider the space $X = \Spec A$ with the Zariski topology. The association $\mathcal O_X(D(f))=A_f$ induces a sheaf of rings $\mathcal O_X$ on $X$, with $\mathcal O_X(X)=A$. Moreover the stalk $\mathcal O_{X,\mathfrak p}$ at a point $\mathfrak p\in X$ is canonically isomorphic to $A_\mathfrak p$. Hence the pair $(X,\mathcal O_X)$ is a locally ringed space.
+\begin{defn}
+ A locally ringed space isomorphic to $(\Spec A,\mathcal O_{\Spec A})$ for some ring $A$ is called \emph{affine scheme}. A \emph{scheme} is a locally ringed space $(X,\mathcal O_X)$ that admits a open covering $\{U_i\}_{i\in I}$ such that $(U_i,\mathcal O_{U_i})$ is an affine scheme for every $i$. For such a $U_i$, the ring $\mathcal O_X(U_i)$ is called \emph{the coordinate ring}.\\
+ A \emph{morphism of schemes} is a morphism of the associated locally ringed spaces.
+\end{defn}
 
-\section{Chow groups}
+Given a scheme $(X,\mathcal O_X)$, its \emph{open subschemes} are of the form $(U,\mathcal O_X|_U)$, where $U$ is any open subset of $X$. But it is not possible to restrict in a canonical way the structure sheaf of $X$ to a closed subset. Hence a \emph{closed subscheme} $Y$ of $X$ must come with an additional data, the corresponding \emph{ideal sheaf} $\mathcal I(Y)$, that is for every affine open $U$ of $X$, the closed subscheme $Y$ is determined by an ideal in the ring $\mathcal O_X(U)$.\\
+
+\begin{defn}
+ Let $S$ be a scheme. An \emph{$S$-scheme} or \emph{scheme over $S$} is a scheme $X$ with a morphism $\pi:X\to S$. The morphism $\pi$ is called the structure morphism. A \emph{morphism} of $S$-schemes is a scheme morphism compatible with the structure morphisms. If $S$ is an affine scheme, say $S=\Spec A$, we say that $X$ is an $A$-scheme. 
+\end{defn}
+\begin{example}
+ We define the \emph{$n$-dimensional affine space over $A$} as $\mathbb A^n_A = \Spec A[T_1,\cdots,T_n]$.
+\end{example}
+
+A scheme is said to be \emph{reduced} if there is an affine open covering with reduced coordinate rings, that is with no nilpotent elements.\\
+Recall that a topological space is \emph{irreducible} if it cannot be written as the union of two distinct closed subsets. We can establish a partial order relation by inclusion among the irreducible subsets of a topological space $X$, and then Zorn's Lemma implies the existence of the maximal elements, which are called the \emph{irreducible components} of $X$. Note that for a affine scheme $\Spec A$, the irreducible components correspond to the minimal prime ideals of $A$. In particular if $A$ is a integral domain then $\Spec A$ is irreducible.\\
+A scheme $X$ is called an \emph{algebraic scheme} over the field $K$ if it comes with a morphism of finite type $X\to \Spec K$. This means that $X$ can be covered by a finite number of affine open sets whose coordinate rings are finitely generated $K$-algebras.\\
+In what follows the word scheme will be used to refer to algebraic scheme.\\
+
+\begin{defn}
+ A scheme $E$ with a morphism $p:E\to X$ is an \emph{affine} bundle of rank $n$ over $X$ if $X$ has a open covering $\{U_\alpha\}$ such that there are isomorphisms over $U_\alpha$
+ \[\varphi_\alpha:p^{-1}(U_\alpha) \simeq U_\alpha\times \mathbb A^n.\]
+ Moreover, if over $U_\alpha \cap U_\beta$ the composites $\varphi_\alpha\circ \varphi_\beta^{-1}$ are linear, that is given by morphisms
+ \[g_{\alpha,\beta}:U_\alpha\cap U_\beta:\to \GL_n(K),\]
+ we call $E$ a \emph{algebraic vector bundle} over $X$.
+\end{defn}
+
+A \emph{variety} is a reduced and irreducible (hence integral) scheme. A \emph{subvariety} $V$ of a scheme $X$ is a reduced and irreducible closed subscheme of $X$. A subvariety $V$ corresponds to a prime ideal of the coordinate ring  of any open affine set meeting $V$. The \emph{local ring} of $X$ along $V$, denoted $\mathcal O_{X,V}$ is the localization of such a ring at the corresponding prime ideal; its maximal ideal is denoted and $\mathcal M_{X,V}$ and the corresponding residue field $R(V)=\mathcal O_{X,V}/\mathcal M_{X,V}$ is called \emph{function field} of $V$.
+
+\begin{example}
+double point $\Spec(k[x]/(x^2))$, two irreducible components $\Spec(k[x,y,z]/(x,z^2-y^3))$.
+\end{example}
+
+The \emph{dimension} of a scheme $X$, denoted $\dim X$, is the maximal length $n$ of a chain
+\[\emptyset \neq V_0 \subsetneq V_1\subsetneq \ldots \subsetneq V_n\subset X\]
+of subvarieties of $X$.
+A scheme has \emph{pure dimension} if every irreducible components has the same dimension.\\
+For a subvariety $V$ of $X$, the \emph{codimension} of $V$ in $X$, denoted $\codim(V,X)$, is the maximum length $d$ of a chain of subvarieties
+\[V=V_0\subsetneq V_1\subsetneq \ldots \subsetneq V_d\subset X.\]
+
+\section{Cycles and Chow group}
+Let $X$ be a scheme. A $k$-cycle on $X$ is a finite formal sum
+\[\sum_i n_i [V_i],\]
+where the $V_i$ are $k$-dimensional subvarieties of $X$ and the $n_i$ are integers. Let $Z_kX$ be the free abelian of such expressions. Put $Z_*X=\bigoplus_{n\geq 0} Z_kX$.\\
+
+Let $X$ be a variety, $V$ a subvariety of $X$ of codimension one. Let $A=\mathcal O_{X,V}$ be the corresponding local ring. For $a\in A$ we define the \emph{order} of vanishing of $a$ along $V$ to be
+\[\ord_V(a)=l_A(A/(a)),\]
+where $l_A$ denotes the length as $A$-module.
+As every $r\in R(X)^*$ can be written as $r=a/b$ with $a,b\in A$, we can extend our definition
+\[\ord_V(r)=\ord_V(a)-\ord_V(b),\]
+and get a homomorphism from $R(X)^*$ to $\Z$.
+
+For any $(k+1)$-dimensional subvariety $W$ of $X$, and any $r\in R(W)^*$, define a $k$-cycle $[\divisor(r)]$ on $X$ by
+\[[\divisor(r)]=\sum \ord_V(r)[V],\]
+the sum over all codimension one subvarieties $V$ of $W$. We say that a $k$-cycle is \emph{rationally equivalent to zero}, written $\alpha \sim 0$, if there is a finite number of $(k+1)$-dimensional subvarieties $W_i$ of $X$, and $r_i\in R(W_i)^*$, such that
+\[\alpha = \sum_i[\divisor(r_i)].\]
+Since $[\divisor(r^{-1})]=-[\divisor(r)]$, the cycles rationally equivalent to zero form a subgroup $\Rat_k(X)$ of $Z_kX$.
+\begin{defn}
+The \emph{$k$-th Chow group} of $X$ is the quotient
+\[A_kX=Z_kX/\Rat_k(X).\]
+The \emph{Chow group} of $X$ as the direct sum $A_*X=\bigoplus_{n\geq 0} A_kX$.
+\end{defn}
+
+
+Let $X$ be a scheme, and let $X_1,\ldots,X_t$ be its irreducible components. The local rings $\mathcal O_{X,X_i}$ are all zero-dimensional. We define the \emph{geometric multiplicity} $m_i$ of $X_i$ in $X$ as 
+\[m_i=l_{\mathcal O_{X,X_i}}(\mathcal O_{X,X_i}).\]
+The \emph{fundamental cycle} $[X]$ of $X$ is
+\[[X]=\sum_{i=1}^t m_i[X_i] \in Z_*X.\]
+Note that if $X$ is purely $k$-dimensional, then $[X]\in Z_kX=A_kX$.\\
+\section{Push-forward of cycles}
+A morphism $f:X\to Y$ is called \emph{separated} if it induces a closed diagonal embedding $X\to X\times_Y X$. A separated morphism is said to be \emph{proper} if is universally closed, i.e. for every $Y'\to Y$ the induced morphism $X\times_Y Y' \to Y'$ is closed.\\
+\begin{example}
+The following are examples of proper morphisms
+ \begin{itemize}
+  \item closed immersions;
+  \item projective morphisms.
+ \end{itemize}
+
+\end{example}
+
+For any subvariety $V$ of $X$ and a proper morphism $f:X\to Y$, the image $W=f(V)$ is a subvariety of $Y$. There is an induced embedding of $R(W)$ in $R(V)$, which is a finite field extension if $W$ has the same dimension of $V$. Set
+\[\deg(V/W)=
+\begin{cases}
+[R(V):R(W)] &\text{ if } \dim W =\dim V\\
+0  &\text{ if } \dim W <\dim V
+\end{cases}
+\]
+Define the \emph{push-forward} via $f$ of the cycle $[V]$ by
+\[f_*[V]=\deg(V/W)[W].\]
+This extends b linearity to a homomorphism
+\[f_*:Z_kX\to Z_kY.\]
+These homomorphism are functorial: if $g$ is a proper morphism $Y\to Z$, then $(gf)_*=g_*f_*$.
+\begin{thm}
+ The push-forward of a cycle rationally equivalent to zero is also rationally equivalent to zero.
+\end{thm}
+This means that t
+This implies that $A_*(-)$ is a covariant functor for proper morphisms.
+
+\section{Pull-back of cycles}
+A morphism $f:X\to Y$ is called \emph{flat} if for $U\subset Y, U'\subset X$ open affine sets with $f(U')\subset U$, the induced map $\mathcal O_Y(U)\to \mathcal O_X(U')$ is flat.\\
+A morphism $f:X\to Y$ has \emph{realtive dimension $n$} if for all subvarieties $V$ of $Y$ and all irreducible components $V'$ of $f^{-1}(V)$ we have $\dim V' = \dim V +n$.\\
+\begin{example}
+ The following are examples of flat morphisms of relative dimension $n$:
+ \begin{itemize}
+  \item open embeddings (n=0);
+  \item the projection from an algebraic vector (or affine) bundle of rank $n$ to the base space;
+  \item dominant morphism from a $(n+1)$-dimensional variety to a non-singular curve.
+ \end{itemize}
+
+\end{example}
+
+For a flat morphism $f:X\to Y$ of relative dimension $n$ and any subvariety $V$ of $Y$ put
+\[f^*[V]=[f^{-1}(V)],\]
+where $f^{-1}(V)$ denotes the inverse image scheme, that is the fiber product $V\times_Y X$. This extends by linearity to \emph{pull-back homomorphisms}
+\[f^*:Z_kY\to Z_{k+n}X.\]
+Moreover we have that also flat pull-backs are functorial: if $f:X\to Y$ and $g:Y\to Z$ are flat of relative dimension $n$ then so is the composition and $(gf)^*=f^*g^*$.
+\begin{thm}
+Flat pull-backs (of relative dimension $n$) send $k$-cycles rationally equivalent to zero to $k+n$-cycles rationally equivalent to zero.
+\end{thm}
+Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contravariant functor for flat morphisms (of constant relative dimension).\\
+
+\begin{thm}
+ Let $p:E\to X$ be an affine bundle of rank $n$. Then the flat pull-back
+ \[p^*:A_kX\to A_{k+n}E\]
+ is surjective for all $k$.\\
+ If $E$ is an algebraic vector bundle, $p^*$ is an isomorphism.
+\end{thm}
 \section{Chern classes}
 \section{Segre classes}
 
