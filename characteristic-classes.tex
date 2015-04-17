@@ -9,12 +9,12 @@
 
 
 \usepackage{fontspec,xunicode}
-\setmainfont[Mapping=tex-text,
-	SmallCapsFont={Copperplate},
-	SmallCapsFeatures={Letters=SmallCaps}]{Georgia}
-\setmathrm[Mapping=tex-text]{Georgia}
-\setsansfont[Mapping=tex-text]{Helvetica Neue}
-\setmonofont[Mapping=tex-text]{Andale Mono}
+%\setmainfont[Mapping=tex-text,
+%	SmallCapsFont={Copperplate},
+%	SmallCapsFeatures={Letters=SmallCaps}]{Georgia}
+%\setmathrm[Mapping=tex-text]{Georgia}
+%\setsansfont[Mapping=tex-text]{Helvetica Neue}
+%\setmonofont[Mapping=tex-text]{Andale Mono}
 \usepackage[colorlinks]{hyperref}
 
 
@@ -2044,20 +2044,29 @@ Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that 
 Since there are compatible maps $F(d) \to \colim_C F$ for every $d \in D$, there is a natural map $\colim_D F|_D \to \colim_C F$, and we have to show it is bijective. For surjectivity, any $x \in \colim_C F$ has a representative $x_c \in F(c)$, thus also $\iota_{cd}(x_c) \in F(d)$ for some $d \geq c$. For injectivity, if $x_d$, $y_{d'}$ map to the same element in $\colim_C F$ then there is a $c \in C$ such that $\iota_{dc}(x_d) = \iota_{d'c}(y_{d'})$ by Lemma~\ref{lemma:dircolimitofabeliangroups}. By cofinality, we can choose $c \in D$ and thus $x_d$ and $y_{d'}$ become equivalent in $\colim_D F|_D$.
 \end{proof}
 
-\begin{thm}
-Let $X$ be a paracompact space and $\mathcal GL = \coprod_{n \geq 0} \GL_n(k)$ be the groupoid of general linear groups. Then the natural map
+\begin{thm}\label{thm:principalbundlesbycechcohomology}
+Let $X$ be a paracompact space and $G$ ba a topological group. Then the natural map
 \[
-\Phi\colon\colon \{\text{vector bundles on $X$}\}/\text{iso} \to H^1(X,\mathcal GL)
+\Phi\colon\colon \Princ_G(X)/\text{iso} \to H^1(X;G)
 \]
-which sends a vector bundle to the equivalence class of its cocycle, is a bijection.
+which sends a principal $G$-bundle to the equivalence class of its cocycle, is a bijection.
 \end{thm}
 \begin{proof}
 By Propositions~\ref{prop:cocycleisomorphisms} and~\ref{prop:cocycleexistence}, the map
 \[
-\{\text{vector bundles on $X$ with trivializing cover $\mathcal U$}\}/\text{iso} \to H_\mathcal U^1(X,\mathcal GL)
+\{\text{principal $G$-bundles on $X$ with trivializing cover $\mathcal U$}\}/\text{iso} \to H_\mathcal U^1(X,G)
 \]
 is a bijection and induces a well-defined map $\Phi$ as in the statement of the theorem. For injectivity, assume two vector bundles induce the same cohomology class in the colimit. Then by the above lemma, they have to agree already for some cover $\mathcal U$. Hence the cocycles are cohomologous for the cover $\mathcal U$ and the corresponding vector bundles are isomorphic. For surjectivity, any cohomology class lies in $H^1_{\mathcal U}$ for some $\mathcal U$ by the above lemma and hence comes from a vector bundle trivialized over $\mathcal U$.
 \end{proof}
+
+Combining this result with Theorem~\ref{thm:classifying-space}, we obtain:
+
+\begin{corollary}\label{cor:H1representable}
+For paracompact $X$ and topological groups $G$, there is a natural bijection
+\[
+H^1(X;G) \cong [X,BG].
+\]
+\end{corollary}
 
 \section{Functoriality}
 
@@ -2187,7 +2196,7 @@ whose details we leave to the reader.
 Let $X$ be paracompact. Then fine sheaves of abelian groups on $X$ are soft, and soft sheaves of rings are fine. Any module sheaf over a soft (fine) sheaf of rings is also soft (fine).
 \end{prop}
 \begin{proof}
-Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U) \to M(K)$, where $U$ is some open set containing $K$. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R$ consisting of two sections $\{s_U,s_{X-K}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
+Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U) \to M(K)$, where $U$ is some open set containing $K$. Pick some other open set $V \supset K$ such that $\overline V \subset U$; this exists by paracompactness. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R(X)$ consisting of two sections $\{s_U,s_{X-\overline V}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t|_V$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
 
 If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a soft sheaves of rings, over which $A$ is a module sheaf, thus $A$ is soft.
 \end{proof}
@@ -2243,20 +2252,30 @@ H^n(X;BA) \xrightarrow{d} H^{n+1}(X;A)
 for $n \geq 1$.
 \end{proof}
 
+\begin{corollary}\label{cor:cohomologyrepresentable}
+For paracompact spaces $X$ and any topological abelian group $A$, there is a natural isomorphism
+\[
+H^n(X;A) \to [X,B^nA]
+\]
+for $n>0$; if $A$ is discrete, this also holds for $n=0$.
+\end{corollary}
+\begin{proof}
+For $n\geq 1$, by repeated application of Corollary~\ref{cor:cechdimensionshift}, there is a natural isomorphism $H^n(-;A) \cong H^1(-;B^{n-1}A)$. Thus cohomology classes in $H^n(X;A)$ can be identified with principal $B^{n-1}A$-bundles on $X$. By Corollary~\ref{cor:H1representable}, the result follows.
+
+For $n=0$, we have that $H^0(X;A) = \map(X,A)$ which is equal to $[X,A]$ when $A$ is discrete.
+\end{proof}
+
+\begin{defn}
+When $A$ is a discrete abelian group, the space $B^nA$ is called an \emph{Eilenberg-Mac~Lane space} of type $(A,n)$ and usually written as $K(A,n)$.
+\end{defn}
+
 \begin{corollary}\label{cor:cechcohomologyhomotopyinvariance}
 Let $f,\;g\colon X \to Y$ by two homotopic maps between paracompact spaces and $A$ a discrete abelian group. Then
 \[
 f^*=g^*\colon H^n(Y;A) \to H^n(X;A).
-\]  
+\] \qed 
 \end{corollary}
-\begin{proof}
-For $n\geq 1$, by repeated application of Corollary~\ref{cor:cechdimensionshift}, there is a natural isomorphism $H^n(-;A) \cong H^1(-;B^{n-1}A)$. Thus cohomology classes in $H^n(X;A)$ can be identified with principal $B^{n-1}A$-bundles on $X$. Homotopy invariance for these was shown in Thm~\ref{thm:homotopicpullbacks}.
 
-If $A$ is discrete then the statement also holds for $H^0$ since in that case,
-\[
-H^0(Y;A) = \map(Y,A) = [Y,A] = [X,A] = H^0(X;A).
-\]
-\end{proof}
 
 The homotopy invariance is not only a strong rigidity result but also shows that in almost all cases, taking a colimit over all covers of a space can be avoided:
 
@@ -2360,7 +2379,7 @@ This turns $H^*(X;R)$ into a graded ring.
 
 \section{Examples of cohomology rings}
 
-spheres, $\CP^n$, $\RR P^n$
+spheres, $\CP^n$, $\R P^n$
 
 \section{De Rham cohomology of manifolds}
 
