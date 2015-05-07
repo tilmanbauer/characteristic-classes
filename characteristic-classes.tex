@@ -34,6 +34,7 @@
 \DeclareMathOperator{\Rat}{Rat}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\divisor}{div}
+\DeclareMathOperator{\tw}{tw}
 
 \renewcommand{\C}{\mathcal C}
 \newcommand{\nerve}{\mathcal N}
@@ -1814,7 +1815,19 @@ Let $B$ be a paracompact, contractible space. Then any vector bundle $E \to B$ i
 The identity map on $B$ is homotopic to a constant map. The pullback of $E$ along a constant map is a trivial vector bundle. By Theorem~\ref{thm:homotopicpullbacks}, $E$ is thus trivial.
 \end{proof}
 
+\begin{defn} A cover $\mathcal U$ of $X$ is called \emph{contractible} if every finite intersection of elements of $\mathcal U$ is either empty or contractible.
+\end{defn}
 
+\begin{corollary}\label{cor:H1realizedoncontractiblecovers}
+Let $\mathcal U$ be a contractible cover of a paracompact space $X$ and $G$ a topological group. Then the map
+\[
+H^1_{\mathcal U}(X;G) \to \Princ_G(X)/\text{iso}
+\]
+which maps a cocycle its associated principal bundle, is a bijection.
+\end{corollary}
+\begin{proof}
+As every $U_\alpha \in \mathcal U$ is contractible, $\mathcal U$ trivializes any principal $G$-bundle by Corollary~\ref{cor:bundlesovercontractiblespaces}. Thus the map in question is surjective. By Proposition~\ref{prop:cocycleisomorphisms}, it is also injective.
+\end{proof}
 
 \section{Universal bundles}
 
@@ -1990,7 +2003,7 @@ If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $
 A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n)$. We say that $h$ is a homotopy from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists.
 \end{defn}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:cosimphomotopicmaps}
 Cosimplicially homotopic maps induce the same maps in cohomology.
 \end{lemma}
 \begin{proof}
@@ -2171,6 +2184,52 @@ as well as their colimits
 By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
+\begin{defn}
+Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a sheaf of abelian groups $A$ is defined by
+\[
+\tilde H^n(X;A) = \ker(H^n(X;A) \to H^n(\{x_0\};A_{x_0})).
+\]
+In the particular case where $A$ is representable, we have thus that $C^n(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A)$, where $\map$ denotes the maps that send the base point $x_0$ to $A$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$.
+\end{defn}
+
+\begin{lemma}\label{lemma:cohomologyofquotient}
+Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = i_*i^*A = i_*(A|_U)$. This sheaf is given by
+\[
+F(V) = \{f\colon V \to A \mid f|_{V \cap K} = 0\}.
+\]
+Then $H^n(X;F) \cong \tilde H^n(X/K;A)$.
+\end{lemma}
+\begin{proof}
+We have that $F(U_{\alpha_0\cdots\alpha_n}) = \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $V \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
+\[
+H^n_{\mathcal U}(X;F) \cong \tilde H^n_{\mathcal U/K}(X/K;A)
+\]
+and since $\mathcal U/K$ ranges over all open covers of $X/K$ as $\mathcal U$ ranges over the open covers of $X$, we obtain the claimed result.
+\end{proof}
+
+\begin{corollary}\label{cor:sesforspaces}
+Let $K \subseteq X$ be a neighborhood retract and $A$ a topological abelian group. Then there is a long exact sequence in cohomology:
+\[
+0 \to \tilde H^0(X/K;A) \to H^0(X;A) \to H^0(K;A) \to \tilde H^1(X/K;A) \to \cdots.
+\]
+\end{corollary}
+\begin{proof}
+The sequence
+\[
+0 \to F \to A \to i_*i^*A \to 0
+\]
+where $i \colon K \to X$ is the inclusion and $F$ as in Lemma~\ref{lemma:cohomologyofquotient}, is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-A$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
+\[
+0 \to F(\mathcal \nerve U) \to A(\mathcal \nerve U) \to i_*i^*\mathcal \nerve U \to 0
+\]
+and hence a long exact sequence
+\[
+0 \to \tilde H^0_{\mathcal U}(X/K;A) \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(K;A) \to \tilde H^1_{\mathcal U}(X/K;A) \to \cdots.
+\]
+Since such compatible open covers are cofinal in all open covers, we obtain the long exact sequence in \v Cech cohomology.
+\end{proof}
+
+
 \section{Homotopy invariance}
 
 \begin{defn} A sheaf $F$ on a paracompact topological space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
@@ -2284,10 +2343,6 @@ f^*=g^*\colon H^n(Y;A) \to H^n(X;A).
 
 The homotopy invariance is not only a strong rigidity result but also shows that in almost all cases, taking a colimit over all covers of a space can be avoided:
 
-\begin{defn}
-An open cover $\mathcal U$ of a space $X$ is called \emph{contractible} (or \emph{good}) if all finite intersections of elements of $\mathcal U$ are either empty or contractible.
-\end{defn}
-
 \begin{thm}\label{thm:contractible-covers}
 Let $\mathcal U$ be a contractible cover of a paracompact space. Then the canonical map
 \[
@@ -2296,27 +2351,66 @@ H^n_{\mathcal U}(X;A) \to H^n(X;A)
 is an isomorphism for all $n \geq 0$ and all sheaves of abelian groups $A$.
 \end{thm}
 \begin{proof}
-The standard proof is a spectral sequence argument on the double complex associated to $H^*(\nerve \mathbf U;A)$, which has \v Cech cohomology as horizontal cohomology and $\mathcal U$-based \v Cech cohomology as vertical cohomology; both spectral sequences collapse at $E_2$. Can we avoid this argument using dimension shift (Corollary~\ref{cor:cechdimensionshift})?
+This is true by the sheaf property for $n=0$ and by Corollary~\ref{cor:H1realizedoncontractiblecovers}for $n=1$. The result follows for all $n$ by Corollary~\ref{cor:cechdimensionshift}. 
 \end{proof}
+
+This gives in principle a method to reduce the computation of cohomology groups to a finite problem as long as we can find a contractible cover. However, even the smallest contractible covers of relatively simple spaces like spheres or projective spaces tend to have quite a lot of elements.
+
+\begin{exer}
+Show that the sphere $\S^n$ has a contractible cover consisting of $n+1$ elements.
+\end{exer}
+
 
 
 \section{The Mayer-Vietoris sequence}
 
-Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups on $X$. By the gluing axiom of sheaves, we have that
+Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups on $X$. Denote the inclusion maps by $i\colon U \to X$, $j\colon V \to X$, and $k\colon U \cap V \to X$. By the gluing axiom of sheaves, we have that
 \[
-0 \to A(X) \to A(U) \oplus A(V) \to A(U \cap V)
+0 \to A \to i_*(A|_U) \oplus j_*(A|_V) \to k_*(A|_{U \cap V})
 \]
-is exact, where the right hand side map is the difference of the restriction maps. Let us assume in addition that for every inclusion of open sets $U' \subseteq U''$, the induced map of sheaves $A(U'') \to A(U')$ is surjective. This is true for representable sheaves for instance, as any continuous map on $U'$ can be extended to $U''$ in some way. Then the above sequence is also right exact.
+is exact, where the right hand side map is the difference of the restriction maps. This sequence not generally exact on the right, but it is on all $Y \subset X$ such that $Y \subseteq U$ or $Y \subseteq V$.
 
-Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal U$. For a subspace $Y \subset X$, denote by $\mathbf U|_Y$ the cover $\coprod_{U \in \mathcal U} U \cap Y$. Then
+Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal U$. Assume that every element of $\mathcal U$ is either entirely contained in $U$ or entirely contained in $V$. Denote by $\mathcal U|_Y$ for $Y \subseteq X$ the intersection of the open cover with $Y$, and by $\mathbf U|_Y$ the associated topological groupoid. Then
 \[
-0 \to A(\nerve \mathbf U) \to A(\nerve (\mathbf U|_U)) \oplus A(\nerve (\mathbf U|_V)) \to A(\nerve (\mathbf U|_{U \cap V})) \to 0
+0 \to A(\nerve \mathbf U) \to i_*A(\nerve \mathbf U|_U) \oplus j_*A(\nerve \mathbf U|_V) \to k_*A(\nerve \mathbf U|_{U \cap V}) \to 0
 \]
-is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in \v Cech cohomology:
+is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in cohomology. Since the poset of covers which are compatible with the union $U \cup V$ in the above sense is cofinal in all covers, we get a long exact sequence in \v Cech cohomology:
 \[
 0 \to H^0(U \cap V,A) \to H^0(U,A) \oplus H^0(V,A) \to H^0(X,A) \to H^1(U \cap V,A) \to \cdots.
 \]
 This is known as the Mayer-Vietoris sequence.
+
+\begin{exer}\label{exer:cohomologyofspheres}
+Show by induction that 
+\[
+H^k(\mathbf S^n;A) = H^k(\{*\};A) \oplus \begin{cases} A;& k=n\\ 0;& \text{otherwise.}\end{cases}
+\]
+for all $k,\;n \geq 0$.
+\end{exer}
+
+\begin{corollary}\label{cor:additivecohomologyofPn}
+We have that
+\[
+H^n(\CP^k;A) = \begin{cases} 0\; & n \text{ odd or } n>2k\\ A\; \text{ otherwise}\end{cases}
+\]
+\end{corollary}
+\begin{proof}
+The inclusion of the equator $\CP^{k-1} \to \CP^k$ is a neighborhood retract with quotient $\S^{2k}$. Using our knowledge of the cohomology of $\S^n$ and Corollary~\ref{cor:sesforspaces}, we obtain the result by induction.
+\end{proof}
+
+\begin{corollary}\label{cor:additivecohomologyofRPn}
+If $A$ is an $\F_2$-vector space then
+\[
+H^n(\R P^k,A) = \begin{cases} 0\; & n > k\\ A\; \text{ otherwise}\end{cases}
+\]
+\end{corollary}
+\begin{proof}
+The inclusion $\R P^{k-1} \to \R P^k$ has quotient $\S^k$ and the result follows as in Corollary~\ref{cor:additivecohomologyofPn}. 
+\end{proof}
+
+\begin{exer}\label{exer:complexificationincohomology}
+Show that the map $\R P^{2n} \to \CP^n$ which sends a $1$-dimensional real subspace $V$ of $\CC^n$ to its complexification $V \otimes_\R \CC$, induces an injection $H^*(\CP^n;A) \to H^*(\RR P^n;A)$ for each $\F_2$-vector space $A$.
+\end{exer}
 
 \section{The product in cohomology}
 
@@ -2356,19 +2450,68 @@ A \otimes B = (U \times V \mapsto A(U) \otimes B(V))^{\sim}
 Now write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
 
 Then we can define an “external product”
-\[
+\begin{equation}\label{eq:crossproduct}
 C^m_{\mathcal U}(X;A) \otimes C^n_{\mathcal V}(Y;B) \to C^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
-\]
+\end{equation}
 by sending $\alpha \otimes \beta$ to the cochain $\alpha \times \beta$ defined on the summand $(U_{i_0} \times V_{j_0}) \cap \cdots \cap (U_{i_{m+n}} \times V_{j_{m+n}})$ by
 \[
 \alpha \times \beta = \alpha|_{U_{i_0\cdots i_m}} \otimes \beta|_{V_{j_m\cdots j_{m+n}}}.
 \]
 
-This product is compatible with the differentials $d^n$ in the sense that
+This product is compatible with the face maps in the sense that
 \[
-d^{m+n}(\alpha \times \beta) = d^m(\alpha) \times \beta + (-1)^m \alpha \times d^n(\beta)
+d^{m+n}_i(\alpha \times \beta) = \begin{cases}
+d^m_i(\alpha) \times \beta; & i \leq m\\
+\alpha \times d^n_{i-m}(\beta); & i > m.
+\end{cases}
 \]
-as can be seen directly from the definition. In particular, it induces a well-defined product
+Hence it is compatible with the chain complex differentials $d^n$ in the sense that
+\[
+d^{m+n}(\alpha \times \beta) = d^m(\alpha) \times \beta + (-1)^m \alpha \times d^n(\beta).
+\]
+
+\begin{thm}[Eilenberg-Zilber]\label{thm:Eilenberg-Zilber}
+The external product \eqref{eq:crossproduct} is a simplicial homotopy equivalence.
+\end{thm}
+\begin{proof}
+We leave it as an exercise to the reader to construct a homotopy inverse and simplicial homotopies with the identity functor.
+\end{proof}
+
+Given two chain complexes $(A,d_A)$ and $(B,d_B)$ of $R$-modules, we define their tensor product $A \otimes_R B$ by
+\[
+(A \otimes_R B)_n = \bigoplus_{i+j=n} A_i \otimes_R B_j
+\]
+with differential given by
+\[
+d(x_i \otimes y_j) = d_A(x_i) \otimes y_j + (-1)^i x_i \otimes d_B(y_j) \quad \text{ for } x_i \in A_i,\; y_j \in B_j.
+\]
+The sign convention ensures that $A \otimes_R B$ is indeed a chain complex again. We use the same notation $A \otimes_R B$ when $A$ and $B$ are just graded $R$-modules as we can think of them as chain complexes with zero differential.
+
+\begin{thm}\label{thm:algebraickunnethiso}
+Let $A$ and $B$ be chain complexes of free $R$-modules. Assume that $H_i(A)$ is also a finitely generated free $R$-module for all $i$. Then the cross product induces an isomorphism
+\[
+H^*(A) \otimes_R H^*(B) \to H^*(A \otimes_R B).
+\]
+\end{thm}
+\begin{proof}
+Consider the two graded functors $F$, $G\colon \Ch_R \to \Mod_R$ given on chain complexes of $R$-modules by
+\[
+F(M) = H^*(A) \otimes_R H^*(M); \quad G(M) = H^*(A \otimes_R M).
+\]
+Both functors are \emph{cohomological}, i.~e. they map short exact sequences of $R$-modules to long exact sequences and commute with (infinite) direct sums. This is true for $F$ because $H^*(A)$ is free and hence tensoring with it is an exact functor, and for $G$ because $A$ is free. (Flatness would of course suffice in both cases, but we will not need this added generality.) Furthermore, $F(R) = H^*(A) = G(R)$. By exactness and the long exact sequence, they agree on all chain complexes.
+\end{proof}
+
+\begin{corollary}[Künneth Theorem]\label{cor:kunneth}
+Let $R$ be a ring and $X$, $Y$ spaces such that $H^i(X;R)$ is a finitely generated free $R$-module for all $i$. Then the cross product induces an isomorphism
+\[
+H^*(X;R) \otimes_R H^*(Y;R) \to H^*(X \times Y;R).
+\]
+\end{corollary}
+\begin{proof}
+This is a combination of the Eilenberg-Zilber theorem \eqref{thm:Eilenberg-Zilber} and Theorem~\ref{thm:algebraickunnethiso} once we observe that $C^m_{\mathcal U}(X;R)$ is a free $R$-module for all open covers $\mathcal U$ of $X$ and the direct limit functor is exact.
+\end{proof}
+
+In particular, it induces a well-defined product
 \[
 H^m_{\mathcal U}(X;A) \otimes H^n_{\mathcal V}(Y;B) \xrightarrow{\times} H^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
 \]
@@ -2376,66 +2519,176 @@ since if $\alpha$ and $\beta$ are cycles then so is $\alpha \times \beta$, and i
 
 Since the product $\times$ is natural with respect to refinements of coverings, it thus induces an external product in \v Cech cohomology.
 
+\begin{thm}\label{thm:crossproductassoccomm}
+The $\times$-product is associative and \emph{graded commutative}, i.~e. the following diagram commutes:
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=10ex,row sep=6ex]
+	{
+		H^m(X;A) \otimes H^n(Y;B) & H^{m+n}(X \times Y; A \otimes B)\\
+		H^n(Y;B) \otimes H^m(X;A) & H^{m+n}(Y \times X; B \otimes A).\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge node[auto]{$\times$}	 	(m-1-2)
+			edge node[auto,swap]{$(-1)^{mn}\tw$}	(m-2-1)
+	(m-1-2)	edge node[auto]{$\tw^*$}		(m-2-2)
+	(m-2-1) edge node[auto]{$\times$} (m-2-2);
+\end{tikzpicture}
+\]
+Here $\tw$ denotes the twist map $x \times y \mapsto y \times x$ and $\tw^*$ the map induced in $H^{m+n}$ by twisting both the spaces and the coefficient sheaves.
+\end{thm}
+\begin{proof}
+Associativity holds on the level of \v Cech cochains, as can easily be seen from the definition. (Graded) commutativity is a more subtle endeavor since
+\[
+\alpha|_{U_{i_0\cdots i_m}} \otimes \beta|_{V_{j_m\cdots j_{m+n}}} \neq \pm \alpha|_{U_{i_{n+1}\cdots i_{n+m}}} \otimes \beta|_{V_{j_0\cdots j_n}}.
+\]
+(The failure of commutativity on this level gives rise to \emph{cohomology operations}, but we will not pursue this subject further in these notes.)
+
+We can, however, construct a cosimplicial homotopy between $\alpha \times \beta$ and $(-1)^{mn}\beta \times \alpha$:
+\[
+h\colon C^m(X;A) \times C^n(Y;B) \times \map([m+n-1],[1]) \to C^{m+n-1}(X \times Y; A \times B)
+\]
+by
+\[
+h(\alpha,\beta,f) = \begin{cases}
+\alpha|_{U_{i_0\cdots i_k i_{k+n}\cdots i_{m+n-1}}} \otimes \beta|_{V_{j_k\cdots j_{k+n}}}; & \text{if $k$ is minimal with $f(k)=1$ and $k<m$};\\
+0; & \text{otherwise.}
+\end{cases}
+\]
+By Lemma~\ref{lemma:cosimphomotopicmaps}, graded commutativity follows.
+\end{proof}
+
+
 Now if $R$ is a sheaf of rings on a space $X$, we can construct a product
 \[
 H^m(X;R) \otimes H^n(X;R) \xrightarrow{\times} H^{m+n}(X \times X; R \times R) \xrightarrow{\Delta^*} H^{m+n}(X;R\otimes R) \xrightarrow{\text{mult.}} H^{m+n}(X;R).
 \]
-This turns $H^*(X;R)$ into a graded ring.
+This product is called the ``cup product'' because it is sometimes denoted by $x \smile y$, but more often just by concatenation $xy$. 
+
+\begin{corollary}\label{cor:cupproduct}
+The cup product construction gives $H^*(X;R)$ the structure of an associative, graded-commutative ring with unity. Graded commutativity means that $xy=(-1)^{|x|\cdot|y|}yx$, where $x \in H^{(|x|}(X;R)$ and $y \in H^{(|y|}(X;R)$.
+\end{corollary}
+\begin{proof}
+Immediate from Theorem~\ref{thm:crossproductassoccomm}.
+\end{proof}
 
 \section{Examples of cohomology rings}
 
-spheres, $\CP^n$, $\R P^n$
+\begin{example}\label{ex:cohomologyringofspheres}
+We have seen in Exercise~\ref{exer:cohomologyofspheres} that for any ring $R$, $H^*(\S^k;R) = R\rangle e,f\langle$, where $e$ lies in $H^k$. If we choose $e$ to be the constant cochain with value $1 \in R$, it will act as a unity in the ring $H^*(\S^k;R)$. For degree reasons, $f^2=0$. Thus
+\[
+H^*(\S^k;R) = R[f]/(f^2) = \bigwedge(f)
+\]
+is an exterior algebra on one generator $f$ in degree $k$.
+\end{example}
+
+\begin{thm}\label{thm:cohomologyofprojectivespaces}
+Let $R$ be any commutative ring. Then $H^*(\CP^n;R) \cong R[c_1]/(c_1^{n+1})$, where $c_1 \in H^2(\CP^n;R)$ projects to the generator $f \in H^2(\S^2;R) \cong H^2(\CP^1;R) \cong R$ under the standard inclusion $\CP^1 \hookrightarrow \CP^n$.
+
+Similarly, if $R$ is an $\F_2$-algebra,
+$H^*(\R P^n;R) \cong R[w_1]/(w_1^{n+1})$, where $w_1 \in H^1(\R P^n;R)$ projects to the generator $f \in H^1(\S^1;R) \cong H^1(\R P^1;R) \cong R$ under the standard inclusion $\R P^1 \hookrightarrow \R P^n$.
+\end{thm}
+\begin{proof}
+We will consider the case of $\CP^n$ first. Consider a point $[a_0:\cdots:a_n] \in \CP^n$ as a nonzero polynomial $a_0+a_1z+\cdots+a_nz^n$ up to scalar multiplication. Let $T = (\CP^1)^n$ and define a map
+\[
+\phi\colon T \to \CP^n
+\]
+by multiplication of polynomials. Choose $n$ pairwise disjoint disks $D_1,\dots,D_n \subset \CP^1$ and note that $\phi|_{D_1\times\cdots\times D_n}$ is an embedding into the set of separable polynomials (complex polynomials with pairwise distinct roots) because of the fundamental theorem of algebra. Writing $D_\sigma = D_{\sigma(1)} \times \cdots \times D_{\sigma(n)}$ for any permutation $\sigma \in \Sigma_n$, we have that
+\[
+K=\phi^{-1}(\phi(D_1\times\cdots\times D_n)) = \coprod_{\sigma \in \Sigma_n} D_\sigma.
+\]
+If we denote by $U_\sigma$ the interior of $D_\sigma$, we have that
+\[
+T/(T-K) = \bigvee_{\sigma \in \Sigma} D_\sigma/(D_\sigma-U_\sigma) \cong \bigvee_{\sigma \in \Sigma} \S^{2n},
+\]
+and $\phi\colon D_\sigma/(D_\sigma-U_\sigma) \to \CP^n/(\CP^n-\phi(U_\sigma))$ is a homeomorphism.
+
+In cohomology, $\phi$ induces maps of long exact sequences
+\[
+\begin{tikzpicture}
+	\matrix (m) [matrix of math nodes, column sep=3ex,row sep=6ex]
+	{
+		0 & H^{2n}(\CP^n/\CP^n-\phi(K) & H^{2n}(\CP^n) & H^{2n}(\CP^n-\phi(K)) & 0\\
+		0 & H^{2n}(T/(T-K)) & H^{2n}(T) & H^{2n}(T-K) & 0\\
+	};
+	\path[->,font=\scriptsize]
+	(m-1-1)	edge (m-1-2)
+	(m-1-2)	edge (m-1-3) edge node[auto]{$\phi^*$}(m-2-2)
+	(m-1-3)	edge (m-1-4) edge node[auto]{$\phi^*$}(m-2-3)
+	(m-1-4)	edge (m-1-5) edge node[auto]{$\phi^*$}(m-2-4)
+	(m-2-1) edge (m-2-2)
+	(m-2-2)	edge (m-2-3)
+	(m-2-3)	edge (m-2-4)
+	(m-2-4) edge (m-2-5);
+\end{tikzpicture}
+\]
+The cohomology groups on the right hand side are $0$. This is actually true for in general for the $n$th cohomology of an $n$-dimensional manifold with boundary, but in these concrete cases it suffices to check that $\CP^n-\{*\}$ and $T-\{*\}$, where $*$ is an arbitrary point, have vanishing $H^{2n}$ by building these spaces up from disks using the long exact sequence.
+
+The other groups are all isomorphic with $R$: $H^{2n}(T)$ by the Künneth theorem (Cor.~\ref{cor:kunneth}), $H^{2n}(\CP^n)$ by Corollary~\ref{cor:additivecohomologyofPn}, and the groups on the left hand side because the horizontal arrows are isomorphisms. Since the left hand map is a sum of $n!$ identity maps, the middle map is also multiplication by $n!$.
+
+Now let $c_1 \in H^2(\CP^n;R)$ be a generator. Then $\phi^*(c_1) = \sum_{i=1}^n f_i$, where $f_i = 1 \times \cdots \times f \times 1 \times \cdots \times 1 \in H^2(T)$. Since $\phi^*$ is an algebra map, $\phi^*(c_1^n) = n!(f \times \cdots \times f)$, thus $c_1^n$ generates $H^{2n}(\CP^n;R)$.
+
+To derive the claim for $\R P^n$, note that by Exercise~\ref{exer:complexificationincohomology}, the complexification map $\R P^{2n} \to \CP^n$ is injective in cohomology with $2$-torsion coefficients, thus it suffices to show that the one-dimensional class $w_1 \in H^1(\R P^2)$ has a nontrivial square. This can be checked with an explicit triangulation of $\R P^2$, cf.~\cite[Example VI.4.7]{bredon:topology-geometry}.
+\end{proof}
 
 \section{De Rham cohomology of manifolds}
 
-Let $M$ be a smooth manifold and $E \to M$ a real vector bundle. Then we define the sheaf of alternating $k$-forms with values in $E$ as
+Let $M$ be a smooth manifold. Then we define the sheaf of alternating $k$-forms as
 \[
-\Omega^k(M;E) = \bigwedge_{i=1}^k T^*M \otimes E,
+\Omega^k(M) = \bigwedge_{i=1}^k T^*M,
 \]
 where $T^*M = \Hom(TM,\R)$ is the cotangent bundle, i.~e. the linear dual of the tangent bundle. These sheaves fit into a chain complex
 \begin{equation}\label{eq:omegasequence}
-0 \to \Omega^0(M;E) = E \xrightarrow{d} \Omega^1(M;E) \xrightarrow{d} \cdots,
+0 \to \R = \Omega^{-1}(M) \to \Omega^0(M) = C^\infty_M \xrightarrow{d} \Omega^1(M) \xrightarrow{d} \cdots,
 \end{equation}
-where $d\colon \Omega^k(M;E) \to \Omega^{k+1}(M;E)$ is the exterior differential:
-\[
-d(\omega \otimes x) = (d\omega) \otimes x. 
-\]
-Note that $\Omega^k(M;E) = 0$ if $k > \dim(M)$.
+where $d\colon \Omega^k(M) \to \Omega^{k+1}(M)$ is the exterior differential. Note that $\Omega^k(M) = 0$ if $k > \dim(M)$.
 
 \begin{lemma}[Poincaré lemma]
-The sequence \eqref{eq:omegasequence} is exact.
+The sequence \eqref{eq:omegasequence} is exact. \qed
 \end{lemma}
 
+The Poincaré lemma is actually a bit more specific: any closed $k$-form on a contractible space $U$ is exact. We inserted a copy of the reals in degree $-1$ to make it exact at the position, too: a function $f$ on a contractible set with zero differential is constant.
+
 \begin{defn}
-The $k$th de Rham cohomology of $M$ with coefficients in $E$ is the $k$th cohomology of the chain complex of global sections of \eqref{eq:omegasequence}:
+The $k$th de Rham cohomology of $M$ is the $k$th cohomology of the chain complex of global sections of \eqref{eq:omegasequence}:
 \[
-H^k_{dR}(M;E) = H^k(\Gamma(\Omega^\bullet(M;E))).
+H^k_{dR}(M) = H^k(\Gamma(\Omega^\bullet(M))).
 \]
+In this complex $\Omega^\bullet$, we only use nonnegative indices.
 \end{defn}
 
 \begin{thm}
-There is a natural isomorphism $H^k(M;E) \to H^k_{dR}(M;E)$ between \v Cech cohomology and de Rham cohomology on a smooth manifold $M$.
+There is a natural isomorphism $H^k(M;\R) \to H^k_{dR}(M)$ between \v Cech cohomology and de Rham cohomology on a smooth manifold $M$.
 \end{thm}
 \begin{proof}
 Since the sequence \eqref{eq:omegasequence} is exact, we have short exact sequences of sheaves
 \[
-0 \to d\Omega^{k-1}(M;E) \to \Omega^k(M;E) \to d\Omega^k(M;E) \to 0.
+0 \to d\Omega^{k-1}(M) \to \Omega^k(M) \to d\Omega^k(M) \to 0.
 \]
-Since $\Omega^k(M;E)$ is a module sheaf over $C^\infty(M)$, its \v Cech cohomology vanishes by Corollary~\ref{cor:Omodulecohomology}. Thus the long exact sequence in \v Cech cohomology induced by the above short exact sequence splits up into a sequence of isomorphisms
+This sequence is not exact as sequences of presheaves, but it is exact on contractible sets by the Poincaré lemma. Thus applying $H^*_{\mathcal U}$ for a contractible cover $\mathcal U$ of $M$ gives a long exact sequence. Since $\Omega^k(M)$ is a module sheaf over $C^\infty(M)$, its positive-degree \v Cech cohomology vanishes by Corollary~\ref{cor:Omodulecohomology}. Thus the long exact sequence in \v Cech cohomology induced by the above short exact sequence splits up into a sequence of isomorphisms
 \[
-H^n(M;d\Omega^k(M;E)) \xrightarrow{\sim} H^{n+1}(M;d\Omega^{k-1}(M;E)).
+H^n(M;d\Omega^k(M)) \xrightarrow{\sim} H^{n+1}(M;d\Omega^{k-1}(M))
+\]
+as well as an isomorphism
+\[
+H^0(d\Omega^k(M))/d(H^0(M;\Omega^{k}(M)) \cong H^{k+1}_{dR}(M) \xrightarrow{\sim} H^1(M;d\Omega^{k-1}(M)) 
 \]
 In particular,
 \[
-H^0(M;\Omega^n(M;E))
+H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}(M).
 \]
-
 \end{proof}
 
 \chapter{Characteristic classes}
 
-\section{Stiefel-Whitney classes}
 \section{Chern classes}
+
+Cohomology of $BU(n)$, examples of Chern classes for well-known bundles.
+
+\section{Stiefel-Whitney classes}
+
+Mod-$2$ cohomology of $BO(n)$, examples of SW classes for well-known bundles.
+
 \section{Pontryagin classes}
 
 \chapter{Chern-Weil theory}
@@ -2584,7 +2837,7 @@ It follows immediately that there exists a unique topology on $\Spec A$ whose cl
 Given a ring homomorphism $\varphi:A\to B$ we obtain a induced continuous map $\Spec \varphi: \Spec B \to \Spec A$ defined by $\mathfrak p \mapsto \varphi^{-1}(\mathfrak p)$. Hence $\Spec$ is a contravariant functor form the category of rings to topological spaces.\\
 \begin{example}
  Given a field $K$, then $\Spec K$ consists of a point corresponding to the zero ideal.\\
- The \emph{affine complex line} $\mathbb A_\CC^1=\Spec \CC[T]$ consists of a "generic`` point $(0)$ and closed points $(T-z)$, with $z\in \CC$.
+ The \emph{affine complex line} $\mathbb A_\CC^1=\Spec \CC[T]$ consists of a ``generic'' point $(0)$ and closed points $(T-z)$, with $z\in \CC$.
 \end{example}
 Let us consider the space $X = \Spec A$ with the Zariski topology. The association $\mathcal O_X(D(f))=A_f$ induces a sheaf of rings $\mathcal O_X$ on $X$, with $\mathcal O_X(X)=A$. Moreover the stalk $\mathcal O_{X,\mathfrak p}$ at a point $\mathfrak p\in X$ is canonically isomorphic to $A_\mathfrak p$. Hence the pair $(X,\mathcal O_X)$ is a locally ringed space.
 \begin{defn}
