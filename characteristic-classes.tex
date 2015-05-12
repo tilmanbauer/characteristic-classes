@@ -2716,23 +2716,45 @@ Mod-$2$ cohomology of $BO(n)$, examples of SW classes for well-known bundles.
 % Check section 2.6 if you need to say more about the definition of Riemannian manifolds.
 
 \section{Connections}
+A connection gives a way of differentiating vector fields to obtain a new vector field. This in turn provides a way of identifying tangent spaces at different points in a manifold by means of parallel translation of tangent vectors along curves between the points.
 
-% Introduction -- a connection is a way to differentiate vector fields and get a new vector field
+%Conn Introduction -- a connection is a way to differentiate vector fields and get a new vector field
 % add geometric intuition if possible / parallel transport
 
 % This is the definition we should work with. If it is correct. I think it is, but verify.
 \begin{defn}
 Let $E$ be a smooth $k$-vector bundle on a smooth manifold $M$, considered as a sheaf of locally free $C^\infty_M$-modules. A \emph{connection} on $E$ is a map of sheaves
 \[
-\nabla\colon E \to \Omega^1_M \otimes_\R E
+\nabla\colon \Gamma (E) \to \Gamma (\Omega^1_M \otimes_\R E)
 \]
-which satisfies the following Leibniz rule for $f \in C^\infty_M(U)$, $s \in E(U)$:
+which satisfies the following Leibniz rule for $f \in C^\infty_M(U)$, $s \in \Gamma (E(U))$:
 \[
-\nabla(fs) = df \otimes s + f \nabla(s) \in \Omega^1_M(U) \otimes E(U).
+\nabla(fs) = df \otimes s + f \nabla(s) \in \Gamma( \Omega^1_M(U) \otimes E(U)).
 \]
 \end{defn}
 Note that $\nabla$ is \emph{not} a map of vector bundles: the target is not a vector bundle as we're tensoring over $\R$, not over $C^\infty$.
 
+Using the Leibniz rule and a suitable bump fucntion one may show that $\nabla(s)$ at $x \in B$ depends only on the values of $s$ in an arbitrarily small neighborhood of $x$. It therefore makes sense to restrict $\nabla$ to sections over open subsets $U$ of $B$. Choosing a trivializing neighborhood $U$ we can choose a basis $s_1,...,s_n$ for $\Gamma (E_U)$. Any section $s$ over $U$ may then be written as
+
+\begin{equation*}
+s=f_1s_1 + ... + f_ns_n, \quad f_j \in C^{\infty}(U).
+\end{equation*}
+
+$\nabla$ is uniquely determined by $\nabla(s_1),...,\nabla(s_n)$. Conversely, as $\{s_i\}$ is a basis we may define $\nabla$ by setting
+
+\begin{equation*}
+\nabla (s_i)=\sum_j \omega_{ij}\otimes s_j,
+\end{equation*} with $[w_{ij}]$ a matrix of differential one forms on $U$ which may be chosen arbitrarily.
+
+Note that the set of connections on $E$ does not have a natural vector space structure since e.g. $(\nabla_1 + \nabla_2)(fs)=2\mathrm{d}f\otimes + f(\nabla_1 + \nabla_2(s)$ violating the Leibniz rule. It is however a convex space which implies that
+
+\begin{prop}
+Every smooth vector bundle with paracompact base space admits a connection.
+\end{prop}
+
+Remember that a Riemannian manifold is a smooth manifold equipped with a smoothly varying inner product $<,>$ - called the metric - i.e. at each point $p \in M$ $<,>_p$ is an inner product on $T_pM$. It is smoothly varying in the sense that for smooth vector fields $X,Y$ on $M$, $p \mapsto <X_p,Y_p>_p \in \mathbb{R}$ is a smooth function on $M$.
+
+On a Riemannian manifold there is a prefered connection on $TM$, called the Levi-Civita connection, which is adapted to the metric structure.
 % Particular case where $E = TM$: covariant derivative
 % Interpretation in local coordinates, Christoffel symbols etc. ONLY IF NECESSARY
 
@@ -2769,21 +2791,88 @@ Let $M$ be a smooth manifold and $E$ a smooth vector bundle with metric $\langle
 	(m-2-1) edge node[auto]{$\id \otimes \langle,\rangle$}	(m-2-2);
 \end{tikzpicture}
 \]
-A connection on $TM$ compatible with a Riemannian metric is called a \emph{Riemannian connection}.
+A connection on $TM^*$ compatible with a Riemannian metric is called a \emph{Riemannian connection}.
 \end{defn}
 
 % Compare connections on E and on the E^* in the presence of a Riemannian metric. So it makes sense to talk about a connection on TM being torsion-free. Define a Levi-Civita connection to be a torsion-free Riemannian connection.
+We shall prove the following theorem:
 
 \begin{thm}
 On every Riemannian manifold, there exists exactly one Levi-Civita connection.
 \end{thm}
 
-% proof.
+First a little lemma.
 
-% Examples
+\begin{lemma}
+Let $\{s_i\}$ be a pointwise orthonormal basis for $\Gamma (U)$, i.e. $<s_i,s_j>_p=\delta_{ij}$ at each $p \in U$. Then $\nabla$ on $E_U$ is compatbile with $<,>$ if and only if the connection matrix $[\omega_{ij}]$ of $\nabla$ is skew-symmetric.
+\end{lemma}
+
+\begin{proof}
+We have 
+
+\begin{eqnarray*}
+0&=&\mathrm{d}<s_i,s_j>=<\nabla s_i,s_j> + <s_i,\nabla s_j> \\
+&=& <\sum \omega_{ik} \otimes s_k,s_j> + <s_i,\sum \omega_{jk} \otimes s_k> = \omega_{ij} + \omega_{ji}.
+\end{eqnarray*} The converse is left as an exercise.
+\end{proof}
+
+In local coordinates on $M$, say $x_1,...,x_n$, for a connection on $TM^*$ we have $\nabla (\mathrm{d}x^k)=\sum_{i,j} \Gamma_{ij}^k \mathrm{d}x^i \otimes \mathrm{d}x^j$, so a torsion free connection - determined by $\Gamma_{ij}^k$ - will satisfy
+
+\begin{equation*}
+\sum_{i,j} \Gamma_{ij}^k \mathrm{d}x^i \wedge \mathrm{d}x^j =\mathrm{d}(\mathrm{d}x^k)=0,
+\end{equation} so we conclude that $\Gamma_{ij}^k$ is symmetric in $i,j$.
+
+We may now prove the theorem:
+
+\begin{proof}
+We work locally, and choose a basis $\theta_1,...,\theta_n$ for $\Omega^1(U)$. If we can show that there is one unique skew symmetric $[\omega_{ij}]$ of 1-forms such that
+
+\begin{equation}
+\mathrm{d}\theta_k =\sum \omega_{kj} \wedge \theta_j, 
+\end{equation} then we can define $\nabla$ over $U$ by setting
+
+\begin{equation}
+\nabla \theta_k = \sum \omega_{kj} \otimes \theta_j.
+\end{equation} Then by construction $\nabla$ would be torsion free and metric and uniqueness would come from the uniqueness of $\omega$ which determines $\nabla$ completely in $U$. The uniqueness of such $\nabla$ in each trivialising neighborhood then lets us glue them together to a connection on the entire manifold. 
+
+Now write $\mathrm{d} \theta_k =\sum_{i,j} A_{ijk} \theta_i \wedge \theta_j$. It is a combinatorial fact that any array $A_{ijk}$ can be written uniquely as a sum $A_{ijk}=B_{ijk} + C_{ijk}$ with $B$ symmetric and $C$ skew-symmetric. Then the skew-symmetry of $\wedge$ implies that in fact $d\theta_k =\sum_{ij}C_{ijk} \theta_i \wedge \theta_j$. Now set 
+\begin{equation*}
+w_{kj}=\sum_i C_{ijk} \theta_i.
+\end{equation*} Then $\mathrm{d}\theta_k = \sum_j \omega_{kj} \wedge \theta_j$.
+\end{proof}
 
 
 \section{Curvature}
+
+To define the curvature of a vector bundle equipped with a connection $\nabla$ we want to define a connection on the bundle $\Omega^1_M(U) \otimes E(U)$ from $\nabla$.
+
+\begin{lemma}
+Given a connection $\nabla$ on $E$ there is a unique $k$-linear map 
+\begin{equation}
+\hat{\nabla}: \Gamma (\Omega^1 (M)\otimes E)) \to \Gamma (\Omega^2(M)\otimes E),
+\end{equation} which satisfies the Leibniz formula
+
+\begin{equation}
+\hat{\nabla}(\theta \otimes s)=\mathrm{d}\theta \otimes s - \theta \wedge \nabla (s),
+\end{equation} for $\theta \in \Omega^1(M)$, $s \in \Gamma(E)$. In addition $\hat{\nabla}$ satisfies 
+\begin{equation}
+\hat{\nabla}(f(\theta \otimes s))=\mathrm{d}f \wedge (\theta \otimes s) + f\hat{\nabla}(\theta \otimes s)
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+We need only prove the claim in a trivializing neighborhood, so we choose a basis $\{s_i\}$ of sections of $E$ and and arbitrary 1-forms $\theta_i$, then we must have
+
+\begin{equation}
+\hat{\nabla}(\theta_1 \otimes s_1 + ... + \theta_n \otimes s_n)=\sum \mathrm{d}\theta_i \otimes s_i - \theta_i \wedge \nabla (s_i).
+\end{equation} This expression is uniquely determined by $\nabla$ and we may take it as a definition of $\hat{\nabla}$.
+\end{proof}
+
+We thus have 
+\[
+\Gamma(E) \xrightarrow{\nabla} \Gamma(\Omega^1(M)\otimes E) \xrightarrow{\hat{\nabla}} \Gamma (\Omega^2(M)\otimes E)
+\] which is however not in general a chain-complex, as $\hat{\nabla} \circ \nabla =:\nabla^2 \neq 0$ in general. We call $\nabla^2$ the curvature of the connection $\nabla$.
+
 
 % Construction of a connection on $\Omega^1_M \otimes E$ from a connection on $E$ satisfying a Leibniz rule (Milnor-Stasheff Lemma 4)
 % This gives a sequence
@@ -2796,8 +2885,29 @@ On every Riemannian manifold, there exists exactly one Levi-Civita connection.
 % This is not in general a chain complex. Curvature = \nabla^2.
 %
 \begin{lemma}
-The morphism $\nabla^2\colon E \to \Omega^2_M \otimes E$ is a map of vector bundles.
+The morphism $\nabla^2\colon \Gamma(E) \to \Gamma(\Omega^2_M \otimes E)$ is a map of vector bundles.
 \end{lemma}
+
+\begin{proof}
+We have $\nabla^2 (fs)=\hat{\nabla}(\nabla(fs))=\hat{\nabla}(\mathrm{d}f\otimes s + f\nabla(s))=\mathrm{dd}f \otimes s - \mathrm{d} f \wedge \nabla(s) + \mathrm{d}f\wedge \nabla(s) + f \hat{\nabla}(\nabla (s))=f\hat{\nabla}(\nabla(s))=f\nabla^2 (s)$.
+\end{proof}
+
+It is instructive to determine an expression for $\nabla^2$ in local coordinates. In terms of a basis $\{s_i\}$ for $\Gamma(U)$ with 
+\begin{equation}
+\nabla(s_i)=\sum_j \omega_{ij} \otimes s_j,
+\end{equation} we have
+
+\begin{eqnarray*}
+\nabla^2(s_i) &=& \hat{\nabla}\sum_j \omega_{ij} \otimes s_j \\
+&=& \sum_j \mathrm{d}\omega_{ij} \otimes s_j - \sum_j \omega_{ij} \wedge \nabla(s_j) \\
+&=& \sum_j \mathrm{d}\omega_{ij} \otimes s_j - \sum_j \omega_{ij}\wedge \sum_k \omega_{jk} \otimes s_k \\
+&=& \sum_k \Big(\mathrm{d} \omega_{ik} \otimes s_k - \sum_j \omega_{ij} \wedge \omega_{jk} \Big)\otimes s_k \\
+&=& \sum_k \Omega_{ik} \otimes s_k,
+\end{eqnarray*} where $\Omega_{ik}=\mathrm{d}\omega_{ik} - \sum_j \omega_{ij}\wedge \omega_{jk}$, or in matrix notation
+
+\begin{equation*}
+\Omega=\mathrm{d}\omega - \omega \wedge \omega.
+\end{equation*}
 % That means it's a map of *local* sheaves of $C^\infty_M$-algebras.
 
 % Subsection on flat vector bundles. Two points of view: curvature zero or classified by locally
