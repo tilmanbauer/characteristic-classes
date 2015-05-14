@@ -2683,7 +2683,78 @@ H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}
 
 \section{Chern classes}
 
-Cohomology of $BU(n)$, examples of Chern classes for well-known bundles.
+Cohomology of $BU(n)$
+
+\subsection{Sample computations of Chern classes}
+
+In calculations with Chern classes, it is often useful to introduce the following notations:
+
+\begin{defn}
+Let $E \to B$ be a complex vector bundle. Then its \emph{total Chern class} is the formal sum
+\[
+c(E) = \sum_{i=0}^\infty c_i(E) \in H^*(B),
+\]
+where $c_0(E)=1$ by definition.
+\end{defn}
+The sum formula \ref{chernsumformula} can then be concisely formulated as
+\[
+c(E \oplus E') = c(E)c(E').
+\]
+
+By definition, the Chern class $c_i(\tau)$, where $\tau$ is the universal bundle over $BU(n)$, is $c_i \in H^*(BU(n)) = \Z\pow{c_1,\dots,c_n}$.
+
+\begin{example}
+Let $E \to B$ be a trivial complex vector bundle. Then $c(E) = 1$, i.~e. all Chern classes of positive degree are $0$. This is obvious because the classifying map $B \to BU(n)$ is nullhomotopic and therefore induces the zero map on cohomology groups in positive degree.
+\end{example}
+
+\begin{example}
+Let $E=T\S^n \otimes \CC \to \S^n$ be the complexified tangent bundle of $\S^n$. Then $c(E)=1$. The tangent bundle is nontrivial (at least for $n \neq 0,1,3,7$), as is the complexified version, and thus Chern classes cannot reliably detect whether a bundle is trivial or not. To see that $c(E)=1$, note that the normal bundle $N\S^n$ of $\S^n$ with its standard embedding in $\R^{n+1}$ is a trivial line bundle and the sum $T\S^n \oplus N\S^n \cong T\R^{n+1}$ is trivial as well. Thus
+\[
+c(E) = c(E)c(N\S^n \otimes \CC) = c(T\R^{n+1}\otimes \CC) = 1.
+\]
+\end{example}
+
+\begin{lemma}\label{lemma:chernoftensorproduct}
+Let $E_1$, $E_2$ be complex line bundles over $B$. Then
+\[
+c_1(E_1 \otimes E_2) = c_1(E_1) + c_1(E_2)
+\]
+\end{lemma}
+\begin{proof}
+It suffices to consider the universal case $B=BU(1)\times BU(1) = \CP^\infty \times \CP^\infty$ and $E_i = p_i^*\tau$, where $p_i\colon \CP^\infty \times \CP^\infty \to \CP^\infty$ are the projection maps and $\tau$ is the universal line bundle on $\CP^\infty$. Then
+\[
+H^*(B) \cong \Z\pow{c_1(E_1),c_1(E_2)}
+\]
+and thus $c_1(E_1 \otimes E_2)$ is some linear combination $\alpha c_1(E_1) + \beta c_2(E_2)$. Since tensoring with a trivial line bundle is the identity, we must have $\alpha=\beta=1$. 
+\end{proof}
+
+\begin{lemma}
+Let $E \to B$ be a complex vector bundle and $\overline E$ its complex conjugate bundle. Then
+\[
+c_i(\overline E) = (-1)^i c_i(E).
+\]
+\end{lemma}
+\begin{proof}
+Using the splitting principle, it suffices to show that $c_1(\overline E) = -c_1(E)$, where $E$ is a complex line bundle. But in that case, $E \otimes \overline E$ is the trivial line bundle and the result follows from Lemma~\ref{lemma:chernoftensorproduct}.
+\end{proof}
+
+Note that it is far from true that $c_i(E_1 \otimes E_2) = c_i(E_1) + c_i(E_2)$ for $i>1$.
+
+\begin{exer}
+Use the splitting principle and Lemma~\ref{lemma:chernoftensorproduct} to find an explicit formula for $c_n(E_1 \oplus E_2)$.
+\end{exer}
+
+\begin{example}
+We compute the total Chern class of the tangent bundle of $\CP^n$. We can employ a similar method to that in the computation of Chern classes of tangent bundles of spheres, noting that
+\[
+T\CP^n \oplus 1 \cong \tau^{n+1},
+\]
+where $\tau$ is the universal bundle on $\CP^n$ and $1$ the trivial line bundle. We thus find that
+\[
+c(T\CP^n) = c(\tau)^{n+1} = (1+c_1)^{n+1}.
+\]
+Thus this bundle has nonvanishing Chern classes in every even degree up to the dimension $2n$ of $\CP^n$.
+\end{example}
 
 \section{Stiefel-Whitney classes}
 
