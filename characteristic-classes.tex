@@ -2763,7 +2763,6 @@ Mod-$2$ cohomology of $BO(n)$, examples of SW classes for well-known bundles.
 \section{Pontryagin classes}
 
 \chapter{Chern-Weil theory}
-
 % References for this chapter:
 % * Milnor-Stasheff, Characteristic Classes, Appendix C
 % * any book on riemannian geometry
@@ -2962,8 +2961,9 @@ The morphism $\nabla^2\colon \Gamma(E) \to \Gamma(\Omega^2_M \otimes E)$ is a ma
 \begin{proof}
 We have $\nabla^2 (fs)=\hat{\nabla}(\nabla(fs))=\hat{\nabla}(\mathrm{d}f\otimes s + f\nabla(s))=\mathrm{dd}f \otimes s - \mathrm{d} f \wedge \nabla(s) + \mathrm{d}f\wedge \nabla(s) + f \hat{\nabla}(\nabla (s))=f\hat{\nabla}(\nabla(s))=f\nabla^2 (s)$.
 \end{proof}
+Because of this lemma, we may view the curvature $\nabla^2$ as a section of the bundle $E^* \otimes \Omega^2_M \otimes E \cong \Hom(E, E) \otimes \Omega^2_M$.
 
-It is instructive to determine an expression for $\nabla^2$ in local coordinates. In terms of a basis $\{s_i\}$ for $\Gamma(U)$ with 
+It is instructive to determine an expression for $\nabla^2$ in local coordinates. In terms of a frame $\{s_i\}$ for $\Gamma(U)$ with 
 \begin{equation}
 \nabla(s_i)=\sum_j \omega_{ij} \otimes s_j,
 \end{equation} we have
@@ -2975,10 +2975,11 @@ It is instructive to determine an expression for $\nabla^2$ in local coordinates
 &=& \sum_k \Big(\mathrm{d} \omega_{ik} \otimes s_k - \sum_j \omega_{ij} \wedge \omega_{jk} \Big)\otimes s_k \\
 &=& \sum_k \Omega_{ik} \otimes s_k,
 \end{eqnarray*} where $\Omega_{ik}=\mathrm{d}\omega_{ik} - \sum_j \omega_{ij}\wedge \omega_{jk}$, or in matrix notation
-
 \begin{equation*}
 \Omega=\mathrm{d}\omega - \omega \wedge \omega.
 \end{equation*}
+Note that $\wedge$ denotes matrix multiplication in the ring of matrices of differential forms, which means that $\omega \wedge \omega$ is not necessarily zero.
+
 % That means it's a map of *local* sheaves of $C^\infty_M$-algebras.
 
 % Subsection on flat vector bundles. Two points of view: curvature zero or classified by locally
@@ -2986,14 +2987,142 @@ It is instructive to determine an expression for $\nabla^2$ in local coordinates
 
 % Examples. spheres and projective spaces with positive curvature. Surfaces of genus > 1 with negative curvature, flat torus, maybe non-flat tori (as embedded in R^3).
 
-\section{Characteristic classes from curvature}
+\section{Cohomology classes from curvature}
+We will now extract invariants from the curvature tensor of a connection on a complex vector bundle over a smooth manifold. The first step is to construct a family of differential forms from the curvature tensor and show that they are closed, so that they gives rise to cohomology classes in de Rham cohomology. In other words, we will have constructed an algebraic invariant for a vector bundle equipped with a connection. What is remarkable is that these cohomology classes are \emph{independent of the chosen connection}, and hence invariants of the vector bundle itself.
+\begin{defn}
+Identify the set $M_n(\mathbb C)$ of $n \times n$ matrices with $\mathbb C^{n^2}$. A function $P \colon M_n(\mathbb C) \to \mathbb C$ is called an \emph{invariant polynomial} if it is polynomial in the matrix entries and satisfies
+\[P(AB) = P(BA)\]
+for all $A, B \in M_n(\mathbb C)$.
+\end{defn}
+Note that if $P$ is an invariant polynomial and $T \in M_n(\mathbb C)$ is invertible, then $P(TAT^{-1}) = P(A)$. The invariant polynomials are in this sense the polynomials which descend to functions on the quotient of $M_n(\mathbb C)$ by changes of basis.
+
+\begin{example}
+The determinant map $\det \colon M_n(\mathbb C) \to \mathbb C$ is an invariant polynomial, since $\det(TAT^{-1}) = \det A$. 
+\end{example}
+
+The property of being an invariant polynomial is precisely what we need for the following construction. We will use this construction applied to a curvature tensor, but for clarity we do it abstractly first.\\
+\textbf{Construction:}\\
+Let $\mathcal A$ be a commutative $\mathbb C$-algebra and let $V$ be a $n$-dimensional $\mathbb C$-vector space. Let $P$ be an invariant polynomial on $M_n(\mathbb C)$. We will construct a map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ in the following way. Choose a basis of $V$. Using this basis, there is an isomorphism $\Hom(V, V) \cong M_n(\mathbb C)$. Moreover, there is an isomorphism $\mathcal A \otimes M_n(\mathbb C) \cong M_n(\mathcal A \otimes \mathbb C) \cong M_n(\mathcal A)$. Since $\mathcal A$ is a commutative $\mathbb C$-algebra, the polynomial $P$ extends to a polynomial (in the matrix entries) on $M_n(\mathcal A)$. To make the map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ well-defined, we need to verify that it does not depend on the choice of basis, i.e. the choice of isomorphism $\Hom(V, V) \cong M_n(\mathbb C)$. This, however, is precisely the statement that $P$ is an invariant polynomial: If $A \in M_n(\mathbb C)$ and $B \in M_n(\mathbb C)$ are related by a change of basis then $A = TBT^{-1}$ for some invertible matrix $T$ and hence $P(a \otimes A) = P(a \otimes TBT^{-1}) = P(a \otimes B)$.
+
+The idea is now to apply this construction to the curvature $\nabla^2$ of a connection $\nabla$ on a complex vector bundle $E \to M$. Recall that $\nabla^2 \in \Gamma(\Hom(E, E) \otimes \Omega^2_M)$, and note that the fibers of the bundle $\Omega^{2k}_M$ of $2k$-forms on $M$ are commutative $\mathbb C$-algebras. Letting $P$ be an invariant polynomial, and applying the above construction in each fiber, we obtain a differential form $P(\nabla^2) \in \Gamma(\Omega^*_M)$. Having done this construction, our aim is now to show that this defferential form represents a cohomology class in de Rham cohomology, and that this cohomology class is a characteristic class of the vector bundle. This means that we need two things: First $P(\nabla^2)$ must be a closed form, so that it represents a cohomology class. Second, the cohomology class needs to be independent of the connection we choose for the vector bundle.
+
+We begin by noting a funny-looking commutation property of invariant polynomials. 
+\begin{lemma}\label{lem:invariant polynomial commutation}
+Let $P$ be an invariant polynomial with complex coefficients. Let $A_{ij}$ denote the indeterminates of $P$ and let $P'(A)$ denote the transpose of the matrix $[\partial P/\partial A_{ij}]$ of formal partial derivatives. Then $P'(A)$ commutes with the matrix $A = [A_{ij}]$ of indeterminates.
+\begin{proof}
+Note that since $P$ is an invariant polynomial, it holds that
+\[P((I + tE_{ij})A) = P(A(I + tE_{ij}))\]
+where $E_{ij}$ denotes the matrix with all entries zero except for the the entry $(i, j)$ which is $1$. Differentiating this with respect to $t$ at $t = 0$ yields
+\[\sum_k A_{ik} \frac{\partial P}{\partial A_{jk}} = \sum_k \frac{\partial P}{\partial A_{ki}} A_{kj}.\]
+The left hand side is the $(i, j)$ entry of the product $AP'(A)$ while the right hand side is the $(i, j)$ entry of the product $P'(A)A$. This proves the lemma.
+\end{proof}
+\end{lemma}
+
+\begin{prop}
+Let $\nabla^2$ be the curvature tensor of connection $\nabla$ on a vector bundle $E \to M$, and let $P$ be an invariant polynomial. Then $d(P(\nabla^2)) = 0$. In other words, $P(\nabla^2)$ is a closed form.
+\begin{proof}
+Since exterior derivative is a local operation, it is sufficient to compute $d(P(\nabla^2))$ in a trivializing neighborhood of $E$. In such a neighborhood, there is a set of $n$ sections $s_1, s_2, \ldots, s_n$ which are linearly independent at each point. As noted previously, having fixed these we may express $\nabla$ at each point using a matrix $\omega$ of one-forms, i.e. a section of the bundle $M_n(\Omega_M^1)$, as
+\[\nabla s_i = \sum_k \omega_{ik} \otimes s_k.\]
+Similarly, the curvature tensor $\nabla^2$ can be expressed as
+\[\nabla^2 s_i = \sum_k \Omega_{ik} \otimes s_k\]
+where $\Omega$ is a matrix of two-forms. Note that by construction of $P(\nabla^2)$, we have $P(\nabla^2) = P(\Omega)$. Hence
+\[d(P(\nabla^2)) = d(P(\Omega)) = \sum_{ij} \frac{\partial P}{\partial \Omega_{ij}} d(\Omega_{ij}) = \tr(P'(\Omega) \wedge d\Omega).\]
+Here we have used the notation $P'(\Omega)$ from the previous lemma, meaning the transpose of the matrix $[\frac{\partial P}{\partial \Omega_{ij}}]$ of formal partial derivatives. We now need to compute $d\Omega$. Here the exterior derivative is applied entry by entry. Recall that
+\[\Omega = d\omega - \omega \wedge \omega.\]
+Taking the exterior derivative (entry by entry) of this yields
+\[d\Omega = -d\omega \wedge \omega + \omega \wedge d\omega.\]
+Using the previous equation we substitute $d\omega = \Omega + \omega \wedge \omega$ into the latter equation and obtain
+\[d\Omega = -\Omega \wedge \omega - \omega \wedge \omega \wedge \omega + \omega \wedge \Omega + \omega \wedge \omega \wedge \omega,\]
+and we have then obtained the identity
+\[d\Omega = -\Omega \wedge \omega + \omega \wedge \Omega.\]
+Substituting this into the previous equation $d(P(\nabla^2)) = \tr(P'(\Omega) \wedge d\Omega)$ yields
+\[d(P(\nabla^2)) = \tr(-P'(\Omega) \wedge \Omega \wedge \omega + P'(\Omega) \wedge \omega \wedge \Omega).\]
+Using Lemma \ref{lem:invariant polynomial commutation} and the shorthand notation $X = P'(\Omega) \wedge \omega$ this reduces to
+\[d(P(\nabla^2)) = \tr(-\Omega \wedge X + X \wedge \Omega) = \sum_{ij} -\Omega_{ij} \wedge X_{ij} + X_{ij} \wedge \Omega_{ij}.\]
+Each $\Omega_{ij}$ is a two-form, and each $X_{ij}$ is a differential form. Since two-forms commute with all other differential forms, each term in this sum is zero. Hence
+\[d(P(\nabla^2)) = 0,\]
+proving that $P(\nabla^2)$ is a closed form.
+\end{proof}
+\end{prop}
+
+\begin{prop}
+Let $E \to M$ be a vector bundle and let $P$ be an invariant polynomial. If $\nabla_0$ and $\nabla_1$ are two connections on $E$ and $\nabla_0^2$ and $\nabla_1^2$ are the corresponding curvature tensors, then $[P(\nabla_0^2)] = [P(\nabla_1^2)]$ as cohomology classes in de Rham cohomology.
+\begin{proof}
+This follows essentially from the fact that the space of connections for a vector bundle is convex. Consider the manifold $M \times \R$. We have a projection $\pi \colon M \times \R \to M$ and two inclusions $i_0, i_1 \colon M \to M \times \R$ defined by $i_0(x) = (x, 0)$ and $i_1(x) = (x, 1)$.
+Define the vector bundle $\hat E \to M \times \R$ to be the pullback of $E$ under the projection $\pi \colon M \times \R \to M$. Pull back the connections $\nabla_0$ and $\nabla_1$ to connections $\hat \nabla_0$ and $\hat \nabla_1$ on $\hat E$ and let $\hat \nabla$ be the convex combination
+\[\hat \nabla(s)(p, t) = t \hat \nabla_0(s)(p, t) + (1-t) \hat \nabla_1(s)(p, t).\]
+By going through the definitions of pullback connections, one sees that
+\[\nabla_j = i_j^*\hat\nabla \quad \text{for } j \in \{0, 1\}.\]
+Hence
+\[\nabla_j^2 = (i_j^* \hat\nabla)^2\]
+so that
+\[P(\nabla_j^2) = i_j^* P(\hat \nabla^2)\]
+Finally, $i_0$ and $i_1$ are homotopic maps and so induce the same map in cohomology. Hence $i_0^* [P(\hat \nabla^2)] = i_1^* [P(\hat \nabla^2)]$, completing the proof.
+\end{proof}
+\end{prop}
+
+Let $E \to M$ be a complex vector bundle. What we have shown is that each invariant polynomial $P$ gives rise to an element of the cohomology ring $H^*(M)$, which can be computed as $[P(\nabla^2)]$ for any connection $\nabla$ on $E$, but which is independent of the particular choice of connection $\nabla$. In the next section, we will relate the result of this construction to the Chern classes defined in \marginpar{Add cross-reference to definition.}.
+
+\section{Chern classes from curvature}
+To relate the construction in the previous section to the Chern classes of the vector bundle, we need to know something about the structure of the set of invariant polynomials. It turns out that all invariant polynomials can be written in terms of \emph{elementary symmetric polynomials}. The elementary symmetric polynomials in $n$ variables are the polynomials $\sigma_1, \sigma_2, \ldots, \sigma_n$ such that
+\[\prod_{i = 1}^n (1 + t\lambda_i) = 1 + \sum_{i = 1}^n \sigma_i(\lambda_1, \ldots, \lambda_n)t^i.\]
+These give rise to invariant polynomials, which we will also denote by $\sigma_i$, by letting $\sigma_i(A) = \sigma_i(\lambda_1, \ldots, \lambda_n)$ for $n \times n$-matrices $A$ with eigenvalues $\lambda_1, \ldots, \lambda_n$. An alternative characterization is that
+\[\det(I + tA) = 1 + \sum_{i = 1}^n \sigma_i(A)t^i\]
+It is known from combinatorics that if $r$ is a polynomial of $n$ variables which is invariant under permutation of the coordinates, then $r = q(\sigma_1, \sigma_2, \ldots, \sigma_n)$ for some polynomial $q$. We will show how this result extends to invariant polynomials:
+\begin{lemma}
+Let $P \colon M_n(\mathbb C) \to \mathbb C$ be an invariant polynomial. Then there exists a polynomial $p \in \mathbb C[z_1, \ldots, z_n]$ such that
+\[P(A) = p(\sigma_1(A), \sigma_2(A), \ldots, \sigma_n(A))\]
+for all $A \in M_n(\mathbb C)$.
+\begin{proof}
+We begin by using the fact that $P$ is an invariant polynomial to show that $P(A)$ depends only on the eigenvalues of $A$. For any matrix $A$, there are invertible matricies $T$, which can be found for instance by performing an $LU$ decomposition of $A$ or by putting $A$ in Jordan canonical form, such that $TAT^{-1}$ is upper triangular. Since $P(TAT^{-1}) = P(A)$, we may without loss of generality prove the result for the restriction of $P$ to the set of upper triangular matrices. We now want to get rid of the off-diagonal elements. Let $S_\epsilon$ be the diagonal matrix $S_\epsilon = \mathrm{diag}(\epsilon, \epsilon^2, \ldots, \epsilon^n)$. Then $S_\epsilon^{-1}AS_\epsilon$ has the same diagonal entries as $A$, while all entries above the diagonal pick up a positive power of $\epsilon$. Since $P$ is an invariant polynomial, $P(A) = P(S_\epsilon^{-1}AS_\epsilon)$ for all $\epsilon > 0$ and since $P$ is a polynomial and hence continuous
+\[P(A) = \lim_{\epsilon \to 0} P(S_\epsilon^{-1}AS_\epsilon) = P(\lim_{\epsilon \to 0} S_\epsilon^{-1}AS_\epsilon).\]
+The matrix $\lim_{\epsilon \to 0} S_\epsilon^{-1}AS_\epsilon$ is the diagonal matrix with the eigenvalues of $A$ as entries. Further conjugating with suitable matrices, we can permute the diagonal entries arbitrarily. Hence $P(A)$ depends only on the unordered set of eigenvalues of $A$. This means that $P(A)$ is a symmetric polynomial applied to the eigenvalues of $A$, so by the combinatorial result mentioned above, there is a polynomial $p$ such that
+\[P(A) = p(\sigma_1(A), \sigma_2(A), \ldots, \sigma_n(A))\]
+completing the proof.
+\end{proof}
+\end{lemma}
+
+We have now reduced the study of invariant polynomials to the study of the elementary invariant polynomials $\sigma_i$. The final step is to connect these to Chern classes, which we will do in the following theorem.
+
+\begin{thm}
+Let $E \to M$ be a complex vector bundle with a connection $\nabla$. Then
+\[[\sigma_k(\nabla^2)] = (2\pi i)^kc_k(E) \quad \text{for } k = 1, 2, \ldots, n.\]
+\begin{proof}
+We will prove this first when $E \to M$ is a line bundle, then generalize to the case when $E$ is a sum of line bundles, and finally use the splitting principle to obtain the result for general vector bundles.
+
+Assume first that $E \to M$ is a complex line bundle, i.e. that $n = 1$. Since the construction of the cohomology class $[\sigma_1(\nabla^2)]$ is natural with respect morphisms of line bundles, it must be a multiple of the first Chern class $c_1(E)$:
+\[[P(\nabla^2)] = \alpha c_1(E) \quad\text{for some } \alpha \in \mathbb C.\]
+To determine the constant $\alpha$, we show that it does not depend on the particular vector bundle $E \to M$. Having done this, we can compute $\alpha$ explicitly for some simple line bundle. Consider two line bundles $E_1 \to M_1$ and $E_2 \to M_2$ with corresponding classifying maps $\gamma_i \colon M \to BU(1)$. These maps may be chosen (within their homotopy class) to be such that the image $\gamma_1(M_1) \cup \gamma_2(M_2)$ is contained in a subspace $\hat M \subset BU(1)$ which can be given the structure of a finite-dimensional smooth manifold. (For instance, use the cellular approximation theorem for CW-complexes to see that $\gamma_i$ may be taken to have its image in the $N$-skeleton of $BU(1)$, where $N = \max(\dim(M_1), \dim(M_2))$, and use the standard cellular decomposition of $BU(1)$ where the $N$-skeleton is $\mathbb CP^N$.) Restrict the universal line bundle to this manifold $\hat M$ and call it $\hat E$, and choose a connection $\hat \nabla$ for it. Since $[\sigma_1(\nabla_i^2)]$ is independent of the connection $\nabla_i$ chosen for $E_i$, we may as well use the pullback connections $\nabla_i = \gamma_i^* \hat \nabla$. Now
+\[[\sigma_1(\nabla_i^2)] = [\sigma_i(\gamma_i^* \hat \nabla^2)] = \gamma_i^* [\sigma_i \hat \nabla^2].\]
+As we saw previously, $[\sigma_i \hat \nabla^2] = \alpha_{\hat E} c_1(\hat E)$ for some $\alpha_{\hat E} \in \mathbb C$ so we have proved that
+\[[\sigma_1(\nabla_i^2)] = \gamma_i^* \alpha_{\hat E} c_1(\hat E) = \alpha_{\hat E} c_1(E_i)\]
+so that this constant $\alpha$ is indeed the same for the two arbitrary line bundles $E_1 \to M_1$ and $E_2 \to M_2$. An explicit computation, say for the tangent bundle of the Riemann sphere, shows that $\alpha = 2\pi i$. This completes the proof for line bundles.
+
+Now suppose that $E \to M$ is a sum of line bundles $E_1 \oplus E_2 \oplus \cdots \oplus E_n$. Define the particular invariant polynomial
+\[C(A) = \det\left(I + \frac{1}{2\pi i} A\right).\]
+As usual, we may use any connection on $E$ to evaulate $[C(\nabla^2)]$. In this case, it is a good idea to choose a connection which is a sum of connections $\nabla_i$ for the line bundles $E_i$. We now claim that
+\[[C(\nabla^2)] = \prod_{i = 1}^n [C(\nabla_i^2)].\]
+It is sufficient to show this locally. When choosing sections $s_i$ which are non-zero in the $E_i$ component and zero in all other components, the curvature matrix $\Omega_{ij}$ with respect to this frame becomes diagonal, and its entries are the curvature tensors of the line bundle connections $\nabla_i$. By evaluating $C(\Omega) = \det\left(I + \frac{1}{2\pi i} \Omega\right)$, we then see that
+\[[C(\nabla^2)] = \prod_{i = 1}^n [C(\nabla_i^2)]\]
+as claimed. Furthermore, evaluating $C(\nabla_i^2)$ for the line bundles we have
+\[[C(\nabla_i^2)] = 1 + \frac{1}{2\pi i} [\sigma_1(\nabla_i^2)] = 1 + c_1(E_i) = c(E_i)\]
+by the result of the previous paragraph. Here $c(E_i)$ denotes the total Chern class of $E_i$. Hence
+\[[C(\nabla^2)] = c(E_1)c(E_2) \cdots c(E_n).\]
+By the sum formula for Chern classes, this is precisely the total Chern class $c(E)$ of the vector bundle $E$. Hence
+\[[C(\nabla^2)] = c(E).\]
+The terms of degree $2k$ are $(2\pi i)^{-k} [\sigma_k(\nabla^2)]$ in the left hand side, and $c_k(E)$ in the right hand side, completing the proof for the case when $E$ is a sum of line bundles.
+
+Finally, let $E \to M$ be an arbitrary complex vector bundle. 
+By the splitting principle there exists a space $M'$ and a map $f \colon M' \to M$ such that $f^*E$ is a sum of line bundles and $f^* \colon H^*(M) \to H^*(M')$ is a monomorphism. In fact, $M'$ can be chosen to be a smooth manifold, and $f$ can be chosen to be smooth. \marginpar{Reference or argument needed.} Let $\nabla$ be a connection for $E$. Then
+\[f^*[C(\nabla^2)] = [C((f^*\nabla)^2)] = c(f^*E) = f^*c(E).\]
+Since $f^*$ is a monomorphism, this implies that $[C(\nabla^2)] = f^*c(E)$ and the proof is complete.
+\end{proof}
+\end{thm}
 
 % Maybe we'll only consider the real or the complex case here. For the complex case, everything has to be complexified.
 
 % Construction of characteristic classes from application of an invariant polynomial p to the curvature tensor K. Show that the image is always a closed form and independent of the connection (and hence the curvature).
 % Characterization of invariant polynomials and identification with Chern classes (complex case) or Pontryagin classes (real case)
-
-
 
 \section{The genereralized Gauß-Bonnet theorem}
 
