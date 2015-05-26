@@ -2744,7 +2744,7 @@ Note that it is far from true that $c_i(E_1 \otimes E_2) = c_i(E_1) + c_i(E_2)$ 
 Use the splitting principle and Lemma~\ref{lemma:chernoftensorproduct} to find an explicit formula for $c_n(E_1 \oplus E_2)$.
 \end{exer}
 
-\begin{example}
+\begin{example}\label{exa:chernclassofcpn}
 We compute the total Chern class of the tangent bundle of $\CP^n$. We can employ a similar method to that in the computation of Chern classes of tangent bundles of spheres, noting that
 \[
 T\CP^n \oplus 1 \cong \tau^{n+1},
@@ -2761,6 +2761,76 @@ Thus this bundle has nonvanishing Chern classes in every even degree up to the d
 Mod-$2$ cohomology of $BO(n)$, examples of SW classes for well-known bundles.
 
 \section{Pontryagin classes}
+
+\section{Applications}
+
+\subsection{Immersions of real projective spaces}
+
+\begin{defn}
+Let $M$, $N$ be smooth manifolds. A smooth map $f\colon M \to N$ is called an \emph{immersion} if it induces an injective map on tangent spaces: $f_*\colon T_x M \to T_{f(x)} N$ for all $x \in M$.
+\end{defn}
+
+An embedding is a particularly nice immersion. Conversely, any immersion is locally an embedding by the implicit function theorem. But in general, an immersion does not have to be injective, and even if it is injective, it need not have to be a homeomorphism (or diffeomorphism) onto its image.
+
+The Whitney embedding theorem \cite{whitney:embedding} says that any compact $n$-dimensional manifold can be embedded in $\R^{2n}$. A slightly less well-known result of Whitney \cite{whitney:immersion} is that it immerses in $\R^{2n-1}$ as long as $n>1$. Using the theory of Stiefel-Whitney classes, we will now show some lower bounds on immersion dimensions.
+
+\begin{thm}
+Assume that $\R P^n$ immerses into $\R^N$. Then $N\geq n$ is at least one less than a power of $2$.
+\end{thm}
+\begin{proof}
+Since $\R P^n$ embeds into $\R P^{n+1}$, it suffices to show the extremal case, namely that $\R P^{2^k}$ cannot embed in $\R^N$ when $N<2^{k+1}-1$. These cases thus realize the bound given by Whitney.
+
+We will use that fact that given an immersion $f\colon M \to \R^N$, we have
+\[
+TM \oplus N(f) \cong T\R^N|_M,
+\]
+where $N(f)$ denotes the normal bundle of the immersion, i.~e. a complement of the tangent bundle. Thus by the product formula for the total Stiefel-Whitney classes, we have that
+\[
+w(TM) w(N(f)) = 1
+\]
+since the tangent bundle of $\R^N$ is, of course, trivial. By the real analog of Example~\ref{exa:chernclassofcpn},
+\[
+w(\R P^{2^k}) = (1+w_1)^{2^k+1} = 1+w_1+w_1^{2^k} \in H^*(\R P^{2^k};\Z/2) = \Z/2[w_1]/(w_1^{2^k+1}).
+\]
+By inverting the power series modulo degree $2^k+1$, we obtain
+\[
+w(N(f)) = 1+w_1+\cdots+w_1^{2^k-1}.
+\]
+But the nonvanishing of the $(2^k-1)$st Stiefel-Whitney class implies that $N(f)$ has to have at least that dimension, i.~e. $N-2^k \geq 2^k-1$.
+\end{proof}
+
+\begin{exer}\label{exer:nobetternonimmersion}
+Verify that we do not get any better nonimmersion bounds of $\R P^n$ by studying dimensions $n$ that are not a power of $2$.
+\end{exer}
+
+These immersion bounds are by no means optimal (for instance, $\R P^{2^n-1}$ does not immerse into $\R^{2^n-1}$). The exact lowest immersion dimension of $\R P^n$ is unknown in general and an area of very active research.
+
+\begin{thm}
+There are manifolds $M$ of dimension $n$ which do not immerse into $R^{2n-\alpha(n)-1}$, where $\alpha(n)$ denotes the number of nonzero digits in the expansion of $n$ in base $2$.
+\end{thm}
+\begin{proof}
+Let $n=2^{i+1}+2^{i_2}+\cdots+2^{i_k}$ be the $2$-adic expansion of $n$, such that $\alpha(n)=k$. Choose
+\[
+M= \R P^{2^{i_1}} \times \cdots \times \R P^{2^{i_k}}.
+\]
+Then
+\[
+w(M)^{-1} = \prod_{j=1}^k w(T\R P^{2^{i_j}})^{-1} = \prod_{j=1}^k \frac1{1-a_j^{2^{i_j}}} \in H^*(M;\Z/2) = \Z/2[a_1,\cdots,a_k]/(a_j^{i_j+1})
+\]
+and we see that the top-dimensional class in this product is
+\[
+a_1^{2^{i_1}-1}\cdots a_k^{2^{i_k}-1}
+\]
+in dimension
+\[
+2^{i_1}+\cdots+2^{2_k}-k = n-k.
+\]
+Thus the normal bundle of any immersion has to have at least dimension $n-k=n-\alpha(n)$.
+\end{proof}
+
+\begin{remark}
+Ralph Cohen showed in \cite{cohen:immersion-conjecture} that this bound is sharp, i.~e. that every compact $n$-manifold ($n>1$) immerses into $\R^{2n-\alpha(n)}$. 
+\end{remark}
 
 \chapter{Chern-Weil theory}
 % References for this chapter:
