@@ -40,6 +40,7 @@
 \newcommand{\nerve}{\mathcal N}
 
 \newcommand{\exterior}{\bigwedge\nolimits}
+\newcommand{\chapterauthor}[1]{\hfill\emph{#1}\par\noindent}
 
 \newtheorem{warning}[equation]{Warning}
 \subject{\textsc{Lecture Notes}}
@@ -1575,6 +1576,8 @@ in particular, by dividing out the $\Z/2$-action, $BO(1) \cong \R P^\infty$.
 \end{proof}
 
 \section{Schubert cells}
+\chapterauthor{Nima Amini}
+
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
 It is not a coincidence that these spaces are named \textit{cells}, they in fact make up a CW-complex of $G_n(k^N)$. 
@@ -2682,8 +2685,130 @@ H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}
 \chapter{Characteristic classes}
 
 \section{Chern classes}
+\chapterauthor{Kaj Börjesson}
 
-Cohomology of $BU(n)$
+There are different but equivalent ways to define Chern classes. We will follow the approach of \cite{tomdieck:algebraic-topology} and use Euler classes and projective bundles. However, we are making it a bit less complicated by not considering arbitrary generalized cohomology theories. In this section cohomology is always taken with integer coefficients.
+
+\subsection{Leray-Hirsch theorem and Thom classes}
+
+\begin{defn}
+Consider a pair of spaces $A\subset X.$ There is a short exact sequence $$0\rightarrow C^*(A)\rightarrow C^*(X)\rightarrow C^*(X)/C^*(A)\rightarrow 0.$$ Let $H^*(X,A)$ be the cohomology of the complex $C^*(X)/C^*(A).$ 
+\end{defn}
+
+\begin{thm}[Leray-Hirsch]
+Let $$0\rightarrow (F,F')\xrightarrow{i} (E,E') \xrightarrow{p} B $$ be a relative fiber bundle. Suppose that $H^*(F,F')$ is a finitely generated abelian group and that there are elements $a_j\in H^*(E,E')$ such that $i^*(a_j)$ is a basis of $H^*(F,F').$ Then the map $$L:H^*(B)\otimes H^*(F,F')\xrightarrow{b\otimes i^*(a_j)\mapsto p^*(b)\otimes a_j}H^*(E,E')$$ is an isomorphism of abelian groups.
+\end{thm}
+
+\begin{proof}
+See \cite[Theorem 17.8.1]{tomdieck:algebraic-topology}.
+\end{proof}
+
+\begin{defn}
+Let $\xi:E\rightarrow B$ be a real $n$-dimensional vector bundle and let $E^0$ be the total space with the zero section deleted. A Thom class is an element $t\in H^n(E,E^0)$ such that the restriction to each fiber induces a basis of $H^n(F,F^0)\cong H^n(S^n).$
+\end{defn}
+
+\begin{remark}
+Thom classes exist whenever the bundle is orientable, in particular for complex vector bundles considered as real vector bundles.
+\end{remark}
+
+The Leray-Hirsh theorem now gives the following theorem as a special case.
+
+\begin{thm}[Thom isomorphism]
+Given a Thom class $t,$ the map $$\Phi:H^k(B)\xrightarrow{b \mapsto p^*(b)\smile t} H^{k+n}(E,E^0)$$ is an isomorphism.
+\end{thm}
+
+\subsection{Euler classes and the Gysin sequence}
+
+The pair $(E,E^0)$ gives an induced long exact sequence in cohomology: $$ \dots \rightarrow H^{k-1}(E^0)\rightarrow H^{k}(E,E^0)\xrightarrow{j} H^k(E)\rightarrow H^k(E^0)\rightarrow \dots $$ Assuming a Thom class and using that $p^*:H^*(B)\cong H^*(E)$ we can rewrite it as follows.
+
+\begin{thm}[Gysin sequence] Given a Thom class, there is a long exact sequence $$ \dots \rightarrow H^{k-1}(E^0)\rightarrow H^{k-n}(B)\xrightarrow{J} H^k(B)\rightarrow H^k(E^0)\rightarrow \dots $$ where $J$ is given by multiplying with the element $e=(p^*)^{-1}\circ j(t)\in H^k(B).$
+\end{thm}
+
+\begin{defn}
+The element $e$ in the above theorem is called the Euler class.
+\end{defn}
+
+\subsection{Projective bundles and Chern classes}
+
+
+\begin{lemma}
+Let $e$ be the Euler class of the tautological line bundle on $\CC P^n.$ Then $$H^*(\CC P^n)\cong \Z [e]/e^{n+1}.$$
+\end{lemma}
+
+\begin{proof}
+The additive structure follows directly from the cell decomposition. The multiplicative structure follows from the Gysin sequence after one notices that $H^*(E^0)\cong H^*(S^{2n+1})$ so $J$ gives isomorphisms in the appropriate degrees.
+\end{proof}
+
+\begin{corollary}
+We have isomorphisms $$H^*(\CC P^\infty)\cong \Z[e]$$ and $$H^*((\CC P^\infty)^n)\cong \Z[e_1,\dots,e_n].$$
+\end{corollary}
+
+\begin{proof}
+The first part follows by limit considerations and the second part by applying Mayer-Vietoris.
+\end{proof}
+
+
+Let $\xi:E\rightarrow B$ be an $n$-dimensional complex line bundle. $\CC^*$ acts fiberwise on $E^0.$ Passing to the quotient gives a $\CC P^{n-1}$-bundle $p:P\rightarrow B.$ The tautological line bundles over every fiber glues together into a complex line bundle $q:Q\rightarrow P.$ There is a classifying map $\kappa_\xi:P\rightarrow \CC P^\infty$ corresponding to this line bundle. This gives us a class $e_\xi =\kappa^*(e)\in H^*(P).$
+
+
+\begin{lemma} \label{lemma:projectivebundlecohomology}
+The cohomology $H^*(P)$ is a free left $H^*(B)$-module with basis $$1,e_\xi,\dots,e_\xi^{n-1}$$ where the module structure is given by $xy=p^*(x)\smile y.$ In particular, the map $$p^*:H^*(B)\rightarrow H^*(P)$$ is injective.
+\end{lemma}
+
+\begin{proof}
+Use the Leray-Hirsh theorem together with the computation of $H^*(\CC P^{n-1}).$
+\end{proof}
+
+\begin{lemma}
+There exists unique elements $c_i(\xi)\in H^{2i}(B)$ such that $$\sum_{j=0}^n(-1)^jc_j(\xi)e_\xi^{n-j}=0.$$
+\end{lemma}
+
+\begin{proof}
+Since $1,e_\xi,\dots,e_\xi^{n-1}$ is a basis we can write $t_\xi^n$ as a linear combination in a unique way.
+\end{proof}
+
+\begin{defn}
+The element $c_i(\xi)$ is called the $i:$th Chern class of the bundle $\xi.$ Put $c_j=0$ if $j>n.$
+\end{defn}
+
+\begin{lemma}
+The Chern classes satisfies naturality: $$f^*(c_i(\xi))=c_i(\eta)$$ for bundle maps $f:\eta \rightarrow \xi.$
+\end{lemma}
+
+\begin{proof}
+By going backwards in the construction and using functoriality.
+\end{proof}
+
+\begin{lemma} \label{lemma:chernsumformula}
+The Chern classes satisfies the sum formula:
+$$c_i(\xi\oplus\eta)=\sum_{i+j=r}c_i(\xi)c_j(\eta).$$
+\end{lemma}
+
+\begin{proof}
+The idea is to consider the subspaces $P(\xi)\subset P(\xi\oplus\eta) \supset P(\eta).$ The subspace $P(\xi)$ is a deformation retract of $U=P(\xi\oplus\eta)\setminus P(\eta)$ and vice versa, $P(\eta)$ is a deformation retract of $V=P(\xi\oplus\eta)\setminus P(\xi).$ Consider the elements $$x=\sum_{i=0}^{\dim \xi}(-1)^ic_i(\xi)e_{\xi\oplus\eta}^{\dim \xi -i},\quad y=\sum_{j=0}^{\dim \eta}(-1)^jc_j(\eta)e_{\xi\oplus\eta}^{\dim \eta -j}.$$ By the definition of Chern classes and the naturality, $x$ is sent to zero under the map $$H^*(P(\xi\oplus\eta))\rightarrow H^*(P(\xi)).$$ Thus is comes from an element $x' \in H^*(P(\xi\oplus\eta),P(\eta)).$ Similarly we get an element $y'.$ Now $U$ and $V$ is an open covering, $H^*(P(\xi\oplus\eta),P(\eta))\cong H^*(P(\xi\oplus\eta),V)$ and $H^*(P(\xi\oplus\eta),P(\xi))\cong H^*(P(\xi\oplus\eta),U).$ This means $x'y'=0$ since the relative cup product lands in $H^*(P(\xi\oplus\eta),P(\xi\oplus\eta))$ which is trivial. This means that $xy=0.$ But $xy$ is also a linear combination of $1,e_{\xi\oplus\eta}\dots, e_{\xi\oplus\eta}^{\dim \xi\oplus\eta}.$ The coefficients in this product gives by definition the Chern classes of $\xi\oplus\eta.$ Comparing the coefficients now gives the result.
+\end{proof}
+
+
+
+\subsection{Cohomology of $BU(n)$}
+
+To compute the cohomology of $BU(n)$ we need a lemma connecting $BU(n)$ and projective bundles.
+
+\begin{lemma}\label{lemma:projectivebundleBU(n))}
+The classifying map $BU(n-1)\times BU(1)\rightarrow BU(n)$ of the product of the tautological bundles $\gamma_{n-1}$ and $\gamma_1$ is the projective bundle of the tautological bundle $\gamma(n)$ on $BU(n).$
+\end{lemma}
+
+\begin{proof}
+See \cite[Theorem 19.3.1]{tomdieck:algebraic-topology}.
+\end{proof}
+
+\begin{thm}
+Let $\kappa: (BU(1))^n \rightarrow BU(n)$ be the classifying map of the product $\gamma_1(1)\times \dots \times \gamma_1(n).$ Then $\kappa^*:H^*(BU(n)) \rightarrow H^*((BU(1))^n)$ is injective and the image consists of all symmetric polynomials. The elementary symmetric polynomials correspond to Chern classes.
+\end{thm}
+
+\begin{proof}
+Let $\sigma$ be a permutation on $n$ elements. It acts by permuting the factors in $(BU(1))^n$ and also on the bundle $\gamma_1(1)\times \dots \times \gamma_1(n)$ in the same way. Now $\kappa \circ \sigma$ is homotopic to $\kappa$ since both maps represent isomorphic bundles. Now $H^*(BU(1)^n)\cong H^*((\CC P^\infty)^n)\cong \Z [T_1,\dots,T_n]$ where $T_i$ has degree $2.$ The permutation $\sigma$ induce a map $\sigma^*$ that acts by permuting the $T_i$:s. By homotopy invariance of cohomology the image of $\kappa^*$ is contained in the symmetric subring of $\Z [T_1,\dots,T_n].$ Note that $T_j=c_i(\gamma_1(j)).$ Now by using naturality of Chern classes we obtain $$\kappa^*c_i(\gamma_n)=c_i\kappa^*(\gamma_n)=c_i(\gamma_1(1)\oplus \dots \oplus \gamma_1(n)).$$ Now we can apply the sum formula $i$ times (separating one summand at a time) and see that we get the $i$:th elementary symmetric polynomial in the $T_i$:s. Since the elementary symmetric polynomials form a basis of the symmetric subring of $\Z [T_1,\dots,T_n]$ the map $\kappa^*$ hits the whole symmetric subring. Now we only have to show injectivity. Using the map from Lemma \ref{lemma:projectivebundleBU(n))} we get a map $$H^*(BU(n))\rightarrow H^*(BU(n-1)\times BU(1))\cong H^*(BU(n-1))[T_n].$$ By Lemma \ref{lemma:projectivebundlecohomology} the map is injective. By induction we now obtain the map to $\Z [T_1,\dots,T_n]$ that is injective.
+\end{proof}
 
 \subsection{Sample computations of Chern classes}
 
@@ -2696,7 +2821,7 @@ c(E) = \sum_{i=0}^\infty c_i(E) \in H^*(B),
 \]
 where $c_0(E)=1$ by definition.
 \end{defn}
-The sum formula \ref{chernsumformula} can then be concisely formulated as
+The sum formula from Lemma~\ref{lemma:chernsumformula} can then be concisely formulated as
 \[
 c(E \oplus E') = c(E)c(E').
 \]
@@ -2856,12 +2981,10 @@ Ralph Cohen showed in \cite{cohen:immersion-conjecture} that this bound is sharp
 % Check section 2.6 if you need to say more about the definition of Riemannian manifolds.
 
 \section{Connections}
+\chapterauthor{Rune Suhr}
+
 A connection gives a way of differentiating vector fields to obtain a new vector field. This in turn provides a way of identifying tangent spaces at different points in a manifold by means of parallel translation of tangent vectors along curves between the points.
 
-%Conn Introduction -- a connection is a way to differentiate vector fields and get a new vector field
-% add geometric intuition if possible / parallel transport
-
-% This is the definition we should work with. If it is correct. I think it is, but verify.
 \begin{defn}
 Let $E$ be a smooth $k$-vector bundle on a smooth manifold $M$, considered as a sheaf of locally free $C^\infty_M$-modules. A \emph{connection} on $E$ is a map of sheaves
 \[
@@ -2983,6 +3106,7 @@ w_{kj}=\sum_i C_{ijk} \theta_i.
 
 
 \section{Curvature}
+\chapterauthor{Rune Suhr}
 
 To define the curvature of a vector bundle equipped with a connection $\nabla$ we want to define a connection on the bundle $\Omega^1_M(U) \otimes E(U)$ from $\nabla$.
 
@@ -3058,6 +3182,8 @@ Note that $\wedge$ denotes matrix multiplication in the ring of matrices of diff
 % Examples. spheres and projective spaces with positive curvature. Surfaces of genus > 1 with negative curvature, flat torus, maybe non-flat tori (as embedded in R^3).
 
 \section{Cohomology classes from curvature}
+\chapterauthor{Eric Larsson}
+
 We will now extract invariants from the curvature tensor of a connection on a complex vector bundle over a smooth manifold. The first step is to construct a family of differential forms from the curvature tensor and show that they are closed, so that they gives rise to cohomology classes in de Rham cohomology. In other words, we will have constructed an algebraic invariant for a vector bundle equipped with a connection. What is remarkable is that these cohomology classes are \emph{independent of the chosen connection}, and hence invariants of the vector bundle itself.
 \begin{defn}
 Identify the set $M_n(\mathbb C)$ of $n \times n$ matrices with $\mathbb C^{n^2}$. A function $P \colon M_n(\mathbb C) \to \mathbb C$ is called an \emph{invariant polynomial} if it is polynomial in the matrix entries and satisfies
@@ -3134,6 +3260,8 @@ Finally, $i_0$ and $i_1$ are homotopic maps and so induce the same map in cohomo
 Let $E \to M$ be a complex vector bundle. What we have shown is that each invariant polynomial $P$ gives rise to an element of the cohomology ring $H^*(M)$, which can be computed as $[P(\nabla^2)]$ for any connection $\nabla$ on $E$, but which is independent of the particular choice of connection $\nabla$. In the next section, we will relate the result of this construction to the Chern classes defined in \marginpar{Add cross-reference to definition.}.
 
 \section{Chern classes from curvature}
+\chapterauthor{Eric Larsson}
+
 To relate the construction in the previous section to the Chern classes of the vector bundle, we need to know something about the structure of the set of invariant polynomials. It turns out that all invariant polynomials can be written in terms of \emph{elementary symmetric polynomials}. The elementary symmetric polynomials in $n$ variables are the polynomials $\sigma_1, \sigma_2, \ldots, \sigma_n$ such that
 \[\prod_{i = 1}^n (1 + t\lambda_i) = 1 + \sum_{i = 1}^n \sigma_i(\lambda_1, \ldots, \lambda_n)t^i.\]
 These give rise to invariant polynomials, which we will also denote by $\sigma_i$, by letting $\sigma_i(A) = \sigma_i(\lambda_1, \ldots, \lambda_n)$ for $n \times n$-matrices $A$ with eigenvalues $\lambda_1, \ldots, \lambda_n$. An alternative characterization is that
@@ -3209,6 +3337,8 @@ Let $E$ be an oriented $n$-dimensional real vector bundle, where $n$ is even. Ch
 
 \chapter{Characteristic classes in algebraic geometry (Draft)}
 \section{Introduction to schemes}
+\chapterauthor{Stefano Marseglia}
+
 Let $A$ be a ring and denote by $\Spec A$ the set of all its prime ideals. For any ideal $I$ of $A$ put
 $V(I)=\{\mathfrak p \in \Spec A : I \subseteq \mathfrak p\}$
 and for $f\in A$
@@ -3261,6 +3391,8 @@ For a subvariety $V$ of $X$, the \emph{codimension} of $V$ in $X$, denoted $\cod
 \[V=V_0\subsetneq V_1\subsetneq \ldots \subsetneq V_d\subset X.\]
 
 \section{Cycles and Chow group}
+\chapterauthor{Stefano Marseglia}
+
 Let $X$ be a scheme. A $k$-cycle on $X$ is a finite formal sum
 \[\sum_i n_i [V_i],\]
 where the $V_i$ are $k$-dimensional subvarieties of $X$ and the $n_i$ are integers. Let $Z_kX$ be the free abelian of such expressions. Put $Z_*X=\bigoplus_{n\geq 0} Z_kX$.\\
@@ -3288,8 +3420,11 @@ Let $X$ be a scheme, and let $X_1,\ldots,X_t$ be its irreducible components. The
 \[m_i=l_{\mathcal O_{X,X_i}}(\mathcal O_{X,X_i}).\]
 The \emph{fundamental cycle} $[X]$ of $X$ is
 \[[X]=\sum_{i=1}^t m_i[X_i] \in Z_*X.\]
-Note that if $X$ is purely $k$-dimensional, then $[X]\in Z_kX=A_kX$.\\
+Note that if $X$ is purely $k$-dimensional, then $[X]\in Z_kX=A_kX$.
+
 \section{Push-forward of cycles}
+\chapterauthor{Stefano Marseglia}
+
 A morphism $f:X\to Y$ is called \emph{separated} if it induces a closed diagonal embedding $X\to X\times_Y X$. A separated morphism is said to be \emph{proper} if is universally closed, i.e. for every $Y'\to Y$ the induced morphism $X\times_Y Y' \to Y'$ is closed.\\
 \begin{example}
 The following are examples of proper morphisms
@@ -3318,7 +3453,7 @@ These homomorphism are functorial: if $g$ is a proper morphism $Y\to Z$, then $(
 This means that t
 This implies that $A_*(-)$ is a covariant functor for proper morphisms.
 
-\section{Pull-back of cycles}
+\subsection{Pull-back of cycles}
 A morphism $f:X\to Y$ is called \emph{flat} if for $U\subset Y, U'\subset X$ open affine sets with $f(U')\subset U$, the induced map $\mathcal O_Y(U)\to \mathcal O_X(U')$ is flat.\\
 A morphism $f:X\to Y$ has \emph{realtive dimension $n$} if for all subvarieties $V$ of $Y$ and all irreducible components $V'$ of $f^{-1}(V)$ we have $\dim V' = \dim V +n$.\\
 \begin{example}
