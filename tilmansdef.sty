@@ -29,6 +29,7 @@
 \DeclareMathOperator{\fgMod}{mod}
 \DeclareMathOperator{\Nil}{Nil}
 \DeclareMathOperator{\Fin}{Fin}
+\DeclareMathOperator{\gr}{gr}
 \newcommand {\Gr}{\operatorname{Gr}}
 \newcommand {\g}{\mathfrak g}
 \newcommand {\h}{\mathfrak h}
@@ -84,6 +85,7 @@
 \theoremstyle{definition}
 \newtheorem{example}[equation]{Example}
 \newtheorem{bsp}[equation]{Beispiel}
+\newtheorem{construction}[equation]{Construction}
 \newtheorem*{defn}{Definition} 
 \newtheorem{remark}[equation]{Remark}
 \newtheorem*{notation}{Notation}
@@ -170,6 +172,8 @@
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\ch}{char}
 
+\newcommand{\cotensor}{\mathbin\square}
+
 % The following adapted from Heise c't example code.
 \makeatletter
 \DeclareRobustCommand{\doubleindex}[1]{%
@@ -184,5 +188,5 @@
 \DeclareMathOperator{\rg}{rg}
 \DeclareMathOperator{\Sym}{Sym}
 
-\newcommand{\¤}[1]{\underline{\smash{#1}}}
+\newcommand{\<}[1]{\underline{\smash{#1}}}
 \def\citep#1#2{\cite[{#1}]{#2}} % LaTeX gets confused by constructions like \begin{thm}[\cite[page 3]{bauer}], use this instead (copied from MIT thmp2e package)

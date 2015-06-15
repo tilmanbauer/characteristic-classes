@@ -2997,25 +2997,25 @@ which satisfies the following Leibniz rule for $f \in C^\infty_M(U)$, $s \in \Ga
 \end{defn}
 Note that $\nabla$ is \emph{not} a map of vector bundles: the target is not a vector bundle as we're tensoring over $\R$, not over $C^\infty$.
 
-Using the Leibniz rule and a suitable bump fucntion one may show that $\nabla(s)$ at $x \in B$ depends only on the values of $s$ in an arbitrarily small neighborhood of $x$. It therefore makes sense to restrict $\nabla$ to sections over open subsets $U$ of $B$. Choosing a trivializing neighborhood $U$ we can choose a basis $s_1,...,s_n$ for $\Gamma (E_U)$. Any section $s$ over $U$ may then be written as
+Using the Leibniz rule and a suitable bump fucntion one may show that $\nabla(s)$ at $x \in B$ depends only on the values of $s$ in an arbitrarily small neighborhood of $x$. It therefore makes sense to restrict $\nabla$ to sections over open subsets $U$ of $B$. Choosing a trivializing neighborhood $U$ we can choose a basis $s_1,\dots,s_n$ for $\Gamma (E_U)$. Any section $s$ over $U$ may then be written as
 
 \begin{equation*}
-s=f_1s_1 + ... + f_ns_n, \quad f_j \in C^{\infty}(U).
+s=f_1s_1 + \dots + f_ns_n, \quad f_j \in C^{\infty}(U).
 \end{equation*}
 
-$\nabla$ is uniquely determined by $\nabla(s_1),...,\nabla(s_n)$. Conversely, as $\{s_i\}$ is a basis we may define $\nabla$ by setting
+The connection $\nabla$ is uniquely determined by $\nabla(s_1),\dots,\nabla(s_n)$. Conversely, as $\{s_i\}$ is a basis we may define $\nabla$ by setting
 
 \begin{equation*}
 \nabla (s_i)=\sum_j \omega_{ij}\otimes s_j,
 \end{equation*} with $[w_{ij}]$ a matrix of differential one forms on $U$ which may be chosen arbitrarily.
 
-Note that the set of connections on $E$ does not have a natural vector space structure since e.g. $(\nabla_1 + \nabla_2)(fs)=2\mathrm{d}f\otimes + f(\nabla_1 + \nabla_2(s)$ violating the Leibniz rule. It is however a convex space which implies that
+Note that the set of connections on $E$ does not have a natural vector space structure since e.~g.\  $(\nabla_1 + \nabla_2)(fs)=2df\otimes s + f(\nabla_1(s) + \nabla_2(s))$, violating the Leibniz rule. It is however a convex space which implies the following:
 
-\begin{prop}
+\begin{prop}\marginpar{proof}
 Every smooth vector bundle with paracompact base space admits a connection.
 \end{prop}
 
-Remember that a Riemannian manifold is a smooth manifold equipped with a smoothly varying inner product $<,>$ - called the metric - i.e. at each point $p \in M$ $<,>_p$ is an inner product on $T_pM$. It is smoothly varying in the sense that for smooth vector fields $X,Y$ on $M$, $p \mapsto <X_p,Y_p>_p \in \mathbb{R}$ is a smooth function on $M$.
+Remember that a Riemannian manifold is a smooth manifold equipped with a smoothly varying inner product $\langle,\rangle$ -- called the metric -- i.e.\ at each point $p \in M$, $\langle,\rangle_p$ is an inner product on $T_pM$. It is smoothly varying in the sense that for smooth vector fields $X,Y$ on $M$, $p \mapsto \langle X_p,Y_p\rangle_p \in \mathbb{R}$ is a smooth function on $M$. \marginpar{tie in with Section 2}
 
 On a Riemannian manifold there is a prefered connection on $TM$, called the Levi-Civita connection, which is adapted to the metric structure.
 % Particular case where $E = TM$: covariant derivative
@@ -3060,48 +3060,47 @@ A connection on $TM^*$ compatible with a Riemannian metric is called a \emph{Rie
 % Compare connections on E and on the E^* in the presence of a Riemannian metric. So it makes sense to talk about a connection on TM being torsion-free. Define a Levi-Civita connection to be a torsion-free Riemannian connection.
 We shall prove the following theorem:
 
-\begin{thm}
+\begin{thm}\label{thm:levi-civita}
 On every Riemannian manifold, there exists exactly one Levi-Civita connection.
 \end{thm}
 
 First a little lemma.
 
 \begin{lemma}
-Let $\{s_i\}$ be a pointwise orthonormal basis for $\Gamma (U)$, i.e. $<s_i,s_j>_p=\delta_{ij}$ at each $p \in U$. Then $\nabla$ on $E_U$ is compatbile with $<,>$ if and only if the connection matrix $[\omega_{ij}]$ of $\nabla$ is skew-symmetric.
+Let $\{s_i\}$ be a pointwise orthonormal basis for $\Gamma (U)$, i.e. $\langle s_i,s_j\rangle_p=\delta_{ij}$ at each $p \in U$. Then $\nabla$ on $E_U$ is compatbile with $\langle,\rangle$ if and only if the connection matrix $[\omega_{ij}]$ of $\nabla$ is skew-symmetric.
 \end{lemma}
 
 \begin{proof}
 We have 
 
 \begin{eqnarray*}
-0&=&\mathrm{d}<s_i,s_j>=<\nabla s_i,s_j> + <s_i,\nabla s_j> \\
-&=& <\sum \omega_{ik} \otimes s_k,s_j> + <s_i,\sum \omega_{jk} \otimes s_k> = \omega_{ij} + \omega_{ji}.
+0&=& d \langle s_i,s_j\rangle=\langle\nabla s_i,s_j\rangle + \langle s_i,\nabla s_j\rangle \\
+&=& \langle\sum \omega_{ik} \otimes s_k,s_j\rangle + \langle s_i,\sum \omega_{jk} \otimes s_k\rangle = \omega_{ij} + \omega_{ji}.
 \end{eqnarray*} The converse is left as an exercise.
 \end{proof}
 
-In local coordinates on $M$, say $x_1,...,x_n$, for a connection on $TM^*$ we have $\nabla (\mathrm{d}x^k)=\sum_{i,j} \Gamma_{ij}^k \mathrm{d}x^i \otimes \mathrm{d}x^j$, so a torsion free connection - determined by $\Gamma_{ij}^k$ - will satisfy
+In local coordinates on $M$, say $x_1,\dots,x_n$, for a connection on $TM^*$ we have $\nabla ( d x^k)=\sum_{i,j} \Gamma_{ij}^k  d x^i \otimes  d x^j$, so a torsion free connection - determined by $\Gamma_{ij}^k$ - will satisfy
 
 \begin{equation*}
-\sum_{i,j} \Gamma_{ij}^k \mathrm{d}x^i \wedge \mathrm{d}x^j =\mathrm{d}(\mathrm{d}x^k)=0,
+\sum_{i,j} \Gamma_{ij}^k  d x^i \wedge  d x^j = d ( d x^k)=0,
 \end{equation*} so we conclude that $\Gamma_{ij}^k$ is symmetric in $i,j$.
 
-We may now prove the theorem:
 
-\begin{proof}
-We work locally, and choose a basis $\theta_1,...,\theta_n$ for $\Omega^1(U)$. If we can show that there is one unique skew symmetric $[\omega_{ij}]$ of 1-forms such that
+\begin{proof}[Proof of Theorem~\ref{thm:levi-civita}]
+We work locally, and choose a basis $\theta_1,\dots,\theta_n$ for $\Omega^1(U)$. If we can show that there is one unique skew symmetric $[\omega_{ij}]$ of 1-forms such that
 
 \begin{equation}
-\mathrm{d}\theta_k =\sum \omega_{kj} \wedge \theta_j, 
+ d \theta_k =\sum \omega_{kj} \wedge \theta_j, 
 \end{equation} then we can define $\nabla$ over $U$ by setting
 
 \begin{equation}
 \nabla \theta_k = \sum \omega_{kj} \otimes \theta_j.
-\end{equation} Then by construction $\nabla$ would be torsion free and metric and uniqueness would come from the uniqueness of $\omega$ which determines $\nabla$ completely in $U$. The uniqueness of such $\nabla$ in each trivialising neighborhood then lets us glue them together to a connection on the entire manifold. 
+\end{equation} Then by construction $\nabla$ would be torsion free and metric and uniqueness would come from the uniqueness of $\omega$ which determines $\nabla$ completely in $U$. The uniqueness of such $\nabla$ in each trivializing neighborhood then lets us glue them together to a connection on the entire manifold. 
 
-Now write $\mathrm{d} \theta_k =\sum_{i,j} A_{ijk} \theta_i \wedge \theta_j$. It is a combinatorial fact that any array $A_{ijk}$ can be written uniquely as a sum $A_{ijk}=B_{ijk} + C_{ijk}$ with $B$ symmetric and $C$ skew-symmetric. Then the skew-symmetry of $\wedge$ implies that in fact $d\theta_k =\sum_{ij}C_{ijk} \theta_i \wedge \theta_j$. Now set 
+Now write $d\theta_k =\sum_{i,j} A_{ijk}\; \theta_i \wedge \theta_j$. It is a combinatorial fact that any array $A_{ijk}$ can be written uniquely as a sum $A_{ijk}=B_{ijk} + C_{ijk}$ with $B$ symmetric and $C$ skew-symmetric. Then the skew-symmetry of $\wedge$ implies that in fact $d\theta_k =\sum_{ij}C_{ijk} \theta_i \wedge \theta_j$. Now set 
 \begin{equation*}
 w_{kj}=\sum_i C_{ijk} \theta_i.
-\end{equation*} Then $\mathrm{d}\theta_k = \sum_j \omega_{kj} \wedge \theta_j$.
+\end{equation*} Then $ d \theta_k = \sum_j \omega_{kj} \wedge \theta_j$.
 \end{proof}
 
 
@@ -3112,30 +3111,32 @@ To define the curvature of a vector bundle equipped with a connection $\nabla$ w
 
 \begin{lemma}
 Given a connection $\nabla$ on $E$ there is a unique $k$-linear map 
-\begin{equation}
-\hat{\nabla}: \Gamma (\Omega^1 (M)\otimes E)) \to \Gamma (\Omega^2(M)\otimes E),
-\end{equation} which satisfies the Leibniz formula
-
-\begin{equation}
-\hat{\nabla}(\theta \otimes s)=\mathrm{d}\theta \otimes s - \theta \wedge \nabla (s),
-\end{equation} for $\theta \in \Omega^1(M)$, $s \in \Gamma(E)$. In addition $\hat{\nabla}$ satisfies 
-\begin{equation}
-\hat{\nabla}(f(\theta \otimes s))=\mathrm{d}f \wedge (\theta \otimes s) + f\hat{\nabla}(\theta \otimes s)
-\end{equation}
+\[
+\hat{\nabla}: \Gamma (\Omega^1 (M)\otimes E)) \to \Gamma (\Omega^2(M)\otimes E)
+\]
+satisfying the Leibniz formula
+\[
+\hat{\nabla}(\theta \otimes s)= d \theta \otimes s - \theta \wedge \nabla (s),
+\]
+for $\theta \in \Omega^1(M)$, $s \in \Gamma(E)$. In addition $\hat{\nabla}$ satisfies 
+\[
+\hat{\nabla}(f(\theta \otimes s))= d f \wedge (\theta \otimes s) + f\hat{\nabla}(\theta \otimes s).
+\]
 \end{lemma}
 
 \begin{proof}
 We need only prove the claim in a trivializing neighborhood, so we choose a basis $\{s_i\}$ of sections of $E$ and and arbitrary 1-forms $\theta_i$, then we must have
 
-\begin{equation}
-\hat{\nabla}(\theta_1 \otimes s_1 + ... + \theta_n \otimes s_n)=\sum \mathrm{d}\theta_i \otimes s_i - \theta_i \wedge \nabla (s_i).
-\end{equation} This expression is uniquely determined by $\nabla$ and we may take it as a definition of $\hat{\nabla}$.
+\[
+\hat{\nabla}(\theta_1 \otimes s_1 + \dots + \theta_n \otimes s_n)=\sum  d \theta_i \otimes s_i - \theta_i \wedge \nabla (s_i).
+\]
+This expression is uniquely determined by $\nabla$ and we may take it as a definition of $\hat{\nabla}$.
 \end{proof}
 
 We thus have 
 \[
 \Gamma(E) \xrightarrow{\nabla} \Gamma(\Omega^1(M)\otimes E) \xrightarrow{\hat{\nabla}} \Gamma (\Omega^2(M)\otimes E)
-\] which is however not in general a chain-complex, as $\hat{\nabla} \circ \nabla =:\nabla^2 \neq 0$ in general. We call $\nabla^2$ the curvature of the connection $\nabla$.
+\] which is however not in general a chain complex, as $\hat{\nabla} \circ \nabla =_{\text{def}} \nabla^2 \neq 0$ in general. We call $\nabla^2$ the \emph{curvature (tensor)} of the connection $\nabla$.
 
 
 % Construction of a connection on $\Omega^1_M \otimes E$ from a connection on $E$ satisfying a Leibniz rule (Milnor-Stasheff Lemma 4)
@@ -3152,26 +3153,28 @@ We thus have
 The morphism $\nabla^2\colon \Gamma(E) \to \Gamma(\Omega^2_M \otimes E)$ is a map of vector bundles.
 \end{lemma}
 
-\begin{proof}
-We have $\nabla^2 (fs)=\hat{\nabla}(\nabla(fs))=\hat{\nabla}(\mathrm{d}f\otimes s + f\nabla(s))=\mathrm{dd}f \otimes s - \mathrm{d} f \wedge \nabla(s) + \mathrm{d}f\wedge \nabla(s) + f \hat{\nabla}(\nabla (s))=f\hat{\nabla}(\nabla(s))=f\nabla^2 (s)$.
+\begin{proof} \marginpar{explanation}
+We have $\nabla^2 (fs)=\hat{\nabla}(\nabla(fs))=\hat{\nabla}( d f\otimes s + f\nabla(s))=\mathrm{dd}f \otimes s -  d  f \wedge \nabla(s) +  d f\wedge \nabla(s) + f \hat{\nabla}(\nabla (s))=f\hat{\nabla}(\nabla(s))=f\nabla^2 (s)$.
 \end{proof}
+
 Because of this lemma, we may view the curvature $\nabla^2$ as a section of the bundle $E^* \otimes \Omega^2_M \otimes E \cong \Hom(E, E) \otimes \Omega^2_M$.
 
 It is instructive to determine an expression for $\nabla^2$ in local coordinates. In terms of a frame $\{s_i\}$ for $\Gamma(U)$ with 
-\begin{equation}
+\[
 \nabla(s_i)=\sum_j \omega_{ij} \otimes s_j,
-\end{equation} we have
+\]
+we have
 
-\begin{eqnarray*}
-\nabla^2(s_i) &=& \hat{\nabla}\sum_j \omega_{ij} \otimes s_j \\
-&=& \sum_j \mathrm{d}\omega_{ij} \otimes s_j - \sum_j \omega_{ij} \wedge \nabla(s_j) \\
-&=& \sum_j \mathrm{d}\omega_{ij} \otimes s_j - \sum_j \omega_{ij}\wedge \sum_k \omega_{jk} \otimes s_k \\
-&=& \sum_k \Big(\mathrm{d} \omega_{ik} \otimes s_k - \sum_j \omega_{ij} \wedge \omega_{jk} \Big)\otimes s_k \\
-&=& \sum_k \Omega_{ik} \otimes s_k,
-\end{eqnarray*} where $\Omega_{ik}=\mathrm{d}\omega_{ik} - \sum_j \omega_{ij}\wedge \omega_{jk}$, or in matrix notation
-\begin{equation*}
-\Omega=\mathrm{d}\omega - \omega \wedge \omega.
-\end{equation*}
+\begin{align*}
+\nabla^2(s_i) =& \hat{\nabla}\Bigl(\sum_j \omega_{ij} \otimes s_j\Bigr)
+= \sum_j  d \omega_{ij} \otimes s_j - \sum_j \omega_{ij} \wedge \nabla(s_j) \\
+=& \sum_j  d \omega_{ij} \otimes s_j - \sum_j \omega_{ij}\wedge \sum_k \omega_{jk} \otimes s_k \\
+=& \sum_k \Big( d  \omega_{ik} \otimes s_k - \sum_j \omega_{ij} \wedge \omega_{jk} \Big)\otimes s_k
+= \sum_k \Omega_{ik} \otimes s_k,
+\end{align*} where $\Omega_{ik}= d \omega_{ik} - \sum_j \omega_{ij}\wedge \omega_{jk}$, or in matrix notation
+\[
+\Omega= d \omega - \omega \wedge \omega.
+\]
 Note that $\wedge$ denotes matrix multiplication in the ring of matrices of differential forms, which means that $\omega \wedge \omega$ is not necessarily zero.
 
 % That means it's a map of *local* sheaves of $C^\infty_M$-algebras.
@@ -3186,23 +3189,26 @@ Note that $\wedge$ denotes matrix multiplication in the ring of matrices of diff
 
 We will now extract invariants from the curvature tensor of a connection on a complex vector bundle over a smooth manifold. The first step is to construct a family of differential forms from the curvature tensor and show that they are closed, so that they gives rise to cohomology classes in de Rham cohomology. In other words, we will have constructed an algebraic invariant for a vector bundle equipped with a connection. What is remarkable is that these cohomology classes are \emph{independent of the chosen connection}, and hence invariants of the vector bundle itself.
 \begin{defn}
-Identify the set $M_n(\mathbb C)$ of $n \times n$ matrices with $\mathbb C^{n^2}$. A function $P \colon M_n(\mathbb C) \to \mathbb C$ is called an \emph{invariant polynomial} if it is polynomial in the matrix entries and satisfies
+Identify the set $M_n(\CC)$ of $n \times n$ matrices with $\CC^{n^2}$. A function $P \colon M_n(\CC) \to \CC$ is called an \emph{invariant polynomial} if it is polynomial in the matrix entries and satisfies
 \[P(AB) = P(BA)\]
-for all $A, B \in M_n(\mathbb C)$.
+for all $A, B \in M_n(\CC)$.
 \end{defn}
-Note that if $P$ is an invariant polynomial and $T \in M_n(\mathbb C)$ is invertible, then $P(TAT^{-1}) = P(A)$. The invariant polynomials are in this sense the polynomials which descend to functions on the quotient of $M_n(\mathbb C)$ by changes of basis.
+Note that if $P$ is an invariant polynomial and $T \in M_n(\CC)$ is invertible, then $P(TAT^{-1}) = P(A)$. The invariant polynomials are in this sense the polynomials which descend to functions on the quotient of $M_n(\CC)$ by changes of basis.
 
 \begin{example}
-The determinant map $\det \colon M_n(\mathbb C) \to \mathbb C$ is an invariant polynomial, since $\det(TAT^{-1}) = \det A$. 
+The determinant and trace maps $\det$, $\tr \colon M_n(\CC) \to \CC$ are invariant polynomials, since $\det(TAT^{-1}) = \det A$ and $\tr(TAT^{-1}) = \tr A$.
 \end{example}
 
-The property of being an invariant polynomial is precisely what we need for the following construction. We will use this construction applied to a curvature tensor, but for clarity we do it abstractly first.\\
-\textbf{Construction:}\\
-Let $\mathcal A$ be a commutative $\mathbb C$-algebra and let $V$ be a $n$-dimensional $\mathbb C$-vector space. Let $P$ be an invariant polynomial on $M_n(\mathbb C)$. We will construct a map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ in the following way. Choose a basis of $V$. Using this basis, there is an isomorphism $\Hom(V, V) \cong M_n(\mathbb C)$. Moreover, there is an isomorphism $\mathcal A \otimes M_n(\mathbb C) \cong M_n(\mathcal A \otimes \mathbb C) \cong M_n(\mathcal A)$. Since $\mathcal A$ is a commutative $\mathbb C$-algebra, the polynomial $P$ extends to a polynomial (in the matrix entries) on $M_n(\mathcal A)$. To make the map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ well-defined, we need to verify that it does not depend on the choice of basis, i.e. the choice of isomorphism $\Hom(V, V) \cong M_n(\mathbb C)$. This, however, is precisely the statement that $P$ is an invariant polynomial: If $A \in M_n(\mathbb C)$ and $B \in M_n(\mathbb C)$ are related by a change of basis then $A = TBT^{-1}$ for some invertible matrix $T$ and hence $P(a \otimes A) = P(a \otimes TBT^{-1}) = P(a \otimes B)$.
+The property of being an invariant polynomial is precisely what we need for the following construction. We will use this construction applied to a curvature tensor, but for clarity we do it abstractly first.
 
-The idea is now to apply this construction to the curvature $\nabla^2$ of a connection $\nabla$ on a complex vector bundle $E \to M$. Recall that $\nabla^2 \in \Gamma(\Hom(E, E) \otimes \Omega^2_M)$, and note that the fibers of the bundle $\Omega^{2k}_M$ of $2k$-forms on $M$ are commutative $\mathbb C$-algebras. Letting $P$ be an invariant polynomial, and applying the above construction in each fiber, we obtain a differential form $P(\nabla^2) \in \Gamma(\Omega^*_M)$. Having done this construction, our aim is now to show that this defferential form represents a cohomology class in de Rham cohomology, and that this cohomology class is a characteristic class of the vector bundle. This means that we need two things: First $P(\nabla^2)$ must be a closed form, so that it represents a cohomology class. Second, the cohomology class needs to be independent of the connection we choose for the vector bundle.
+\begin{construction}
+Let $\mathcal A$ be a commutative $\CC$-algebra and let $V$ be a $n$-dimensional $\CC$-vector space. Let $P$ be an invariant polynomial on $M_n(\CC)$. We will construct a map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ in the following way. Choose a basis of $V$. Using this basis, there is an isomorphism $\Hom(V, V) \cong M_n(\CC)$. Moreover, there is an isomorphism $\mathcal A \otimes M_n(\CC) \cong M_n(\mathcal A \otimes \CC) \cong M_n(\mathcal A)$. Since $\mathcal A$ is a commutative $\CC$-algebra, the polynomial $P$ extends to a polynomial (in the matrix entries) on $M_n(\mathcal A)$. To make the map $P \colon \mathcal A \otimes \Hom(V, V) \to \mathcal A$ well-defined, we need to verify that it does not depend on the choice of basis, i.e. the choice of isomorphism $\Hom(V, V) \cong M_n(\CC)$. This, however, is precisely the statement that $P$ is an invariant polynomial: If $A \in M_n(\CC)$ and $B \in M_n(\CC)$ are related by a change of basis then $A = TBT^{-1}$ for some invertible matrix $T$ and hence $P(a \otimes A) = P(a \otimes TBT^{-1}) = P(a \otimes B)$.
+\end{construction}
 
-We begin by noting a funny-looking commutation property of invariant polynomials. 
+The idea is now to apply this construction to the curvature $\nabla^2$ of a connection $\nabla$ on a complex vector bundle $E \to M$. Recall that $\nabla^2 \in \Gamma(\Hom(E, E) \otimes \Omega^2_M)$, and note that the fibers of the bundle $\Omega^{2k}_M$ of $2k$-forms on $M$ are commutative $\CC$-algebras. Letting $P$ be an invariant polynomial, and applying the above construction in each fiber, we obtain a differential form $P(\nabla^2) \in \Gamma(\Omega^*_M)$. Having done this construction, our aim is now to show that this differential form represents a cohomology class in de~Rham cohomology, and that this cohomology class is a characteristic class of the vector bundle. This means that we need two things: first $P(\nabla^2)$ must be a closed form, so that it represents a cohomology class. Second, the cohomology class needs to be independent of the connection we choose for the vector bundle.
+
+We begin by noting a funny-looking commutation property of invariant polynomials.
+
 \begin{lemma}\label{lem:invariant polynomial commutation}
 Let $P$ be an invariant polynomial with complex coefficients. Let $A_{ij}$ denote the indeterminates of $P$ and let $P'(A)$ denote the transpose of the matrix $[\partial P/\partial A_{ij}]$ of formal partial derivatives. Then $P'(A)$ commutes with the matrix $A = [A_{ij}]$ of indeterminates.
 \begin{proof}
@@ -3215,7 +3221,7 @@ The left hand side is the $(i, j)$ entry of the product $AP'(A)$ while the right
 \end{lemma}
 
 \begin{prop}
-Let $\nabla^2$ be the curvature tensor of connection $\nabla$ on a vector bundle $E \to M$, and let $P$ be an invariant polynomial. Then $d(P(\nabla^2)) = 0$. In other words, $P(\nabla^2)$ is a closed form.
+Let $\nabla^2$ be the curvature tensor of a connection $\nabla$ on a vector bundle $E \to M$, and let $P$ be an invariant polynomial. Then $d(P(\nabla^2)) = 0$. In other words, $P(\nabla^2)$ is a closed form.
 \begin{proof}
 Since exterior derivative is a local operation, it is sufficient to compute $d(P(\nabla^2))$ in a trivializing neighborhood of $E$. In such a neighborhood, there is a set of $n$ sections $s_1, s_2, \ldots, s_n$ which are linearly independent at each point. As noted previously, having fixed these we may express $\nabla$ at each point using a matrix $\omega$ of one-forms, i.e. a section of the bundle $M_n(\Omega_M^1)$, as
 \[\nabla s_i = \sum_k \omega_{ik} \otimes s_k.\]
@@ -3223,7 +3229,7 @@ Similarly, the curvature tensor $\nabla^2$ can be expressed as
 \[\nabla^2 s_i = \sum_k \Omega_{ik} \otimes s_k\]
 where $\Omega$ is a matrix of two-forms. Note that by construction of $P(\nabla^2)$, we have $P(\nabla^2) = P(\Omega)$. Hence
 \[d(P(\nabla^2)) = d(P(\Omega)) = \sum_{ij} \frac{\partial P}{\partial \Omega_{ij}} d(\Omega_{ij}) = \tr(P'(\Omega) \wedge d\Omega).\]
-Here we have used the notation $P'(\Omega)$ from the previous lemma, meaning the transpose of the matrix $[\frac{\partial P}{\partial \Omega_{ij}}]$ of formal partial derivatives. We now need to compute $d\Omega$. Here the exterior derivative is applied entry by entry. Recall that
+Here we have used the notation $P'(\Omega)$ from the Lemma~\ref{lem:invariant polynomial commutation}, meaning the transpose of the matrix $[\frac{\partial P}{\partial \Omega_{ij}}]$ of formal partial derivatives. We now need to compute $d\Omega$. Here the exterior derivative is applied entry by entry. Recall that
 \[\Omega = d\omega - \omega \wedge \omega.\]
 Taking the exterior derivative (entry by entry) of this yields
 \[d\Omega = -d\omega \wedge \omega + \omega \wedge d\omega.\]
@@ -3268,9 +3274,9 @@ These give rise to invariant polynomials, which we will also denote by $\sigma_i
 \[\det(I + tA) = 1 + \sum_{i = 1}^n \sigma_i(A)t^i\]
 It is known from combinatorics that if $r$ is a polynomial of $n$ variables which is invariant under permutation of the coordinates, then $r = q(\sigma_1, \sigma_2, \ldots, \sigma_n)$ for some polynomial $q$. We will show how this result extends to invariant polynomials:
 \begin{lemma}
-Let $P \colon M_n(\mathbb C) \to \mathbb C$ be an invariant polynomial. Then there exists a polynomial $p \in \mathbb C[z_1, \ldots, z_n]$ such that
+Let $P \colon M_n(\CC) \to \CC$ be an invariant polynomial. Then there exists a polynomial $p \in \CC[z_1, \ldots, z_n]$ such that
 \[P(A) = p(\sigma_1(A), \sigma_2(A), \ldots, \sigma_n(A))\]
-for all $A \in M_n(\mathbb C)$.
+for all $A \in M_n(\CC)$.
 \begin{proof}
 We begin by using the fact that $P$ is an invariant polynomial to show that $P(A)$ depends only on the eigenvalues of $A$. For any matrix $A$, there are invertible matricies $T$, which can be found for instance by performing an $LU$ decomposition of $A$ or by putting $A$ in Jordan canonical form, such that $TAT^{-1}$ is upper triangular. Since $P(TAT^{-1}) = P(A)$, we may without loss of generality prove the result for the restriction of $P$ to the set of upper triangular matrices. We now want to get rid of the off-diagonal elements. Let $S_\epsilon$ be the diagonal matrix $S_\epsilon = \mathrm{diag}(\epsilon, \epsilon^2, \ldots, \epsilon^n)$. Then $S_\epsilon^{-1}AS_\epsilon$ has the same diagonal entries as $A$, while all entries above the diagonal pick up a positive power of $\epsilon$. Since $P$ is an invariant polynomial, $P(A) = P(S_\epsilon^{-1}AS_\epsilon)$ for all $\epsilon > 0$ and since $P$ is a polynomial and hence continuous
 \[P(A) = \lim_{\epsilon \to 0} P(S_\epsilon^{-1}AS_\epsilon) = P(\lim_{\epsilon \to 0} S_\epsilon^{-1}AS_\epsilon).\]
@@ -3289,10 +3295,10 @@ Let $E \to M$ be a complex vector bundle with a connection $\nabla$. Then
 We will prove this first when $E \to M$ is a line bundle, then generalize to the case when $E$ is a sum of line bundles, and finally use the splitting principle to obtain the result for general vector bundles.
 
 Assume first that $E \to M$ is a complex line bundle, i.e. that $n = 1$. Since the construction of the cohomology class $[\sigma_1(\nabla^2)]$ is natural with respect morphisms of line bundles, it must be a multiple of the first Chern class $c_1(E)$:
-\[[P(\nabla^2)] = \alpha c_1(E) \quad\text{for some } \alpha \in \mathbb C.\]
-To determine the constant $\alpha$, we show that it does not depend on the particular vector bundle $E \to M$. Having done this, we can compute $\alpha$ explicitly for some simple line bundle. Consider two line bundles $E_1 \to M_1$ and $E_2 \to M_2$ with corresponding classifying maps $\gamma_i \colon M \to BU(1)$. These maps may be chosen (within their homotopy class) to be such that the image $\gamma_1(M_1) \cup \gamma_2(M_2)$ is contained in a subspace $\hat M \subset BU(1)$ which can be given the structure of a finite-dimensional smooth manifold. (For instance, use the cellular approximation theorem for CW-complexes to see that $\gamma_i$ may be taken to have its image in the $N$-skeleton of $BU(1)$, where $N = \max(\dim(M_1), \dim(M_2))$, and use the standard cellular decomposition of $BU(1)$ where the $N$-skeleton is $\mathbb CP^N$.) Restrict the universal line bundle to this manifold $\hat M$ and call it $\hat E$, and choose a connection $\hat \nabla$ for it. Since $[\sigma_1(\nabla_i^2)]$ is independent of the connection $\nabla_i$ chosen for $E_i$, we may as well use the pullback connections $\nabla_i = \gamma_i^* \hat \nabla$. Now
+\[[P(\nabla^2)] = \alpha c_1(E) \quad\text{for some } \alpha \in \CC.\]
+To determine the constant $\alpha$, we show that it does not depend on the particular vector bundle $E \to M$. Having done this, we can compute $\alpha$ explicitly for some simple line bundle. Consider two line bundles $E_1 \to M_1$ and $E_2 \to M_2$ with corresponding classifying maps $\gamma_i \colon M \to BU(1)$. These maps may be chosen (within their homotopy class) to be such that the image $\gamma_1(M_1) \cup \gamma_2(M_2)$ is contained in a subspace $\hat M \subset BU(1)$ which can be given the structure of a finite-dimensional smooth manifold. (For instance, use the cellular approximation theorem for CW-complexes to see that $\gamma_i$ may be taken to have its image in the $N$-skeleton of $BU(1)$, where $N = \max(\dim(M_1), \dim(M_2))$, and use the standard cellular decomposition of $BU(1)$ where the $N$-skeleton is $\CP^N$.) Restrict the universal line bundle to this manifold $\hat M$ and call it $\hat E$, and choose a connection $\hat \nabla$ for it. Since $[\sigma_1(\nabla_i^2)]$ is independent of the connection $\nabla_i$ chosen for $E_i$, we may as well use the pullback connections $\nabla_i = \gamma_i^* \hat \nabla$. Now
 \[[\sigma_1(\nabla_i^2)] = [\sigma_i(\gamma_i^* \hat \nabla^2)] = \gamma_i^* [\sigma_i \hat \nabla^2].\]
-As we saw previously, $[\sigma_i \hat \nabla^2] = \alpha_{\hat E} c_1(\hat E)$ for some $\alpha_{\hat E} \in \mathbb C$ so we have proved that
+As we saw previously, $[\sigma_i \hat \nabla^2] = \alpha_{\hat E} c_1(\hat E)$ for some $\alpha_{\hat E} \in \CC$ so we have proved that
 \[[\sigma_1(\nabla_i^2)] = \gamma_i^* \alpha_{\hat E} c_1(\hat E) = \alpha_{\hat E} c_1(E_i)\]
 so that this constant $\alpha$ is indeed the same for the two arbitrary line bundles $E_1 \to M_1$ and $E_2 \to M_2$. An explicit computation, say for the tangent bundle of the Riemann sphere, shows that $\alpha = 2\pi i$. This completes the proof for line bundles.
 
@@ -3343,76 +3349,105 @@ Let $A$ be a ring and denote by $\Spec A$ the set of all its prime ideals. For a
 $V(I)=\{\mathfrak p \in \Spec A : I \subseteq \mathfrak p\}$
 and for $f\in A$
 $D(f)= \Spec A\setminus V(fA)$.
-It follows immediately that there exists a unique topology on $\Spec A$ whose close subsets are of the form $V(I)$ and, moreover, the sets of the form $D(f)$ constitute a basis of open subsets. This topology is called the \emph{Zariski tolopology}. Note that a point is closed if and only if the corresponding prime ideal is maximal.\\
-Given a ring homomorphism $\varphi:A\to B$ we obtain a induced continuous map $\Spec \varphi: \Spec B \to \Spec A$ defined by $\mathfrak p \mapsto \varphi^{-1}(\mathfrak p)$. Hence $\Spec$ is a contravariant functor form the category of rings to topological spaces.\\
+It follows immediately that there exists a unique topology on $\Spec A$ whose close subsets are of the form $V(I)$ and, moreover, the sets of the form $D(f)$ constitute a basis of open subsets. This topology is called the \emph{Zariski tolopology}. Note that a point is closed if and only if the corresponding prime ideal is maximal.
+
+Given a ring homomorphism $\varphi:A\to B$ we obtain a induced continuous map $\Spec \varphi: \Spec B \to \Spec A$ defined by $\mathfrak p \mapsto \varphi^{-1}(\mathfrak p)$. Hence $\Spec$ is a contravariant functor form the category of rings to topological spaces.
+
 \begin{example}
- Given a field $K$, then $\Spec K$ consists of a point corresponding to the zero ideal.\\
+ Given a field $K$, then $\Spec K$ consists of a point corresponding to the zero ideal.
+
  The \emph{affine complex line} $\mathbb A_\CC^1=\Spec \CC[T]$ consists of a ``generic'' point $(0)$ and closed points $(T-z)$, with $z\in \CC$.
 \end{example}
 Let us consider the space $X = \Spec A$ with the Zariski topology. The association $\mathcal O_X(D(f))=A_f$ induces a sheaf of rings $\mathcal O_X$ on $X$, with $\mathcal O_X(X)=A$. Moreover the stalk $\mathcal O_{X,\mathfrak p}$ at a point $\mathfrak p\in X$ is canonically isomorphic to $A_\mathfrak p$. Hence the pair $(X,\mathcal O_X)$ is a locally ringed space.
-\begin{defn}
- A locally ringed space isomorphic to $(\Spec A,\mathcal O_{\Spec A})$ for some ring $A$ is called \emph{affine scheme}. A \emph{scheme} is a locally ringed space $(X,\mathcal O_X)$ that admits a open covering $\{U_i\}_{i\in I}$ such that $(U_i,\mathcal O_{U_i})$ is an affine scheme for every $i$. For such a $U_i$, the ring $\mathcal O_X(U_i)$ is called \emph{the coordinate ring}.\\
+\begin{defn} \marginpar{xref Section 2}
+ A locally ringed space isomorphic to $(\Spec A,\mathcal O_{\Spec A})$ for some ring $A$ is called \emph{affine scheme}. A \emph{scheme} is a locally ringed space $(X,\mathcal O_X)$ that admits a open covering $\{U_i\}_{i\in I}$ such that $(U_i,\mathcal O_{U_i})$ is an affine scheme for every $i$. For such a $U_i$, the ring $\mathcal O_X(U_i)$ is called \emph{the coordinate ring}.
+
  A \emph{morphism of schemes} is a morphism of the associated locally ringed spaces.
 \end{defn}
 
-Given a scheme $(X,\mathcal O_X)$, its \emph{open subschemes} are of the form $(U,\mathcal O_X|_U)$, where $U$ is any open subset of $X$. But it is not possible to restrict in a canonical way the structure sheaf of $X$ to a closed subset. Hence a \emph{closed subscheme} $Y$ of $X$ must come with an additional data, the corresponding \emph{ideal sheaf} $\mathcal I(Y)$, that is for every affine open $U$ of $X$, the closed subscheme $Y$ is determined by an ideal in the ring $\mathcal O_X(U)$.\\
+Given a scheme $(X,\mathcal O_X)$, its \emph{open subschemes} are of the form $(U,\mathcal O_X|_U)$, where $U$ is any open subset of $X$. But it is not possible to restrict in a canonical way the structure sheaf of $X$ to a closed subset \marginpar{what about the pullback?}. Hence a \emph{closed subscheme} $Y$ of $X$ must come with an additional data, the corresponding \emph{ideal sheaf} $\mathcal I(Y)$, that is for every affine open $U$ of $X$, the closed subscheme $Y$ is determined by an ideal in the ring $\mathcal O_X(U)$.
 
 \begin{defn}
  Let $S$ be a scheme. An \emph{$S$-scheme} or \emph{scheme over $S$} is a scheme $X$ with a morphism $\pi:X\to S$. The morphism $\pi$ is called the structure morphism. A \emph{morphism} of $S$-schemes is a scheme morphism compatible with the structure morphisms. If $S$ is an affine scheme, say $S=\Spec A$, we say that $X$ is an $A$-scheme. 
 \end{defn}
+
 \begin{example}
- We define the \emph{$n$-dimensional affine space over $A$} as $\mathbb A^n_A = \Spec A[T_1,\cdots,T_n]$.
+ We define the \emph{$n$-dimensional affine space over $A$} as
+ \[
+ \mathbb A^n_A = \Spec A[T_1,\cdots,T_n].
+ \]
 \end{example}
 
-A scheme is said to be \emph{reduced} if there is an affine open covering with reduced coordinate rings, that is with no nilpotent elements.\\
-Recall that a topological space is \emph{irreducible} if it cannot be written as the union of two distinct closed subsets. We can establish a partial order relation by inclusion among the irreducible subsets of a topological space $X$, and then Zorn's Lemma implies the existence of the maximal elements, which are called the \emph{irreducible components} of $X$. Note that for a affine scheme $\Spec A$, the irreducible components correspond to the minimal prime ideals of $A$. In particular if $A$ is a integral domain then $\Spec A$ is irreducible.\\
-A scheme $X$ is called an \emph{algebraic scheme} over the field $K$ if it comes with a morphism of finite type $X\to \Spec K$. This means that $X$ can be covered by a finite number of affine open sets whose coordinate rings are finitely generated $K$-algebras.\\
-In what follows the word scheme will be used to refer to algebraic scheme.\\
+A scheme is called \emph{reduced} if there is an affine open covering consisting of coordinate rings with no nilpotent elements.
+
+A scheme (or any topological space) is \emph{irreducible} if it cannot be written as the union of two distinct closed subsets. We can establish a partial order relation by inclusion among the irreducible subsets of a topological space $X$, and then Zorn's Lemma implies the existence of the maximal elements, which are called the \emph{irreducible components} of $X$. Note that for an affine scheme $\Spec A$, the irreducible components correspond to the minimal prime ideals of $A$. In particular if $A$ is a integral domain then $\Spec A$ is irreducible.
+
+A scheme that is both reduced and irreducible is called \emph{integral}.
+
+A scheme $X$ is called an \emph{algebraic scheme} over the field $K$ if it comes with a morphism of \emph{finite type} $X \to \Spec K$. This means that $X$ can be covered by a finite number of affine open sets whose coordinate rings are finitely generated $K$-algebras.
+
+In what follows the word scheme will be used to refer to algebraic scheme.
 
 \begin{defn}
- A scheme $E$ with a morphism $p:E\to X$ is an \emph{affine} bundle of rank $n$ over $X$ if $X$ has a open covering $\{U_\alpha\}$ such that there are isomorphisms over $U_\alpha$
- \[\varphi_\alpha:p^{-1}(U_\alpha) \simeq U_\alpha\times \mathbb A^n.\]
- Moreover, if over $U_\alpha \cap U_\beta$ the composites $\varphi_\alpha\circ \varphi_\beta^{-1}$ are linear, that is given by morphisms
- \[g_{\alpha,\beta}:U_\alpha\cap U_\beta:\to \GL_n(K),\]
- we call $E$ a \emph{algebraic vector bundle} over $X$.
+ A scheme $E$ with a morphism $p\colon E\to X$ is an \emph{affine bundle} of dimension $n$ over $X$ if $X$ has a open covering $\{U_\alpha\}_{\alpha \in I}$ such that there are isomorphisms over $U_\alpha$
+ \[\varphi_\alpha\colon p^{-1}(U_\alpha) \cong U_\alpha\times \mathbb A^n.\]
+ Moreover, if  the composites $\varphi_\alpha\circ \varphi_\beta^{-1}$ over $U_{\alpha\beta}$ are linear, that is given by morphisms
+ \[
+ g_{\alpha,\beta}\colon U_\alpha\cap U_\beta:\to \GL_n(K),
+ \]
+ we call $E$ an \emph{algebraic vector bundle} over $X$.
 \end{defn}
 
-A \emph{variety} is a reduced and irreducible (hence integral) scheme. A \emph{subvariety} $V$ of a scheme $X$ is a reduced and irreducible closed subscheme of $X$. A subvariety $V$ corresponds to a prime ideal of the coordinate ring  of any open affine set meeting $V$. The \emph{local ring} of $X$ along $V$, denoted $\mathcal O_{X,V}$ is the localization of such a ring at the corresponding prime ideal; its maximal ideal is denoted and $\mathcal M_{X,V}$ and the corresponding residue field $R(V)=\mathcal O_{X,V}/\mathcal M_{X,V}$ is called \emph{function field} of $V$.
+A \emph{variety} is an integral scheme over a (usually algebraically closed) field. A \emph{subvariety} $V$ of a scheme $X$ is a closed integral subscheme of $X$. A subvariety $V$ corresponds to a prime ideal of the coordinate ring of any open affine set meeting $V$. The \emph{local ring} of $X$ along $V$, denoted $\mathcal O_{X,V}$ is the localization of such a ring at the corresponding prime ideal; its maximal ideal is denoted by $\mathcal M_{X,V}$ and the corresponding residue field $R(V)=\mathcal O_{X,V}/\mathcal M_{X,V}$ is called the \emph{function field} of $V$. \marginpar{Is $R(V)$ standard notation?}
 
-\begin{example}
+\begin{example} \marginpar{expand}
 double point $\Spec(k[x]/(x^2))$, two irreducible components $\Spec(k[x,y,z]/(x,z^2-y^3))$.
 \end{example}
 
+\begin{defn}
 The \emph{dimension} of a scheme $X$, denoted $\dim X$, is the maximal length $n$ of a chain
-\[\emptyset \neq V_0 \subsetneq V_1\subsetneq \ldots \subsetneq V_n\subset X\]
+\[
+\emptyset \neq V_0 \subsetneq V_1\subsetneq \ldots \subsetneq V_n\subset X
+\]
 of subvarieties of $X$.
-A scheme has \emph{pure dimension} if every irreducible components has the same dimension.\\
+
+A scheme has \emph{pure dimension} if every irreducible components has the same dimension.
+
 For a subvariety $V$ of $X$, the \emph{codimension} of $V$ in $X$, denoted $\codim(V,X)$, is the maximum length $d$ of a chain of subvarieties
-\[V=V_0\subsetneq V_1\subsetneq \ldots \subsetneq V_d\subset X.\]
+\[
+V=V_0\subsetneq V_1\subsetneq \ldots \subsetneq V_d\subset X.
+\]
+\end{defn}
 
 \section{Cycles and Chow group}
 \chapterauthor{Stefano Marseglia}
 
-Let $X$ be a scheme. A $k$-cycle on $X$ is a finite formal sum
-\[\sum_i n_i [V_i],\]
-where the $V_i$ are $k$-dimensional subvarieties of $X$ and the $n_i$ are integers. Let $Z_kX$ be the free abelian of such expressions. Put $Z_*X=\bigoplus_{n\geq 0} Z_kX$.\\
+Let $X$ be a scheme. The group $Z_kX$ of \emph{$k$-cycles on $X$} is the free abelian group on the $k$-dimensional subvarieties of $X$. Put $Z_*X=\bigoplus_{n\geq 0} Z_kX$.
 
 Let $X$ be a variety, $V$ a subvariety of $X$ of codimension one. Let $A=\mathcal O_{X,V}$ be the corresponding local ring. For $a\in A$ we define the \emph{order} of vanishing of $a$ along $V$ to be
-\[\ord_V(a)=l_A(A/(a)),\]
-where $l_A$ denotes the length as $A$-module.
+\[
+\ord_V(a)=l_A(A/(a)),
+\]
+where $l_A$ denotes the length as $A$-module, i.~e. the length of the longest chain of submodules of $A$.
+
 As every $r\in R(X)^*$ can be written as $r=a/b$ with $a,b\in A$, we can extend our definition
 \[\ord_V(r)=\ord_V(a)-\ord_V(b),\]
 and get a homomorphism from $R(X)^*$ to $\Z$.
 
-For any $(k+1)$-dimensional subvariety $W$ of $X$, and any $r\in R(W)^*$, define a $k$-cycle $[\divisor(r)]$ on $X$ by
-\[[\divisor(r)]=\sum \ord_V(r)[V],\]
-the sum over all codimension one subvarieties $V$ of $W$. We say that a $k$-cycle is \emph{rationally equivalent to zero}, written $\alpha \sim 0$, if there is a finite number of $(k+1)$-dimensional subvarieties $W_i$ of $X$, and $r_i\in R(W_i)^*$, such that
+For any $(k+1)$-dimensional subvariety $W$ of $X$ and any $r\in R(W)^*$, define a $k$-cycle $[\divisor(r)]$ on $X$ by
+\[
+[\divisor(r)]=\sum \ord_V(r)[V],
+\]
+the sum being taken over all codimension-one subvarieties $V$ of $W$. We say that a $k$-cycle is \emph{rationally equivalent to zero}, written $\alpha \sim 0$, if there is a finite number of $(k+1)$-dimensional subvarieties $W_i$ of $X$, and $r_i\in R(W_i)^*$, such that
 \[\alpha = \sum_i[\divisor(r_i)].\]
 Since $[\divisor(r^{-1})]=-[\divisor(r)]$, the cycles rationally equivalent to zero form a subgroup $\Rat_k(X)$ of $Z_kX$.
+
 \begin{defn}
-The \emph{$k$-th Chow group} of $X$ is the quotient
-\[A_kX=Z_kX/\Rat_k(X).\]
-The \emph{Chow group} of $X$ as the direct sum $A_*X=\bigoplus_{n\geq 0} A_kX$.
+The \emph{$k$th Chow group} of $X$ is the quotient
+\[
+A_k X=Z_k X/\Rat_k(X).
+\]
+The \emph{(total) Chow group} of $X$ as the direct sum $A_*X=\bigoplus_{n\geq 0} A_kX$.
 \end{defn}
 
 
@@ -3422,64 +3457,79 @@ The \emph{fundamental cycle} $[X]$ of $X$ is
 \[[X]=\sum_{i=1}^t m_i[X_i] \in Z_*X.\]
 Note that if $X$ is purely $k$-dimensional, then $[X]\in Z_kX=A_kX$.
 
-\section{Push-forward of cycles}
-\chapterauthor{Stefano Marseglia}
+\subsection{Push-forward of cycles}
 
-A morphism $f:X\to Y$ is called \emph{separated} if it induces a closed diagonal embedding $X\to X\times_Y X$. A separated morphism is said to be \emph{proper} if is universally closed, i.e. for every $Y'\to Y$ the induced morphism $X\times_Y Y' \to Y'$ is closed.\\
+A morphism $f\colon X\to Y$ of schemes is called \emph{separated} if it induces a closed diagonal embedding $X\to X\times_Y X$. A separated morphism is said to be \emph{proper} if is universally closed, i.e. for every $Y'\to Y$ the induced morphism $X\times_Y Y' \to Y'$ is closed.
+
 \begin{example}
-The following are examples of proper morphisms
+The following are examples of proper morphisms \marginpar{explain}
  \begin{itemize}
   \item closed immersions;
   \item projective morphisms.
  \end{itemize}
-
 \end{example}
 
-For any subvariety $V$ of $X$ and a proper morphism $f:X\to Y$, the image $W=f(V)$ is a subvariety of $Y$. There is an induced embedding of $R(W)$ in $R(V)$, which is a finite field extension if $W$ has the same dimension of $V$. Set
-\[\deg(V/W)=
+For any subvariety $V$ of $X$ and a proper morphism $f\colon X\to Y$, the image $W=f(V)$ is a subvariety of $Y$. There is an induced embedding of $R(W)$ in $R(V)$, which is a finite field extension if $W$ has the same dimension of $V$. Set
+\[
+\deg(V/W)=
 \begin{cases}
 [R(V):R(W)] &\text{ if } \dim W =\dim V\\
-0  &\text{ if } \dim W <\dim V
+0  &\text{ if } \dim W <\dim V.
 \end{cases}
 \]
 Define the \emph{push-forward} via $f$ of the cycle $[V]$ by
-\[f_*[V]=\deg(V/W)[W].\]
-This extends b linearity to a homomorphism
-\[f_*:Z_kX\to Z_kY.\]
+\[
+f_*[V]=\deg(V/W)[W].
+\]
+This extends by linearity to a homomorphism
+\[
+f_*:Z_kX\to Z_kY.
+\]
 These homomorphism are functorial: if $g$ is a proper morphism $Y\to Z$, then $(gf)_*=g_*f_*$.
-\begin{thm}
- The push-forward of a cycle rationally equivalent to zero is also rationally equivalent to zero.
+\begin{thm}\marginpar{proof?}
+ The push-forward along a proper morphism of a cycle rationally equivalent to zero is also rationally equivalent to zero.
 \end{thm}
-This means that t
+
 This implies that $A_*(-)$ is a covariant functor for proper morphisms.
 
 \subsection{Pull-back of cycles}
-A morphism $f:X\to Y$ is called \emph{flat} if for $U\subset Y, U'\subset X$ open affine sets with $f(U')\subset U$, the induced map $\mathcal O_Y(U)\to \mathcal O_X(U')$ is flat.\\
-A morphism $f:X\to Y$ has \emph{realtive dimension $n$} if for all subvarieties $V$ of $Y$ and all irreducible components $V'$ of $f^{-1}(V)$ we have $\dim V' = \dim V +n$.\\
-\begin{example}
+
+A morphism $f\colon X\to Y$ is called \emph{flat} if for any open affine sets $U\subset Y, U'\subset X$ with $f(U')\subset U$, the induced map $\mathcal O_Y(U)\to \mathcal O_X(U')$ is flat.
+
+A morphism $f\colon X\to Y$ has \emph{relative dimension $n$} if for all subvarieties $V$ of $Y$ and all irreducible components $V'$ of the inverse image scheme $f^{-1}(V) = V \times_Y X$, we have that $\dim V' = \dim V +n$.
+
+\begin{example}\marginpar{expand}
  The following are examples of flat morphisms of relative dimension $n$:
  \begin{itemize}
   \item open embeddings (n=0);
   \item the projection from an algebraic vector (or affine) bundle of rank $n$ to the base space;
   \item dominant morphism from a $(n+1)$-dimensional variety to a non-singular curve.
  \end{itemize}
-
 \end{example}
 
-For a flat morphism $f:X\to Y$ of relative dimension $n$ and any subvariety $V$ of $Y$ put
-\[f^*[V]=[f^{-1}(V)],\]
-where $f^{-1}(V)$ denotes the inverse image scheme, that is the fiber product $V\times_Y X$. This extends by linearity to \emph{pull-back homomorphisms}
-\[f^*:Z_kY\to Z_{k+n}X.\]
-Moreover we have that also flat pull-backs are functorial: if $f:X\to Y$ and $g:Y\to Z$ are flat of relative dimension $n$ then so is the composition and $(gf)^*=f^*g^*$.
-\begin{thm}
-Flat pull-backs (of relative dimension $n$) send $k$-cycles rationally equivalent to zero to $k+n$-cycles rationally equivalent to zero.
-\end{thm}
-Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contravariant functor for flat morphisms (of constant relative dimension).\\
+For a flat morphism $f\colon X\to Y$ of relative dimension $n$ and any subvariety $V$ of $Y$, put
+\[
+f^*[V]=[f^{-1}(V)].
+\]
+This extends by linearity to \emph{pull-back homomorphisms}
+\[
+f^*:Z_kY\to Z_{k+n}X.
+\]
+Flat pull-backs are functorial: if $f\colon X\to Y$ and $g\colon Y\to Z$ are flat of relative dimension $n$ then so is the composition and $(gf)^*=f^*g^*$. \marginpar{don't the relative dimensions add?}
 
-\begin{thm}
- Let $p:E\to X$ be an affine bundle of rank $n$. Then the flat pull-back
- \[p^*:A_kX\to A_{k+n}E\]
- is surjective for all $k$.\\
+\begin{thm} \marginpar{proof}
+Flat pull-backs (of relative dimension $n$) sends $\Rat_k(Y)$ to $\Rat_{k+n}(X)$.
+\end{thm}
+
+Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contravariant functor for flat morphisms (of constant relative dimension).
+
+\begin{thm} \marginpar{proof}
+ Let $p\colon E\to X$ be an affine bundle of rank $n$. Then the flat pull-back
+ \[
+ p^*:A_kX\to A_{k+n}E
+ \]
+ is surjective for all $k$.
+
  If $E$ is an algebraic vector bundle, $p^*$ is an isomorphism.
 \end{thm}
 
@@ -3964,7 +4014,7 @@ Let $I$ be a filtered category and $F\colon I \to \Set$ a functor to the categor
 \begin{proof}
 For \eqref{lem:filteredcolimitset:ex}, Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim} guarantees the existence of $i'$ and $i'' \in I$ with elements $y_{i'} \in F(i')$ and $y_{i''} \in F(i'')$ such that $\iota_{i'}(y_{i'}) = x$ and $\iota_{i''}(y_{i''}) = x'$. By (Fi1), choose morphisms $i' \xrightarrow{\alpha} i \xleftarrow{\beta} i''$ and define $x_i = F(\alpha)(x_{i'})$ and $x'_i = F(\beta)(x_{i''})$. Then $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$.
 
-For \eqref{lem:filteredcolimitset:un}, ..........
+For \eqref{lem:filteredcolimitset:un}, \dots.......
 
 \end{proof}
 
