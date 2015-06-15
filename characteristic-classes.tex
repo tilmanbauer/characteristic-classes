@@ -3482,82 +3482,161 @@ Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contr
  is surjective for all $k$.\\
  If $E$ is an algebraic vector bundle, $p^*$ is an isomorphism.
 \end{thm}
+
 \section{The first Chern class}
-Let $X$ be a scheme and $E$ a line bundle on $X.$ If $X$ is Noetherian and reduced then there is a bijection between Cartier divisors modulo principal divisors and isomorphism classes of line bundles on $X$ (it is actually enough to assume that $X$ has no embedded points). Given a Cartier divisor $D$ and representing system $ \{(U_i,f_i)\}$ of $D$ on $X$ we define the line bundle $\mathcal{O}(D)$ by $\mathcal{O}(D)|_{U_i} = f^{-1}_i \mathcal{O}_{X}|_{U_i}.$ It is easy to check that this is independent of the choice of representing system,that principal Cartier divisors goes to the trivial line bundle and that the correspondence is additive. Thus given a line bundle $L$ on $X$ we can retrieve a Cartier divisor, well-defined up to rational equivalence. 
+\chapterauthor{Magnus Carlson}
+
+Let $X$ be a scheme and $E$ a line bundle on $X.$ If $X$ is Noetherian and reduced then there is a bijection between Cartier divisors modulo principal divisors \marginpar{Define divisors} and isomorphism classes of line bundles on $X$ (it is actually enough to assume that $X$ has no embedded points). Given a Cartier divisor $D$ and representing system $ \{(U_i,f_i)\}$ of $D$ on $X$ we define the line bundle $\mathcal{O}(D)$ by $\mathcal{O}(D)|_{U_i} = f^{-1}_i \mathcal{O}_{X}|_{U_i}.$ It is easy to check that this is independent of the choice of representing system,that principal Cartier divisors goes to the trivial line bundle and that the correspondence is additive. \marginpar{Do the check} Thus given a line bundle $L$ on $X$ we can retrieve a Cartier divisor, well-defined up to rational equivalence. 
 \begin{defn}
-Let $L$ be a line bundle on a scheme $X.$ We define the first Chern class homomorphism $c_1(L) \cap -: A_k(X) \rightarrow A_{k-1}(X)$ for any k-dimensional subvariety $V$ of $X$ as follows. We know by the above discussion that $L|_V$ gives us a Cartier divisor $C$ which is well-defined up to linear equivalence. The Cartier divisor $C$ determines a Weil divisor $[C] \in A_{k-1}(X)$ and we define $c_1(L) \cap [V] = [C].$ 
+Let $L$ be a line bundle on a scheme $X.$ We define the \emph{first Chern class homomorphism}
+\[
+c_1(L) \cap -: A_k(X) \rightarrow A_{k-1}(X)
+\]
+for any k-dimensional subvariety $V$ of $X$ as follows. We know by the above discussion that $L|_V$ gives us a Cartier divisor $C$ which is well-defined up to linear equivalence. The Cartier divisor $C$ determines a Weil divisor $[C] \in A_{k-1}(X)$ and we define $c_1(L) \cap [V] = [C].$ 
 \end{defn}
-One thing regarding the above definition that we take one thing for granted, namely that $c_1(L) \cap -,$ which is a priori just a homomorphism from $Z_k(X)$ to $A_{k-1}(X)$ actually respects rational equivalence, so that it descends to $A_k(X).$ The proof of this fact is remarkably delicate and we refer the reader to Fulton's '' Intersection Theory'' , 2.5 . 
-A good intuitive picture to have of the first Chern class homomorphism is that it gives the locus where a general section of $L$ is zero. The Chern classes $c_i(L)$ satisfy a plethora of formal properties, of which we'll list a few. 
-\begin{thm}
-Let $X$ be a scheme. Then: \begin{itemize}
-\item[a)] If $L$ and $L'$ are line bundles on $X,$ then $$c_1(L) \cap (c_1(L') \cap - ) = c_1(L') \cap (c_1(L) \cap - ) : A_k(X) \rightarrow A_{k-2}(X).$$
-\item[b)] If $f:X' \rightarrow X$ is proper and $L$ a line bundle on $X$ then we have a projection formula $$f_\ast(c_1(f^\ast L) \cap -) = c_1(L) \cap f_\ast(-):A_k(X') \rightarrow A_{k-1}(X).$$
-\item[c)] If $f: X' \rightarrow X$ is flat of relative dimension $n$ and $L$ is a line bundle on $X,$ then $$c_1(f^\ast L) \cap f^\ast(-) = f^\ast(c_1(L) \cap -):A_k(X) \rightarrow A_{k+n-1}(X').$$
-\end{itemize}
-\end{thm}
-Let now $P$ be a homogenous polynomial of degree $m$ in $n$ variables. Note that by a) of the above theorem it makes sense to, for line bundles $L_1, \ldots, L_n$ on $X$, to consider $P(L_1,\ldots ,L_n) : A_k(X) \rightarrow A_{k-m}(X).$ In particular, we can consider the homomorphism $c_1(L)^i \cap -:A_k(X) \rightarrow A_{k-i}(X)$ for any $i.$  
+In the above definition, we take one thing for granted, namely that $c_1(L) \cap -,$ which is a priori just a homomorphism from $Z_k(X)$ to $A_{k-1}(X)$, is actually invariant under rational equivalence, so that it descends to $A_k(X).$ This fact is remarkably delicate and we refer the reader to \cite[2.5]{fulton:intersection-theory} for a proof.
+
+A good intuitive picture to have of the first Chern class homomorphism is that it gives the locus where a general section of $L$ is zero. The Chern classes $c_i(L)$ satisfy a plethora of formal properties, of which we list a few. 
+
+\begin{thm} \label{thm:firstchernclassprops}
+Let $X$ be a scheme. Then:
+\begin{enumerate}
+\item \label{thm:firstchernclassprops:commutative} If $L$ and $L'$ are line bundles on $X,$ then
+\[
+c_1(L) \cap (c_1(L') \cap - ) = c_1(L') \cap (c_1(L) \cap - ) : A_k(X) \rightarrow A_{k-2}(X).
+\]
+\item If $f\colon X' \rightarrow X$ is proper and $L$ a line bundle on $X$ then we have a projection formula 
+\[
+f_\ast(c_1(f^\ast L) \cap -) = c_1(L) \cap f_\ast(-):A_k(X') \rightarrow A_{k-1}(X).
+\]
+\item If $f\colon X' \rightarrow X$ is flat of relative dimension $n$ and $L$ is a line bundle on $X,$ then \[
+c_1(f^\ast L) \cap f^\ast(-) = f^\ast(c_1(L) \cap -):A_k(X) \rightarrow A_{k+n-1}(X').
+\]
+\end{enumerate}
+\end{thm} \marginpar{Prove}
+
+Now let $P$ be a homogenous polynomial of degree $m$ in $n$ variables and $L_1, \ldots, L_n$ line bundles on $X$. Note that by \eqref{thm:firstchernclassprops:commutative} of the above theorem it makes sense to consider $P(L_1,\ldots ,L_n) : A_k(X) \rightarrow A_{k-m}(X).$ In particular, we can consider the homomorphism $c_1(L)^i \cap -\colon A_k(X) \rightarrow A_{k-i}(X)$ for any $i.$  
 \begin{example}
-Let us take some linear subspace $L^j$ of dimension $k$ of $\mathbb{P}^n_k = \text{Proj } k[x_0,\ldots,x_n].$  Then $c_1(\mathcal{O}(1)) \cap [L^k] = [L^{k-1}]$ where $L^{k-1}$ is some $(k-1)$-dimensional linear subspace of $\mathbb{P}^n_k.$ Indeed, we can without loss of generality suppose that $[L^k] = [V_+(x_0, \ldots, x_{n-k}].$ Then, in $\mathcal{O}(1)|_{L^k}$ we have the section $x_{n-k+1}$ and we then see that $c_1(\mathcal{O}(1)) \cap [V_+(x_0,\ldots,x_{n-k})] = [V_+(x_0,\ldots,x_{n-k+1}]$ by taking $x_{n-k+1}$'s associated Weil divisor.
+Let $L^j$ be a linear subspace of dimension $j$ of $\mathbb{P}^n_k = \operatorname{Proj} k[x_0,\ldots,x_n]$. \marginpar{Proj undefined} \marginpar{unclear} Then $c_1(\mathcal{O}(1)) \cap [L^k] = [L^{k-1}]$ where $L^{k-1}$ is some $(k-1)$-dimensional linear subspace of $\mathbb{P}^n_k.$ Indeed, we can without loss of generality suppose that $[L^k] = [V_+(x_0, \ldots, x_{n-k})].$ Then, in $\mathcal{O}(1)|_{L^k}$ we have the section $x_{n-k+1}$ and we then see that
+\[
+c_1(\mathcal{O}(1)) \cap [V_+(x_0,\ldots,x_{n-k})] = [V_+(x_0,\ldots,x_{n-k+1}]
+\]
+by taking the Weil divisor associated to $x_{n-k+1}$.
 \end{example}
+
 \section{Segre classes}
-To define the Chern classes we will first construct Segre classes. While one has a good theory of Chern classes in algebraic geometry for so called non-singular vector bundles,  the same doesn't hold if the vector bundle is singular. Let us fix a vector bundle $E$ of rank $e+1$ on a scheme $X.$ From $E$ we can construct the projective bundle of lines $p:\mathbb{P}(E) \rightarrow X.$ Over a point $x \in X,$ $\mathbb{P}(E)|_x \cong \mathbb{P}(E|_x)$ and $\mathbb{P}(E)$ is obtained by gluing these fibers together in a coherent manner, using the gluing data from $E$. The projection map $p$ is both flat and proper. On $\mathbb{P}(E)$ we have a tautological line bundle $\mathcal{O}(-1),$ which over a point $y \in \mathbb{P}(E)$ gives the line in $E$ to which  $y$ corresponds. Let $\mathcal{O}(1)$ be the dual of $\mathcal{O}(-1).$ Given this data, we can define our Segre class homomorphisms.
+\chapterauthor{Magnus Carlson}
+
+To define the Chern classes we will first construct Segre classes. While one has a good theory of Chern classes in algebraic geometry for so called non-singular vector bundles,  the same doesn't hold if the vector bundle is singular. Let us fix a vector bundle $E$ of rank $e+1$ on a scheme $X$. From $E$ we can construct the projective bundle of lines $p\colon \mathbb{P}(E) \rightarrow X$. Over a point $x \in X,$ $\mathbb{P}(E)|_x \cong \mathbb{P}(E_x)$ and $\mathbb{P}(E)$ is obtained by gluing these fibers together in a coherent manner, using the gluing data from $E$ \marginpar{xref to top. construction, clarify}. The projection map $p$ is both flat and proper. On $\mathbb{P}(E)$ we have a tautological line bundle $\mathcal{O}(-1),$ which over a point $y \in \mathbb{P}(E)$ gives the line in $E$ to which $y$ corresponds \marginpar{unclear}. Let $\mathcal{O}(1)$ be the dual of $\mathcal{O}(-1).$ Given this data, we can define our Segre class homomorphisms.
 \begin{defn}
-Let $X$ be a scheme, $E$ a vector bundle of rank $e+1$ on $X$ and $p:\mathbb{P}(E) \rightarrow X$ the projective bundle of lines in $E.$ For all $i,$ define Chern class homomorphisms $$s_i(E) \cap -:A_k(X) \rightarrow A_{k-i}(X)$$ by  $s_i(E) \cap \alpha = p_\ast (c_1(\mathcal{O})^{e+i} \cap p^\ast \alpha).$ 
+Let $X$ be a scheme, $E$ a vector bundle of rank $e+1$ on $X$ and $p:\mathbb{P}(E) \rightarrow X$ the projective bundle of lines in $E.$ For all $i,$ define \emph{Segre class homomorphisms}
+\[
+s_i(E) \cap -\colon A_k(X) \rightarrow A_{k-i}(X); \quad s_i(E) \cap \alpha = p_\ast (c_1(\mathcal{O})^{e+i} \cap p^\ast \alpha).
+\]
 \end{defn}
-In the above definition, $c_1(\mathcal{O})^{e+i} \cap -$ is the $e+i$th iterated first Chern class homomorphism from $A_{k+e}\mathbb{P}(E) \rightarrow A_{k-i}(\mathbb{P}(E)),$ which makes sense from the discussions in the previous section.
+
+In the above definition, $c_1(\mathcal{O})^{e+i} \cap -$ is the $(e+i)$th iterated first Chern class homomorphism from $A_{k+e}\mathbb{P}(E) \rightarrow A_{k-i}(\mathbb{P}(E)),$ which makes sense by the discussions in the previous section.
+
 \section{Chern classes}
+\chapterauthor{Magnus Carlson}
+
 We will here construct the Chern classes from Segre classes by inverting a certain formal power series. 
+
 \begin{defn}
-Let $E$ be a vector bundle on our scheme $X$ and consider the formal power series $s_t(E) = \sum_{i=0}^\infty s_i(E)t^i.$  We then define the Chern polynomial, $c_t(E)$, to be given as $c_t(E) = s_t(E)^{-1}.$
+Let $E$ be a vector bundle on our scheme $X$ and consider the formal power series $s_t(E) = \sum_{i=0}^\infty s_i(E)t^i.$  We then define the Chern polynomial $c_t(E)$ as the power series inverse $c_t(E) = s_t(E)^{-1}.$
 \end{defn}
-We can thus write $c_t(E) = \sum_{i=0}^{\infty} c_i(E)t^i.$ The coefficients $c_i(E)$ is the ith Chern class of $E$ and gives a homomorphism $c_i(E) \cap -: A_k X \rightarrow A_{k-i}X.$ We can write $$c_i(E) = (-1)^i det \begin{bmatrix} s_1(E) & 1 & 0 & \cdots & 0 \\ s_2(E) & s_1(E) & 1 & & \vdots \\ \vdots &  & \ddots & & 0 \\ & & & s_1(E) & 1 \\ s_i(E) & \cdots & & & s_1(E) \end{bmatrix}.$$
-We will give a proof sketch on how to prove that the Chern polynomial as definied actually is a polynomial by showing how the splitting construction works in algebraic geometry. \\
-\textbf{Splitting construction:}
-In topology we have previously seen that if we have a vector bundle $E$ on a space $X$ we can find a morphism $f:X' \rightarrow X$ such that the pullback vector bundle $f^\ast E$ splits off as a sum of line bundles. This is \textbf{not} true in algebraic geometry, rather, we instead have that $f^\ast E$ has a nice filtration.  Let $X$ be a scheme and $p:E \rightarrow X$ a vector bundle on $X.$ We then claim that we can find a flat morphism $f:X' \rightarrow X$ such that: \begin{itemize}
-\item[(1)] $f^\ast: A_\ast X \rightarrow A_\ast X' $ is injective, and 
-\item[(2)] $f^\ast E$ has a filtration by subbundles $$f^\ast E = E_r \supset E_{r-1} \supset \ldots \supset E_1 \supset E_0=0$$ such that the quotients $L_i = E_i / E_{i-1}$ are all line bundles. 
-\end{itemize}
-The construction is done by induction on the rank of $E.$ The statement is clearly true if $E$ is already a line bundle, so if $E$ has rank $e>1$ consider the map $p:\mathbb{P}(E) \rightarrow X$ given by taking the projective bundle of lines in $E.$ Then we know that $p^\ast$ is injective and we have a canonical short exact sequence $$0 \to \mathcal{O}_{\mathbb{P}(E)}(-1) \to p^\ast E \to Q \to 0$$ where $\mathcal{O}_{\mathbb{P}(E)}(-1) $ is the tautological line bundle on $\mathbb{P}(E).$ We now notice that $Q$ has rank $e-1$ and by the induction hypothesis we can find a morphism $q:X' \rightarrow \mathbb{P}(E)$ such that $q^\ast Q$ has the claimed filtration. But then pulling back this short exact sequence to a short exact sequence on $X',$ $q^\ast p^\ast E$ has the induced filtration, as claimed. This construction can clearly be applied to any finite collection of vector bundles on $X.$ 
-\begin{thm}The Chern classes satisfy the following properties: 
-\begin{itemize}
-\item[a)] For all vector bundles $E$ on $X$ then $$c_i(E)=0$$ for $i > \text{rank } (E).$
-\item[b)] Given vector bundles $E,F$ on $X$ we have that $c_i(E) \cap (c_j(F) \cap -) = c_j(F) \cap (c_i(E) \cap - ):A_k(X) \rightarrow A_{k-j-i}(X).$ 
-\item[c)] Given a vector bundle $E$ on $X$ and a proper morphism $f: X' \rightarrow X$  we have that $$f_\ast(c_i(f^\ast E) \cap -) = c_i(E) \cap f_\ast( - ) : A_k(X') \rightarrow A_{k-i}(X).$$
-\item[d)] Given a vector bundle $E$ on $X$ and a flat morphism $f:X' \rightarrow X$ of relative dimension d, we have that $$c_i(f^\ast E) \cap f^\ast (-) = f^\ast(c_i(E) \cap -):A_k(X) \rightarrow A_{k+d-i}(X)$$
-\item[e)] (The Whitney sum formula) Given an exact sequence $0 \to E' \to E \to E'' \to 0$ of vector bundles on $X,$ then $c_t(E) = c_t(E')\cdot c_t(E'').$
-\end{itemize}
+
+We can thus write $c_t(E) = \sum_{i=0}^{\infty} c_i(E)t^i.$ The coefficient $c_i(E)$ is the $i$th Chern class of $E$ and gives a homomorphism $c_i(E) \cap -: A_k X \rightarrow A_{k-i}X.$ We can write
+\[
+c_i(E) = (-1)^i det \begin{bmatrix} s_1(E) & 1 & 0 & \cdots & 0 \\ s_2(E) & s_1(E) & 1 & & \vdots \\ \vdots &  & \ddots & & 0 \\ & & & s_1(E) & 1 \\ s_i(E) & \cdots & & & s_1(E) \end{bmatrix}.
+\]
+
+We will give a sketch on how to prove that the Chern polynomial as defined actually is a polynomial by showing how the splitting construction works in algebraic geometry.
+
+\subsubsection*{Splitting construction:}
+
+In topology we have previously \marginpar{xref} seen that if we have a vector bundle $E$ on a space $X$ we can find a morphism $f\colon X' \rightarrow X$ such that the pullback vector bundle $f^\ast E$ splits as a sum of line bundles. This is \emph{not} true in algebraic geometry. We instead have that $f^\ast E$ has a nice filtration.  Let $X$ be a scheme and $p\colon E \rightarrow X$ a vector bundle on $X.$ We then claim that we can find a flat morphism $f\colon X' \rightarrow X$ such that:
+\begin{enumerate}
+\item $f^\ast: A_\ast X \rightarrow A_\ast X' $ is injective, and 
+\item $f^\ast E$ has a filtration by subbundles
+\[
+f^\ast E = E_r \supset E_{r-1} \supset \ldots \supset E_1 \supset E_0=0
+\]
+such that the quotients $L_i = E_i / E_{i-1}$ are all line bundles. 
+\end{enumerate}
+
+The construction is done by induction on the rank of $E$ The statement is clearly true if $E$ is already a line bundle, so if $E$ has rank $e>1$ consider the map $p\colon \mathbb{P}(E) \rightarrow X$ given by taking the projective bundle of lines in $E$. Then we know that $p^\ast$ is injective and we have a canonical short exact sequence
+\[
+0 \to \mathcal{O}_{\mathbb{P}(E)}(-1) \to p^\ast E \to Q \to 0
+\]
+where $\mathcal{O}_{\mathbb{P}(E)}(-1) $ is the tautological line bundle on $\mathbb{P}(E).$ We now notice that $Q$ has rank $e-1$ and by the induction hypothesis we can find a morphism $q\colon X' \rightarrow \mathbb{P}(E)$ such that $q^\ast Q$ has the claimed filtration. But then pulling back this short exact sequence to a short exact sequence on $X'$, $q^\ast p^\ast E$ has the induced filtration, as claimed. This construction can clearly be applied to any finite collection of vector bundles on $X$.
+
+\begin{thm} \label{thm:chernclassprops} The Chern classes satisfy the following properties: 
+\begin{enumerate}
+\item \label{thm:chernclassprops:dimension} For all vector bundles $E$ on $X$ then $c_i(E)=0$ for $i > \dim(E).$
+\item Given vector bundles $E$, $F$ on $X$ we have that
+\[
+c_i(E) \cap (c_j(F) \cap -) = c_j(F) \cap (c_i(E) \cap - )\colon A_k(X) \rightarrow A_{k-j-i}(X).
+\]
+\item Given a vector bundle $E$ on $X$ and a proper morphism $f\colon X' \rightarrow X$  we have that
+\[
+f_\ast(c_i(f^\ast E) \cap -) = c_i(E) \cap f_\ast( - ) \colon A_k(X') \rightarrow A_{k-i}(X).
+\]
+\item Given a vector bundle $E$ on $X$ and a flat morphism $f\colon X' \rightarrow X$ of relative dimension $d$, we have that
+\[
+c_i(f^\ast E) \cap f^\ast (-) = f^\ast(c_i(E) \cap -)\colon A_k(X) \rightarrow A_{k+d-i}(X)
+\]
+\item \label{thm:chernclassprops:whitney} (The Whitney sum formula) Given an exact sequence $0 \to E' \to E \to E'' \to 0$ of vector bundles on $X,$ then $c_t(E) = c_t(E')\cdot c_t(E'').$
+\end{enumerate}
 \end{thm}
 \begin{proof}
-We will here give an idea on how to prove $a)$ and $e)$ above. Given $E$ as in $a)$, it is easy to see that it is enough, by the splitting construction, to show that if $E$ has a filtration 
-$E=E_r \supset E_{r-1} \supset \cdots \supset E_1 \supset E_0 = 0$ with $L_i = E_i/E_{i-1}$ line bundles, then $c_t(E) = \Pi_{i=1}^r (1+c_1(L_i)t).$ A proof of this fact can be found in Fulton's ''Intersection Theory'', 3.2.2 .  This will immediately yield $a).$ For $e)$, note that if we have a short exact sequence $0 \to E' \to E \to E'' \to 0$ we can apply the splitting principle to $E'$ and $E''$ and find a $f:X' \rightarrow X$ with $f^\ast$ injective so that $f^\ast E$ and $f^\ast E'$ have filtrations with line bundle quotients $L_i'$ and $L''_j$ respectively. Then one sees that $f^\ast E$ has an induced filtration with line bundle quotients $L'_i$ and $L'_j$ and we see that $c_t(f^\ast E) = c_t(f^\ast E')c_t(f^\ast E'').$  
+We will here give an idea on how to prove \eqref{thm:chernclassprops:dimension} and \eqref{thm:chernclassprops:whitney} above. Given $E$ as in \eqref{thm:chernclassprops:dimension}, it is easy to see that it is enough, by the splitting construction, to show that if $E$ has a filtration 
+$E=E_r \supset E_{r-1} \supset \cdots \supset E_1 \supset E_0 = 0$ with $L_i = E_i/E_{i-1}$ line bundles, then $c_t(E) = \prod_{i=1}^r (1+c_1(L_i)t)$. A proof of this fact can be found in \cite[3.2.2]{fulton:intersection-theory}. This will immediately yield \eqref{thm:chernclassprops:dimension}. For \eqref{thm:chernclassprops:whitney}, note that if we have a short exact sequence $0 \to E' \to E \to E'' \to 0$ we can apply the splitting principle to $E'$ and $E''$ and find a $f\colon X' \rightarrow X$ with $f^\ast$ injective so that $f^\ast E$ and $f^\ast E'$ have filtrations with line bundle quotients $L_i'$ and $L''_j$ respectively. Then one sees that $f^\ast E$ has an induced filtration with line bundle quotients $L'_i$ and $L'_j$ and we see that $c_t(f^\ast E) = c_t(f^\ast E')c_t(f^\ast E'').$  
 \end{proof}
 \begin{example}
-Let us calculate the Chern polynomial to the tangent bundle on $\mathbb{P}^n_k.$ We have a short exact sequence $$0 \to \mathcal{O}_{\mathbb{P}^n_k} \to \mathcal{O}_{\mathbb{P}^n_k}(1) \to T_{\mathbb{P}^n_k} \to 0 $$ of vector bundles and by the Whitney sum formula we see that $$c_t(T_{\mathbb{P}^n_k}) = (1+c_1(\mathcal{O}_{\mathbb{P}^n_k}(1))).$$
+Let us calculate the Chern polynomial for the tangent bundle on $\mathbb{P}^n_k.$ We have a short exact sequence $$0 \to \mathcal{O}_{\mathbb{P}^n_k} \to \mathcal{O}_{\mathbb{P}^n_k}(1) \to T_{\mathbb{P}^n_k} \to 0 $$ of vector bundles and by the Whitney sum formula we see that $$c_t(T_{\mathbb{P}^n_k}) = (1+c_1(\mathcal{O}_{\mathbb{P}^n_k}(1))).$$
 \end{example}
-Given a vector bundle $E$ of rank $r$ we can write formally $c_t(E) = \Pi_{i=1}^r (1+\alpha_i t).$ The $\alpha_i$'s are called the Chern roots of $E.$ One can either think of them formally as having the property that the nth elementary symmetric polynomial in the $\alpha_i$'s is $c_n(E)$, or by using the splitting construction on $E$ to find that $c_t(f^\ast E) = \Pi_{i=1}^r (1+c_1(f^\ast c_1(L_i))).$
+Given a vector bundle $E$ of rank $r$ we can formally write $c_t(E) = \prod_{i=1}^r (1+\alpha_i t).$ The $\alpha_i$ are called the \emph{Chern roots} \marginpar{xref} of $E.$ One can either think of them formally as having the property that the $n$th elementary symmetric polynomial in the $\alpha_i$ is $c_n(E)$, or by using the splitting construction on $E$ to find that $c_t(f^\ast E) = \prod_{i=1}^r (1+c_1(f^\ast c_1(L_i)))$.
+
 \begin{defn}
-Let $E$ be a vector bundle of rank $r$ and $\alpha_1, \ldots, \alpha_r$ the Chern roots of $E.$ Define the Chern character, $$ch(E) = \sum_{i=1}^r exp(\alpha_i).$$ 
+Let $E$ be a vector bundle of rank $r$ and $\alpha_1, \ldots, \alpha_r$ the Chern roots of $E.$ Define the \emph{Chern character} \marginpar{where does it live?}
+\[
+\operatorname{ch}(E) = \sum_{i=1}^r \exp(\alpha_i).
+\]
 \end{defn}
-$exp(\alpha_i)$ above should be understood as the formal power series $\sum_{j=0}^\infty \alpha_i^j/j!.$ When expanding this, one sees that $ch(E) = rank(E) + c_1(E) +1/2 (c_1(E)^2-2c_2) + 1/6(c^3_1-3c_1c_2+3c_3)+ \cdots.$  The nth term is $p_n/n!$ and one can determine it inductively by Newton's formula $p_n-c_1(E)p_{n-1}+c_2(E)p_{n-2} - \ldots (-1)^{n-1} c_{n-1}p_1+(-1)^n n c_n=0.$  While Chern polynomials are multiplicative in exact sequences, Chern characters are additive in short exact sequences. Let us motivate this construction by introducing the Grothendieck ring of vector bundles on a scheme $X.$
+Here, $\exp(\alpha_i)$ should be understood as the formal power series $\sum_{j=0}^\infty \alpha_i^j/j!$. When expanding this, one sees that $\operatorname{ch}(E) = \dim(E) + c_1(E) +1/2 (c_1(E)^2-2c_2) + 1/6(c^3_1-3c_1c_2+3c_3)+ \cdots.$  The $n$th term is $p_n/n!$ and one can determine it inductively by Newton's formula $p_n-c_1(E)p_{n-1}+c_2(E)p_{n-2} - \ldots (-1)^{n-1} c_{n-1}p_1+(-1)^n n c_n=0.$  While Chern polynomials are multiplicative in exact sequences, Chern characters are additive in short exact sequences. Let us motivate this construction by introducing the Grothendieck ring of vector bundles on a scheme $X$.
+
 \begin{defn}
-The Grothendieck group of vector bundles $K^0_+ X$ on $X$  is the free abelian group on isomorphism classes of vector bundles, subject to the relation that $[E] = [E']+[E'']$ whenever we have a short exact sequence $0 \to E' \to E \to E'' \to 0.$  Define the bilinear operation $- \cdot -:K^0_+X \times K^0_+ X \rightarrow K^0_+ X $ by  $[E]\cdot[F] = [E\cdot F].$ Then with this operation $K^0_+ X$ is given a ring structure, we call this the Grothendieck ring $K^0 X.$ 
+The Grothendieck group of vector bundles $K^0_+ X$ on $X$  is the free abelian group on isomorphism classes of vector bundles, subject to the relation that $[E] = [E']+[E'']$ whenever we have a short exact sequence $0 \to E' \to E \to E'' \to 0.$  Define the bilinear operation $- \cdot -:K^0_+X \times K^0_+ X \rightarrow K^0_+ X $ by  $[E]\cdot[F] = [E \otimes F].$ Then with this operation $K^0_+ X$ is given a ring structure, we call this the Grothendieck ring $K^0 X$. 
 \end{defn}
-With this, one can view the Chern character as a ring homomorphism $K^0 X \rightarrow A_\ast(X) \otimes \mathbb{Q}.$ 
+With this, one can view the Chern character as a ring homomorphism
+\[
+\operatorname{ch}\colon K^0 X \rightarrow A_\ast(X) \otimes \mathbb{Q}
+\]
 \begin{defn}
-The Todd class $td(E)$ of a vector bundle $E$ of rank $r$ with Chern roots $\alpha_1 ,\ldots, \alpha_r,$ is defined by $td(E) = \Pi_{i=1}^r \alpha_i /(1 - e^{-\alpha_i}).$
+The Todd class $\operatorname{td}(E)$ of a vector bundle $E$ of rank $r$ with Chern roots $\alpha_1 ,\ldots, \alpha_r,$ is defined by $\operatorname{td}(E) = \prod_{i=1}^r \alpha_i /(1 - \exp(-\alpha_i)$. \marginpar{Where does it live?}
 \end{defn}
-Once again, everything should be interpreted as formal power series. The Todd class is multiplicative in short exact sequences. With these definitions, we will try to move on to the statement of the Hirzebruch-Riemann-Roch theorem. Before this we'll need a last definition.
+Once again, everything should be interpreted as formal power series. The Todd class is multiplicative in short exact sequences. With these definitions, we will try to move on to the statement of the Hirzebruch-Riemann-Roch theorem. Before this we will need a last definition.
+
 \begin{defn}
-Let $E$ be a coherent sheaf on a projective variety $X.$ Then the Euler characteristic $\psi(X,F)$ is given by the alternating sum $\sum_{i \geq 0} (-1)^i h^i(X,F)$ where $h^i(X,F)$ is $dim_k H^i(X,F).$
+Let $E$ be a coherent sheaf on a projective variety $X.$ Then the Euler characteristic $\chi(X,F)$ is given by the alternating sum $\sum_{i \geq 0} (-1)^i h^i(X,F)$ where $h^i(X,F)=\dim_k H^i(X,F).$
 \end{defn}
-This sum terminates since $H^i(X,F)$ for $i > dim X.$ Recall that we can view a vector bundle on a scheme $X$ as a locally free sheaf. The Hirzebruch-Riemann-Roch theorem will relate the Euler characteristic of $E$ with the Chern character and the Todd class and as a special case, we'll get the ordinary Riemann-Roch theorem.
-\begin{thm}
-Let $E$ be a vector bundle on a smooth projective variety $X.$ Then $\psi(X,E) = \int_X ch(E) \cdot td(T_X).$
+This sum terminates since $H^i(X,F)=0$ for $i > dim X.$ Recall \marginpar{xref} that we can view a vector bundle on a scheme $X$ as a locally free sheaf. The Hirzebruch-Riemann-Roch theorem will relate the Euler characteristic of $E$ with the Chern character and the Todd class and as a special case, we will get the ordinary Riemann-Roch theorem.
+\begin{thm} \label{thm:grothendieck-riemann-roch}
+Let $E$ be a vector bundle on a smooth projective variety $X.$ Then $\chi(X,E) = \int_X ch(E) \cdot \operatorname{td}(T_X)$. \marginpar{What does the integral mean?}
 \end{thm}
-Here $T_X$ is the tangent bundle of $X.$ The integral sign should be interpreted as the degree $0$ part of the cycle one gets by intersecting $ch(E) \cdot td(T_x)$ by $[X].$ 
+Here $T_X$ is the tangent bundle of $X.$ The integral sign should be interpreted as the degree-$0$ part of the cycle one gets by intersecting $ch(E) \cdot td(T_x)$ with $[X]$.
+
 \begin{example}
-Let us take $X$ to be a smooth projective curve, a divisor $D$ and ask ourselves what the dimension of the global sections of $\mathcal{O}_X(D)$ has. Since $H^i(X,\mathcal{O}_X(D)) = 0$ for $i > 1$ we have that $\chi(X,\mathcal{O}_X(D)) = h^0(X,\mathcal{O}_X(D)) - h^1(X,\mathcal{O}_X(D)).$ Now, $$\int_X ch(\mathcal{O}_X(D)) \cdot td(T_X) = deg(c_1(\mathcal{O}_X(D)+c_1(T_X))/2= deg D -Deg (c_1(\omega_{X/k})/2) = deg D - g+1 $$ so we see that $$h^0(X,\mathcal{O}_X(D)) = h^1(X,\mathcal{O}_X(D)) + deg D -g+1.$$ 
+Let us take $X$ to be a smooth projective curve, a divisor $D$ and ask ourselves what the dimension of the global sections of $\mathcal{O}_X(D)$ is. Since $H^i(X,\mathcal{O}_X(D)) = 0$ for $i > 1$ we have that $\chi(X,\mathcal{O}_X(D)) = h^0(X,\mathcal{O}_X(D)) - h^1(X,\mathcal{O}_X(D)).$ Now,
+\begin{align*}
+\int_X ch(\mathcal{O}_X(D)) \cdot td(T_X) = &\deg(c_1(\mathcal{O}_X(D)+c_1(T_X))/2\\
+= & \deg D - \deg (c_1(\omega_{X/k})/2) = \deg D - g+1,
+\end{align*}
+so we see that
+\[
+h^0(X,\mathcal{O}_X(D)) = h^1(X,\mathcal{O}_X(D)) + deg D -g+1.
+\]
 \end{example}
 
 \appendix
