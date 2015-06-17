@@ -1,6 +1,6 @@
 %!TEX program = xelatex
 \documentclass[a4paper,openany]{scrbook}
-
+\usepackage[all,cmtip]{xy}
 \usepackage{amsthm}
 \usepackage{tilmansdef}
 \usepackage{tikz}
@@ -2684,7 +2684,7 @@ H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}
 
 \chapter{Characteristic classes}
 
-\section{Chern classes}
+\section{Chern classes}\label{sec:chernclasses}
 \chapterauthor{Kaj Börjesson}
 
 There are different but equivalent ways to define Chern classes. We will follow the approach of \cite{tomdieck:algebraic-topology} and use Euler classes and projective bundles. However, we are making it a bit less complicated by not considering arbitrary generalized cohomology theories. In this section cohomology is always taken with integer coefficients.
@@ -2771,7 +2771,7 @@ Since $1,e_\xi,\dots,e_\xi^{n-1}$ is a basis we can write $t_\xi^n$ as a linear 
 The element $c_i(\xi)$ is called the $i:$th Chern class of the bundle $\xi.$ Put $c_j=0$ if $j>n.$
 \end{defn}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:chernnatural}
 The Chern classes satisfies naturality: $$f^*(c_i(\xi))=c_i(\eta)$$ for bundle maps $f:\eta \rightarrow \xi.$
 \end{lemma}
 
@@ -2790,7 +2790,7 @@ The idea is to consider the subspaces $P(\xi)\subset P(\xi\oplus\eta) \supset P(
 
 
 
-\subsection{Cohomology of $BU(n)$}
+\subsection{Cohomology of $BU(n)$}\label{subsec:cohomologyBU}
 
 To compute the cohomology of $BU(n)$ we need a lemma connecting $BU(n)$ and projective bundles.
 
@@ -2810,7 +2810,7 @@ Let $\kappa: (BU(1))^n \rightarrow BU(n)$ be the classifying map of the product 
 Let $\sigma$ be a permutation on $n$ elements. It acts by permuting the factors in $(BU(1))^n$ and also on the bundle $\gamma_1(1)\times \dots \times \gamma_1(n)$ in the same way. Now $\kappa \circ \sigma$ is homotopic to $\kappa$ since both maps represent isomorphic bundles. Now $H^*(BU(1)^n)\cong H^*((\CC P^\infty)^n)\cong \Z [T_1,\dots,T_n]$ where $T_i$ has degree $2.$ The permutation $\sigma$ induce a map $\sigma^*$ that acts by permuting the $T_i$:s. By homotopy invariance of cohomology the image of $\kappa^*$ is contained in the symmetric subring of $\Z [T_1,\dots,T_n].$ Note that $T_j=c_i(\gamma_1(j)).$ Now by using naturality of Chern classes we obtain $$\kappa^*c_i(\gamma_n)=c_i\kappa^*(\gamma_n)=c_i(\gamma_1(1)\oplus \dots \oplus \gamma_1(n)).$$ Now we can apply the sum formula $i$ times (separating one summand at a time) and see that we get the $i$:th elementary symmetric polynomial in the $T_i$:s. Since the elementary symmetric polynomials form a basis of the symmetric subring of $\Z [T_1,\dots,T_n]$ the map $\kappa^*$ hits the whole symmetric subring. Now we only have to show injectivity. Using the map from Lemma \ref{lemma:projectivebundleBU(n))} we get a map $$H^*(BU(n))\rightarrow H^*(BU(n-1)\times BU(1))\cong H^*(BU(n-1))[T_n].$$ By Lemma \ref{lemma:projectivebundlecohomology} the map is injective. By induction we now obtain the map to $\Z [T_1,\dots,T_n]$ that is injective.
 \end{proof}
 
-\subsection{Sample computations of Chern classes}
+\subsection{Sample computations of Chern classes}\label{subsec:computationschern}
 
 In calculations with Chern classes, it is often useful to introduce the following notations:
 
@@ -2882,10 +2882,106 @@ Thus this bundle has nonvanishing Chern classes in every even degree up to the d
 \end{example}
 
 \section{Stiefel-Whitney classes}
+The theory of Chern classes has an analogous theory for real vector bundles, which is the theory of Stiefel-Whitney classes. A lot of the theory concerning Stiefel-Whitney classes is similar to the theory concerning Chern classes, so some of the proofs in this section are omitted due to the similarity to the proofs in the previous section.
+\\\\
+Since complex vector bundles are also real vector bundles, there are both Stiefel-Whitney classes and Chern classes of such bundles. We will show how these classes are related to each other. This will mainly relay on the following lemma.
 
-Mod-$2$ cohomology of $BO(n)$, examples of SW classes for well-known bundles.
+\begin{lemma}\label{lemma:linearonfibers}
+Let $p:E\to B$ be an $n$-dimensional $k$-vector bundle. Then there exists a map $g: E\to k^\infty$ that is linear and injective on the fibers $E_b$. 
+\end{lemma}
+\begin{proof}
+Let $E_n(k^\infty)$ be the tautological bundle over $G_n(k^\infty)$. There is a canonical map $\tilde g: E_n(k^\infty)\to k^\infty$, given by $(\ell,v)\mapsto v$. Now let $f:B\to G_n(k^\infty)$ be the classifying map of $p$. In particular we have  a commutative diagram on the form
+$$\xymatrix{*+[l]{E\cong f^*(E_n)}\ar[r]^{\tilde f}\ar[d]^p & E_n\ar[d]\ar[r]^{\tilde g} & R\\
+ B\ar[r]^f & G_n
+}$$
+Let $g: E\to \R^\infty$ be the composition $\tilde g\circ\tilde f$. It is easy to see that $g$ has the desired property.
+\end{proof}
 
-\section{Pontryagin classes}
+\subsection{Definition and properties of Stiefel-Whitney classes}\label{subsec:dfnSWclasses}
+The methods  in section \ref{sec:chernclasses} can be reused with a little of modification in order to prove that $H^*(\R P^n;\Z/2\Z)= \Z/2\Z[w]/(w^{n+1})$ and $H^*(\R P^\infty;\Z/2\Z)= \Z/2\Z[w]$, where $|w|=1$. 
+
+Given an $n$-dimensional real vector bundle $p: E\to B$, there is an associated projective bundle
+$$\R P^{n-1}\overset{p(\iota)}\longrightarrow P(E)\overset{P(p)}\longrightarrow B$$
+(where $\iota:\R^n\to E$ is the inclusion into some fiber $E_b$). The map $g: E\to B$ described in Lemma \ref{lemma:linearonfibers} is linear and injective on the fibers and will therefore induce a map $P(g):P(E)\to\R P^\infty$.
+
+Let $\alpha\in H^1(\R P^\infty;\Z/2\Z)$ be the generator of $H^*(\R P^\infty;\Z/2\Z)$ and let $x=P(g)^*(\alpha)\in H^1(P(E);\Z/2\Z)$.
+We claim  that $P(\iota)^*(x^i)$ is the generator of $H^i(\R P^{n-1};\Z/2\Z)$. This follows from the fact that $P(\iota)^*(x)= (P(g)\circ P(\iota))^*(\alpha)$ and that $P(g)\circ P(\iota):\R P^{n-1}\to \R P^\infty$ is an embedding of $\R P^{n-1}$ into $\R P^\infty$ and will therefore induce isomorphisms on cohomology groups $H^k(\R P^\infty;\Z/2\Z)\overset\sim\to H^k(\R P^{n-1};\Z/2\Z)$ for $k\leq n-1$.
+
+The Leray-Hirsch theorem gives now that $H^*(P(E);\Z/2\Z)$ is a free $H^*(B;\Z/2\Z)$-module with basis $1,x,x^2,\dots,x^{n-1}$. This means in particular that $x^n$ can uniquely be expressed as a linear combination of $1,x,\dots,x^{n-1}$ with coefficients in $H^*(B;\Z/2\Z)$. Thus, there are certain classes $w_i(E)\in H^i(B;\Z/2\Z)$ such that
+$$x^n+w_1(E)x^{n-1}+\dots+w_n(E)\cdot1=0.$$
+
+\begin{defn}
+The element $w_i(E)$ is called the $i$:th Stiefel-Whitney class of the bundle $p:E\to B$. Put $w_j=0$ if $j>n.$
+\end{defn}
+
+\begin{prop}
+The following holds for Stiefel-Whitney classes
+\begin{itemize}
+ \item[(a)] $w_i(f^*E)=f^*(w_i(E))$ for a pullback $f^*E$,
+ \item[(b)] $w(E_1\oplus E_2)= w(E_1)\smile w(E_2)$, where $w =w_1+w_2+\dots$. This is equivalent to the equality $w_r(E_1\oplus E_2)= \sum\limits_{i+j=r}w_i(E_1)\smile w_j(E_2)$.
+ \item[(c)]\label{prop:cohomologyBO} $H^*(BO(n)) = H^*(G_n(\R^\infty))= \Z/2\Z[w_1,\dots,w_n]$ where $w_i=w_i(E_n(\R^\infty))$ are the the Stiefel-Whitney classes of the universal bundle $E_n(\R^\infty)\to G_n(\R^\infty)$.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+ See Lemma \ref{lemma:chernnatural}, Lemma \ref{lemma:chernsumformula} and section \ref{subsec:computationschern}.
+\end{proof}
+
+\subsection{Relations to Chern classes}\label{subsec:relationstochern}
+As mentioned in the beginning of this chapter, an $n$-dimensional complex vector bundle $E\to B$ can be regarded as a $2n$-dimensional real vector bundle. Hence there are both Chern and Stiefel-Whitney classes of the bundle $p:E\to B$.
+
+\begin{thm}
+Let $p:E\to B$ be an $n$-dimensional complex vector bundle, and thereby also a $2n$-dimensional real vector bundle. The Stiefel-Whitney classes of $E$ are then given by $w_{2i+1}(E)=0$ and $w_{2i}(E)=\bar c_i(E)$, where $\bar c_i(E)$ is the image of $c_i(E)$ under the coefficient homomorphism $H^{2i}(B;\Z)\to H^{2i}(B;\Z/2\Z)$.
+\end{thm}
+\begin{proof}
+ For any $k\in\Z$ or $k=\infty$, let $\pi: \R P^{2k-1}\to \CP^{k-1}$ be the projection sending a real line to the complex line that contains it. Obviously, $E$ has two projectivizations, $\R P(E)$ and $\CP(E)$. Let 
+ $\pi':\R P(E)\to \CP(E)$ be the map that is $\pi$ on the fibers.
+ These maps fits into a commutative diagram
+ $$\xymatrix{\R P^{2n-1}\ar[r]\ar[d]^\pi & \R P(E)\ar[r]^{\R P(g)}\ar[d]^{\pi'} & \R P^\infty\ar[d]^\pi\\
+ \CP^{2n-1}\ar[r] & \CP(E)\ar[r]^{\CP(g)} & \CP^\infty}
+ $$
+ where the $\R P(g)$ and $\CP(g)$ are the projectivizations of the map $g:E\to\CC^\infty$ described in Lemma \ref{lemma:linearonfibers}. The three vertical maps in the diagram above are $\R P^1$-bundles (easy to check).
+ 
+ Note that the bundle 
+ $$\R P^1\to \R P^\infty\to\CP^\infty$$ is the projective bundle associated to the 2-dimensional vector bundle $q: \R^\infty\to\CP^\infty$ sending a vector $v$ to the complex line containing $v$. Hence, by the discussion given in the beginning of section \ref{subsec:dfnSWclasses}, we can apply Leray-Hirsch theorem which gives an isomorphism
+ $$H^*(\CP^\infty;\Z/2\Z)\otimes_{\Z/2\Z} H^*(\R P^1;\Z/2\Z)\xrightarrow{b\otimes i^*(a_j)\mapsto q^*(b)\otimes a_j}H^*(\R P^\infty;\Z/2\Z)$$ of abelian groups. 
+ 
+ Let $\beta$ be a generator of $H^2(\CP^\infty;\Z)$, and let $\bar\beta\in H^2(\CP^\infty;\Z/2\Z)$ be the $\Z/2\Z$-reduction of $\beta$. By the isomorphism above, we must have that $\bar\beta$ is pulled back to a generator of $H^2(\R P^\infty; \Z/2\Z)$, namely the square $\alpha^2$ of the generator $\alpha\in H^1(\R P^\infty;\Z/2\Z)$ (there are no other choices).
+ Now let $x_\CC = \CP(g)^*(\beta)\in H^2(\CP(E);\Z)$ and let $\bar x_\CC = \CP(g)^*(\bar\beta)\in H^2(\CP(E);\Z/2\Z)$ be the $\Z/2\Z$-reduction of $x_\CC$. Note that $(\pi')^*(\bar x_\CC)=x_\R^2\in H^2(\R P(E;\Z/2\Z)$ where $x_\R = \R P(g)^*(\alpha)$.
+ 
+ Now, the $\Z/2\Z$-reduction of the defining relation for the Chern classes of $E$ is
+ $$\bar x_\CC^n + \bar c_{1}(E)\bar x_\CC^{n-1}+\cdots+\bar c_{n}(E)\cdot 1 = 0$$ which pulls back to the relation  $$\bar x_\R^{2n} + \bar c_{1}(E)\bar x_R^{2n-2}+\cdots+\bar c_{n}(E)\cdot 1 = 0$$ which is the defining relation for Stiefel-Whitney classes. We see that $w_{2i+1}(E)=0$ and $w_{2i}(E)=\bar c_i(E)$.
+\end{proof}  
+
+\subsection{Examples}
+The computing techniques used in section \ref{subsec:computationschern} can be used in order to compute the Stiefel-Whitney classes of some real vector bundles. For instance, the same arguments used there can be reused in order to show that $w(E)=1$ for trivial bundles $E\to B$, that $w(T\S^n)=1$ and that $w(T(\R P^n))=(1+w_1)^{n+1}$.
+\begin{example} Recall that $G_1(\R^\infty)=\R P^\infty$.
+In this example we want to show that there is no (finite dimensional) vector bundle $E'\to\R P^\infty$ such that $E'\oplus E_1(\R^\infty)$ is the trivial bundle over $\R P^\infty$. We have by Proposition \ref{prop:cohomologyBO} that $w(E_1(\R^\infty))= 1+\omega$ where $\omega = w_1(E_1(\R^\infty))\neq 0$. Hence, if there exists some ``inverse'' bundle $E'$, we must have that $w(E')=(1+\omega)^{-1} = (1-\omega)^{-1} = 1+\omega+\omega^2+\dots$ which means that $w_i(E')\neq 0$ for all $i\geq 0$, which can not be true for finite dimensional vector bundles.
+\\\\
+One can actually show  for every vector bundle $E\to B$, where $B$ is Hausdorff and compact, that there exists a vector bundle $E'\to B$ such that $E\oplus E'$ is the trivial bundle over $B$ (see \cite[Proposition 1.4.]{hatcher:K-theory}). The example above shows that the compactness condition can not be reduced.
+\end{example}
+
+
+
+
+
+
+
+\section{Pontryagin classes} The Pontryagin classes are defined for real vector bundles $E\to B$ where the $i$:th Prontryagin class $p_i(E)$ is a cohomology classes in $H^{4i}(B;\Z)$ (note that the coefficient ring is $\Z$).
+
+To a given real vector bundle $E\to B$, there is an associated complex vector bundle $E\otimes \CC\to B$, attained by complexifying $E$. We define $i$:th  Pontryagin class to be 
+$$p_i(E)= (-1)^jc_{2i}(E\otimes \CC)\in H^{4i}(B;\Z).$$
+
+\begin{prop}
+ Let $E\to B$ be a real vector bundle. Then $p_i(E)$ maps to $w_{2i}(E)^2$ under the coefficient homomorphism $H^{4i}(B;\Z)\to H^{4i}(B;\Z/2\Z)$.
+\end{prop}
+\begin{proof}
+ Note that $E\otimes \CC\cong E\oplus E$ where the scalar multiplication on each fiber $\R^n\oplus\R^n$ is given by $i(x,y) = (-y,x)$. Let $\bar p_i(E)$ denote the $\Z/2\Z$-reduction of $p_i(E)$. We have
+ \begin{align*}\bar p_i(E) &= \bar c_{2i}(E\otimes \CC)= \bar c_{2i}(E\oplus E) = w_{4i}(E\oplus E) = \sum_{k=0}^{4i} w_k(E)w_{4i-k}(E)\\
+  & =w_{2i}(E)^2+2\sum_{k<2i}w_k(E)w_{4i-k}(E)=w_{2i}(E)^2.
+ \end{align*}
+\end{proof}
+
 
 \section{Applications}
 
