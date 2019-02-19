@@ -195,20 +195,22 @@ gives $E$ the structure of a real vector space over $B$ (the scalar multiplicati
 According to the definition, an isomorphism of vector bundles is a map $f\in \map_B(E,E')$ of vector spaces over $B$ which has an inverse $g\in \map_B(E',E)$. The following characterization is less obvious than one might at first think:
 
 \begin{thm} \label{thm:fiberwiseiso}
-A map $f\in \map_B(E,E')$ is an isomorphism of vector bundles iff $f|_{E_x}\colon E_x \to E'_x$ is an isomorphism on the fibers for every $x \in B$.
+A map of vector bundles $f\in \map_B(E,E')$ is an isomorphism of vector bundles iff $f|_{E_x}\colon E_x \to E'_x$ is an isomorphism on the fibers for every $x \in B$.
 \end{thm}
 \begin{proof}
 The “only if” direction is obvious, so assume that $f$ induces a vector space isomorphism on all fibers. Then $f$ is bijective and has an inverse map $f^{-1}\colon E'_x \to E_x$, but is $f^{-1}$ continuous?
 
-To show this, we will use local trivializations. Let $x \in B$ have a trivializing neighborhood $U \subset B$ for both $E$ and $E'$ and $\phi\colon E_U \to k^n \times U$, $\phi'\colon E'_U \to k^n \times U$ be local trivializations. The restriction $f|_{E_U}$ can be written as the composition of isomorphisms
+To show this, we will use local trivializations. Let $x \in B$ have a trivializing neighborhood $U \subset B$ for both $E$ and $E'$ and $\phi\colon E_U \to k^n \times U$, $\phi'\colon E'_U \to k^n \times U$ be local trivializations. The restriction $f|_{E_U}$ can be written as the composition of maps over $U$,
 \[
 f|_{E_U}\colon E_U \xrightarrow{\phi} U \times k^n \xrightarrow{G} U \times k^n \xrightarrow{(\phi')^{-1}} E'_U
 \]
-for some map $G \in \map_U(U \times k^n,U \times k^n)$. As $G$ is an isomorphism over $U$, it must be of the form
+for some map $G \in \map_U(U \times k^n,U \times k^n)$, which by linearity over $U$, must be of the form
 \[
-G(u,x) = (u,g(u)x) \quad \text{for some $g\colon U \to \GL_n(k)$}.
+G(u,x) = (u,g(u)x) \quad \text{for some $g\colon U \to k^{n \times n}$}.
 \]
-But then $f^{-1}|_{E'_U} = \phi^{-1} \circ (\id \times g^{-1}) \circ \phi'$, where $g^{-1}$ denotes the pointwise matrix inverse $u \mapsto g(u)^{-1}$, not the inverse map. As a composite of continuous maps, $f^{-1}|_{E'_U}$ is therefore continuous at $x$. 
+In fact, since $f_{E_u}$ is an isomorphism, $g$ has to take values in $\GL_n(k)$.
+
+But then we have that $f^{-1}|_{E'_U} = \phi^{-1} \circ (\id \times g^{-1}) \circ \phi'$, where $g^{-1}$ denotes the pointwise matrix inverse $u \mapsto g(u)^{-1}$, not the inverse map. As a composite of continuous maps, $f^{-1}|_{E'_U}$ is therefore continuous at $x$. 
 \end{proof}
 
 \begin{exer} \label{exer:complement-of-tautological-bundle}
@@ -311,7 +313,7 @@ The \emph{stalk at $b \in B$} of a sheaf on $F$ is
 \[
 F_b = \colim_{U \in \Open_b(B)} F(U),
 \]
-where $\Open_b(X)$ denotes the poset of open sets in $X$ containing $b$, considered as a subcategory of $\Open(X)$.
+where $\Open_b(X)$ denotes the poset of open sets in $X$ containing $b$, considered as a subcategory of $\Open(X)$ (cf. Appendix~\ref{app:limits} for the definition of a colimit in a category).
 
 If $s \in F(U)$ is a section and $b \in U$ then the natural map $F(U) \to F_b$ sends $s$ to an element $s_b \in F_b$, which is called the \emph{germ} of $s$ at $b$.
 \end{defn}
@@ -343,15 +345,19 @@ Let $p\colon E \to B$ be a vector bundle and $\Gamma=\Gamma_p$ the associated lo
 \]
 \end{lemma}
 \begin{proof}
-For every $U \in \Open_b(B)$, we have a surjective evaluation map
+Since $\Gamma_b$, $\bar\Gamma_b$, and $E_b$ only depend on an arbitrarily small neighborhood of $b$ in $U$, we may assume that $E = B \times E_b$ is trivial.
+
+The evaluation map $\tilde \Phi\colon \Gamma_b \to E_b \cong k^n$ sends a germ of a continuous function $f\colon U \to k^n$ to its value at $b \in U$. Clearly, it is surjective (we may take $f$ to be constant, for example). Furthermore, the ideal $(\mathcal O_b)_+\Gamma_b$ is contained in the kernel of $\tilde \Phi$. To see the opposite inclusion, let $f\colon U \to k^n$ be in the kernel of $\tilde \Phi$, i.~e., $f(b)=0$. If we write $f=(f_1,\dots,f_n)$ for $f_i \colon U \to k$ then we see that
 \[
-\Gamma_p(U) = \map_U(U,E_U) \xrightarrow{s \mapsto s(b)} E_b.
+f = f_1 e_1 + \dots + f_n e_n \in (\mathcal O_b)_+\Gamma_b,
 \]
-These maps are compatible with inclusions of open sets in $\Open_b(B)$ and hence give rise to an epimorphism of $k$-vector spaces
+where $e_i\colon U \to k^n$ denote the constant function taking the $i$th standard basis vector of $k^n$ as value, and $f_i$ is considered an element in $(\mathcal O_b)_+$.
+
+Thus the induced map
 \[
-\Phi\colon \Gamma_b = \colim_{U \in \Open_b(B)} \map_U(U,E_U) \to E_b.
+\Phi\colon \bar \Gamma_b = \Gamma_b/(\mathcal O_b)_+\Gamma_b \to E_b
 \]
-whose kernel is $(\mathcal O_b)_+\Gamma_b$.
+is an isomorphism.
 \end{proof}
 
 
@@ -433,20 +439,20 @@ for some function $g_{\alpha\beta}\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$.
 \begin{lemma} \label{lemma:vectorbundlegivescocycle}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$ for each pair $(\alpha,\beta)$. Then we have:
 \begin{enumerate}[label=\normalfont \bfseries{(COC\arabic*)},leftmargin=*]
-\item $g_{\alpha\alpha} = \id_{U_\alpha}$; \label{it:coc1}
+\item $g_{\alpha\alpha} \equiv I_n$; \label{it:coc1}
 \item $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$; \label{it:coc2}
-\item $g_{\alpha\beta} g_{\beta\gamma} g_{\gamma\alpha} = \id_{U_{\alpha\beta\gamma}}$. \label{it:coc3}
+\item $g_{\alpha\beta} g_{\beta\gamma} g_{\gamma\alpha} \equiv I_n$ on $U_{\alpha\beta\gamma}$. \label{it:coc3}
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
 Condition \ref{it:coc2} is actually redundant and follows from \ref{it:coc1} and \ref{it:coc3} since
 \[
-\id_{U_{\alpha\beta}} \underset{\text{(COC3)}} = g_{\alpha\beta} g_{\beta_\alpha} g_{\alpha\alpha} \underset{\text{(COC1)}} = g_{\alpha\beta} g_{\beta_\alpha}.
+I_n \underset{\text{(COC3)}}\equiv g_{\alpha\beta} g_{\beta_\alpha} g_{\alpha\alpha} \underset{\text{(COC1)}} = g_{\alpha\beta} g_{\beta_\alpha}.
 \]
-For \ref{it:coc1}, $g_{\alpha\alpha} = \phi_\alpha^{-1} \phi_\alpha = \id_{U_\alpha}$. Finally for \ref{it:coc3},
+For \ref{it:coc1}, $g_{\alpha\alpha} = \phi_\alpha^{-1} \phi_\alpha\equiv I_n$. Finally for \ref{it:coc3},
 \[
-g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha) = \id_{U_{\alpha\beta\gamma}}.
+g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha) \equiv I_n.
 \]
 \end{proof}
 
@@ -520,7 +526,7 @@ Let $p\colon E \to B$ be a vector bundle and define a space $\Psi(E)$ over $B$ b
 Clearly, $\GL_n(k)$ acts freely and fiberwise transitively on $\Psi(E)$, and over a trivializing neighborhood $U$ we have a local trivialization $\Psi(E)_U = \Psi(E_U) \cong \GL_n(k) \times U$. Moreover, $\Psi$ becomes a functor on the subcategory of vector bundle isomorphisms; a non-isomorphism does not preserve the linear independence condition. It is straightforward to see that $\Psi\circ\Phi$ and $\Phi\circ\Psi$ are naturally isomorphic to the identity functors.
 \end{proof}
 
-Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon p^{-1}U_{\alpha} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta in I$ defined by
+Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon p^{-1}U_{\alpha} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta \in I$ defined by
 \[
 \phi_\beta|_{U_\alpha\beta}\left((\phi_\alpha|_{U_\alpha\beta})^{-1}(\gamma,x)\right) = (g_{\alpha\beta}(x)\gamma,x) \in G \times U_{\alpha\beta}.
 \]
@@ -555,7 +561,7 @@ As a composition of three $G$-equivariant maps over $U_\alpha$, it is an isomorp
 \begin{align*}
 f_\beta \circ f_\alpha^{-1} =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ \tilde c_\alpha^{-1} \circ \phi'_\alpha\\
 =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1}) \circ \phi'_\alpha\\
-= & (\phi'_\beta)^{-1} \circ \tilde g_{\alpha\beta} \circ \phi'_\alpha = \id,
+= & (\phi'_\beta)^{-1} \circ \tilde g'_{\alpha\beta} \circ \phi'_\alpha = \id,
 \end{align*}
 where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of principal $G$-bundles
 \[
@@ -4054,7 +4060,7 @@ Therefore $G(h' \circ h) = G(h') \circ G(h)$. Thus $G$ is a functor. Now $\beta:
 so $F\alpha_y \circ Ff = FGFf \circ F \alpha_x \implies F(\alpha_y \circ f) = F(GFf \circ \alpha_x) \implies \alpha_y \circ f = GFf \circ \alpha_x$ since $F$ is faithful. Hence $\alpha$ is natural giving the equivalence $(F,G, \alpha, \beta)$ between categories $\C$ and $D$.
 \end{proof}
 
-\section{Limits and colimits}
+\section{Limits and colimits}\label{app:limits}
 
 One of the most powerful concepts of category theory is the notions of (co)limits. Let $I$ be any small category, which we will call the \emph{indexing category}, and let $F\colon I \to \C$ be a functor into another, not necessarily small, category $\C$. We sometimes refer to $F$ as a \emph{diagram} in $\C$.
 
