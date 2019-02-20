@@ -774,7 +774,7 @@ Given a $\mathcal O_{B'}$-module sheaf $F$, the pushforward $f_*F$ is naturally 
 
 However, for vector bundles $F$, $f_*F$ is not usually a vector bundle, i.~e., the local freeness condition is violated. For instance the pushforward of the constant sheaf $\R$ along the inclusion $\{0\} \hookrightarrow \R$ is the so-called skyscraper sheaf $S$ with $S(U) = \R$ if $0 \in U$ and $S(U) = 0$ otherwise. In terms of vector spaces over $\R$, this is precisely Example~\ref{exa:coordinatecross}.
 
-For the pushforward along $f$ to preserve all vector bundles, it is necessary and sufficient that the map \eqref{eq:mapofstructuresheaves} makes $f_*\mathcal O_{B'}$ into a vector bundle, i.~e., $\map(f^{-1}U,\R) \cong \map(U,\R)^n$ for some $n$ and sufficiently small open sets $U$. But that means that $f^{-1}U \cong U \times \{1,\dots,\n\}$, and thus that $B'$ is a finite covering space of $B$. We have thus proved:
+For the pushforward along $f$ to preserve all vector bundles, it is necessary and sufficient that the map \eqref{eq:mapofstructuresheaves} makes $f_*\mathcal O_{B'}$ into a vector bundle, i.~e., $\map(f^{-1}U,\R) \cong \map(U,\R)^n$ for some $n$ and sufficiently small open sets $U$. But that means that $f^{-1}U \cong U \times \{1,\dots,n\}$, and thus that $B'$ is a finite covering space of $B$. We have thus proved:
 
 \begin{thm}\label{thm:covpushforward}
 If $f\colon B' \to B$ is a finite covering space map of degree $n$ then $f_*$ maps vector bundles of dimension $k$ on $B'$ to vector bundles of dimension $kn$ on $B$.
@@ -850,11 +850,11 @@ Let $f\colon E \to E'$ be a morphism of vector bundles $E \xrightarrow{p} B$, $E
 where $x \sim y$ iff $p'(x) = p'(y)$ and $x-y \in \im f$. Since $x$ and $y$ are in the same fiber by the first condition, the expression $x-y$ in the second expression is well-defined. Since both are fiberwise kernels and cokernels of linear maps, it is clear that $\ker f$ and $\coker f$ are vector spaces over $B$.
 
 \begin{warning}
-These constructions of $\ker f$ and $\coker f$ are in general not locally trivial, so it is \textbf{not} a vector bundle. For instance, let $E=E'=\R\times \R$ be trivial bundles over $\R$, and define
+These constructions of $\ker f$ and $\coker f$ are in general not locally trivial, so are \textbf{not} vector bundles. For instance, let $E=E'=\R\times \R$ be trivial bundles over $\R$, and define
 \[
 f\colon E \to E'; \quad f(x,b) = (bx,b).
 \]
-Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of Example~\ref{exa:coordinatecross}, which is not locally trivial because it is one-dimensional over $b=0$ and zero-dimensional everywhere else.
+Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of Example~\ref{exa:coordinatecross}, which is not locally trivial.
 \end{warning}
 
 
@@ -1013,11 +1013,11 @@ A ring $R$ is called \emph{local} if it possesses a unique maximal ideal, which 
 \begin{example}
 Fields are local rings, as their unique maximal ideal is $(0)$. The ring of integers is not local since $(p)$ is a maximal ideal for every prime $p$, but the ring $\Z_{(p)}$ of integers localized at $p$ is local with maximal ideal $(p)$. 
 
-The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local with maximal ideal the ideal of germs which vanish at $0$. This is true because the quotient ring $C^0_0/(C^0_0)_+$ is isomorphic with $\R$. Similarily, the rings $C^n_0$ of germs at $0$ of $n$-fold continuously differentiable functions, $C^\infty_0$ of smooth (arbitrarily often differentiable) functions, $C^\omega_0$ of analytic functions, and $C$
+The ring $C^0_0$ of germs of continuous functions $\R^n \to \R$ at $0$ is local with maximal ideal the ideal of germs which vanish at $0$. This is true because the quotient ring $C^0_0/(C^0_0)_+$ is isomorphic with $\R$. Similarily, the rings $C^n_0$ of germs at $0$ of $n$-fold continuously differentiable functions, $C^\infty_0$ of smooth (arbitrarily often differentiable) functions, or $C^\omega_0$ of analytic functions.
 \end{example}
 
 \begin{defn}
-A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$, for $x\in X$, are local rings, i.~e. rings possessing a unique maximal ideal, which we denote by $(F_x)_+$. A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
+A sheaf $F$ of rings on a space $X$ is called a \emph{local sheaf of rings} if all stalks $F_x$, for $x\in X$, are local rings (with maximal ideal $(F_x)_+$). A space with a local sheaf of rings on it is called a \emph{locally ringed space}.
 
 A morphism of locally ringed spaces $(X,\mathcal O_X) \to (Y,\mathcal O_Y)$ consists of a map $f\colon X \to Y$ together with a morphism of local sheaves of rings on $Y$, $\tilde f\colon \mathcal O_Y \to f_*\mathcal O_X$. 
 \end{defn}
@@ -1040,7 +1040,7 @@ A smooth map $M \to N$ between smooth manifolds is a morphism of locally ringed 
 A more classical definition is via charts and atlases, and we will now show that these are equivalent.
 
 \begin{defn}
-Let $M$ be a second-countable Hausdorff space. A \emph{chart} on $M$ is a pair $(U,\phi)$ consisting of an open set $U \subset M$ and a homeomorphism $\phi\colon U \to \R^n$, for some $n \geq 0$. An \emph{atlas} is a collection $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the $U_\alpha$ cover $M$. An atlas is \emph{smooth} if for each $\alpha$, $\beta \in I$ such that $U_{\alpha\beta} \neq \emptyset$, the map
+Let $M$ be a second-countable Hausdorff space. A \emph{chart} on $M$ is a pair $(U,\phi)$ consisting of an open set $U \subset M$ and a homeomorphism $\phi\colon U \to \phi(U) \subset \R^n$ onto an open subset $\phi(U)$ of $\R^n$, for some $n \geq 0$. An \emph{atlas} is a collection $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the $U_\alpha$ cover $M$. An atlas is \emph{smooth} if for each $\alpha$, $\beta \in I$ such that $U_{\alpha\beta} \neq \emptyset$, the map
 \begin{equation}\label{eq:coordinatechange}
 g_{\alpha\beta}\colon \phi_\alpha(U_{\alpha\beta}) \xrightarrow{\phi_{\alpha}^{-1}} U_{\alpha\beta} \xrightarrow{\phi_\beta} \phi_\beta(U_{\alpha\beta})
 \end{equation}
@@ -1158,7 +1158,7 @@ The definition of the tangent bundle is quite abstract and it is maybe not immed
 \begin{defn}
 Let $M \subseteq \R^N$ be a smooth submanifold. Define a vector bundle $T^gM \to M$ (the ``g'' stands for ``geometric'') by
 \[
-T^gM = \{(m,v) \in M \times \R^N \mid v = \gamma'(0) \text{ for some smooth curve }\gamma\colon (-1,1) \to M \text{ with } \gamma(0)=m\}.
+T^gM = \Biggl\{(m,v) \in M \times \R^N \Biggm| \begin{matrix}v = \gamma'(0) \text{ for some smooth curve}\\\gamma\colon (-1,1) \to M \text{ with } \gamma(0)=m\end{matrix}\Biggr\}.
 \]
 \end{defn}
 This is obviously a vector space over $M$. Let $n = \dim M$. To verify local triviality, let $x \in M$ and $p\colon \R^N \to V$ be a projection onto an $n$-dimensional subspace $V$ of $\R^N$ such that $p(x)=0$ and $p$ is a chart in a neighborhood $U$ of $x$ in $M$. Now define
@@ -1185,6 +1185,18 @@ It suffices to show that $\Phi$ is an isomorphism on the fibers by Theorem~\ref{
 is an isomorphism by the proof of Theorem~\ref{thm:tangentspacebundle}.
 \end{proof}
 
+\begin{exer}
+Let $M \subset \R^{n+1}$ be an $n$-dimensional submanifold (a ``hypersurface''). Show that $TM \oplus \R$, Whitney sum of the tangent bundle and a trivial bundle, is trivial. (The ``hairy ball theorem'' from algebraic topology \cite{hatcher:AT} shows that for $M=\S^2 \subset \R^3$, $TM$ is nontrivial. In particular, this provides an example of the counter-intuitive fact that a nontrivial vector bundle can become trivial when a trivial vector bundle is added.)
+\end{exer}
+
+\begin{exer}
+Show that the tangent bundle of any Lie group is trivial.
+\end{exer}
+
+\begin{exer}
+Let $M$ be a smooth $n$-dimensional manifold with atlas $(U_\alpha,\phi_\alpha)$. The change-of-coordinates map $g_{\alpha\beta}$ \eqref{eq:coordinatechange} is a diffeomorphism between open subsets of $\R^n$. Let $Dg_{\alpha\beta}$ be its total differential, so that $Tg_{\alpha\beta}(u) =_{\operatorname{def}} Dg_{\alpha\beta}|_{\phi(u)} \in \GL_n(\R)$ for all $u \in U_{\alpha\beta}$. Show that the collection $Tg_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_n(\R)$ is a cocycle, and that its associated vector bundle is isomorphic with $TM$.
+\end{exer}
+
 \subsection{Normal bundles of embeddings}
 
 \subsection{The cotangent bundle and differential forms}
@@ -1199,7 +1211,7 @@ given by $d(f)(D) = D(f)$. Locally, any section of $T^*M$ is a $C^\infty$-linear
 
 The vector space of differential $i$-forms is the $i$th exterior power of $T^*M$:
 \[
-\Omega^i(M) = \bigwedge^i T^*M.
+\Omega^i(M) = \bigwedge\nolimits^i T^*M.
 \]
 We define $\Omega^0(M) = C^\infty_M$.
 
@@ -1226,24 +1238,40 @@ The forgetful map of local sheaves of rings $u\colon C^\infty_M \to C^0_M$ allow
 E' = E \otimes_{C^\infty_M} C^0_M.
 \]
 
-We can also interpret this definition in terms of vector spaces over $M$. A \emph{smooth atlas} for a (ordinary, continuous) vector bundle $E \to M$ is a collection of local trivializations $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the change-of-coordinate functions
+We can also interpret this definition in terms of vector spaces over $M$. A \emph{smooth atlas} for a (ordinary, continuous) vector bundle $E \to M$ is a collection of local trivializations $(U_\alpha,\phi_\alpha)_{\alpha \in I}$ such that the associated cocycles
 \[
 g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_n(k)
 \]
-are smooth. A smooth vector bundle is a continuous vector bundle together with an equivalence class of smooth atlases much analogously to the definition of a smooth structure on a manifold.
+are smooth. A smooth vector bundle is a (continuous) vector bundle together with an equivalence class of smooth atlases much analogously to the definition of a smooth structure on a manifold.
 
-The characterization of additional structure by change-of-coordinate functions is a powerful tool and lets us, among other things, make the following definitions:
-
-\begin{defn}
-An \emph{orientation} on a vector bundle is a choice of equivalence class of atlases whose transition functions take values in $\SL_n(k) < \GL_n(k)$.
-\end{defn}
-
+The characterization of additional structure by cocycles is a powerful tool and lets us, among other things, make the following definitions:
 
 \begin{defn}
-A \emph{Euclidean structure} on a real vector bundle is a choice of equivalence class of atlases whose transition functions take values in $O(n) < \GL_n(\R)$. A \emph{Hermitian structure} on a complex vector bundle is an equivalence class of atlases whose transition functions take values in $U(n) < \GL_n(\C)$.
+Let $G$ be a topological group group with a homomorphism $\alpha\colon G \to \GL_n(k)$. Let $E$ be a vector bundle on $B$ classified by a cocycle in $c \in H^1_{\mathcal U}(B,\GL_n(k))$. Then a \emph{$G$-structure} on $E$ is a preimage of $c$ under the map $H^1_{\mathcal U}(B,G) \to H^1_{\mathcal U}(B,\GL_n(k))$.
 \end{defn}
+
+Note that a $G$-structure neither needs to exist nor does it need to be unique, as the map $H^1_{\mathcal U}(B,G) \to H^1_{\mathcal U}(B,\GL_n(k))$ is in general neither injective nor surjective.
+
+We record a number of important examples.
+
+\begin{example}
+Let $G = \SL_n(\R) \subset \GL_n(\R)$. A $G$-structure is called an \emph{orientation} of a vector bundle. Explicitly, it amounts to a choice of equivalence class of atlases whose transition functions take values in $\SL_n(\R) < \GL_n(\R)$.
+\end{example}
+
+\begin{example}
+Let $G = O(n) < \GL_n(\R)$. A $G$-structure is called a \emph{Euclidean structure} on a real vector bundle. A \emph{Hermitian structure} on a complex vector bundle, similarily, is a $U(n)$-structure.
+\end{example}
 
 We will see later (Cor.~\ref{cor:euclideanstructure}) that any vector bundle can be given a Euclidean resp. Hermitian structure under mild conditions on the topology of the base space.
+
+\begin{example}
+Let $G = \{1\}$ be the trivial group. Then a $G$-structure exists (and is unique) if and only if the vector bundle is trivial.
+\end{example}
+
+\begin{example}
+Let $G = \Spin(n) \to SO(n) < \GL_n(\R)$, where $\Spin(n)$ is the spin group, a double cover of the special orthogonal group $SO(n)$. A $G$-structure on a vector bundle is called a spin structure. It implies both a Euclidean structure and an orientation, but is stronger than both. Spin bundles play an important role in real topological $K$-theory.
+\end{example}
+
 
 \chapter{Lie groups, Grassmannians, and universal bundles}
 
