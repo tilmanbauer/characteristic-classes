@@ -421,7 +421,7 @@ The inverse construction of a vector bundle from a sheaf given above depends hea
 
 \section{Bundles as cocycles}
 
-Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, i.~e. we so that can choose isomorphisms
+Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, so that we can choose isomorphisms
 \[
 \phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^n \times U_{\alpha}).
 \]
@@ -430,11 +430,11 @@ Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such 
 \[
 \tilde g_{\alpha\beta}\colon k^{n} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n} \times U_{\alpha\beta}.
 \]
-Then since $\tilde g_{\alpha\beta}$ is a map over $B$, we can write
+Since $\tilde g_{\alpha\beta}$ is a map over $B$, we can write
 \begin{equation}\label{eq:cocycletobundlemap}
 \tilde g_{\alpha\beta}(x,u) = (g_{\alpha\beta}(u)(x),u)
 \end{equation}
-for some function $g_{\alpha\beta}\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$. Furthermore, since $\tilde g_{\alpha\beta}$ is a linear isomorphism on fibers, we actually have that $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g_{\alpha\beta}\colon U \to \GL_n(k)$, we denote by $\tilde g_{\alpha\beta}\in \map_{U}(k^n \times U,k^n \times U)$ the map \eqref{eq:cocycletobundlemap}.
+for some function $g_{\alpha\beta}\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$. Furthermore, since $\tilde g_{\alpha\beta}$ is a linear isomorphism on fibers, we actually have that $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g_{\alpha\beta}\colon U \to \GL_n(k)$, we denote by $\tilde g_{\alpha\beta}\in \map_{U}(k^n \times U,k^n \times U)$ the map defined by \eqref{eq:cocycletobundlemap}.
 
 \begin{lemma} \label{lemma:vectorbundlegivescocycle}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$ for each pair $(\alpha,\beta)$. Then we have:
@@ -446,13 +446,14 @@ Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U
 \end{lemma}
 
 \begin{proof}
+  Let us consider $\tilde g_{\alpha\beta}$ as maps $U_{\alpha\beta} \to \GL_n(k)$. For \ref{it:coc1} we have $(g_{\alpha\alpha}(u),u) = \tilde g_{\alpha\alpha}(u) =  \phi_\alpha^{-1} \phi_\alpha(u) \equiv (I_n,u)$.
 Condition \ref{it:coc2} is actually redundant and follows from \ref{it:coc1} and \ref{it:coc3} since
 \[
 I_n \underset{\text{(COC3)}}\equiv g_{\alpha\beta} g_{\beta_\alpha} g_{\alpha\alpha} \underset{\text{(COC1)}} = g_{\alpha\beta} g_{\beta_\alpha}.
 \]
-For \ref{it:coc1}, $g_{\alpha\alpha} = \phi_\alpha^{-1} \phi_\alpha\equiv I_n$. Finally for \ref{it:coc3},
+ Finally for \ref{it:coc3},
 \[
-g_{\alpha\beta} g_{\beta \gamma} g_{\gamma\alpha} = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha) \equiv I_n.
+  (g_{\alpha\beta}(u) g_{\beta \gamma}(u) g_{\gamma\alpha}(u),u) = \tilde g_{\alpha\beta}(u) \tilde g_{\beta \gamma}(u) \tilde g_{\gamma\alpha}(u) = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha)(u) \equiv (I_n,u).
 \]
 \end{proof}
 
@@ -462,12 +463,13 @@ Let $G$ be a topological group and $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ an
 \[
 g_{\alpha\beta}\colon U_{\alpha\beta} \to G \quad (\alpha,\;\beta \in I)
 \]
-such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $G$ by $Z^1_{\mathcal U}(X;G)$.
+such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $\mathcal U$ with values in $G$ by $Z^1_{\mathcal U}(B;G)$.
 \end{defn}
 
-A particular kind of cocycle is always easy to construct: given a collection of maps $c_\alpha\colon U_\alpha \to G$, we can define $g_{\alpha\beta}(x) = c_\beta(x)c_\alpha(x)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally:
 
-\begin{defn} Two cocycles $g$, $g'$ are \emph{cohomologous} if there is collection of maps $c_\alpha\colon U_{\alpha} \to G$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$. We denote the set of cocycles modulo this equivalence relation by $H^1_{\mathcal U}(X;G)$.
+A particular kind of cocycle is always easy to construct: given a collection of maps $c_\alpha\colon U_\alpha \to G$, we can define $g_{\alpha\beta}(u) = c_\beta(u)c_\alpha(u)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally:
+
+\begin{defn} Two cocycles $g$, $g'$ are \emph{cohomologous} if there is collection of maps $c_\alpha\colon U_{\alpha} \to G$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$. We denote the set of cocycles modulo this equivalence relation by $H^1_{\mathcal U}(B;G)$.
 \end{defn}
 
 \subsection{Fiber bundles and principal $G$-bundles}
@@ -475,11 +477,13 @@ A particular kind of cocycle is always easy to construct: given a collection of 
 If vector bundles give rise to cocycles with values in $\GL_n(k)$, it is natural to ask if there is some geometric origin of cocycles with values in other topological groups $G$.
 
 \begin{defn}
-Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $\phi \in \map_B(E,E)$, $f \circ (g.\phi) = g.(f\circ\phi) \in \map_B(E,F)$.
+  Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $x \in E$, $f \circ (g.x) = g.f(x)$. 
+
+Consider some fiber $E_b$, a fixed $x \in E_b$, and a map $\psi_x\colon G \to E_b, \psi_x(g) = g.x$. Since $G$-action is free and transitive on $E_b$, the map $\psi_x$ is a bijection, and thus we can identify $E_b$ with $G$. Furthermore, for any $y \in E_b$ we can write $g.y = g.(h.x)=(g.h).x$, for $h=\phi_x^{-1}(y)$, and therefore we can fiberwise identify any $G$-action with left multiplication in a group $G$.
 
 A \emph{principal $G$-bundle} over $B$ is a free and transitive $G$-space which is locally trivial, i.~e.\ such that every point $x \in B$ has a neighborhood $U \ni x$ such that there exists an isomorphism of free and transitive $G$-spaces over $U$
 \[
-p^{-1}U \to G \times U.
+E_U \to G \times U.
 \]
 Denote the full subcategory of principal $G$-bundles over $B$ by $\Princ_G(B)$.
 \end{defn}
@@ -503,17 +507,21 @@ are called Hopf fiber bundles. Figure~\ref{fig:hopffib} shows a geometric repres
 The category $\Princ_G(B)$ is a groupoid, i.~e., every morphism is an isomorphism.
 \end{lemma}
 \begin{proof}
-As in the proof of Theorem~\ref{thm:fiberwiseiso}, it suffices to check the isomorphism condition locally, i.~e., we may assume source and target of the morphism $f\colon E \to F$ in $\Princ_G(B)$ are $B \times G$. Any $G$-equivariant endomorphism of $G \times B$ is given by $(x,b) \mapsto (g(b)x,b)$, where $g\colon B \to G$ is some continuous map. But then the inverse of $f$ is given by $(x,b) \mapsto (g(b)^{-1}x,b)$.
+  As in the proof of Theorem~\ref{thm:fiberwiseiso}, it suffices to check the isomorphism condition locally, i.~e., we may assume source and target of the morphism $f\colon E \to F$ in $\Princ_G(B)$ are $G \times B$. We have $f(e,b)=(\tau(b),b)$, where $e \in G$ is the identity element, and $\tau$ is a continous map. But then $f(g,b) = g.f(e,b)= (g.\tau(b),b)$, and the inverse of $f$ is given by $(g,b) \mapsto (g.\tau(b)^{-1},b)$.
 \end{proof}
 
 \begin{corollary}
 A principal bundle with a section is trivial.
 \end{corollary}
 \begin{proof}
-A section of a $G$-principal bundle $E \to B$ is the same as a map of principal bundles $G \times B \to E$. By Lemma~\ref{lemma:princgroupoid}, it is therefore an isomorphism.
+  Given a section $s\colon B \to E$, we can define a morphism $f\colon G \times B \rightarrow E$ between principal $G$-bundles by $f(g,b) = g.s(b)$. By Lemma~\ref{lemma:princgroupoid} this is an isomorphism.
 \end{proof}
 
-If $\phi\colon G \to \GL_n(k)$ is some homomorphism then any principal $G$-bundle $E \to B$ gives rise to a vector bundle $E \times_G k^n$, where $G$ acts on $k^n$ through $\GL_n(k)$. In fact, this is an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles with isomorphisms. For a category $C$, let $C^{\cong}$ denote the subgroupoid with the same objects but only isomorphisms as morphisms.
+If $\phi\colon G \to \GL_n(k)$ is some homomorphism, then given a principal $G$-bundle $E \to B$ we can define equivalence relation on $E \times k^n$ by
+\[
+  (e_1,v_1) \sim (e_2,v_2) \quad \text{iff} \quad (g.e_1, \phi(g)(v_1)) = (g.e_2,\phi(g)(v_2)) \quad \text{for some }g \in G.
+\] 
+Looking at local trivializations we can see that $(E\times k^n)/_{\sim}$ has a structure of an n-dimensional $k$-vector bundle. We denote this $k$-vector bundle with $E \times_G k^n$, or with $(E \times k^n)/G$. In fact, this construction gives an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles with isomorphisms. For a category $C$, let $C^{\cong}$ denote the subgroupoid with the same objects but only isomorphisms as morphisms. 
 
 \begin{prop}
 The functor $\Phi\colon \Princ_{\GL_n(k)}(B) \to (\Vect^n_k(B))^{\cong}$ is an equivalence of groupoids.
@@ -526,7 +534,7 @@ Let $p\colon E \to B$ be a vector bundle and define a space $\Psi(E)$ over $B$ b
 Clearly, $\GL_n(k)$ acts freely and fiberwise transitively on $\Psi(E)$, and over a trivializing neighborhood $U$ we have a local trivialization $\Psi(E)_U = \Psi(E_U) \cong \GL_n(k) \times U$. Moreover, $\Psi$ becomes a functor on the subcategory of vector bundle isomorphisms; a non-isomorphism does not preserve the linear independence condition. It is straightforward to see that $\Psi\circ\Phi$ and $\Phi\circ\Psi$ are naturally isomorphic to the identity functors.
 \end{proof}
 
-Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon p^{-1}U_{\alpha} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta \in I$ defined by
+Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon E_{U_{\alpha}} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta \in I$ defined by
 \[
 \phi_\beta|_{U_\alpha\beta}\left((\phi_\alpha|_{U_\alpha\beta})^{-1}(\gamma,x)\right) = (g_{\alpha\beta}(x)\gamma,x) \in G \times U_{\alpha\beta}.
 \]
@@ -560,7 +568,7 @@ As a composition of three $G$-equivariant maps over $U_\alpha$, it is an isomorp
 
 \begin{align*}
 f_\beta \circ f_\alpha^{-1} =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ \tilde c_\alpha^{-1} \circ \phi'_\alpha\\
-=& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1}) \circ \phi'_\alpha\\
+=& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1} \circ \phi'_\alpha\\
 = & (\phi'_\beta)^{-1} \circ \tilde g'_{\alpha\beta} \circ \phi'_\alpha = \id,
 \end{align*}
 where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of principal $G$-bundles
@@ -591,17 +599,17 @@ Let
 \]
 We will construct the total space $E$ of the desired $G$-bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
 \[
-(x_\alpha,u_\alpha) \sim (x_\beta,u_\beta) \quad \text{iff} \quad u_\alpha=u_\beta \in U_{\alpha\beta} \text{ and } g_{\alpha\beta}x_\alpha = x_\beta.
+  (x_\alpha,u_\alpha)_{\alpha} \sim (x_\beta,u_\beta)_{\beta} \quad \text{iff} \quad u_\alpha=u_\beta \text{ and } g_{\alpha\beta}x_\alpha = x_\beta.
 \]
 The cocycle conditions (COC1) -- (COC3) are equivalent, in this order, to the reflexivity, symmetry, and transitivity of the relation $\sim$, thus $\sim$ is an equivalence relation, and we define $E = \tilde E/\sim$. Since identifications under $\sim$ only occur within a fiber, $p$ factors through a projection map $p\colon E \to B$.
 
 We now define a $G$-action $G \to \map_B(E,E)$ by
 \[
-\gamma.[x_\alpha,b] = [x_\alpha\gamma^{-1},b].
+  \gamma.[(x_\alpha,b)_{\alpha}] = [(x_\alpha\gamma^{-1},b)_{\alpha}].
 \]
-To see this is well-defined, observe that
+To see that this is well-defined, observe that for $(x_{\alpha},b)_{\alpha} \sim (x_\beta,b)_{\beta}$, we have
 \[
-\gamma.[g_{\alpha\beta}x_\alpha,b] = [g_{\alpha\beta}x_\alpha\gamma^{-1},b].
+  \gamma.[(x_\alpha,b)_{\alpha}] = [(x_\alpha\gamma^{-1},b)_{\alpha}] =[(g_{\alpha\beta}x_\alpha\gamma^{-1},b)_{\beta}]=\gamma.[(x_\beta,b)_{\beta}]  .
 \]
 Furthermore, the $G$-action is clearly free and transitive on every fiber. Thus $E$ is a principal $G$-bundle over $B$. Since $g_{\alpha\beta}$ is bijective, $\sim$ identifies distinct points in $G \times U_\alpha$ with distinct points in $G \times U_\beta$, hence the map $G \times U_\alpha \hookrightarrow \tilde E \to E$ is injective with image $E_{U_\alpha}$. We define the local trivialization $\phi_\alpha$ to be the inverse of this map. Then clearly, $g_{\alpha\beta}$ is the change-of-coordinates map associated with $\phi_\alpha$ and $\phi_\beta$, and the proof is complete.
 \end{proof}
@@ -609,9 +617,7 @@ Furthermore, the $G$-action is clearly free and transitive on every fiber. Thus 
 We can thus define a vector bundle up to isomorphism by specifying a cocycle for some cover. However, maps of vector bundles cannot be described in this way, thus we cannot make a category out of the cocycle description for vector bundles. 
 
 \begin{example}[Real bundles on $\S^1$] \label{exa:bundlesons1}
-The circle $\S^1$ has an open cover $\mathcal U_\epsilon = \{U_+,U_-\}$, where $U_+ = \{e^{it} \mid -\pi/2-\epsilon < t < \pi/2+\epsilon\}$ and $U_- = \{e^{it} \mid \pi/2-\epsilon < t < 3\pi/2+\epsilon\}$. The intersection $U_{+,-}$ consists of two small circle segments centered at $i$ and $-i$.
-
-A real-valued cocycle with respect to this cover is given by a single $g\colon U_{+,-} \to \GL_n(\R)$. We want to be able to extend $g$ to the boundary of $U_{+,-}$, which might of course not be possibly if $\det(g(u)) \to 0$ as $u \to \partial U_{+,-}$. But we may restrict $g$ to the smaller cover $\mathcal U_{\frac12\epsilon} = \{V_+,V_-\}$ without changing the vector bundle. 
+The circle $\S^1$ has an open cover $\mathcal U_\epsilon = \{U_+,U_-\}$, where $U_+ = \{e^{it} \mid -\pi/2-\epsilon < t < \pi/2+\epsilon\}$ and $U_- = \{e^{it} \mid \pi/2-\epsilon < t < 3\pi/2+\epsilon\}$. The intersection $U_{+,-}$ consists of two small circle segments centered at $i$ and $-i$.  A real-valued cocycle with respect to this cover is given by a single $g\colon U_{+,-} \to \GL_n(\R)$. We want to be able to extend $g$ to the boundary of $U_{+,-}$, which might of course not be possible if $\det(g(u)) \to 0$ as $u \to \partial U_{+,-}$. But we may restrict $g$ to the smaller cover $\mathcal U_{\frac12\epsilon} = \{V_+,V_-\}$ without changing the vector bundle. 
 Denote by $V_{\pm i}$ the component of $V_+ \cap V_-$ which contains $\pm i$.
 
 Two cocycles $g$, $g'$ are cohomologous if there are maps $c_\pm\colon V_\pm \to \GL_n(\R)$ such that $g'(x)=c_+(x)g(x)c_-(x)^{-1}$ for $x \in U_{+,-}$.
@@ -717,15 +723,14 @@ is a bijection.
 Furthermore, two cocycles are cohomologous if and only if their associated functors are naturally isomorphic.
 \end{prop}
 \begin{proof}
-We verify the cocycle axioms. The functor $F$ has to map identity morphisms to identity morphisms. The identity morphism on $x \in \ob \mathbf U$, say $x \in U_\alpha$, is $x \in U_{\alpha\alpha} \subset \mathbf U \times_X \mathbf U$. Thus we must have that its image $g_{\alpha\alpha} = \id$ in $G$ as well, proving \ref{it:coc1}. For \ref{it:coc2}, note that the inverse of $x \in U_{\alpha\beta} \subseteq \mathbf U \times_X \mathbf U$ is $x \in U_{\beta\alpha}$. The functor must preserve inverses, hence $g_{\alpha\beta} = g_{\beta\alpha}^{-1}$. Finally, a functor must also satisfy $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$. In our case, this is
-\[
-g_{\alpha\gamma} = g_{\alpha\beta}g_{\beta\gamma}
-\]
-Using \ref{it:coc2}, this gives \ref{it:coc3}.
+  Since the functor satisfies $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$, we can verify cocyle axioms by applying $F_1$ to trivial identities
+  \[ 
+      \mu(U_{\alpha\alpha},U_{\alpha\alpha}) = U_{\alpha\alpha},  \quad \mu(U_{\alpha\beta},U_{\beta\alpha}) = U_{\alpha\alpha}, \quad \mu(U_{\alpha\beta},U_{\beta\gamma}) = U_{\alpha\gamma}, 
+  \] 
+  to obtain \ref{it:coc1}, \ref{it:coc2}, \ref{it:coc3}, respectively.
+  Conversely, any cocycle defines a functor $F=(F_0,F_1$) by setting $F_1=\coprod_{\alpha} g_{\alpha\beta}$, and $F_0$ is a trivial morphism since $\mathcal G$ is one-object category. 
 
-Conversely, any cocycle defines a functor as described above.
-
-Now let $h\colon \mathbf U \to G$ be a natural transformation from a functor $F$ to a functor $F'$, and that $g$ and $g'$ are the cocycles associated to $F$ and $F'$, respectively. Define $c_\alpha\colon U_\alpha \to G$ by $c_\alpha = h|_{U_\alpha}$. We want to show that
+  Now let $h\colon \mathbf U \times [1] \to G$ be a natural transformation from a functor $h_0=F$ to a functor $h_1=F'$, and let $g$ and $g'$ be the cocycles associated to $F$ and $F'$, respectively. Define $c_\alpha\colon U_\alpha \to G$ by $c_\alpha = h|_{U_{\alpha\alpha} \times \{0\to 1\} }$. We want to show that
 \[
 g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in G \quad \text{for all } \alpha,\beta \in I \text{ such that } U_{\alpha\beta} \neq \emptyset.
 \]
@@ -734,7 +739,7 @@ This can be reformulated as $g'_{\alpha\beta}c_\alpha = c_\beta g_{\alpha\beta}$
 (x \in U_{\alpha\beta},1 \to 1) \circ (x \in U_{\alpha\alpha},0 \to 1) = (x \in U_{\beta\beta},0\to 1) \circ (x \in U_{\alpha\beta},0 \to 0) \text{ in } \mathbf U \times [1].
 \]
 
-Conversely, if $g$ and $g'$ are cohomologous by $c_\alpha\colon U_\alpha \to G$ then on morphisms of the form $(x \in U_{\alpha\alpha},0 \to 1)$, $h = \coprod_{\alpha} c_\alpha \colon \mathbf U \to G$.
+Conversely, if $g$ and $g'$ are cohomologous by $c_\alpha\colon U_\alpha \to G$ then we define natural transformation $h$ on morphisms of the form $(U_{\alpha\alpha}, 0 \to 1 )$, $ h= \coprod_{\alpha}c_{\alpha}\colon \mathbf U \to G$.
 \end{proof}
 
 Encouraged by this proposition, we will extend the definition of cocyles with values in a topological groupoid $\mathcal G$ and write $Z^1_{\mathcal U}(X;\mathcal G)$ for the set of functors $\Fun(\mathbf U,\mathcal G)$ and call two such cocycles cohomologous if the associated functors are naturally isomorphic. We also write $H^1_{\mathcal U}(X;\mathcal G)$ for the set of cocycles modulo cohomology.
@@ -747,7 +752,7 @@ There is a bijection
 \]
 \end{corollary}
 
-We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarifying the terms “cocycle”, “coboundary”, and “cohomologous.”
+We will pursue the cocycle characterization of vector bundles further in Chapter~\ref{ch:cohomology} and also clarify the terms “cocycle”, “coboundary”, and “cohomologous.”
 
 
 \section{Operations on bundles}
