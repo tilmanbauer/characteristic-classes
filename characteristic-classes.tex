@@ -1280,7 +1280,26 @@ Let $G = \Spin(n) \to SO(n) < \GL_n(\R)$, where $\Spin(n)$ is the spin group, a 
 
 \chapter{Lie groups, Grassmannians, and universal bundles}
 
-Motivate by Gauss map and classifying map of tangent bundle on embedded manifolds. Question of universal bundle and construction for non-manifolds.
+Let $M \in \R^{n+1}$ be a smooth hypersurface (that is, an embedded $n$-dimensional manifolds). Then at any point $x \in M$, the normal bundle $\nu_x M$ is a line in $\R^{n+1}$ and thus can be thought of as a point in $\RP^n$. We thus obtain a map
+\[
+f\colon M \to \RP^n.
+\]
+This map is continuous (in fact, even smooth, but we won't be needing this property). Indeed, given some chart $(U,\phi)$ of $M$ around $x$, the tangent space $T_xM$ is spanned by the sections $t_i(x) = \phi_*(\frac{\partial}{\partial x_i}|_x)$ and the ``generalized cross product'' $\tilde g(x) = t_1(x) \wedge \dots \wedge t_n(x)$ is a nonvanishing normal vector to $M$ at $x$. In factor, we can normalize this map to get what is called a \emph{Gauss map}
+\[
+g(x) = \frac{g(x)}{\|\tilde g(x)\|} \colon M \to \S^n,
+\]
+which is continuous, and $f(x) = \bar g(x)$, where $\bar g$ is the map $g$ composed with the canonical projection $\S^n \to \RP^n$. The map $f$ is a ``classifying map'' because $\nu M \cong f^*(\mathcal O(-1))$: we have described a line bundle by a continuous map to a ``classifying space'' ($\RP^n$) which has a universal line bundle ($\mathcal O(-1)$) over it.
+
+In a similar way, if $M$ is embedded in $\R^N$, its normal bundle will give a map
+\[
+f\colon M \to G_{N-n}(\R^N),
+\]
+where $G_n(\R^N)$, the ``Grassmannian manifold'', denotes the set of all $n$-dimensional subspaces of $\R^N$, and similarly its tangent bundle will give a map
+\[
+t\colon M \to G_n(\R^N).
+\]
+
+The aim of this chapter is to study the Grassmannians, provide an alternate description of a classifying space $BG$ of $G$-bundles in full generality (that is, without assuming any specific kind of bundle or that the base space is a manifold). Furthermore, we compare $BG$ to the geometric construction with Grassmannians, and show that, indeed, isomorphism classes of principal $G$-bundles are in one-to-one correspondence with homotopy classes of maps to $BG$.
 
 \section{Stiefel and Grassmann manifolds}
 
