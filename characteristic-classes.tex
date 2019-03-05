@@ -723,9 +723,10 @@ is a bijection.
 Furthermore, two cocycles are cohomologous if and only if their associated functors are naturally isomorphic.
 \end{prop}
 \begin{proof}
-  Since the functor satisfies $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$, we can verify the cocyle axioms by applying $F_1$ to the trivial identities \marginpar{TB: I don't know how to interpret these equations}
+  For $x\in X$ and $U_{\alpha} \cap U_{\beta} \neq \emptyset $, let us denote with $x_{\alpha\beta} \in U_{\alpha\beta}$ a morphism for which $p(x_{\alpha\beta})=x$.
+  Since the functor satisfies $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$, we can verify the cocyle axioms by applying $F_1$ to the trivial identities 
   \[ 
-      \mu(U_{\alpha\alpha},U_{\alpha\alpha}) = U_{\alpha\alpha},  \quad \mu(U_{\alpha\beta},U_{\beta\alpha}) = U_{\alpha\alpha}, \quad \mu(U_{\alpha\beta},U_{\beta\gamma}) = U_{\alpha\gamma}, 
+      \mu(x_{\alpha\alpha},x_{\alpha\alpha}) = x_{\alpha\alpha},  \quad \mu(x_{\alpha\beta},x_{\beta\alpha}) = x_{\alpha\alpha}, \quad \mu(x_{\alpha\beta},x_{\beta\gamma}) = x_{\alpha\gamma}, 
   \] 
   to obtain \ref{it:coc1}, \ref{it:coc2}, \ref{it:coc3}, respectively.
   Conversely, any cocycle defines a functor $F=(F_0,F_1$) by setting $F_1=\coprod_{\alpha} g_{\alpha\beta}$, and $F_0$ is a trivial morphism since $G$ is a one-object category. 
@@ -1352,7 +1353,7 @@ Consider the group $O(n) \times O(N-n)$ as the subgroup of $O(N)$ of matrices of
 \[
 \overline\phi\colon O(N)/O(N-n) \to V_n(\R^N).
 \]
-In particular, there is a homeomorphism $\frac{O(n)}{O(n)\times O(N-n)} \to G_n(\R^N)$.
+In particular, there is a homeomorphism $\frac{O(N)}{O(n)\times O(N-n)} \to G_n(\R^N)$.
 
 Analogous statements hold in the unitary and noncompact cases.
 \end{lemma}
