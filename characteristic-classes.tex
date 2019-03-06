@@ -5,7 +5,7 @@
 \usepackage{tilmansdef}
 \usepackage{tikz}
 \usepackage{enumitem}
-\usetikzlibrary{matrix,arrows,decorations}
+\usetikzlibrary{matrix,arrows,decorations,cd}
 
 
 \usepackage{fontspec,xunicode}
@@ -1231,6 +1231,8 @@ d(\omega \wedge \tau) = d(\omega) \wedge \tau + (-1)^{p} \omega \wedge d(\tau)
 \]
 where $\omega \in \Omega^p(M)$ and $\tau \in \Omega^q(M)$, and decreeing that $d^2=0$.
 
+
+
 \section{Bundles with more structure}
 
 When $M$ is a smooth manifolds, it is natural to consider vector bundles that are compatible with this smooth structure, as is modelled by the tangent bundle. To be more precise, we define
@@ -1302,6 +1304,13 @@ t\colon M \to G_n(\R^N).
 
 The aim of this chapter is to study the Grassmannians, provide an alternate description of a classifying space $BG$ of $G$-bundles in full generality (that is, without assuming any specific kind of bundle or that the base space is a manifold). Furthermore, we compare $BG$ to the geometric construction with Grassmannians, and show that, indeed, isomorphism classes of principal $G$-bundles are in one-to-one correspondence with homotopy classes of maps to $BG$.
 
+\section{Bundles from free Lie group actions}
+
+\begin{thm} \label{thm:freeLiegroupaction}
+Let $M$ be a smooth manifold with a smooth and free action of a compact Lie group $G$. Then $M/G$ is a smooth manifold, and the projection map $M \to M/G$ is a smooth principal $G$-bundle.
+\end{thm}
+
+
 \section{Stiefel and Grassmann manifolds}
 
 In this section we will construct spaces $G_n(k^N)$ whose points correspond to $n$-dimensional linear subspaces of $k^N$. Obviously, for this to be nonempty, we need that $N \geq n$. These spaces are called \emph{Grassmann manifolds} or just \emph{Grassmannians} after their discoverer, 19th century mathematician Hermann Graßmann. They are in fact compact manifolds (when $k=\R$ or $\CC$) and, more generally, smooth projective varieties for any field $k$.
@@ -1334,7 +1343,7 @@ V_n^{\operatorname{nc}}(k^n) \cong V_n(k^n) \times T_n(k),
 where $T_n(k)$ denotes the upper triangular matrices $n\times n$-matrices with positive real diagonal. But $T_n(k)$ is contractible.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma} \label{lemma:principalfibrationongrassmannian}
 The group $O(n)$ of orthogonal $n\times n$-matrices acts freely on $V_n(\R^N)$, and the canonical map $V_n(\R^N)/O(n) \to G_n(\R^N)$ is a homeomorphism. 
 
 The same is true for over $\CC$ if one replaces $O(n)$ by the group $U(n)$ of unitary matrices.
@@ -1361,6 +1370,7 @@ Analogous statements hold in the unitary and noncompact cases.
 The group $O(N)$ acts on $V_n(\R^N)$ by mapping an orthogonal $n$-frame to another such $n$-frame. This action is transitive, and the stabilizer group of a frame $F=(v_1,\dots,v_n)$ is the orthogonal group $O(N-n)$ of the orthogonal complement of the span of $F$. Thus by the orbit-stabilizer theorem, $O(N)/O(N-n) \to V_n(\R^n)$ is a homeomorphism, which moreover is $O(n)$-equivariant.
 \end{proof}
 
+
 \begin{corollary}
 For $k=\R$, $\CC$, we have that
 \[
@@ -1371,19 +1381,22 @@ G_n(k^N) \cong G_{N-n}(k^N)
 This follows directly from the $G_n(k^N) \cong \frac{O(N)}{O(n) \times O(N-n)}$. Geometrically, the homeomorphism $G_n(k^N) \to G_{N-n}(k^N)$ is given by mapping an $n$-dimensional subspace of $k^N$ to its orthogonal (or unitary) complement.
 \end{proof}
 
-Having exhibited $V_n(k^N)$ and $G_n(k^N)$ as homogeneous spaces, we get:
 
-\begin{thm}\label{thm:grassmannianmanifolds}
-The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, of the following real dimensions:
+
+\begin{corollary} \label{cor:stiefelgrassmannbundle}\label{thm:grassmannianmanifolds}
+The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, and the projection map $p\colon V_n(k^N) \to G_n(V^N)$ is a principal $O(n)$-bundle (for $k=\R$) or $U(n)$-bundle (for $k=\CC$). They have the following real dimensions:
 \begin{itemize}
 \item $\dim V_n(\R^N) = Nn - {n+1 \choose 2}$;
 \item $\dim V_n(\CC^N) = 2Nn - n^2$;
 \item $\dim G_n(\R^N) = n(N-n)$;
 \item $\dim G_n(\CC^N) = 2n(N-n)$.
 \end{itemize}
-\end{thm}
+\end{corollary}
+
 \begin{proof}
-By Lemma~\ref{lemma:grassstiefelashomogeneousspaces}, they are quotients of compact Lie groups by closed compact subgroups, hence smooth manifolds. The claims about dimensions follow from the facts that $\dim O(n) = {n \choose 2}$ and $\dim U(n) = n^2$.
+Theorem~\ref{thm:freeLiegroupaction} together with Lemma~\ref{lemma:grassstiefelashomogeneousspaces} shows that $V_n(\k^N)$ is a smooth manifold, and Theorem~\ref{thm:freeLiegroupaction} with Lemma~\ref{lemma:principalfibrationongrassmannian} shows that $G_n(k^N)$ is a manifold and $p$ is a principal bundle.
+
+The claims about dimensions follow from the facts that $\dim O(n) = {n \choose 2}$ and $\dim U(n) = n^2$.
 \end{proof}
 
 To exhibit explicit charts for $G_n(k^N)$, it helps to do a little geometry. Let $V \in G_n(k^N)$ be a point, and let $V^\perp$ be its orthogonal (or unitary) complement. Now consider the set
@@ -1622,6 +1635,9 @@ B\alpha\colon B(\C \times [1]) \to \D,
 and by Thm~\ref{thm:geomrealizationandproduct}, $B(\C \times [1]) \cong B\C \times B[1]$ by the projection maps. The proof is finished by noting that $B[1] \cong \Delta^1 \cong [0,1]$.
 \end{proof}
 
+\begin{exer}
+By Proposition~\ref{prop:nervefullyfaithful}, the nerve functor from categories to simplicial sets (or topological categories to simplicial spaces) is fully faithful. Is geometric realization and/or the classifying space functor fully faithful as a functor into topological spaces?
+\end{exer}
 
 \begin{corollary}\label{cor:EG}
 For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realization of the nerve of the translation category of $X$, is contractible. If moreover $X$ is a group then it acts freely on $EX$.
@@ -1630,37 +1646,6 @@ For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realiza
 By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category $T(X)$ is contractible, i.~e. equivalent to the one-point category. This is true since every object in $X$ is initial (and terminal): there is exactly one morphism between any two objects $x$, $y$, namely $(x,y)$.
 
 The $X$-action on $EX$ when $X$ is a group follows from functoriality and the free $X$-action on $T(X)$, cf.~Example~\ref{ex:translationcatofgroup}.
-\end{proof}
-
-\section{Classifying spaces of Lie groups} \label{sec:classifying-spaces}
-
-Consider again the Grassmannians $G_n(k^N)$ for $k=\R$ or $\CC$. There are maps $i\colon G_n(k^N) \to G_n(k^{N+1})$ given by a linear inclusion of $k^N$ into $k^{N+1}$ (for instance by letting the last coordinate be zero).
-\begin{thm}
-There are maps $j_n\colon G_n(\R^N) \to BO(n)$ and $j_n\colon G_n(\CC^n) \to BU(n)$ such that
-\begin{itemize}
-\item $j_n = j_{n+1} \circ i$, and
-\item The induced maps $j_\infty\colon \colim_N G_n(\R^N) \to BO(n)$ and $j_\infty\colon \colim_N G_n(\CC^N) \to BU(n)$ are homotopy equivalences.
-\end{itemize}
-\end{thm}
-\begin{proof}
-We'll deal with the real case, the complex case is analogous. For instructive reasons, we'll consider the case $n=1$ first. In this case, $V_1(k^N) = \S^{N-1}$ and $EO(1) = E\{\pm 1\}$.
-Choose an orthogonal basis $\{e_1,e_2,\dots\}$ of $\R^\infty$ (for instance, the standard basis vectors). 
-
-We define a $\Z/2$-equivariant map
-\[
-f\colon \{\pm 1\}^N \times \Delta^N \to \S^N
-\]
-by sending $(\epsilon_1,\dots,\epsilon_N,s_1,\dots,s_N)$ to the point $P = \epsilon_1s_1e_1+\epsilon_2s_2e_2+\cdots+\epsilon_Ns_Ne_N$, where $s_1+\cdots+s_N = 1$ and $s_i \geq 0$. This map is clearly surjective, and it is injective unless the point $P$ lies on some coordinate hyperplane $s_k=0$. In that case, the sign $\epsilon_k$ does not matter, which we can express by saying that
-\[
-f(d_k\epsilon,s) = f(\epsilon,d^ks) \quad \text{for }\epsilon \in \{\pm 1\}^N, \; s \in \Delta^{N-1}.
-\]
-here $d_k\colon \{\pm 1\}^N \to \{\pm 1\}^{N-1}$ is the projection map that forgets the $k$th factor. [......Details?......]
-
-It follows that the inverse maps assemble to an equivariant homeomorphism
-\[
-EO(1) \to \S^\infty;
-\]
-in particular, by dividing out the $\Z/2$-action, $BO(1) \cong \R P^\infty$.
 \end{proof}
 
 \section{Schubert cells}
@@ -1842,7 +1827,7 @@ h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)u_0,\dots,st_n+(1-s)u_n(x)].
 \subsection{Homotopy invariance}
 
 \begin{thm}\label{thm:homotopicpullbacks}
-Let $G$ be a topological group, $p\colon E \to B$ a principal $G$-bundle, $X$ a paracompact space, and$f,\; g\colon X \to B$ be two homotopic maps. Then $f^*p \cong g^*p$.
+Let $G$ be a topological group, $p\colon E \to B$ a principal $G$-bundle, $X$ a paracompact space, and $f,\; g\colon X \to B$ be two homotopic maps. Then $f^*p \cong g^*p$.
 \end{thm}
 
 To prove this, we need a technical result about covering homotopies:
@@ -1850,18 +1835,10 @@ To prove this, we need a technical result about covering homotopies:
 \begin{thm}\label{thm:homotopylifting}
 Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G$-bundle. Denote by $E_t \to B$ the $G$-bundle $p^{-1}(B \times \{t\}) \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
 \[
-\begin{tikzpicture}
-	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
-	{
-		E & E_1\\
-		B \times [0,1] & B\\
-	};
-	\path[->,font=\scriptsize]
-	(m-1-1)	edge node[auto]{$r$} (m-1-2)
-			edge node[auto]{$p$} (m-2-1)
-	(m-1-2)	edge node[auto]{$p$} (m-2-2)
-	(m-2-1) edge (m-2-2);
-\end{tikzpicture}
+\begin{tikzcd}
+		E \ar[r,"r"] \ar[d,"p"] & E_1 \ar[d,"p"] \\
+		B \times [0,1] \ar[r] & B\\
+\end{tikzcd}
 \]
 is a pullback diagram.
 \end{thm}
@@ -1877,18 +1854,10 @@ r_\alpha\colon B \times [0,1] \to B \times [0,1] \quad \text{by} \quad (x,t) \ma
 \]
 This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is the identity outside of $E_{U_\alpha \times [0,1]}$ and on the the trivial piece $E_{U_\alpha \times [0,1]} \cong U_\alpha \times [0,1] \times G$, $\tilde r_\alpha$ is given by $(x,t,\gamma) \mapsto (x,\max(t,u_\alpha(x)),\gamma)$. Then $\tilde r_\alpha|_{E_1} = \id$ and the diagram
 \[
-\begin{tikzpicture}
-	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
-	{
-		E & E\\
-		B \times [0,1] & B \times [0,1]\\
-	};
-	\path[->,font=\scriptsize]
-	(m-1-1)	edge node[auto]{$\tilde r_\alpha$} (m-1-2)
-			edge node[auto]{$p$} (m-2-1)
-	(m-1-2)	edge node[auto]{$p$} (m-2-2)
-	(m-2-1) edge node[auto]{$r_\alpha$}(m-2-2);
-\end{tikzpicture}
+\begin{tikzcd}
+		E \ar[r,"\tilde r_\alpha"] \ar[d,"p"] & E \ar[d,"p"]\\
+		B \times [0,1] \ar[r,"r_\alpha"] & B \times [0,1]
+\end{tikzcd}
 \]
 is a pullback. Choose a total ordering on $I$ and let $r$ be the (infinite) composition of all the maps $\tilde r_\alpha$. This is well-defined since for every $x \in E$, only finitely many $\alpha$ have $\tilde r_\alpha(x) \neq x$. Since $\max(u_\alpha)=1$, $r$ takes values in $E_1$.
 \end{proof}
@@ -1964,7 +1933,7 @@ The inclusion maps $O(n) \to \GL_n(\R)$ and $U(n) \to \GL_n(\CC)$ are homotopy e
 are isomorphisms.
 \end{proof}
 
-We can also use universal bundles to compare $BG$ with Grassmannians up to homotopy.
+We can also use universal bundles to compare $BG$ for $G=O(n)$ or $G=U(n)$ with certain infinite-dimensional versions of Grassmannians up to homotopy.
 
 \begin{corollary}\label{cor:characterizationfouniversalGspaces}
 Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G$-action. Then $E/G \simeq BG$ and, moreover, the principal $G$-bundle $E \to E/G$ is universal.
@@ -1973,15 +1942,19 @@ Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G$-
 By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \cong f^*u$. This bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
 \end{proof}
 
+Now consider the Grassmannians $G_n(k^N)$ for $k=\R$ or $\CC$. There are embeddings $i\colon G_n(k^N) \to G_n(k^{N+1})$ given by a linear inclusion of $k^N$ into $k^{N+1}$ (for instance by letting the last coordinate be zero). We define $G_n(k^\infty) = \bigcup_{N=1}^\infty G_n(k^N)$ to be the colimit, or union, of all of the finite-dimensional Grassmannians. 
+
 \begin{corollary}
-The maps $G_n(\R^\infty) \to B\GL_n(\R)$ and $G_n(\CC^\infty) \to B\GL_n(\C)$ are homotopy equivalences.
+The maps $G_n(\R^\infty) \to BO(n)$ and $G_n(\CC^\infty) \to BU(n)$ are homotopy equivalences.
 \end{corollary}
 \begin{proof}
-If suffices by Corollary~\ref{cor:characterizationfouniversalGspaces} to show that the infinite-dimensional Stiefel ``manifolds'' $V_n(\R^\infty)$ of $n$-frames in $\R^\infty$ are contractible. This follows from the observation that the linear homotopy
+If suffices by Corollary~\ref{cor:characterizationfouniversalGspaces} to show that the infinite-dimensional Stiefel ``manifolds'' $V_n(k^\infty)$ of $n$-frames in $k^\infty$ are contractible and paracompact for $k=\R$ or $k=\CC$. Contractibility follows from the observation that the linear homotopy
 \[
 V_n(k^N)\times [0,1] \to V_n(k^{N+n})
 \]
 from an $n$-frame in $k^N$ to the constant map which takes as value the standard $n$-frame in the last $n$ coordinates of $k^{N+n}$, is well-defined. 
+
+For paracompactness, note that $V_n(k^\infty)$ is a countable union of compact spaces (``$\sigma$-compact'') by definition, and also locally compact: it is a closed subspace of $(k^\infty)^n$, and $k^\infty$ is locally compact (the infinite-dimensional cubes $\prod_{i=1}^\infty [a_i,b_i]$ provide compact neighborhoods). Hence by \cite[Thm.~I.12.11]{bredon:topology-geometry}, $V_n(k^\infty)$ is paracompact.
 \end{proof}
 
 \chapter{Cohomology} \label{ch:cohomology}
