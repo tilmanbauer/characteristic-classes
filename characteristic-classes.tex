@@ -154,7 +154,7 @@ Note that the addition is well-defined.
 
 To verify local triviality, let us first consider a point $t \neq \overline 0 \in B$, where $\overline 0$ denotes the equivalence class of $0=1$. Then we can choose a neighborhood $U \ni t$ such that $\overline 0 \not\in U$ and $E_U \xrightarrow{(x,t) \mapsto (x,t)} \R \times U$ is a well-defined isomorphism of vector spaces over $U$. On the other hand, for $t = \overline 0$, choose $U = B-\{\frac12\}$ and define
 \[
-E_U \xrightarrow{(x,t) \mapsto \begin{cases} (x,t); & t<\frac12\\ (-x,t); & x>\frac12\end{cases}} \R \times U
+E_U \xrightarrow{(x,t) \mapsto \begin{cases} (x,t); & t<\frac12\\ (-x,t); & t>\frac12\end{cases}} \R \times U
 \]
 This is also a an isomorphism of vector spaces over $U$, so we are done.
 
@@ -280,7 +280,7 @@ If $R$ is a sheaf of rings (or $k$-algebras) on a space $X$ then an \emph{$R$-mo
 \[
 R(U) \times M(U) \to M(U),
 \]
-natural in $U$, that makes $M(U)$ an $R(U)$-module for all $U$. A \emph{morphism of $R$-module sheaves} $f\colon M \to N$ is a morphism of sheaves such that for every $U$, $f(U)\colon M(U) \to M(U)$ is an $R(U)$-module homomorphism.
+natural in $U$, that makes $M(U)$ an $R(U)$-module for all $U$. A \emph{morphism of $R$-module sheaves} $f\colon M \to N$ is a morphism of sheaves such that for every $U$, $f(U)\colon M(U) \to N(U)$ is an $R(U)$-module homomorphism.
 
 \begin{prop}
 Let $p\colon E \to B$ be a $k$-vector bundle. Then $\Gamma_p$ is a sheaf of $\mathcal O_B$-modules. Moreover, $\Gamma_p$ is \emph{locally free}, i.~e. if for every $x \in B$ there exists a neighborhood $U \ni x$ such that $\Gamma_p|_U \cong \mathcal O_U^n$ for some $n \geq 0$.
@@ -309,7 +309,7 @@ is an equivalence of categories.
 In order to give an inverse construction, we need in particular to extract the fiber over a single point $b \in B$ from a sheaf $F$.
 
 \begin{defn}
-The \emph{stalk at $b \in B$} of a sheaf on $F$ is
+The \emph{stalk at $b \in B$} of a sheaf $F$ is
 \[
 F_b = \colim_{U \in \Open_b(B)} F(U),
 \]
@@ -332,7 +332,7 @@ Note the $\mathcal O_b$ has an ideal $(\mathcal O_b)_+$ consisting of those germ
 thus the quotient $\mathcal O_b/(\mathcal O_b)_+$ is isomorphic with $k$.
 \end{example}
 
-Given any sheaf $M$ of $\mathcal O$-modules, the stalk $M_b$ is a module over $\mathcal O_b$. We define the \emph{fiber} of $M$ at $b$ to be the quotient
+Given any $\mathcal O$-module sheaf $M$, the stalk $M_b$ is a module over $\mathcal O_b$. We define the \emph{fiber} of $M$ at $b$ to be the quotient
 \[
 \overline M_b = M_b / (\mathcal O_b)_+M_b.
 \]
@@ -4097,12 +4097,12 @@ so $F\alpha_y \circ Ff = FGFf \circ F \alpha_x \implies F(\alpha_y \circ f) = F(
 
 One of the most powerful concepts of category theory is the notions of (co)limits. Let $I$ be any small category, which we will call the \emph{indexing category}, and let $F\colon I \to \C$ be a functor into another, not necessarily small, category $\C$. We sometimes refer to $F$ as a \emph{diagram} in $\C$.
 
-\begin{defn} An object $X \in \C$ together with morphisms $p_i\colon X \to F(i)$ for each $i \in \ob(I)$ is called a \emph{cone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\alpha \circ F(p_i) = F(p_j)$, i.~e. if the maps $p_i$ are compatible with the maps in the diagram. A cone $(X,p_i)$ is called a \emph{limit} for $F$ if it is universal. This means that for any other cone $(Y,q_i)$ there is a unique morphism $f \in \Hom_\C(Y,X)$ such that $q_i = p_i \circ f$ for all $i \in I$.
+\begin{defn} An object $X \in \C$ together with morphisms $p_i\colon X \to F(i)$ for each $i \in \ob(I)$ is called a \emph{cone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $F(\alpha) \circ p_i = p_j$, i.~e. if the maps $p_i$ are compatible with the maps in the diagram. A cone $(X,p_i)$ is called a \emph{limit} for $F$ if it is universal. This means that for any other cone $(Y,q_i)$ there is a unique morphism $f \in \Hom_\C(Y,X)$ such that $q_i = p_i \circ f$ for all $i \in I$.
 \end{defn}
 
 A \emph{cocone} resp. \emph{colimit} of $F$ is defined as a cone resp. limit of the functor $F^\op\colon I^\op \to \C^\op$; however, since we will be using this quite often, here is what this means explicitly:
 
-\begin{defn} An object $X \in \C$ together with morphisms $\iota_i\colon F(i) \to X$ for each $i \in \ob(I)$ is called a \emph{cocone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\iota_j \circ \alpha = \iota_i$. A cocone $(X,\iota_i)$ is called a \emph{colimit} for $F$ if for any other cocone $(Y,\eta_i)$ there is a unique morphism $f \in \Hom_\C(X,Y)$ such that $\iota_i = f \circ \eta_i$ for all $i \in I$.
+\begin{defn} An object $X \in \C$ together with morphisms $\iota_i\colon F(i) \to X$ for each $i \in \ob(I)$ is called a \emph{cocone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\iota_j \circ F(\alpha) = \iota_i$. A cocone $(X,\iota_i)$ is called a \emph{colimit} for $F$ if for any other cocone $(Y,\eta_i)$ there is a unique morphism $f \in \Hom_\C(X,Y)$ such that $f \circ \iota_i = \eta_i$ for all $i \in I$.
 \end{defn}
 
 (Co)limits need not exist, but if they do exist, they are unique up to unique isomorphism. One denotes the unique limit by $\lim F = \lim_{i \in I} F(i)$, neglecting the cone maps $p_i$ in the notation, and the colimit by $\colim F = \colim_{i \in I} F(i)$.
@@ -4132,11 +4132,11 @@ In the special case of set-valued functors, limits and colimits have useful elem
 Let $F\colon I \to \Set$ be a functor. Then
 \begin{enumerate}
 \item For every $x \in \colim F$ there is an $i \in I$ and an $x_i \in F(i)$ such that $\iota_i(x_i) = x$.\label{lem:setvaluedlim:colim}
-\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(x')$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
+\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(y)$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,\1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
+For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi' \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
 
 For \eqref{lem:setvaluedlim:lim}, we employ a similar argument. Let $f,\;g \colon \{0\} \to \lim F$ be given by $f(0) = x$, $g(0) = y$. Since $p_i \circ f = p_i \circ g$ for all $i$ by assumption, $p_i \circ f$ and $p_i \circ g$ are identical cones for $F$, hence the maps $f$ and $g$ are the same. Hence $x=y$.
 \end{proof}
