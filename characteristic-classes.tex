@@ -31,7 +31,6 @@
 \DeclareMathOperator{\SL}{SL}
 
 \DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\Rat}{Rat}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\divisor}{div}
@@ -80,12 +79,6 @@ A vector bundle is, roughly speaking, an assignment of a vector space $E_x$ to e
 
 The reader should be aware that both of these conditions make no mathematical sense as stated.
 
-\begin{remark}
-	As a technicality, we let $\Top$ be a convenient category of topological spaces, i.e.\ such that it is cartesian closed. This means that for each $X \in \Top$, the functor $Y \mapsto Y \times X$ has a right adjoint, written as $\map(X,-)$. For example, we can take $\Top$ to be compactly generated, weakly Hausdorff spaces, or simplicial sets. 
-	
-	Throughout, every field is a topological field, i.e.\ a topological space which is a field such that addition, multiplication, etc.\ are continuous. Then $\GL_n(k)$ becomes a space with the subspace topology. 
-\end{remark}	
-
 \section{Bundles as spaces over a base space}
 
 Let $B$ be a topological space. A \emph{space over $B$} is another topological space $E$ together with a map $p\colon E \to B$. We denote the category of spaces over $B$ by $\Top/B$. Here, a morphism from $p\colon E \to B$ to $p'\colon E' \to B$ is a map $f\colon E \to E'$ such that the triangle
@@ -122,9 +115,6 @@ A morphism of vector spaces over $B$ is a map $f\in \map_B(E,E')$ compatible wit
 \end{defn}
 
 The most obvious $k$-vector space over $B$ is the product space $k^n \times B$, where the projection to $B$ is simply the projection onto the second factor of the product.
-\begin{remark}
-	For the interested reader: a $k$-vector space over $B$ is the same thing as a vector space internal to $\Top/B$. 
-\end{remark}	
 \begin{defn}[local triviality of vector bundles]
 Let $E$ be a $k$-vector space over $B$. Then $E$ is called a \emph{$k$-vector bundle} if every $x \in B$ has a neighborhood $U \subset B$ such that $E_U = p^{-1}(U)$ is isomorphic to a product space $k^n \times U$ as $k$-vector spaces over $U$, for some $n \geq 0$. The category of $k$-vector bundles over $B$ is denoted by $\Vect_k(B)$ or just $\Vect(B)$ if $k$ is understood or irrelevant. A morphism of $k$-vector bundles is simply a morphism of the underlying $k$-vector spaces over $B$.
 \end{defn}
@@ -370,12 +360,6 @@ Thus the induced map
 is an isomorphism.
 \end{proof}
 
-Let  $M,N$ be sheaves of $\mathcal O$-modules on the space $B$. Then the set $\Hom_{\mathcal O} (M,N)$ of morphisms of $\mathcal{O}$-modules is a $k$-vector space in a natural way. 
-
-\begin{exer}
-	\label{exer:Omodmaps}
-	Show that the map $\Hom_{\mathcal O} (\mathcal O,M) \to M(B)$ that sends $\varphi$ to $\varphi(B)(1)$ is a $k$-linear isomorphism. Deduce that $\Hom_{\mathcal O} (\mathcal O^m,M) \cong M(B)^m$.
-\end{exer}	
 
 \begin{proof}[Proof of Thm.~\ref{thm:vbsheafequivalence}]
 To show that $\Gamma$ is an equivalence of categories, it suffices to show that it is fully faithful and essentially surjective. Let $p\colon E \to B$ and $p'\colon E' \to B$ be two vector bundles on $B$ and $\Gamma$, $\Gamma'$ their associated locally free $\mathcal O$-module sheaves of sections. For the functor $\Gamma$ to be fully faithful in this setting means that the map
@@ -384,11 +368,15 @@ To show that $\Gamma$ is an equivalence of categories, it suffices to show that 
 \]
 is bijective, where the right hand side denotes the set of morphisms of $\mathcal O$-module sheaves.
 
-For injectivity, assume that two maps $f,\; g \in \map_B(E,E')$ induce the same map on the right hand side. By applying the natural transformation $\Phi$ from Lemma~\ref{lemma:fiberreconstruction}, they induce the same maps between the fibers of $\Gamma$ and $\Gamma'$, which are the fibers $E_b \to E'_b$. Thus the maps agree on every fiber, hence $f=g$.
+For injectivity, assume that two maps $f,\; g \in \map_B(E,E')$ induce the same map on the right hand side. By applying the functor $\Phi$ from Lemma~\ref{lemma:fiberreconstruction}, they induce the same maps between the fibers of $\Gamma$ and $\Gamma'$, which are the fibers $E_b \to E'_b$. Thus the maps agree on every fiber, hence $f=g$.
 
 For surjectivity, by Lemma~\ref{lemma:fiberreconstruction} again, any map $f\colon \Gamma \to \Gamma'$ of $\mathcal O$-module sheaves induces maps $f_b\colon E_b \to E'_b$ on every fiber, which almost shows surjectivity, except that we must show that the resulting map $f = \bigcup_{b \in B} f_b$ is continuous.
 
-This can be checked locally, so let us assume that $E = B \times k^m$ and $E' = B \times k^n$ are trivial vector bundles, and correspondingly, $\Gamma = \mathcal O^m$ and $\Gamma' = \mathcal O^n$. By Exercise~\ref{exer:Omodmaps}, $f$ corresponds to a continuous map $B \to \Hom_k(k^m,k^n)$, and evaluation of this map at $b$ gives $f_b$.
+This can be checked locally, so let us assume that $E = B \times k^m$ and $E' = B \times k^n$ are trivial vector bundles, and correspondingly, $\Gamma = \mathcal O^m$ and $\Gamma' = \mathcal O^n$. Then
+\[
+\Hom_{\mathcal O}(\Gamma,\Gamma') = \Hom_{\mathcal O}(\mathcal O^m,\mathcal O^n)  = \Hom(k^m,\mathcal O^n) = \map(-,\Hom_k(k^m,k^n)).
+\]
+Since the induced map on the fibers of $\Gamma$ and $\Gamma'$ at $b$ is just evaluation of an element of $\map(-,\Hom_k(k^m,k^n))$ at $b$, continuity is satisfied.
 
 For essential surjectivity we must show that every finitely generated locally free $\mathcal O$-module sheaf $M$ on $B$ is isomorphic to $\Gamma_p$ for some vector bundle $p\colon E\to B$. Let $\mathcal U = \{U_\alpha\}_\alpha$ be an open cover of $B$ such that $ M|_{U_\alpha}$ is trivial, i.~e. such that there is an isomorphism
 \[
@@ -438,16 +426,15 @@ Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open
 \phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^n \times U_{\alpha}).
 \]
 
-%I've changed g_\alpha\beta from \phi_\beta\phi_\alpha^{-1} to \phi_\alpha\phi_\beta^{-1} to make COC3 work. In what follows I've might have missed changing some indexation. (JH)
 Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such trivializations and obtain an isomorphism
 \[
-\tilde g_{\alpha\beta}\colon k^{n} \times U_{\alpha\beta} \xrightarrow{(\phi_\beta|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\alpha|_{U_{\alpha\beta}}} k^{n} \times U_{\alpha\beta}.
+\tilde g_{\alpha\beta}\colon k^{n} \times U_{\alpha\beta} \xrightarrow{(\phi_\alpha|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\beta|_{U_{\alpha\beta}}} k^{n} \times U_{\alpha\beta}.
 \]
 Since $\tilde g_{\alpha\beta}$ is a map over $B$, we can write
 \begin{equation}\label{eq:cocycletobundlemap}
 \tilde g_{\alpha\beta}(x,u) = (g_{\alpha\beta}(u)(x),u)
 \end{equation}
-for some continuous function $g_{\alpha\beta}\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$. Furthermore, since $\tilde g_{\alpha\beta}$ is a linear isomorphism on fibers, we actually have that $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g_{\alpha\beta}\colon U \to \GL_n(k)$, we denote by $\tilde g_{\alpha\beta}\in \map_{U}(k^n \times U,k^n \times U)$ the map defined by \eqref{eq:cocycletobundlemap}.
+for some function $g_{\alpha\beta}\colon U_{\alpha\beta} \to \map(k^{n},k^{n})$. Furthermore, since $\tilde g_{\alpha\beta}$ is a linear isomorphism on fibers, we actually have that $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$. Conversely, for any open subset $U$ of $B$ and any map $g_{\alpha\beta}\colon U \to \GL_n(k)$, we denote by $\tilde g_{\alpha\beta}\in \map_{U}(k^n \times U,k^n \times U)$ the map defined by \eqref{eq:cocycletobundlemap}.
 
 \begin{lemma} \label{lemma:vectorbundlegivescocycle}
 Let $p\colon E \to B$ be a $k$-vector bundle with a trivializing open cover $\{U_\alpha\}_\alpha$ and change-of-coordinates maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to \GL_{n}(k)$ for each pair $(\alpha,\beta)$. Then we have:
@@ -466,7 +453,7 @@ I_n \underset{\text{(COC3)}}\equiv g_{\alpha\beta} g_{\beta_\alpha} g_{\alpha\al
 \]
  Finally for \ref{it:coc3},
 \[
-  (g_{\alpha\beta}(u) g_{\beta \gamma}(u) g_{\gamma\alpha}(u),u) = \tilde g_{\alpha\beta}(u) \tilde g_{\beta \gamma}(u) \tilde g_{\gamma\alpha}(u) = (\phi_\alpha \phi_\beta^{-1})(\phi_\beta\phi_\gamma^{-1})(\phi_\gamma\phi_\alpha^{-1})(u) \equiv (I_n,u).
+  (g_{\alpha\beta}(u) g_{\beta \gamma}(u) g_{\gamma\alpha}(u),u) = \tilde g_{\alpha\beta}(u) \tilde g_{\beta \gamma}(u) \tilde g_{\gamma\alpha}(u) = (\phi_\alpha^{-1} \phi_\beta)(\phi_\beta^{-1}\phi_\gamma)(\phi_\gamma^{-1}\phi_\alpha)(u) \equiv (I_n,u).
 \]
 \end{proof}
 
@@ -480,9 +467,9 @@ such that \ref{it:coc1}--\ref{it:coc3} hold. We denote the set of cocycles for $
 \end{defn}
 
 
-A particular kind of cocycle is always easy to construct: given a collection of maps $c_\alpha\colon U_\alpha \to G$, we can define $g_{\alpha\beta}(u) = c_\alpha(u)c_\beta(u)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally:
+A particular kind of cocycle is always easy to construct: given a collection of maps $c_\alpha\colon U_\alpha \to G$, we can define $g_{\alpha\beta}(u) = c_\beta(u)c_\alpha(u)^{-1}$; this obviously satisfies the cocycle conditions. A cocycle of this form is called a \emph{coboundary}. More generally:
 
-\begin{defn} Two cocycles $g$, $g'$ are \emph{cohomologous} if there is collection of maps $c_\alpha\colon U_{\alpha} \to G$ such that $g_{\alpha\beta}' = c_\alpha g_{\alpha\beta} c_\beta^{-1}$. We denote the set of cocycles modulo this equivalence relation by $H^1_{\mathcal U}(B;G)$.
+\begin{defn} Two cocycles $g$, $g'$ are \emph{cohomologous} if there is collection of maps $c_\alpha\colon U_{\alpha} \to G$ such that $g_{\alpha\beta}' = c_\beta g_{\alpha\beta} c_\alpha^{-1}$. We denote the set of cocycles modulo this equivalence relation by $H^1_{\mathcal U}(B;G)$.
 \end{defn}
 
 \subsection{Fiber bundles and principal $G$-bundles}
@@ -490,22 +477,13 @@ A particular kind of cocycle is always easy to construct: given a collection of 
 If vector bundles give rise to cocycles with values in $\GL_n(k)$, it is natural to ask if there is some geometric origin of cocycles with values in other topological groups $G$.
 
 \begin{defn}
-	Let $F$ be a space. A \emph{fiber bundle over $B$ with fiber $F$} is a space $E$ over $B$ such that for all $x\in B$ there is an open neighborhood $U$ of $x$ such $E_U \cong U \times F$ as spaces over $U$. We may write $F \to E \to B$.
-\end{defn}	
+  Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $x \in E$, $f \circ (g.x) = g.f(x)$. 
 
-\begin{example}
-	An $n$-dimensional vector bundle is a fiber bundle with fiber $k^n$.
-\end{example}	
-
-%I changed the left action into a right action. This seems to be more standard in the literature, and the relationship with vector bundles comes out more nicely, as seen in the change-of-coordinate maps. Again I hope I've changed it consistenly throughout. (JH)
-\begin{defn}
-  Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a right $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $x \in E$, $f  (x.g) = f(x).g$. 
-
-Consider some fiber $E_b$, a fixed $x \in E_b$, and a map $\psi_x\colon G \to E_b, \psi_x(g) = x.g$. Since the $G$-action is free and transitive on $E_b$, the map $\psi_x$ is a bijection, and thus we can identify $E_b$ with $G$. Furthermore, for any $y \in E_b$ we can write $y.g = (x.h).g=x.(h.g)$, for $h=\psi_x^{-1}(y)$, and therefore we can fiberwise identify any $G$-action with right multiplication in a group $G$.
+Consider some fiber $E_b$, a fixed $x \in E_b$, and a map $\psi_x\colon G \to E_b, \psi_x(g) = g.x$. Since $G$-action is free and transitive on $E_b$, the map $\psi_x$ is a bijection, and thus we can identify $E_b$ with $G$. Furthermore, for any $y \in E_b$ we can write $g.y = g.(h.x)=(g.h).x$, for $h=\phi_x^{-1}(y)$, and therefore we can fiberwise identify any $G$-action with left multiplication in a group $G$.
 
 A \emph{principal $G$-bundle} over $B$ is a free and transitive $G$-space which is locally trivial, i.~e.\ such that every point $x \in B$ has a neighborhood $U \ni x$ such that there exists an isomorphism of free and transitive $G$-spaces over $U$
 \[
-E_U \to U \times G.
+E_U \to G \times U.
 \]
 Denote the full subcategory of principal $G$-bundles over $B$ by $\Princ_G(B)$.
 \end{defn}
@@ -529,19 +507,19 @@ are called Hopf fiber bundles. Figure~\ref{fig:hopffib} shows a geometric repres
 The category $\Princ_G(B)$ is a groupoid, i.~e., every morphism is an isomorphism.
 \end{lemma}
 \begin{proof}
-  As in the proof of Theorem~\ref{thm:fiberwiseiso}, it suffices to check the isomorphism condition locally, i.~e., we may assume source and target of the morphism $f\colon E \to F$ in $\Princ_G(B)$ are $G \times B$. We have $f(e,b)=(\tau(b),b)$, where $e \in G$ is the identity element, and $\tau$ is a continous map. But then $f(g,b) = f(e,b).g= (\tau(b).g,b)$, and the inverse of $f$ is given by $(g,b) \mapsto (\tau(b)^{-1}.g,b)$.
+  As in the proof of Theorem~\ref{thm:fiberwiseiso}, it suffices to check the isomorphism condition locally, i.~e., we may assume source and target of the morphism $f\colon E \to F$ in $\Princ_G(B)$ are $G \times B$. We have $f(e,b)=(\tau(b),b)$, where $e \in G$ is the identity element, and $\tau$ is a continous map. But then $f(g,b) = g.f(e,b)= (g.\tau(b),b)$, and the inverse of $f$ is given by $(g,b) \mapsto (g.\tau(b)^{-1},b)$.
 \end{proof}
 
 \begin{corollary}
 A principal bundle with a section is trivial.
 \end{corollary}
 \begin{proof}
-  Given a section $s\colon B \to E$, we can define a morphism $f\colon G \times B \rightarrow E$ between principal $G$-bundles by $f(g,b) = s(b).g$. By Lemma~\ref{lemma:princgroupoid} this is an isomorphism.
+  Given a section $s\colon B \to E$, we can define a morphism $f\colon G \times B \rightarrow E$ between principal $G$-bundles by $f(g,b) = g.s(b)$. By Lemma~\ref{lemma:princgroupoid} this is an isomorphism.
 \end{proof}
 
-If $\phi\colon G \to \GL_n(k)$ is some homomorphism, then given a principal $G$-bundle $E \to B$ we can define an equivalence relation on $E \times k^n$ by
+If $\phi\colon G \to \GL_n(k)$ is some homomorphism, then given a principal $G$-bundle $E \to B$ we can define equivalence relation on $E \times k^n$ by
 \[
-  (e_1,v_1) \sim (e_2,v_2) \quad \text{iff} \quad (e_1, v_1) = (e_2.g^{-1},\phi(g)(v_2)) \quad \text{for some }g \in G.
+  (e_1,v_1) \sim (e_2,v_2) \quad \text{iff} \quad (g.e_1, \phi(g)(v_1)) = (g.e_2,\phi(g)(v_2)) \quad \text{for some }g \in G.
 \] 
 Looking at local trivializations we can see that $(E\times k^n)/_{\sim}$ has a structure of an n-dimensional $k$-vector bundle. We denote this $k$-vector bundle with $E \times_G k^n$, or with $(E \times k^n)/G$. In fact, this construction gives an equivalence of categories between principal $\GL_n(k)$-bundles and $n$-dimensional vector bundles with isomorphisms. For a category $C$, let $C^{\cong}$ denote the subgroupoid with the same objects but only isomorphisms as morphisms. 
 
@@ -556,12 +534,10 @@ Let $p\colon E \to B$ be a vector bundle and define a space $\Psi(E)$ over $B$ b
 Clearly, $\GL_n(k)$ acts freely and fiberwise transitively on $\Psi(E)$, and over a trivializing neighborhood $U$ we have a local trivialization $\Psi(E)_U = \Psi(E_U) \cong \GL_n(k) \times U$. Moreover, $\Psi$ becomes a functor on the subcategory of vector bundle isomorphisms; a non-isomorphism does not preserve the linear independence condition. It is straightforward to see that $\Psi\circ\Phi$ and $\Phi\circ\Psi$ are naturally isomorphic to the identity functors.
 \end{proof}
 
-Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon E_{U_{\alpha}} \to U_{\alpha} \times G $ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta \in I$ defined by
+Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivializing open cover $\{U_\alpha\}_{\alpha}$ and trivializations $\phi_\alpha\colon E_{U_{\alpha}} \to G \times U_{\alpha}$ gives rise to change-of-coordinate maps $g_{\alpha\beta}\colon U_{\alpha\beta} \to G$ for any $\alpha,\;\beta \in I$ defined by
 \[
-\phi_\alpha|_{U_\alpha\beta}\left((\phi_\beta|_{U_\alpha\beta})^{-1}(x,\gamma)\right) = (x,g_{\alpha\beta}(x)\gamma) \in G \times U_{\alpha\beta}.
+\phi_\beta|_{U_\alpha\beta}\left((\phi_\alpha|_{U_\alpha\beta})^{-1}(\gamma,x)\right) = (g_{\alpha\beta}(x)\gamma,x) \in G \times U_{\alpha\beta}.
 \]
-This is well-defined by the observation that $\phi_\alpha\phi_\beta^{-1}:U_{\alpha \beta} \times G \to U_{\alpha \beta} \times G$ is a map of $G$-bundles, hence preserves right multiplication, and the fact that a $G$-equivariant map $G \to G$, where $G$ is considered a right $G$-set, is given by left multiplication of some element in $G$.
-
 The following is a straightforward generalization of Lemma~\ref{lemma:vectorbundlegivescocycle} whose proof we leave to the diligent reader:
 
 \begin{lemma}\label{lemma:principalbundlegivescocycle}
@@ -582,7 +558,7 @@ Note that one can always find a cover that trivializes both $p$ and $p'$, for in
 \begin{proof}
 We will show that ``if'' part first, so let us assume that
 \[
-g'_{\alpha\beta} = c_\alpha g_{\alpha\beta} c_\beta^{-1} \in \map(U_{\alpha\beta},G)
+g'_{\alpha\beta} = c_\beta g_{\alpha\beta} c_\alpha^{-1} \in \map(U_{\alpha\beta},G)
 \]
 for some collection $c_\alpha\colon U_\alpha \to G$. For $\alpha \in I$, define a map
 \[
@@ -591,9 +567,9 @@ f_\alpha\colon E_{U_\alpha} \xrightarrow{\phi_\alpha} G \times U_\alpha \xrighta
 As a composition of three $G$-equivariant maps over $U_\alpha$, it is an isomorphism of principal $G$-bundles over $U_\alpha$. Furthermore, if $U_{\alpha\beta} \neq \emptyset$, we have that
 
 \begin{align*}
-f_\alpha \circ f_\beta^{-1} =& (\phi'_\alpha)^{-1} \circ \tilde c_\alpha \circ \phi_{\alpha} \circ (\phi_{\beta})^{-1} \circ \tilde c_\beta^{-1} \circ \phi'_\beta\\
-=& (\phi'_\alpha)^{-1} \circ \tilde c_\alpha \tilde g_{\alpha\beta}\tilde c_{\beta}^{-1} \circ \phi'_\beta\\
-= & (\phi'_\alpha)^{-1} \circ \tilde g'_{\alpha\beta} \circ \phi'_\beta = \id,
+f_\beta \circ f_\alpha^{-1} =& (\phi'_\beta)^{-1} \circ \tilde c_\beta \circ \phi_{\beta} \circ (\phi_{\alpha})^{-1} \circ \tilde c_\alpha^{-1} \circ \phi'_\alpha\\
+=& (\phi'_\beta)^{-1} \circ \tilde c_\beta \tilde g_{\alpha\beta}\tilde c_{\alpha}^{-1} \circ \phi'_\alpha\\
+= & (\phi'_\beta)^{-1} \circ \tilde g'_{\alpha\beta} \circ \phi'_\alpha = \id,
 \end{align*}
 where all maps are understood as their restriction to $U_{\alpha\beta}$. Thus $f_\alpha|_{U_{\alpha\beta}} = f_\beta|_{U_{\alpha\beta}}$ and thus we can glue these functions together to a globally defined isomorphism of principal $G$-bundles
 \[
@@ -606,7 +582,7 @@ Now assume that $f\colon E \to E'$ is an isomorphism of principal $G$-bundles. D
 \]
 Then
 \[
-\tilde c_\alpha \tilde g_{\alpha\beta} \tilde c_\beta^{-1} = \phi'_\alpha \circ f \circ \phi_\alpha^{-1} \circ \phi_\alpha \circ \phi_\beta^{-1} \circ \phi_\beta \circ f^{-1} \circ (\phi'_\beta)^{-1} =  \phi'_\alpha (\phi'_{\beta})^{-1} = \tilde g'_{\alpha\beta},
+\tilde c_\beta \tilde g_{\alpha\beta} \tilde c_\alpha^{-1} = \phi'_\beta \circ f \circ \phi_\beta^{-1} \circ \phi_\beta \circ \phi_\alpha^{-1} \circ \phi_\alpha \circ f^{-1} \circ (\phi'_\alpha)^{-1} =  \phi'_\beta (\phi'_{\alpha})^{-1} = \tilde g'_{\alpha\beta},
 \]
 hence $g$ and $g'$ are cohomologous.
 \end{proof}
@@ -623,17 +599,17 @@ Let
 \]
 We will construct the total space $E$ of the desired $G$-bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
 \[
-  (x_\alpha,u_\alpha)_{\alpha} \sim (x_\beta,u_\beta)_{\beta} \quad \text{iff} \quad u_\alpha=u_\beta \text{ and } g_{\alpha\beta}x_\beta = x_\alpha.
+  (x_\alpha,u_\alpha)_{\alpha} \sim (x_\beta,u_\beta)_{\beta} \quad \text{iff} \quad u_\alpha=u_\beta \text{ and } g_{\alpha\beta}x_\alpha = x_\beta.
 \]
 The cocycle conditions (COC1) -- (COC3) are equivalent, in this order, to the reflexivity, symmetry, and transitivity of the relation $\sim$, thus $\sim$ is an equivalence relation, and we define $E = \tilde E/\sim$. Since identifications under $\sim$ only occur within a fiber, $p$ factors through a projection map $p\colon E \to B$.
 
 We now define a $G$-action $G \to \map_B(E,E)$ by
 \[
-  [(x_\alpha,b)_{\alpha}].\gamma = [(x_\alpha\gamma,b)_{\alpha}].
+  \gamma.[(x_\alpha,b)_{\alpha}] = [(x_\alpha\gamma^{-1},b)_{\alpha}].
 \]
 To see that this is well-defined, observe that for $(x_{\alpha},b)_{\alpha} \sim (x_\beta,b)_{\beta}$, we have
 \[
-  [(x_\alpha,b)_{\alpha}].\gamma = [(x_\alpha\gamma,b)_{\alpha}] =[(g_{\alpha\beta}x_\beta\gamma,b)_{\alpha}]=[(x_\beta\gamma,b)_{\beta}] = [(x_\beta,b)_{\beta}].\gamma  .
+  \gamma.[(x_\alpha,b)_{\alpha}] = [(x_\alpha\gamma^{-1},b)_{\alpha}] =[(g_{\alpha\beta}x_\alpha\gamma^{-1},b)_{\beta}]=\gamma.[(x_\beta,b)_{\beta}]  .
 \]
 Furthermore, the $G$-action is clearly free and transitive on every fiber. Thus $E$ is a principal $G$-bundle over $B$. Since $g_{\alpha\beta}$ is bijective, $\sim$ identifies distinct points in $G \times U_\alpha$ with distinct points in $G \times U_\beta$, hence the map $G \times U_\alpha \hookrightarrow \tilde E \to E$ is injective with image $E_{U_\alpha}$. We define the local trivialization $\phi_\alpha$ to be the inverse of this map. Then clearly, $g_{\alpha\beta}$ is the change-of-coordinates map associated with $\phi_\alpha$ and $\phi_\beta$, and the proof is complete.
 \end{proof}
@@ -798,13 +774,13 @@ In terms of $\mathcal O_B$-module sheaves, there are pushforward and pullback fu
 \]
 this maps sheaves of algebras to sheaves of algebras, and in particular, it makes $f_*\mathcal O_{B'}$ a sheaf of rings on $B$. Moreover, there is a natural map of sheaves of rings
 \begin{equation}\label{eq:mapofstructuresheaves}
-\mathcal O_{B} \to f_*\mathcal O_{B'}; \quad \mathcal O_B(U) = \map(U,k) \xrightarrow{\phi \mapsto \phi \circ f} \map(f^{-1}U,k) = (f_*\mathcal O_{B'})(U).
+\mathcal O_{B} \to f_*\mathcal O_{B'}; \quad \mathcal O_B(U) = \map(U,\R) \xrightarrow{\phi \mapsto \phi \circ f} \map(f^{-1}U,\R) = (f_*\mathcal O_{B'})(U).
 \end{equation}
 Given a $\mathcal O_{B'}$-module sheaf $F$, the pushforward $f_*F$ is naturally an $f_*\mathcal O_{B'}$-module sheaf and hence, by \eqref{eq:mapofstructuresheaves}, a $\mathcal O_B$-module sheaf.
 
 However, for vector bundles $F$, $f_*F$ is not usually a vector bundle, i.~e., the local freeness condition is violated. For instance the pushforward of the constant sheaf $\R$ along the inclusion $\{0\} \hookrightarrow \R$ is the so-called skyscraper sheaf $S$ with $S(U) = \R$ if $0 \in U$ and $S(U) = 0$ otherwise. In terms of vector spaces over $\R$, this is precisely Example~\ref{exa:coordinatecross}.
 
-For the pushforward along $f$ to preserve all vector bundles, it is necessary and sufficient that the map \eqref{eq:mapofstructuresheaves} makes $f_*\mathcal O_{B'}$ into a vector bundle, i.~e., $\map(f^{-1}U,\R) \cong \map(U,\R)^n$ for some $n$ and sufficiently small open sets $U$. This is satisfied if $f^{-1}U \cong U \times \{1,\dots,n\}$, and thus when $B'$ is a finite covering space of $B$. We have thus proved:
+For the pushforward along $f$ to preserve all vector bundles, it is necessary and sufficient that the map \eqref{eq:mapofstructuresheaves} makes $f_*\mathcal O_{B'}$ into a vector bundle, i.~e., $\map(f^{-1}U,\R) \cong \map(U,\R)^n$ for some $n$ and sufficiently small open sets $U$. But that means that $f^{-1}U \cong U \times \{1,\dots,n\}$, and thus that $B'$ is a finite covering space of $B$. We have thus proved:
 
 \begin{thm}\label{thm:covpushforward}
 If $f\colon B' \to B$ is a finite covering space map of degree $n$ then $f_*$ maps vector bundles of dimension $k$ on $B'$ to vector bundles of dimension $kn$ on $B$.
@@ -851,7 +827,7 @@ We only need to check the local triviality condition. Let $U \subset X$ be a tri
 \begin{example}
 We will show that for the Möbius bundle $\mu$ on $\S^1$ of Example~\ref{exa:mobiusstrip}, the Whitney sum $2\mu = \mu \oplus \mu$ is a trivial bundle. For that, we define a global trivialization
 \[
-\R^2 \times \S^1 \to \mu \oplus \mu, \quad (x,y,t) \mapsto (x \cos \pi t + y \sin \pi t,-x \sin \pi t + y \cos \pi t,t),
+\R^2 \times \S^1 \to \mu \oplus \mu, \quad (x,y,t) \mapsto (x \cos \pi t + y \sin \pi t,-x \sin \pi t + y \cos \pi t),
 \]
 where, as before, $\S^1$ is considered as the quotient $[0,1]/\{0,1\}$.
 \end{example}
@@ -889,7 +865,7 @@ Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of
 
 
 \begin{exer}
-The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locally constant rank, i.e.\ if $b \mapsto \rank(f_b)$ is locally constant on $B$.
+The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locally constant rank.
 \end{exer}
 
 \subsection{Hom bundles}
@@ -898,7 +874,11 @@ Let $M$ and $N$ be vector bundles over $B$ from the sheaf point of view. Define 
 \[
 \Hom(M,N)(U) = \Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U).
 \]
-This is a presheaf by restriction, and the gluing condition is clearly satisfied since $M$ and $N$ are sheaves. Moreover, $\Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U)$ is an $\mathcal O(U)$-module by the restriction map $\mathcal O(U) \to \mathcal O_U$ from the constant presheaf to $\mathcal O_U$. Local freeness follows from Exercise~\ref{exer:Omodmaps}.
+This is a presheaf by restriction, and the gluing condition is clearly satisfied since $M$ and $N$ are sheaves. Moreover, $\Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U)$ is an $\mathcal O(U)$-module by the restriction map $\mathcal O(U) \to \mathcal O_U$ from the constant presheaf to $\mathcal O_U$. It remains to show local freeness. For this we may assume that $M = \mathcal O_B^n$ and $N = \mathcal O_B^m$ since $M$ and $N$ are locally free. But then
+\[
+\Hom_{\Mod_{\mathcal O_U}}(M|_U,N|_U) = \Hom_{\Mod_{\mathcal O_U}}(\mathcal O_U^m,\mathcal O_U^n) = \Hom_k(k^m,\mathcal O_U^n),
+\]
+which is free over $\mathcal O_U$ of dimension $mn$.
 
 Note that a global section of $\Hom(M,N)$ is precisely a morphism of vector bundles $M \to N$. Thus the Hom bundle is an internal homomorphism object in $\Vect(B)$.
 
@@ -944,7 +924,7 @@ For the correct topology around $b \in B$, choose a trivializing neighborhood $U
 \]
 by
 \[
-\Phi(y,b) = T(\phi_{b,1},\dots,\phi_{b,p},\phi_{b,p+1}^{-1},\dots,\phi_{b,p+q}^{-1})(y).
+\Phi(y,b) = T(\phi_{b,1}^{-1},\dots,\phi_{b,p}^{-1},\phi_{b,p+1},\dots,\phi_{b,p+q})(y).
 \]
 We define a subset $V$ of $F(E_1,\dots,E_{p+q})|_U$ to be open iff $\Phi^{-1}(V)$ is open.
 
@@ -1004,7 +984,7 @@ Both functors $\Sym^n$ and $\exterior^n$ are continuous and $(1,0)$-ary, so they
 
 \subsection{The determinant line bundle}
 
-Let $V$ be a vector space of dimension $n$. Choose a basis $v_1,\cdots,v_n$ of $V$. Then $\exterior^k(V)$ has dimension $n \choose k$: for any $k$-element subset $\{i_1<\cdots<i_k\}$ of $\{1,\dots,n\}$, the element $v_{i_1} \wedge \cdots \wedge v_{i_k}$ is a basis vector for $\exterior^k(V)$. In particular, $\exterior^n(V)$ is one-dimensional. An isomorphism with $k$ is given by
+If $V$ is a vector space of dimension $n$. Choose a basis $v_1,\cdots,v_n$ of $V$. Then $\exterior^k(V)$ has dimension $n \choose k$: for any $k$-element subset $\{i_1<\cdots<i_k\}$ of $\{1,\dots,n\}$, the element $v_{i_1} \wedge \cdots \wedge v_{i_k}$ is a basis vector for $\exterior^k(V)$. In particular, $\exterior^n(V)$ is one-dimensional. An isomorphism with $k$ is given by
 \[
 d\colon \exterior^n(V) \xrightarrow{v_1 \wedge \cdots \wedge v_n \mapsto \det(v_1,\cdots,v_n)} k,
 \]
@@ -1151,7 +1131,7 @@ In fact, this is a derivation on the quotient algebra $C^\infty_0$ of germs of s
 \begin{defn}
 Let $M$ be a smooth manifold. Define a sheaf $TM$ by
 \[
-TM(U) = \Der(C^{\infty}(U)).
+TM(U) = \Der(C^{\infty}_U).
 \]
 \end{defn}
 
@@ -1525,7 +1505,7 @@ The pair $(\mathbf U,\mathbf U \times_X \mathbf U)$ becomes a topological catego
 \item $s(x^\alpha,y^\beta) = x^\alpha$ and $t(x^\alpha,y^\beta) = y^\beta$;
 \item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x^\alpha,y^\beta,z^\gamma) \mapsto (x^\alpha,z^\gamma)$.
 \end{itemize}
-The $\nerve(\mathbf U,\mathbf U \times_X \mathbf U)$ is called the \emph{\v Cech nerve} of the covering $\mathcal U$, and we denote it by $\nerve\mathbf U$.
+The $\nerve(\mathbf U,\mathbf U \times_X \mathbf U)$ is called the \emph{big nerve} of the covering $\mathcal U$, and we denote it by $\nerve\mathbf U$.
 \end{example}
 
 Note that
@@ -1538,12 +1518,12 @@ we will denote an element in $\nerve_n\mathbf U$ by $x^{\alpha_0\cdots\alpha_n}$
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
 \end{example}
 
-There is a simplicial map from the \v Cech nerve $\nerve\mathbf U$ to $\nerve b(\mathcal U)$ given by
+There is a simplicial map from $\nerve\mathbf U$ to $\nerve b(\mathcal U)$ given by
 \[
 \nerve_n\mathbf U \to \nerve_nb(\mathcal U); \quad x^{\alpha_0\cdots\alpha_n} \mapsto \{\alpha_0,\dots,\alpha_n\}.
 \]
 
-We will look at the differences between these two nerve constructions more closely later on, but we observe right now that we can recover the space $X$ from the \v Cech nerve $\nerve\mathbf U$ as the coequalizer
+We will look at the differences between these two nerve constructions more closely later on, but we observe right now that we can recover the space $X$ from the big nerve $\nerve\mathbf U$ as the coequalizer
 \[
 \mathbf U \times_X \mathbf U \overset{s}{\underset{t}{\rightrightarrows}} \mathbf U \to X.
 \]
@@ -1668,35 +1648,61 @@ By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category 
 The $X$-action on $EX$ when $X$ is a group follows from functoriality and the free $X$-action on $T(X)$, cf.~Example~\ref{ex:translationcatofgroup}.
 \end{proof}
 
-\section{Schubert cells}
-\chapterauthor{Nima Amini}
-
+\section{Schubert calculus}
+%\chapterauthor{Nima Amini}
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
 It is not a coincidence that these spaces are named \textit{cells}, they in fact make up a CW-complex of $G_n(k^N)$. 
 This allows for the computation of the cohomology ring of the Grassmannian via the cellular cohomology that comes along with CW-complexes. 
 The cohomology ring of the Grassmannian in turn plays a role in the classification of the ring of characteristic classes. 
+
+
+Let 
+$\mathcal{F} : 0=F_0\subsetneq F_1\subsetneq \cdots \subsetneq F_N = k^N$
+be a strictly increasing sequence, or \textit{flag}, of linear subspaces in $k^N$. Consider the intersection of a given subspace $W\in G_n(k^N)$ with the flag $\mathcal{F}$,
+\begin{equation*}
+0\subseteq W\cap F_1 \subseteq W\cap F_2\subseteq\cdots \subseteq W\cap F_N=W,
+\end{equation*}
+note that at each stage, the dimension either stays the same or goes up by one. \linebreak Let $1\leq a_1<a_2<\cdots <a_n\leq N$ be the indices where the dimensions jump, in other word $\dim(W\cap F_{a_i})=\dim(W\cap F_{a_{i-1}}) +1$, for $i=0,\dots ,n$.
+For a strictly increasing sequence of integers $1\leq a_1<a_2<\cdots <a_n\leq N$, let $C(a_1,\dots ,a_n)$ be defined by
+
+\[
+C(a_1,\dots ,a_n) := \left\{  W\in G_n(k^N)\ \middle\vert \begin{array}{l}
+   \dim\left(W\cap F_{a_i}\right)=i, \hspace*{0.2cm}\forall 1\leq i\leq n \hspace*{0.2cm}  \text{and} \\
+    \dim\left(W\cap F_{j}\right)<i,\hspace*{0.34cm}\forall j<a_i
+  \end{array}\right\}
+\]
+
+\begin{defn}
+The subset $C(a_1,\dots ,a_n)\subset G_n(k^N)$ is called the \textit{Schubert cell} associated to the sequence $(a_1,\dots ,a_n)$, which is often referred to as the \textit{Schubert symbol}. \par 
+The \textit{Schubert variety} associated to $(a_1,\dots ,a_n)$ is the closure of the Schubert cell and we denote it by $\Omega(a_1,\dots ,a_n)$.
+\end{defn}
+The Schubert variety is given by 
+\begin{equation*}
+\overline{C(a_1,\dots ,a_n)} = \Omega(a_1,\dots ,a_n)=\lbrace W\in G_n(k^N) \mid \dim\left(W\cap F_{a_i}\right)\geq i, \forall 1\leq i\leq n \rbrace.
+\end{equation*}
+\begin{lemma}
+The Schubert variety $\Omega(a_1,\dots , a_n)$ is independent of the choice of the flag.
+\end{lemma}
+\begin{proof}
+Let $\mathcal{F}:F_0\subsetneq \cdots \subsetneq F_N$ and $\mathcal{G}:G_0\subsetneq \cdots \subsetneq G_N$ be two flags in $k^N$ where $\dim(F_i)=\dim(G_i)$, for each $i=0,\dots ,N$. There is an invertible linear transformation $T$ on $k^N$ which takes $\mathcal{F}$ to $\mathcal{G}$. For $W\in G_n(k^N)$ and $1\leq i\leq n$, we get that  $\dim(W\cap F_{a_i})\geq i$ if and only if $\dim(T(W)\cap G_{a_i})\geq i$, which completes the proof.
+\end{proof}
+
 \begin{prop}
 There exists a one-to-one correspondence between points of $G_n(k^N)$ and orbits of the set $\text{Mat}_n(k^N)$ of $n \times N$ matrices full rank under the action of $GL_n(k)$.
 \end{prop}
 \begin{proof}
 Let $V \in G_n(k^N)$. As soon as we fix a basis $v_1, \dots, v_n$ of $V$ we can represent $V$ as an $n \times N$ row matrix $A = (v_{ij})$. The action of $GL_n(k)$ on $A$ is free and transitive on the bases of $V$. 
 Hence we get a one-to-one correspondence with the orbits of the action. 
-\end{proof} \noindent
-\begin{remark}
-\label{rem:echelonform}
-In each $GL_n(k)$-orbit of $\text{Mat}_{n,N}(k)$ we have a unique canonical representative provided by the row reduced echelon form (which may be computed using Gaussian elimination). 
-Thus we may identify points in $G_n(k^N)$ with rank $n$ matrices in row-reduced echelon form.
-\end{remark}
-\begin{defn} \noindent
-A matrix $A \in \text{Mat}_{n,N}(k)$ in row reduced echelon form is said to be in $I\text{-echelon}$ form if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
-The sequence $I$ is often referred to as the Schubert symbol.
-\end{defn}
+\end{proof} \noindent 
+
+Every $W\in C(a_1,\dots ,a_n)$ has the  unique canonical representative given by the row reduced echelon form of the matrix representative of $W$ where the pivots are in the columns indexed by $a_1,\dots ,a_n$. The matrix has entry $1$ in position $(i,a_i)$, for each $i=1,\dots ,n$ and zero to the left and below.
+
 \begin{example} \normalfont
 \label{ex:echelonform}
-A point $A \in G_4(k^{8})$ in $\{ 1,2,5,7\}$-echelon form has shape
+An elements in the Schubert cell $W\in C(1,2,5,7) \in G_4(k^{8})$ has shape
 \begin{center}
-$A = \begin{pmatrix}
+$W = \begin{pmatrix}
   1 & 0 & * & * & 0 & * & 0 & * \\
   0 & 1 & * & * & 0 & * & 0 & * \\
   0 & 0 & 0 & 0 & 1 & * & 0 & * \\
@@ -1705,6 +1711,7 @@ $A = \begin{pmatrix}
 \end{center}  \noindent
 where $*$ denotes an arbitrary element in $k$.  
 \end{example} \noindent
+
 \begin{remark}
 If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the $*$'s is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
 \begin{align*}
@@ -1713,37 +1720,56 @@ If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot colu
 	      &**   \\
 	      &\hspace{0.08cm} * 
 \end{align*} \noindent
+
+We may denote the Schubert cell and Schubert variety associated to $(a_1,\dots ,a_n)$ by $C_\lambda$ and $\Omega_\lambda$, respectively, where $\lambda$ is the corresponding Ferrers diagram to $(a_1,\dots ,a_n)$. 
+
 Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-element subsets of $[N]$ so Schubert symbols are in correspondence with Ferrers diagrams of shape $\lambda$.
 \end{remark} \noindent
-\begin{defn}
-Let $\lambda$ be an $n$-partition of $N-n$.
-The Schubert cell $\Omega_{\lambda}$ is the closure of the set of points in $G_n(K^N)$ with $I$-echelon form corresponding $\lambda$.
-\end{defn} \noindent
-\begin{remark}
-By Remark~\ref{rem:echelonform} it follows that 
+
+The Grassmannian has a decomposition as the disjoint union of 	Schubert cells:
 \begin{align*}
-\displaystyle G_n(k^N) = \bigsqcup_{\lambda} \Omega_{\lambda}.
+\displaystyle G_n(k^N) = \bigsqcup_{\lambda} C_{\lambda},
 \end{align*} \noindent
-Furthermore each $I$-echelon matrix $A$ has exactly $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in $A$). This gives a homeomorphism 
+where for each $\lambda$ the dimension of the Schubert cell $C_\lambda$, the number of elements of $G_n(k^N)$ having the row reduced echelon form of $\lambda$, is equal to $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in the row reduced echelon form of the matrix). This gives the  homeomorphism 
 \begin{align}
 \label{schubertcellaffine}
-\Omega_{\lambda} \simeq k^{|\lambda|}.
-\end{align} \noindent
-To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. 
+C_{\lambda} \simeq k^{|\lambda|}.
+\end{align} \noindent 
+\begin{remark}
+One could argue this also via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. 
+\end{remark}
+\begin{prop}\label{prop:GrassmannianCWstructure}
+The Schubert cells are the cells of a CW structure on $G_n(k^N)$.
+\end{prop}
+\begin{proof}
+Denote the Schubert symbol by $\underline{a}:=(a_1,\dots ,a_n)$.  Let $\underline{a}$-orthonormal echeon form of an element $W\in G_n(k^N)$ defined in such a way that for each $i=1,\dots , n$ the entry $(i,a_i)$ is positive and the entries to the right of them are zero moreover the rows are orthonormal. For each $W\in G_n(k^N)$ there is a unique orthonormal echolon form. The $i$-th row of the $\underline{a}$-orthonomal echolon form belongs to the hemisphere $H_{a_i}$ in the unit sphere $\mathbb{S}^{a_i-1}\subset k^{a_i}\subset k^N$. In the Stiefel manifold $V_n(k^N)$, let $E(\underline{a})$ be the subspace of the frames $(v_1,\dots ,v_n)\in (\mathbb{S}^{N-1})^n$, where $v_i\in H_{a_i}$ for each $i$. We claim that $E(\underline{a})$ is homeomorphic to a closed ball. In fact, we show that  $\pi :E(\underline{a})\longrightarrow H_{a_1}$ defined the projection onto the first coordinate is a trivial fiber bundle. To do so for $v_0=(0,\dots ,0,1)\in  k^{a_1}\subset k^N$ define $p:E(\underline{a})\longrightarrow \pi^{-1}(v_0)$ in such a way that for a given $v\in H_{a_1}$ the map $p:\pi^{-1}(v)\longrightarrow \pi^{-1}(v_0)$ is obtained by applying the rotation that takes $v$ to $v_0$ and fixes the $(N-2)$-dimensional subspace orthogonal to $v$ and $v_0$. So $p$ is a bijection from $\pi^{-1}(v)$ to $\pi^{-1}(v_0)$ and therefore $\pi\times p :E(\underline{a})\longrightarrow H_{a_1}\times \pi^{-1}(v_0)$ is a continues bijection of compact Hausdorff spaces so it is a homeomorohism. 
+Note that the fiber $\pi^{-1}(v_0)$ can be identified with $E(\underline{a}^\prime)$, where $\underline{a}^\prime=(a_2-1,\dots ,a_n-1)$. By induction on $n$ this is a homeomorphic to a clossed ball of dimension $(a_2-2)+\cdots +(a_n-n)$ so $E(\underline{a})$ is a closed ball of dimension $(a_1-1)+(a_2-2)+\cdots +(a_n-n)$. The boundary of this ball is the points in $E(\underline{a})$ having $v_i$ in $\partial(H_{a_i})$ for at least one $i$. The natural map $E(\underline{a})\longrightarrow G_n(k^N)$ restricts to a homeomprphism from the interior of $E(\underline{a})$ to $C(\underline{a})$ since it is bijective and $G_n(k^N)$ has the quotient topology from $V_n(k^N)$.  We conclude that the maps $E(\underline{a})\longrightarrow G_n(k^N)$ are the characteristic maps for a CW structure on $G_n(k^N)$ and the attaching maps are their restrictions to the boundary of the closed balls.
+\end{proof}
+With the above CW structure we are able to compute the cohomology groups of $G_n(k^N)$.
+The Schubert cells of the Complex Grassmannian $G_n(\mathbf{C}^N)$ are even dimensional and therefore all boundary maps are zero and we deduce the following
+\begin{thm}
+Each even dimensional integral cohomology group $H^{2i}(G_n(\mathbf{C}^N) ;\mathbb{Z})$ is a free abelian group generated by the Schubert cycles $\left[\Omega_\lambda \right]$ with $|\lambda | =i$. Each odd dimensional group is zero.
+\end{thm}
+\begin{remark}
+For the real Grassmannian $G_n(\mathbf{R}^N)$ as we have seen in the proof of Prop.~\ref{prop:GrassmannianCWstructure} that the degree of the attaching maps are $(-1)^k$ the boundary maps are $1+(-1)^k$, that is either $0$ or $2$ for odd and even integers $k$ respectively. 
 \end{remark}
 \begin{example}
 Let us see how $G_2(\mathbf{R}^3)$ decomposes into Schubert cells. There are three possible Schubert symbols, namely $I_1 = \{ 1,2 \}, \thickspace I_2 = \{ 1,3 \}$ and $I_3 = \{ 2,3 \}$ corresponding to $2$-partitions of $3-2 = 1$ given by $\lambda_1 = (1,1), \thickspace \lambda_2 = (1,0)$ and $\lambda_3 = (0,0)$. 
 The three corresponding Schubert cells are parametrized by
 \begin{center}
-$\displaystyle \Omega_{\lambda_1} = \left \{  \begin{pmatrix} 1 & 0 & a \\ 0 & 1 & b \end{pmatrix} : a,b \in \mathbf{R} \right \}$, $\displaystyle \Omega_{\lambda_2} = \left \{  \begin{pmatrix} 1 & a & 0 \\ 0 & 0 & 1 \end{pmatrix} : a \in \mathbf{R} \right \}$ and $\displaystyle \Omega_{\lambda_3} = \left \{  \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \right \}$
+$\displaystyle C_{\lambda_1} = \left \{  \begin{pmatrix} 1 & 0 & a \\ 0 & 1 & b \end{pmatrix} : a,b \in \mathbf{R} \right \}$, $\displaystyle C_{\lambda_2} = \left \{  \begin{pmatrix} 1 & a & 0 \\ 0 & 0 & 1 \end{pmatrix} : a \in \mathbf{R} \right \}$ and $\displaystyle C_{\lambda_3} = \left \{  \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \right \}$
 \end{center} \noindent
-of dimension $2,1$ and $0$ respectively. The two-dimensional subspaces in $\Omega_{\lambda_1}$ are given by planes  through the origin intersecting the two lines passing through the points $(1,0,0)$, $(0,1,0)$ and parallel to the $z$-axis. Likewise $\Omega_{\lambda_2}$ consists of the two dimensional subspaces geometrically described by planes through the origin containing the point $(0,0,1)$ and intersecting the line passing through the point $(1,0,0)$ parallel to the $y$-axis. Finally $\Omega_{\lambda_2}$ consists of a single subspace given by the $yz$-plane. By inspecting the matrices it is easy to see that the $\Omega_{\lambda_i}$ are pairwise disjoint and cover $G_2(\mathbf{R}^3)$.
+of dimension $2,1$ and $0$ respectively. The two-dimensional subspaces in $C_{\lambda_1}$ are given by planes  through the origin intersecting the two lines passing through the points $(1,0,0)$, $(0,1,0)$ and parallel to the $z$-axis. Likewise $C_{\lambda_2}$ consists of the two dimensional subspaces geometrically described by planes through the origin containing the point $(0,0,1)$ and intersecting the line passing through the point $(1,0,0)$ parallel to the $y$-axis. Finally $C_{\lambda_2}$ consists of a single subspace given by the $yz$-plane. By inspecting the matrices it is easy to see that the $C_{\lambda_i}$ are pairwise disjoint and cover $G_2(\mathbf{R}^3)$. Moreover, the nonzero cohomology groups are $H^0(G_2(\mathbf{R}^3);\mathbb{Z}),H^1(G_2(\mathbf{R}^3);\mathbb{Z})$ and $H^2(G_2(\mathbf{R}^3);\mathbb{Z})$ which are free cyclic group generated by $\left[\Omega_{\lambda_3} \right],\left[\Omega_{\lambda_2}\right]$ and $\left[\Omega_{\lambda_1} \right]$ respectively.
 \end{example}
+\begin{example}
+Consider the Grassmannian $G_2(\mathbf{C}^4)$. There are exactly five nonzero cohomology groups: the middle one $H^4(G_2(\mathbf{C}^4),\mathbb{Z})$ is free abelian with two generators $\left[\Omega({1,4}) \right]$ and $\left[\Omega({2,3}) \right]$ and the others $H^{2i}(G_2(\mathbf{C}^4)$ for $i=0,1,3,4$ are free cyclic with generators respectively $\left[\Omega({3,4}) \right]$,  $\left[\Omega({2,4}) \right]$,  $\left[\Omega({1,3}) \right]$ and  $\left[\Omega({1,2}) \right]$.
+\end{example}
+
 
 \section{Paracompactness}\label{sec:paracompactness}
 
 \begin{defn}
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that intersects $U_\alpha$ nontrivially for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that is contained in $U_\alpha$ for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
 
 A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$.
 \end{defn}
@@ -1754,7 +1780,7 @@ The following is a standard fact of point-set topology (cf. for example \cite[Ch
 A space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
 \end{prop}
 
-Let us study the geometric realizations of \v Cech nerves of open covers. 
+Let us study the geometric realizations of big nerves of open covers. 
 
 Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \in U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
 
@@ -1772,7 +1798,7 @@ We use this map to define a natural transformation $h\colon (\mathbf V,\mathbf V
 \[
 h(-,0) = \rho_1, \quad h(-,1) = \rho_2, \quad h(x^\beta,0 \to 1) = H(x^\beta).
 \]
-It is then straightforward to verify that $h$ is a functor. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
+It is the straightforward to veryfiy that $h$ is a functor. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
 \end{proof}
 
 If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find that $|\nerve \mathbf X| \cong X$, and we get a natural map
@@ -1790,10 +1816,10 @@ The following are equivalent for a space $X$:
 \end{enumerate}
 \end{thm}
 \begin{proof}
-\noindent\textbf{\eqref{thm:paracompactnerve:paracompact}$\Longrightarrow$\eqref{thm:paracompactnerve:deformationretraction}:}
-First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. Since $X$ is paracompact, we there exists a locally finite refinement $\mathcal V \to \mathcal U$. Since a section $X \to |\nerve\mathbf V|$ composes with any map $\mathbf V \to \mathbf U$ realizing the refinement to a section $X \to |\nerve\mathbf U|$,  we may as well assume that $\mathcal U$ already is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
+\noindent\textbf{\eqref{thm:paracompactnerve:paracompact}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:}
+First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. We may assume that $\mathcal U$ is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
 
-Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x^J,f_J(x)) \in U_J \times \Delta^n$, where $x^J = x^{\alpha_0,\dots,\alpha_n} \in U_J \subseteq \nerve_n\mathbf U$ and $f_J(x)=(f_{\alpha_0}(x),\dots,f_{\alpha_n}(x)) \in \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. 
+Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x^J,f_J(x) \in U_J \times \Delta^n$, where $x^J = x^{\alpha_0,\dots,\alpha_n} \in U_J \subseteq \nerve_n\mathbf U$ and $f_J(x)=(f_{\alpha_0}(x),\dots,f_{\alpha_n}(x)) \in \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. 
 
 To show continuity at $x$ when $m>n$, note that
 \[
@@ -1804,21 +1830,6 @@ is an open neighborhood of $x$ contained in $U_J$. For every $y \in V$, $f_{\bet
 (y^{J'},f_{J'}(y)) = (y^{J'},\sigma_*(f_J(y)) \sim (y^J,f_J(y)).
 \]
 Thus any open neighborhood of $x$ which is contained in $V$ is contained in the equivalence class of $U_J \times \Delta^n$. Thus by continuity of the partition of unity, $r$ is continuous at $x$. Since the map $p\colon |\nerve \mathbf U| \to X$ sends $(x^{\alpha_0,\dots,\alpha_n},t_0,\dots,t_n)$ to $x$, we have that $p \circ r = \id_X$, hence $r$ is a section of $p$.
-
-Now we need to produce a homotopy of the map $r \circ p$ to the identity map on $|\nerve\mathbf U|$. 
-
-Let $[x^{J'},t_0,\dots,t_n]$ denote an element of $|\nerve \mathbf U|$, where $J' \subset I$ has cardinality $n+1$ and $x \in U_{J'}$. This element is mapped under $r \circ p$ to $p(x)=[x^{J},f_J(x)]$ where $J' \subseteq J$. If $i\colon J' \to J$ denotes the inclusion map, we have that
-$[x^{J'},t_0,\dots,t_n] = [i^*x^J,t_0,\dots,t_n] = [x,i_*(t_0,\dots,t_n)]$. We may thus assume that $m=n$ and $J=J'=\{\alpha_0,\dots,\alpha_n\}$. We now define a linear homotopy
-\[
-h\colon [0,1] \times |\nerve \mathbf U| \to |\nerve \mathbf U|
-\]
-from $r\circ p$ to the identity by
-\[
-h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)f_{\alpha_0}(x),\dots,st_n+(1-s)f_{\alpha_n}(x)].
-\]
-The proof of continuity of $h$ proceeds as in the case of $s$.
-
-\medskip\noindent\textbf{\eqref{thm:paracompactnerve:deformationretraction}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:} obvious.
 
 \medskip
 \noindent\textbf{\eqref{thm:paracompactnerve:section}$\Longrightarrow$\eqref{thm:paracompactnerve:paracompact}:}
@@ -1834,12 +1845,29 @@ To see that $f_\alpha$ is well-defined, let $f\colon J \to J'$ be a monotonic ma
 \]
 and $f_\alpha$ picks out the the same coefficient $t_i$.
 
-Thus $f_\alpha$ is a partition of unity with $f_{\alpha}^{-1}(0,1] \subseteq U_\alpha$. However, we do not necessarily know that $\overline{f_{\alpha}^{-1}(0,1]} \subseteq U_\alpha$. To fix this, define a refinement $\mathbf V$ of $\mathbf U$ with indexing set $I \times \N$ and
+Thus $f_\alpha$ is a partition of unity with $f_{\alpha}^{-1}(0,1] \subseteq U_\alpha$. However, we do not necessarily know that $\overline{f_{\alpha}^{-1}(0,1]} \subseteq U_\alpha$. To fix this, define a refinement $\mathbf V$ of $\mathbf U$ with the same indexing set and
 \[
-V_{\alpha,n} = f_{\alpha}^{-1}(\frac1n,1].
+V_{\alpha} = f_{\alpha}^{-1}(\frac12,1].
 \]
-Then $\overline V_{\alpha,n} \subset U_\alpha$, and repeating the above argument for $\mathbf V$, we get a partition of unity associated with $\mathbf U$.
+Then $\overline V_{\alpha} \subset U_\alpha$, and repeating the above argument for $\mathbf V$, we get a partition of unity associated with $\mathbf U$.
 
+\medskip
+\noindent\textbf{\eqref{thm:paracompactnerve:section}$\Longrightarrow$\eqref{thm:paracompactnerve:deformationretraction}:}
+Let $r\colon X \to |\nerve \mathbf U|$ be any continuous section of $p$.
+
+We want to produce a homotopy of the map $r \circ p$ to the identity map on $|\nerve\mathbf U|$. 
+
+By \eqref{eq:realizationwithnondegenerates}, any element of $|\nerve U|$ has a unique representative $[x^J,t_0,\dots,t_n]$ where all $t_i>0$ and $x^J$ is nondegenerate. This means that $J$ is the set of all the $\alpha$ such that $x \in U_\alpha$. This element is mapped under $r \circ p$ to $p(x)=[x^{J'},u_0,\dots,u_m]$ where $J' \subseteq J$, but this element is equal to $[x^J,i_*(u_0,\dots,u_m)]$, where $i\colon J' \to J$ is the inclusion map. We may thus assume that $m=n$ and $J=J'$. We now define a linear homotopy
+\[
+h\colon [0,1] \times |\nerve \mathbf U| \to |\nerve \mathbf U|
+\]
+from $r\circ p$ to the identity by
+\[
+h(s,[x^J,t_0,\dots,t_m]) = [x^J,st_0+(1-s)u_0,\dots,st_n+(1-s)u_n(x)].
+\]
+\marginpar{Show that the homotopy is continuous.}
+
+\medskip\noindent\textbf{\eqref{thm:paracompactnerve:deformationretraction}$\Longrightarrow$\eqref{thm:paracompactnerve:section}:} obvious.
 \end{proof}
 
 \subsection{Homotopy invariance}
