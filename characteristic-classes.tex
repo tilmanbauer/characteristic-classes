@@ -31,7 +31,7 @@
 \DeclareMathOperator{\SL}{SL}
 
 \DeclareMathOperator{\codim}{codim}
-\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\rk}{rk}
 \DeclareMathOperator{\Rat}{Rat}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\divisor}{div}
@@ -80,12 +80,6 @@ A vector bundle is, roughly speaking, an assignment of a vector space $E_x$ to e
 
 The reader should be aware that both of these conditions make no mathematical sense as stated.
 
-\begin{remark}
-	As a technicality, we let $\Top$ be a convenient category of topological spaces, i.e.\ such that it is cartesian closed. This means that for each $X \in \Top$, the functor $Y \mapsto Y \times X$ has a right adjoint, written as $\map(X,-)$. For example, we can take $\Top$ to be compactly generated, weakly Hausdorff spaces, or simplicial sets. 
-	
-	Throughout, every field is a topological field, i.e.\ a topological space which is a field such that addition, multiplication, etc.\ are continuous. Then $\GL_n(k)$ becomes a space with the subspace topology. 
-\end{remark}	
-
 \section{Bundles as spaces over a base space}
 
 Let $B$ be a topological space. A \emph{space over $B$} is another topological space $E$ together with a map $p\colon E \to B$. We denote the category of spaces over $B$ by $\Top/B$. Here, a morphism from $p\colon E \to B$ to $p'\colon E' \to B$ is a map $f\colon E \to E'$ such that the triangle
@@ -108,8 +102,12 @@ E \times_B E' = \{(e,e') \mid p(e) = p'(e')\} \xrightarrow{(e,e') \mapsto p(e)} 
 \]
 It is customary to suppress the projection map $p$ in the notation and denote the fiber $p^{-1}(x)$ of $x \in B$ by $E_x$.
 
+\begin{remark}
+	In order for the following definition to make sense, we need to restrict attention to a convenient category $\Top$ of topological spaces, i.e.\ one that has well-behaved mapping spaces $\map(Y,Z)$ that satisfy the adjunction $\Hom(X \times Y,Z) \cong \Hom(X,\map(Y,Z))$. The category of compactly generated, weak Hausdorff spaces satisfies this condition, and without further mentioning it, we will assume all topological spaces to belong to this class. 
+\end{remark}	
+
 \begin{defn}
-Let $B$ be a topological space and $k$ a field (typically $\R$ or $\CC$). A \emph{$k$-vector space over $B$} consists of:
+Let $B$ be a topological space and $k$ a topological field (typically $\R$ or $\CC$). A \emph{$k$-vector space over $B$} consists of:
 \begin{itemize}
 \item a space $E \in \Top/B$,
 \item a map $s_0\in \map_B(B,E)$, called the zero section,
@@ -122,9 +120,11 @@ A morphism of vector spaces over $B$ is a map $f\in \map_B(E,E')$ compatible wit
 \end{defn}
 
 The most obvious $k$-vector space over $B$ is the product space $k^n \times B$, where the projection to $B$ is simply the projection onto the second factor of the product.
+
 \begin{remark}
-	For the interested reader: a $k$-vector space over $B$ is the same thing as a vector space internal to $\Top/B$. 
-\end{remark}	
+	The category-minded reader may observe that a $k$-vector space over $B$ is the same thing as a vector space internal to the category $\Top/B$. 
+\end{remark}
+
 \begin{defn}[local triviality of vector bundles]
 Let $E$ be a $k$-vector space over $B$. Then $E$ is called a \emph{$k$-vector bundle} if every $x \in B$ has a neighborhood $U \subset B$ such that $E_U = p^{-1}(U)$ is isomorphic to a product space $k^n \times U$ as $k$-vector spaces over $U$, for some $n \geq 0$. The category of $k$-vector bundles over $B$ is denoted by $\Vect_k(B)$ or just $\Vect(B)$ if $k$ is understood or irrelevant. A morphism of $k$-vector bundles is simply a morphism of the underlying $k$-vector spaces over $B$.
 \end{defn}
@@ -560,7 +560,7 @@ Similarly to vector bundles, a principal $G$-bundle $p\colon E \to B$ with trivi
 \[
 \phi_\alpha|_{U_\alpha\beta}\left((\phi_\beta|_{U_\alpha\beta})^{-1}(x,\gamma)\right) = (x,g_{\alpha\beta}(x)\gamma) \in G \times U_{\alpha\beta}.
 \]
-This is well-defined by the observation that $\phi_\alpha\phi_\beta^{-1}:U_{\alpha \beta} \times G \to U_{\alpha \beta} \times G$ is a map of $G$-bundles, hence preserves right multiplication, and the fact that a $G$-equivariant map $G \to G$, where $G$ is considered a right $G$-set, is given by left multiplication of some element in $G$.
+This is well-defined since $\phi_\alpha\phi_\beta^{-1}\colon U_{\alpha \beta} \times G \to U_{\alpha \beta} \times G$ is a map of $G$-bundles, hence preserves right multiplication, and by the fact that a $G$-equivariant map $G \to G$, where $G$ is considered a right $G$-set, is given by left multiplication by some element in $G$.
 
 The following is a straightforward generalization of Lemma~\ref{lemma:vectorbundlegivescocycle} whose proof we leave to the diligent reader:
 
@@ -889,7 +889,7 @@ Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of
 
 
 \begin{exer}
-The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locally constant rank, i.e.\ if $b \mapsto \rank(f_b)$ is locally constant on $B$.
+The spaces $\ker f$ and $\coker f$ are vector bundles over $B$ if $f$ has locally constant rank, i.e.\ if $b \mapsto \rk(f_b)$ is locally constant on $B$.
 \end{exer}
 
 \subsection{Hom bundles}
@@ -1669,40 +1669,73 @@ The $X$-action on $EX$ when $X$ is a group follows from functoriality and the fr
 \end{proof}
 
 \section{Schubert cells}
-\chapterauthor{Nima Amini}
+%\chapterauthor{Nima Amini}
 
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
 It is not a coincidence that these spaces are named \textit{cells}, they in fact make up a CW-complex of $G_n(k^N)$. 
 This allows for the computation of the cohomology ring of the Grassmannian via the cellular cohomology that comes along with CW-complexes. 
 The cohomology ring of the Grassmannian in turn plays a role in the classification of the ring of characteristic classes. 
+
+Let 
+$\mathcal{F} : 0=F_0\subsetneq F_1\subsetneq \cdots \subsetneq F_N = k^N$
+be a strictly increasing sequence, or \textit{flag}, of linear subspaces in $k^N$. Consider the intersection of a given subspace $W\in G_n(k^N)$ with the flag $\mathcal{F}$,
+\begin{equation*}
+0\subseteq W\cap F_1 \subseteq W\cap F_2\subseteq\cdots \subseteq W\cap F_N=W,
+\end{equation*}
+note that at each stage, the dimension either stays the same or goes up by one. \linebreak Let $1\leq a_1<a_2<\cdots <a_n\leq N$ be the indices where the dimensions jump, in other word $\dim(W\cap F_{a_i})=\dim(W\cap F_{a_{i-1}}) +1$, for $i=0,\dots ,n$.
+For a strictly increasing sequence of integers $1\leq a_1<a_2<\cdots <a_n\leq N$, let $C(a_1,\dots ,a_n)$ be defined by
+
+\[
+C(a_1,\dots ,a_n) := \left\{  W\in G_n(k^N)\ \middle\vert \begin{array}{l}
+   \dim\left(W\cap F_{a_i}\right)=i, \hspace*{0.2cm}\forall 1\leq i\leq n \hspace*{0.2cm}  \text{and} \\
+    \dim\left(W\cap F_{j}\right)<i,\hspace*{0.34cm}\forall j<a_i
+  \end{array}\right\}
+\]
+
+\begin{defn}
+The subset $C(a_1,\dots ,a_n)\subset G_n(k^N)$ is called the \textit{Schubert cell} associated to the sequence $(a_1,\dots ,a_n)$, which is often referred to as the \textit{Schubert symbol}. \par 
+The \textit{Schubert variety} associated to $(a_1,\dots ,a_n)$ is the closure of the Schubert cell and we denote it by $\Omega(a_1,\dots ,a_n)$.
+\end{defn}
+The Schubert variety is given by 
+\begin{equation*}
+\overline{C(a_1,\dots ,a_n)} = \Omega(a_1,\dots ,a_n)=\lbrace W\in G_n(k^N) \mid \dim\left(W\cap F_{a_i}\right)\geq i, \forall 1\leq i\leq n \rbrace.
+\end{equation*}
+\begin{lemma}
+The Schubert variety $\Omega(a_1,\dots , a_n)$ is independent of the choice of the flag.
+\end{lemma}
+\begin{proof}
+Let $\mathcal{F}:F_0\subsetneq \cdots \subsetneq F_N$ and $\mathcal{G}:G_0\subsetneq \cdots \subsetneq G_N$ be two flags in $k^N$ where $\dim(F_i)=\dim(G_i)$, for each $i=0,\dots ,N$. There is an invertible linear transformation $T$ on $k^N$ which takes $\mathcal{F}$ to $\mathcal{G}$. For $W\in G_n(k^N)$ and $1\leq i\leq n$, we get that  $\dim(W\cap F_{a_i})\geq i$ if and only if $\dim(T(W)\cap G_{a_i})\geq i$, which completes the proof.
+\end{proof}
+
 \begin{prop}
-There exists a one-to-one correspondence between points of $G_n(k^N)$ and orbits of the set $\text{Mat}_n(k^N)$ of $n \times N$ matrices full rank under the action of $GL_n(k)$.
+There exists a one-to-one correspondence between points of $G_n(k^N)$ and orbits under the action of $\GL_n(k)$ of the subset in $k^{n \times N}$ of $n \times N$-matrices of full rank.
 \end{prop}
 \begin{proof}
-Let $V \in G_n(k^N)$. As soon as we fix a basis $v_1, \dots, v_n$ of $V$ we can represent $V$ as an $n \times N$ row matrix $A = (v_{ij})$. The action of $GL_n(k)$ on $A$ is free and transitive on the bases of $V$. 
+Let $V \in G_n(k^N)$. As soon as we fix a basis $v_1, \dots, v_n$ of $V$ we can represent $V$ as an $n \times N$ row matrix $A = (v_{ij})$. The action of $\GL_n(k)$ on $A$ is free and transitive on the bases of $V$. 
 Hence we get a one-to-one correspondence with the orbits of the action. 
-\end{proof} \noindent
-\begin{remark}
-\label{rem:echelonform}
-In each $GL_n(k)$-orbit of $\text{Mat}_{n,N}(k)$ we have a unique canonical representative provided by the row reduced echelon form (which may be computed using Gaussian elimination). 
+\end{proof} 
+
+\begin{remark}\label{rem:echelonform}
+In each $\GL_n(k)$-orbit of $k^{n \times N}$ we have a unique canonical representative provided by the row reduced echelon form (which may be computed using Gaussian elimination). 
 Thus we may identify points in $G_n(k^N)$ with rank $n$ matrices in row-reduced echelon form.
 \end{remark}
-\begin{defn} \noindent
-A matrix $A \in \text{Mat}_{n,N}(k)$ in row reduced echelon form is said to be in $I\text{-echelon}$ form if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
-The sequence $I$ is often referred to as the Schubert symbol.
+
+\begin{defn} 
+A matrix $A \in k^{n\times N}$ in row reduced echelon form is said to be in \emph{$I$-echelon form} if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
+The sequence $I$ is often referred to as the \emph{Schubert symbol} of $A$.
 \end{defn}
-\begin{example} \normalfont
-\label{ex:echelonform}
+
+\begin{example} \label{ex:echelonform}
 A point $A \in G_4(k^{8})$ in $\{ 1,2,5,7\}$-echelon form has shape
-\begin{center}
-$A = \begin{pmatrix}
+\[
+A = \begin{pmatrix}
   1 & 0 & * & * & 0 & * & 0 & * \\
   0 & 1 & * & * & 0 & * & 0 & * \\
   0 & 0 & 0 & 0 & 1 & * & 0 & * \\
   0 & 0 & 0 & 0 & 0 & 0 & 1 & *
- \end{pmatrix}$
-\end{center}  \noindent
+ \end{pmatrix}
+\]
 where $*$ denotes an arbitrary element in $k$.  
 \end{example} \noindent
 \begin{remark}
@@ -1714,29 +1747,30 @@ If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot colu
 	      &\hspace{0.08cm} * 
 \end{align*} \noindent
 Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-element subsets of $[N]$ so Schubert symbols are in correspondence with Ferrers diagrams of shape $\lambda$.
-\end{remark} \noindent
+\end{remark} 
+
 \begin{defn}
 Let $\lambda$ be an $n$-partition of $N-n$.
 The Schubert cell $\Omega_{\lambda}$ is the closure of the set of points in $G_n(K^N)$ with $I$-echelon form corresponding $\lambda$.
-\end{defn} \noindent
+\end{defn} 
+
 \begin{remark}
-By Remark~\ref{rem:echelonform} it follows that 
-\begin{align*}
-\displaystyle G_n(k^N) = \bigsqcup_{\lambda} \Omega_{\lambda}.
-\end{align*} \noindent
+By Remark~\ref{rem:echelonform} it follows that
+\[
+G_n(k^N) = \bigsqcup_{\lambda} \Omega_{\lambda}
+\]
 Furthermore each $I$-echelon matrix $A$ has exactly $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in $A$). This gives a homeomorphism 
-\begin{align}
-\label{schubertcellaffine}
+\begin{equation}\label{eq:schubertcellaffine}
 \Omega_{\lambda} \simeq k^{|\lambda|}.
-\end{align} \noindent
-To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. 
+\end{equation}
+To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{eq:schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. 
 \end{remark}
 \begin{example}
 Let us see how $G_2(\mathbf{R}^3)$ decomposes into Schubert cells. There are three possible Schubert symbols, namely $I_1 = \{ 1,2 \}, \thickspace I_2 = \{ 1,3 \}$ and $I_3 = \{ 2,3 \}$ corresponding to $2$-partitions of $3-2 = 1$ given by $\lambda_1 = (1,1), \thickspace \lambda_2 = (1,0)$ and $\lambda_3 = (0,0)$. 
 The three corresponding Schubert cells are parametrized by
 \begin{center}
 $\displaystyle \Omega_{\lambda_1} = \left \{  \begin{pmatrix} 1 & 0 & a \\ 0 & 1 & b \end{pmatrix} : a,b \in \mathbf{R} \right \}$, $\displaystyle \Omega_{\lambda_2} = \left \{  \begin{pmatrix} 1 & a & 0 \\ 0 & 0 & 1 \end{pmatrix} : a \in \mathbf{R} \right \}$ and $\displaystyle \Omega_{\lambda_3} = \left \{  \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \right \}$
-\end{center} \noindent
+\end{center}
 of dimension $2,1$ and $0$ respectively. The two-dimensional subspaces in $\Omega_{\lambda_1}$ are given by planes  through the origin intersecting the two lines passing through the points $(1,0,0)$, $(0,1,0)$ and parallel to the $z$-axis. Likewise $\Omega_{\lambda_2}$ consists of the two dimensional subspaces geometrically described by planes through the origin containing the point $(0,0,1)$ and intersecting the line passing through the point $(1,0,0)$ parallel to the $y$-axis. Finally $\Omega_{\lambda_2}$ consists of a single subspace given by the $yz$-plane. By inspecting the matrices it is easy to see that the $\Omega_{\lambda_i}$ are pairwise disjoint and cover $G_2(\mathbf{R}^3)$.
 \end{example}
 
@@ -3919,7 +3953,7 @@ column sep=2.5em, text height=1.5ex, text depth=0.25ex]
 edge node[below] {$ f \hspace{0.5cm}$} (m-2-2)
 (m-1-3) edge node[auto] {$ g $} (m-2-2);
 \end{tikzpicture}
-\end{center} \noindent
+\end{center}
 Examples of slice categories include the category of topological spaces over a base space $B$ which forms part of the definition of the category of vector bundles. Dually one may define the \emph{coslice category} $\C \setminus b$ with objects $\Hom_{\C}(b, \ob \C)$ and morphisms defined analogously. 
 \end{enumerate}
 \end{example}
@@ -3936,7 +3970,7 @@ Basic examples of functors include:
 \begin{align*}
 \displaystyle \Hom(x,g): \Hom_{\C}(x,y) &\to \Hom_{\C}(x,z) \\
 x \xrightarrow{\hspace{0.2cm} f \hspace{0.2cm}} y &\mapsto x \xrightarrow{\hspace{0.2cm} f \hspace{0.2cm}} y \xrightarrow{\hspace{0.2cm} g \hspace{0.2cm}} z
-\end{align*} \noindent
+\end{align*}
 Note that this functor simply post-composes morphisms with $g$.
 \end{enumerate}
 \end{example}
