@@ -1366,10 +1366,10 @@ where $T_n(k)$ denotes the upper triangular matrices $n\times n$-matrices with p
 \begin{lemma} \label{lemma:principalfibrationongrassmannian}
 The group $O(n)$ of orthogonal $n\times n$-matrices acts freely on $V_n(\R^N)$, and the canonical map $V_n(\R^N)/O(n) \to G_n(\R^N)$ is a homeomorphism. 
 
-The same is true for over $\CC$ if one replaces $O(n)$ by the group $U(n)$ of unitary matrices.
+The same is true for over $\CC$ if one replaces $O(n)$ by the group $U(n)$ of unitary matrices, or if one replaces $V_n(k^N)$ by $V_n^{\operatorname{nc}})(k^N)$ and $O(n)$ by $\GL_n(k)$.
 \end{lemma}
 \begin{proof}
-The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. The fiber of the projection map $V_n(\R^N) \to G_n(\R^N)$ over a point $V \in G_n(\R^N)$ is the set of orthonormal bases of $V$, on which $O(n)$ acts freely and transitively, thus the projection map factors through a homeomorphism $V_n(\R^N)/O(n) \to G_n(\R^N)$. The proof in the complex case is the same.
+The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. The fiber of the projection map $V_n(\R^N) \to G_n(\R^N)$ over a point $V \in G_n(\R^N)$ is the set of orthonormal bases of $V$, on which $O(n)$ acts freely and transitively, thus the projection map factors through a homeomorphism $V_n(\R^N)/O(n) \to G_n(\R^N)$. The proof in the complex and noncompact cases is the same.
 \end{proof}
 
 Picking the $n$ first columns of an $N\times N$-matrix gives us surjective maps
@@ -1677,8 +1677,33 @@ It is not a coincidence that these spaces are named \textit{cells}, they in fact
 This allows for the computation of the cohomology ring of the Grassmannian via the cellular cohomology that comes along with CW-complexes. 
 The cohomology ring of the Grassmannian in turn plays a role in the classification of the ring of characteristic classes. 
 
-Let 
-$\mathcal{F} : 0=F_0\subsetneq F_1\subsetneq \cdots \subsetneq F_N = k^N$
+\begin{defn}
+A \emph{CW-complex structure} on a topological space $X$ is a filtration
+\[
+\emptyset = X^{(-1)} \subset X^{(0)} \subset X^{(1)} \subset \cdots \subset X
+\]
+such that
+\begin{itemize}
+	\item $X = \bigcup_{i \geq 0} X^{(i)}$ with the colimit topology, and
+	\item for each $n \geq 0$ there is a set $I_n$, called the set of \emph{$n$-cells}, and a pushout diagram
+	\[
+	\begin{tikzcd}
+	\coprod_{i \in I_n} \S^{n-1} \ar[r] \ar[d,"(\alpha_i)"] & \coprod_{i \in I_n} \mathbf D^n \ar[d]\\
+	X^{(n-1)} \ar[r] & X^{(n)}.
+	\end{tikzcd}
+	\]
+	Here $\mathbf D^n$ denotes the closed standard $n$-dimensional disk with boundary $\S^{n-1}$, where $\S^{-1} = \emptyset$. The upper horizontal map is the standard inclusion.
+\end{itemize}
+	The subspaces $X^{(n)}$ are called \emph{skeleta} of $X$, the map $\alpha_i \colon \S^{n-1} \to X^{(n-1)}$ is called the \emph{attaching map} of the cell $i \in I_n$, and the image of the $i$th copy of $\mathbf D^n$ in $X^{(n)}$ (resp. its interior) is called the $i$th closed (resp. open) $n$-cell of $X^{(n)}$. 
+\end{defn}
+
+\begin{remark}
+The term ``CW complex'' derives from the attributes \underline{c}losure finite and \underline{w}eak topology. The weak topology on $X$ is just the colimit topology mentioned above, and ``closure finite'' refers to the fact that the every closed $n$-cell of $X^{(n)}$ is a unit of only finitely many open $i$-cells for $i \leq n$.
+\end{remark}
+
+CW complexes form a popular subcategory of spaces to work with. They are Hausdorff and paracompact. The CW structure can be used to great advantage in computing (co)homology, as we will see later.
+
+Returning to Grassmannians, let $\mathcal{F}\colon 0=F_0\subsetneq F_1\subsetneq \cdots \subsetneq F_N = k^N$
 be a strictly increasing sequence, or \textit{flag}, of linear subspaces in $k^N$. Consider the intersection of a given subspace $W\in G_n(k^N)$ with the flag $\mathcal{F}$,
 \begin{equation*}
 0\subseteq W\cap F_1 \subseteq W\cap F_2\subseteq\cdots \subseteq W\cap F_N=W,
@@ -1702,23 +1727,24 @@ The Schubert variety is given by
 \overline{C(a_1,\dots ,a_n)} = \Omega(a_1,\dots ,a_n)=\lbrace W\in G_n(k^N) \mid \dim\left(W\cap F_{a_i}\right)\geq i, \forall 1\leq i\leq n \rbrace.
 \end{equation*}
 \begin{lemma}
-The Schubert variety $\Omega(a_1,\dots , a_n)$ is independent of the choice of the flag.
+The Schubert variety $\Omega(a_1,\dots , a_n)$ is independent of the choice of the flag up to isomorphism.
 \end{lemma}
 \begin{proof}
 Let $\mathcal{F}:F_0\subsetneq \cdots \subsetneq F_N$ and $\mathcal{G}:G_0\subsetneq \cdots \subsetneq G_N$ be two flags in $k^N$ where $\dim(F_i)=\dim(G_i)$, for each $i=0,\dots ,N$. There is an invertible linear transformation $T$ on $k^N$ which takes $\mathcal{F}$ to $\mathcal{G}$. For $W\in G_n(k^N)$ and $1\leq i\leq n$, we get that  $\dim(W\cap F_{a_i})\geq i$ if and only if $\dim(T(W)\cap G_{a_i})\geq i$, which completes the proof.
 \end{proof}
 
-\begin{prop}
-There exists a one-to-one correspondence between points of $G_n(k^N)$ and orbits under the action of $\GL_n(k)$ of the subset in $k^{n \times N}$ of $n \times N$-matrices of full rank.
-\end{prop}
-\begin{proof}
-Let $V \in G_n(k^N)$. As soon as we fix a basis $v_1, \dots, v_n$ of $V$ we can represent $V$ as an $n \times N$ row matrix $A = (v_{ij})$. The action of $\GL_n(k)$ on $A$ is free and transitive on the bases of $V$. 
-Hence we get a one-to-one correspondence with the orbits of the action. 
-\end{proof} 
+% TB: This is Lemma~\ref{lemma:principalfibrationongrassmannian}
+% \begin{prop}
+% There exists a one-to-one correspondence between points of $G_n(k^N)$ and orbits under the action of $\GL_n(k)$ of the subset in $k^{n \times N}$ of $n \times N$-matrices of full rank.
+% \end{prop}
+% \begin{proof}
+% Let $V \in G_n(k^N)$. As soon as we fix a basis $v_1, \dots, v_n$ of $V$ we can represent $V$ as an $n \times N$ row matrix $A = (v_{ij})$. The action of $\GL_n(k)$ on $A$ is free and transitive on the bases of $V$. 
+% Hence we get a one-to-one correspondence with the orbits of the action. 
+% \end{proof} 
 
 \begin{remark}\label{rem:echelonform}
-In each $\GL_n(k)$-orbit of $k^{n \times N}$ we have a unique canonical representative provided by the row reduced echelon form (which may be computed using Gaussian elimination). 
-Thus we may identify points in $G_n(k^N)$ with rank $n$ matrices in row-reduced echelon form.
+By Lemma~\ref{lemma:principalfibrationongrassmannian}, points of $G_n(k^N)$ are in bijective correspondence with $\GL_n(k)$-orbits of the subset in $k^{n\times N}$ of matrices of full rank. In each  such orbit, we have a unique canonical representative provided by the row-reduced echelon form (which may be computed using Gaussian elimination). 
+Thus we may identify points in $G_n(k^N)$ with rank-$n$ matrices in row-reduced echelon form.
 \end{remark}
 
 \begin{defn} 
@@ -1739,7 +1765,7 @@ A = \begin{pmatrix}
 where $*$ denotes an arbitrary element in $k$.  
 \end{example} \noindent
 \begin{remark}
-If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the $*$'s is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
+If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the stars is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
 \begin{align*}
 \displaystyle &**** \\	
 	      &**** \\   
@@ -1751,19 +1777,21 @@ Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-e
 
 \begin{defn}
 Let $\lambda$ be an $n$-partition of $N-n$.
-The Schubert cell $\Omega_{\lambda}$ is the closure of the set of points in $G_n(K^N)$ with $I$-echelon form corresponding $\lambda$.
+The Schubert cell $\Omega_{\lambda}$ is the closure of the set of points in $G_n(K^N)$ with $I$-echelon form corresponding to $\lambda$.
 \end{defn} 
 
 \begin{remark}
 By Remark~\ref{rem:echelonform} it follows that
 \[
-G_n(k^N) = \bigsqcup_{\lambda} \Omega_{\lambda}
+G_n(k^N) = \bigsqcup_{\lambda} C_{\lambda}
 \]
-Furthermore each $I$-echelon matrix $A$ has exactly $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in $A$). This gives a homeomorphism 
+Furthermore each $I$-echelon matrix $A$ has exactly $|\lambda| = \lambda_1 + \cdots + \lambda_n$ degrees of freedom in the entries (i.e the number of $*$'s in $A$). This gives a homeomorphism 
 \begin{equation}\label{eq:schubertcellaffine}
-\Omega_{\lambda} \simeq k^{|\lambda|}.
+C_{\lambda} \simeq k^{|\lambda|}.
 \end{equation}
-To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{eq:schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. 
+
+To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{eq:schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. \marginpar{Is this paragraph about the Plücker embedding really necessary?}
+
 \end{remark}
 \begin{example}
 Let us see how $G_2(\mathbf{R}^3)$ decomposes into Schubert cells. There are three possible Schubert symbols, namely $I_1 = \{ 1,2 \}, \thickspace I_2 = \{ 1,3 \}$ and $I_3 = \{ 2,3 \}$ corresponding to $2$-partitions of $3-2 = 1$ given by $\lambda_1 = (1,1), \thickspace \lambda_2 = (1,0)$ and $\lambda_3 = (0,0)$. 
