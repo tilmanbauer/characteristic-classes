@@ -2333,7 +2333,11 @@ Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group}
 \[
 \tilde H^n(X;A) = \ker(H^n(X;A) \to H^n(\{x_0\};A_{x_0})).
 \]
-In the particular case where $A$ is representable, we have thus that $C^n(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A)$, where $\map$ denotes the maps that send the base point $x_0$ to $A$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$.
+In the particular case where $A$ is representable, we have thus that
+\[
+C^n(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A),
+\]
+where $\map_*$ denotes the maps that send the base point $x_0$ to $0$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$.
 \end{defn}
 
 \begin{lemma}\label{lemma:cohomologyofquotient}
@@ -2495,7 +2499,7 @@ H^n_{\mathcal U}(X;A) \to H^n(X;A)
 is an isomorphism for all $n \geq 0$ and all sheaves of abelian groups $A$.
 \end{thm}
 \begin{proof}
-This is true by the sheaf property for $n=0$ and by Corollary~\ref{cor:H1realizedoncontractiblecovers}for $n=1$. The result follows for all $n$ by Corollary~\ref{cor:cechdimensionshift}. 
+This is true by the sheaf property for $n=0$ and by Corollary~\ref{cor:H1realizedoncontractiblecovers} for $n=1$. The result follows for all $n$ by Corollary~\ref{cor:cechdimensionshift}. 
 \end{proof}
 
 This gives in principle a method to reduce the computation of cohomology groups to a finite problem as long as we can find a contractible cover. However, even the smallest contractible covers of relatively simple spaces like spheres or projective spaces tend to have quite a lot of elements.
