@@ -29,6 +29,7 @@
 \DeclareMathOperator{\Princ}{Princ}
 \DeclareMathOperator{\chr}{char}
 \DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\stab}{stab}
 
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\rk}{rk}
@@ -746,6 +747,7 @@ is a bijection.
 
 Furthermore, two cocycles are cohomologous if and only if their associated functors are naturally isomorphic.
 \end{prop}
+\marginpar{I don't think we need the connectivity assumption here. The Prop.\ also seems to be used without this assumption in Cor.\ 3.4.4.}
 \begin{proof}
   For $x\in X$ and $U_{\alpha} \cap U_{\beta} \neq \emptyset $, let us denote with $x_{\alpha\beta} \in U_{\alpha\beta}$ a morphism for which $p(x_{\alpha\beta})=x$.
   Since the functor satisfies $F_1(\mu(f,g)) = \mu(F_1(f),F_1(g))$, we can verify the cocyle axioms by applying $F_1$ to the trivial identities 
@@ -1303,13 +1305,13 @@ Let $G = \Spin(n) \to SO(n) < \GL_n(\R)$, where $\Spin(n)$ is the spin group, a 
 
 \chapter{Lie groups, Grassmannians, and universal bundles}
 
-Let $M \in \R^{n+1}$ be a smooth hypersurface (that is, an embedded $n$-dimensional manifolds). Then at any point $x \in M$, the normal bundle $\nu_x M$ is a line in $\R^{n+1}$ and thus can be thought of as a point in $\R P^n$. We thus obtain a map
+Let $M \in \R^{n+1}$ be a smooth hypersurface (that is, an embedded $n$-dimensional manifold). Then at any point $x \in M$, the normal bundle $\nu_x M$ is a line in $\R^{n+1}$ and thus can be thought of as a point in $\R P^n$. We thus obtain a map
 \[
 f\colon M \to \R P^n.
 \]
-This map is continuous (in fact, even smooth, but we won't be needing this property). Indeed, given some chart $(U,\phi)$ of $M$ around $x$, the tangent space $T_xM$ is spanned by the sections $t_i(x) = \phi_*(\frac{\partial}{\partial x_i}|_x)$ and the ``generalized cross product'' $\tilde g(x) = t_1(x) \wedge \dots \wedge t_n(x)$ is a nonvanishing normal vector to $M$ at $x$. In factor, we can normalize this map to get what is called a \emph{Gauss map}
+This map is continuous (in fact, even smooth, but we won't be needing this property). Indeed, given some chart $(U,\phi)$ of $M$ around $x$, the tangent space $T_xM$ is spanned by the sections $t_i(x) = \phi^*(\frac{\partial}{\partial x_i}|_x)$ and the ``generalized cross product'' $\tilde g(x) = t_1(x) \wedge \dots \wedge t_n(x)$ is a nonvanishing normal vector to $M$ at $x$. In factor, after choosing an isomorphism $\det T_x(U) \cong \R$, we can normalize this map to get what is called a \emph{Gauss map}
 \[
-g(x) = \frac{g(x)}{\|\tilde g(x)\|} \colon M \to \S^n,
+g(x) = \frac{t(x)}{\|\tilde g(x)\|} \colon M \to \S^n,
 \]
 which is continuous, and $f(x) = \bar g(x)$, where $\bar g$ is the map $g$ composed with the canonical projection $\S^n \to \R P^n$. The map $f$ is a ``classifying map'' because $\nu M \cong f^*(\mathcal O(-1))$: we have described a line bundle by a continuous map to a ``classifying space'' ($\R P^n$) which has a universal line bundle ($\mathcal O(-1)$) over it.
 
@@ -1329,6 +1331,15 @@ The aim of this chapter is to study the Grassmannians, provide an alternate desc
 \begin{thm} \label{thm:freeLiegroupaction}
 Let $M$ be a smooth manifold with a smooth and free action of a compact Lie group $G$. Then $M/G$ is a smooth manifold, and the projection map $M \to M/G$ is a smooth principal $G$-bundle.
 \end{thm}
+
+Now let $G$ be a compact Lie group, acting on a smooth manifold $M$. For $x \in M$, the stabilizer $\stab(x)$ is a closed subgroup of $G$, since it is the fiber of the map $G \to X$ that sends $g$ to $gx$. Thus $G/ \stab(x)$ is again a compact Lie group, and it acts freely and transitively on the orbit $Gx$. By the above theorem, the map
+\begin{align*}
+Gx \to Gx / (G/\stab(x))
+\end{align*}
+is a smooth $G/\stab(x)$-bundle. But $G/\stab(x)$ acts transitively on $Gx$, so the base space of this bundle is a point. We have thus shown the following
+\begin{corollary}[Orbit-stabilizer theorem]
+	The map $G \to X: g \mapsto gx$ induces an isomorphism $G/\stab(x) \cong Gx$ of $G/\stab(x)$-bundles.
+\end{corollary}	
 
 
 \section{Stiefel and Grassmann manifolds}
@@ -1358,9 +1369,9 @@ The inclusion map $V_n(k^N) \to V_n^{\operatorname{nc}}(k^N)$ is a homotopy equi
 \begin{proof}
 The Gram-Schmidt orthonormalization process says that
 \[
-V_n^{\operatorname{nc}}(k^n) \cong V_n(k^n) \times T_n(k),
+V_n^{\operatorname{nc}}(k^N) \cong V_n(k^N) \times T_n(k),
 \]
-where $T_n(k)$ denotes the upper triangular matrices $n\times n$-matrices with positive real diagonal. But $T_n(k)$ is contractible.
+where $T_n(k)$ denotes the upper triangular $n\times n$-matrices with positive real diagonal. But $T_n(k)$ is contractible.
 \end{proof}
 
 \begin{lemma} \label{lemma:principalfibrationongrassmannian}
@@ -1387,7 +1398,7 @@ In particular, there is a homeomorphism $\frac{O(N)}{O(n)\times O(N-n)} \to G_n(
 Analogous statements hold in the unitary and noncompact cases.
 \end{lemma}
 \begin{proof}
-The group $O(N)$ acts on $V_n(\R^N)$ by mapping an orthogonal $n$-frame to another such $n$-frame. This action is transitive, and the stabilizer group of a frame $F=(v_1,\dots,v_n)$ is the orthogonal group $O(N-n)$ of the orthogonal complement of the span of $F$. Thus by the orbit-stabilizer theorem, $O(N)/O(N-n) \to V_n(\R^n)$ is a homeomorphism, which moreover is $O(n)$-equivariant.
+The group $O(N)$ acts on $V_n(\R^N)$ by mapping an orthogonal $n$-frame to another such $n$-frame. This action is transitive, and the stabilizer group of a frame $F=(v_1,\dots,v_n)$ is the orthogonal group $O(N-n)$ of the orthogonal complement of the span of $F$. Thus by the orbit-stabilizer theorem, $O(N)/O(N-n) \to V_n(\R^N)$ is a homeomorphism, which moreover is $O(n)$-equivariant.
 \end{proof}
 
 
@@ -1414,7 +1425,7 @@ The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\
 \end{corollary}
 
 \begin{proof}
-Theorem~\ref{thm:freeLiegroupaction} together with Lemma~\ref{lemma:grassstiefelashomogeneousspaces} shows that $V_n(\k^N)$ is a smooth manifold, and Theorem~\ref{thm:freeLiegroupaction} with Lemma~\ref{lemma:principalfibrationongrassmannian} shows that $G_n(k^N)$ is a manifold and $p$ is a principal bundle.
+Theorem~\ref{thm:freeLiegroupaction} together with Lemma~\ref{lemma:grassstiefelashomogeneousspaces} shows that $V_n(k^N)$ is a smooth manifold, and Theorem~\ref{thm:freeLiegroupaction} with Lemma~\ref{lemma:principalfibrationongrassmannian} shows that $G_n(k^N)$ is a manifold and $p$ is a principal bundle.
 
 The claims about dimensions follow from the facts that $\dim O(n) = {n \choose 2}$ and $\dim U(n) = n^2$.
 \end{proof}
@@ -1535,7 +1546,7 @@ Note that
 we will denote an element in $\nerve_n\mathbf U$ by $x^{\alpha_0\cdots\alpha_n}$.
 
 \begin{example}
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(\mathcal U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
 \end{example}
 
 There is a simplicial map from the \v Cech nerve $\nerve\mathbf U$ to $\nerve b(\mathcal U)$ given by
@@ -1585,7 +1596,7 @@ Given any simplicial object $X$ in a category $C$, we can form the \emph{cyclind
 where we think of the cartesian product of an object $Z$ of $C$ with a set $I$ as the coproduct $\coprod_I Z$. This is thus also a simplicial object in $C$.
 
 \begin{defn}
-A \emph{simplicial homotopy} between two simplicial maps $f$, $g\colon X \to Y$ is a simplicial map $h\colon X \times [1] \to Y$ such that $h|_{X \times \{0\}} = f$ and $h|_{X \times \{1\}} = g$
+A \emph{simplicial homotopy} between two simplicial maps $f$, $g\colon X \to Y$ is a simplicial map $h\colon X \times I \to Y$ such that $h|_{X \times \{0\}} = f$ and $h|_{X \times \{1\}} = g$
 \end{defn}
 
 The following proposition follows from the definition of natural transformations of functors of topological categories (Section~\ref{subsec:cocyclesasfunctors}) and Proposition~\ref{prop:nervefullyfaithful}.
@@ -1765,7 +1776,7 @@ A = \begin{pmatrix}
 where $*$ denotes an arbitrary element in $k$.  
 \end{example} \noindent
 \begin{remark}
-If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the stars is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
+If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the stars is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (i.e.\ a weakly increasing sequence $\lambda_1 \leq \dots \leq \lambda_n$ of non-negative integers such that $\sum \lambda_i = N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
 \begin{align*}
 \displaystyle &**** \\	
 	      &**** \\   
@@ -1818,7 +1829,7 @@ A space $X$ is paracompact iff every open cover has an associated partition of u
 
 Let us study the geometric realizations of \v Cech nerves of open covers. 
 
-Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \in U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
+Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \subset U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
 
 \begin{prop} \label{prop:refinementhomotopyinvariant}
 Let $\{V_\beta\}_{\beta \in J}$ be a refinement of an open cover $\{U_\alpha\}_{\alpha \in I}$ of a space $X$, and let $\rho_1,\;\rho_2\colon J \to I$ be two functions such that $V_\beta \in U_{\rho_i(\beta)}$ for all $\beta \in J$. Then $\rho_1$ and $\rho_2$ induce naturally isomorphic functors between the topological groupoids $\mathbf V$ and $\mathbf U$.
@@ -1828,7 +1839,7 @@ In particular, the map $|\rho_*|\colon |\nerve\mathbf V| \to |\nerve \mathbf U|$
 \begin{proof}
 Let $H$ be the map over $X$ defined by
 \[
-H\colon \mathbf V \to \mathbf U \times_X \mathbf U; \quad x^\beta \mapsto x^{\rho_1(\beta),\rho_2(\beta)}.
+H\colon \mathbf V \to \mathbf U \times_X \mathbf U; \quad x^\beta \mapsto (x^{\rho_1(\beta)},x^{\rho_2(\beta)}).
 \]
 We use this map to define a natural transformation $h\colon (\mathbf V,\mathbf V \times_X \mathbf V) \times [1] \to (\mathbf U,\mathbf U \times_X \mathbf U)$ between $\rho_1$ and $\rho_2$. We define
 \[
@@ -1853,7 +1864,7 @@ The following are equivalent for a space $X$:
 \end{thm}
 \begin{proof}
 \noindent\textbf{\eqref{thm:paracompactnerve:paracompact}$\Longrightarrow$\eqref{thm:paracompactnerve:deformationretraction}:}
-First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. Since $X$ is paracompact, we there exists a locally finite refinement $\mathcal V \to \mathcal U$. Since a section $X \to |\nerve\mathbf V|$ composes with any map $\mathbf V \to \mathbf U$ realizing the refinement to a section $X \to |\nerve\mathbf U|$,  we may as well assume that $\mathcal U$ already is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
+First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. Since $X$ is paracompact, there exists a locally finite refinement $\mathcal V \to \mathcal U$. Since a section $X \to |\nerve\mathbf V|$ composes with any map $\mathbf V \to \mathbf U$ realizing the refinement to a section $X \to |\nerve\mathbf U|$,  we may as well assume that $\mathcal U$ already is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
 
 Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x^J,f_J(x)) \in U_J \times \Delta^n$, where $x^J = x^{\alpha_0,\dots,\alpha_n} \in U_J \subseteq \nerve_n\mathbf U$ and $f_J(x)=(f_{\alpha_0}(x),\dots,f_{\alpha_n}(x)) \in \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. 
 
@@ -1923,12 +1934,12 @@ Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G
 is a pullback diagram.
 \end{thm}
 \begin{proof}
-This proof follows tom Dieck \cite[Chapter 14.3]{tomdieck:algebraic-topology}.
-By the compactness of $[0,1]$ and paracompactness of $B$, there exists a locally finite cover $U_\alpha \times [0,1]$ of trivializing neighborhoods for $p$. Let $f_\alpha\colon B \to [0,1]$ be a partition of unity with respect to $U_\alpha$. Now define
+This proof follows Tom Dieck \cite[Chapter 14.3]{tomdieck:algebraic-topology}.
+By the compactness of $[0,1]$ and paracompactness of $B$, there exists a locally finite cover $\{U_\alpha \times [0,1]\}_{\alpha \in I}$ of trivializing neighborhoods for $p$. Let $\{f_\alpha\colon B \to [0,1]\}_{\alpha \in I}$ be a partition of unity with respect to $U_\alpha$. Now define
 \[
 F(x) = \max_{\alpha \in I} f_\alpha(x) \quad \text{and} \quad u_\alpha(x) = \frac{f_\alpha(x)}{F(x)}.
 \]
-Then for every $x \in B$ there is an $\alpha \in I$ such that $f_\alpha(x)=1$ and $\supp(f_\alpha) \subset U_\alpha$. Now define
+Then for every $x \in B$ there is an $\alpha \in I$ such that $u_\alpha(x)=1$ and $\supp(u_\alpha) \subset U_\alpha$. Now define
 \[
 r_\alpha\colon B \times [0,1] \to B \times [0,1] \quad \text{by} \quad (x,t) \mapsto (x,\max(t,u_\alpha(x))).
 \]
@@ -1942,14 +1953,14 @@ This map $r_\alpha$ is covered by a map $\tilde r_\alpha\colon E \to E$ which is
 is a pullback. Choose a total ordering on $I$ and let $r$ be the (infinite) composition of all the maps $\tilde r_\alpha$. This is well-defined since for every $x \in E$, only finitely many $\alpha$ have $\tilde r_\alpha(x) \neq x$. Since $\max(u_\alpha)=1$, $r$ takes values in $E_1$.
 \end{proof}
 
-In particular, we have a bundle isomorphism $r\in \map_{B \times [0,1]}(E, E_1 \times [0,1])$ which is the identity on $E_1$.
+In particular, we have a bundle isomorphism $r\in \map_{B \times [0,1]}(E, E_1 \times [0,1])$ which is the identity on $E_1$, because the pullback of $E_1$ along the projection $B \times [0,1] \to B$ is isomorphic to $E_1 \times [0,1]$.
 
 \begin{proof}[Proof of Theorem~\ref{thm:homotopicpullbacks}]
 Let $h\colon X \times [0,1] \to B$ be a homotopy from $f$ to $g$ and denote by $H = h^*p$ the pullback bundle over $X \times [0,1]$. Then $f^*p = H_0$, $g^*p=H_1$, and by Theorem~\ref{thm:homotopylifting}, $H \cong H_1 \times [0,1]$. Hence $H_0 \cong H_1$.
 \end{proof}
 
 \begin{corollary}\label{cor:bundlesovercontractiblespaces}
-Let $B$ be a paracompact, contractible space. Then any vector bundle $E \to B$ is trivial.
+Let $B$ be a paracompact, contractible space. Then any principal $G$-bundle $E \to B$ is trivial.
 \end{corollary}
 \begin{proof}
 The identity map on $B$ is homotopic to a constant map. The pullback of $E$ along a constant map is a trivial vector bundle. By Theorem~\ref{thm:homotopicpullbacks}, $E$ is thus trivial.
@@ -1959,11 +1970,11 @@ The identity map on $B$ is homotopic to a constant map. The pullback of $E$ alon
 \end{defn}
 
 \begin{corollary}\label{cor:H1realizedoncontractiblecovers}
-Let $\mathcal U$ be a contractible cover of a paracompact space $X$ and $G$ a topological group. Then the map
+Let $\mathcal U$ be a contractible cover of a paracompact space $X$ and $G$ a topological group. Then the map from Prop.~\ref{prop:cocycleexistence}
 \[
 H^1_{\mathcal U}(X;G) \to \Princ_G(X)/\text{iso}
 \]
-which maps a cocycle its associated principal bundle, is a bijection.
+which maps a cocycle to its associated principal bundle, is a bijection.
 \end{corollary}
 \begin{proof}
 As every $U_\alpha \in \mathcal U$ is contractible, $\mathcal U$ trivializes any principal $G$-bundle by Corollary~\ref{cor:bundlesovercontractiblespaces}. Thus the map in question is surjective. By Proposition~\ref{prop:cocycleisomorphisms}, it is also injective.
@@ -1971,10 +1982,10 @@ As every $U_\alpha \in \mathcal U$ is contractible, $\mathcal U$ trivializes any
 
 \section{Universal bundles}
 
-In Corollary~\ref{cor:EG}, we constructed a family of spaces $EG$ with a free $G$-action and which are furthermore (nonequivariantly) contractible, for any Lie group $G$. 
+In Corollary~\ref{cor:EG}, we constructed a spaces $EG$ with a free $G$-action which is furthermore (nonequivariantly) contractible, for any Lie group $G$. 
 
 \begin{lemma}
-For Lie groups $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
+For a Lie group $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
 \end{lemma}
 \begin{proof}
 Segal notes in \cite{segal:68} that this fails to be true for a general topological group $G$, but it does hold for Lie groups. See, for instance, \cite{may:classifying-spaces}, where May shows that it suffices for a topological group $G$ to be well-pointed for this to hold.
@@ -1994,7 +2005,7 @@ By Thm.~\ref{thm:homotopicpullbacks}, $\Phi$ is well-defined, that is, it maps h
 
 To construct an inverse map $\Psi\colon \Princ_G(X) \to [X,BG]$, let $p\colon E \to X$ be a principal $G$-bundle. Choose a cover $\mathcal U$ of $X$ consisting of trivializing neighborhoods for $p$. The cocycle corresponding to $p$ with respect to $\mathcal U$ gives us a simplicial map
 \[
-\nerve \mathbf U \to G
+\nerve \mathbf U \to \nerve G
 \]
 and thus a map on realizations
 \[
@@ -2002,6 +2013,10 @@ X \simeq |\nerve\mathbf U| \to |\nerve G| = BG.
 \]
 \end{proof}
 
+Let $k$ be $\R$ resp.\ $\CC$, and let $p:E \to B$ be a vector bundle over $k$. Then an \textit{Euclidean} resp.\ \textit{Hermitian structure} on $E$ is a map $E \oplus E \to k \times B$ of vector bundles such that the restrictions to the fibers induce real resp.\ complex inner products on these fibers.
+\begin{exer}
+Let $B \to B \GL_n$ be a map associated to $p$ from the previous theorem. Show that if this map factors through $B O(n)$ resp.\ $BU(n)$, then it induces an Euclidean resp.\ Hermitian structure.
+\end{exer}	
 \begin{corollary}\label{cor:euclideanstructure}
 Any real vector bundle over a paracompact space can be given a Euclidean structure, and any complex vector bundle a Hermitian structure. 
 \end{corollary}
