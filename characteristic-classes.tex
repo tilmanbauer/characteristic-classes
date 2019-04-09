@@ -1309,7 +1309,7 @@ Let $M \in \R^{n+1}$ be a smooth hypersurface (that is, an embedded $n$-dimensio
 \[
 f\colon M \to \R P^n.
 \]
-This map is continuous (in fact, even smooth, but we won't be needing this property). Indeed, given some chart $(U,\phi)$ of $M$ around $x$, the tangent space $T_xM$ is spanned by the sections $t_i(x) = \phi^*(\frac{\partial}{\partial x_i}|_x)$ and the ``generalized cross product'' $\tilde g(x) = t_1(x) \wedge \dots \wedge t_n(x)$ is a nonvanishing normal vector to $M$ at $x$. In factor, after choosing an isomorphism $\det T_x(U) \cong \R$, we can normalize this map to get what is called a \emph{Gauss map}
+This map is continuous (in fact, even smooth, but we won't be needing this property). Indeed, given some chart $(U,\phi)$ of $M$ around $x$, the tangent space $T_xM$ is spanned by the sections $t_i(x) = \phi^*(\frac{\partial}{\partial x_i}|_x)$ and the ``generalized cross product'' $\tilde g(x) = t_1(x) \wedge \dots \wedge t_n(x)$ is a nonvanishing normal vector to $M$ at $x$. In fact, after choosing an isomorphism $\det T_x(U) \cong \R$, we can normalize this map to get what is called a \emph{Gauss map}
 \[
 g(x) = \frac{t(x)}{\|\tilde g(x)\|} \colon M \to \S^n,
 \]
@@ -1338,7 +1338,7 @@ Gx \to Gx / (G/\stab(x))
 \end{align*}
 is a smooth $G/\stab(x)$-bundle. But $G/\stab(x)$ acts transitively on $Gx$, so the base space of this bundle is a point. We have thus shown the following
 \begin{corollary}[Orbit-stabilizer theorem]
-	The map $G \to X: g \mapsto gx$ induces an isomorphism $G/\stab(x) \cong Gx$ of $G/\stab(x)$-bundles.
+	The map $G \to X$, $g \mapsto gx$ induces an isomorphism $G/\stab(x) \cong Gx$ of $G/\stab(x)$-bundles.
 \end{corollary}	
 
 
@@ -2013,7 +2013,7 @@ X \simeq |\nerve\mathbf U| \to |\nerve G| = BG.
 \]
 \end{proof}
 
-Let $k$ be $\R$ resp.\ $\CC$, and let $p:E \to B$ be a vector bundle over $k$. Then an \textit{Euclidean} resp.\ \textit{Hermitian structure} on $E$ is a map $E \oplus E \to k \times B$ of vector bundles such that the restrictions to the fibers induce real resp.\ complex inner products on these fibers.
+Let $k$ be $\R$ resp.\ $\CC$, and let $p\colon E \to B$ be a vector bundle over $k$. Then an \textit{Euclidean} resp.\ \textit{Hermitian structure} on $E$ is a map $E \oplus E \to k \times B$ of vector bundles such that the restrictions to the fibers induce real resp.\ complex inner products on these fibers.
 \begin{exer}
 Let $B \to B \GL_n$ be a map associated to $p$ from the previous theorem. Show that if this map factors through $B O(n)$ resp.\ $BU(n)$, then it induces an Euclidean resp.\ Hermitian structure.
 \end{exer}	
@@ -2356,19 +2356,29 @@ where $\map_*$ denotes the maps that send the base point $x_0$ to $0$ if it belo
 \end{defn}
 
 \begin{lemma}\label{lemma:cohomologyofquotient}
-Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = i_*i^*A = i_*(A|_U)$. This sheaf is given by
+Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = \ker(A \to i_*i^*A)$. This sheaf is given by
 \[
-F(V) = \{f\colon V \to A \mid f|_{V \cap K} = 0\}.
+F(V) = \{f\colon V \to A \mid f \text{ vanishes in a neighborhood of $V \cap K$}\}.
 \]
 Then $H^n(X;F) \cong \tilde H^n(X/K;A)$.
 \end{lemma}
 \begin{proof}
-We have that $F(U_{\alpha_0\cdots\alpha_n}) = \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $V \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
+Note that for $L \subseteq K$ open in $K$, 
+\[
+(i^*(A))(L) = \colim_{V \supseteq f(L)} A(V) = \colim_V \map(V,A),
+\]
+where $V$ runs over open subsets of $X$ containing $f(L)$. The restriction map
+\[
+r\colon \colim_V \map(V,A) \to \map(L,A)
+\]
+is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $K$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) = f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence.
+
+We have that $F(U_{\alpha_0\cdots\alpha_n}) \simeq \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $V \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
 \[
 H^n_{\mathcal U}(X;F) \cong \tilde H^n_{\mathcal U/K}(X/K;A)
 \]
 and since $\mathcal U/K$ ranges over all open covers of $X/K$ as $\mathcal U$ ranges over the open covers of $X$, we obtain the claimed result.
-\end{proof}
+\end{proof} \marginpar{improve this proof!}
 
 \begin{corollary}\label{cor:sesforspaces}
 Let $K \subseteq X$ be a neighborhood retract and $A$ a topological abelian group. Then there is a long exact sequence in cohomology:
@@ -2425,7 +2435,7 @@ Let $X$ be paracompact. Then fine sheaves of abelian groups on $X$ are soft, and
 \begin{proof}
 Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U) \to M(K)$, where $U$ is some open set containing $K$. Pick some other open set $V \supset K$ such that $\overline V \subset U$; this exists by paracompactness. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R(X)$ consisting of two sections $\{s_U,s_{X-\overline V}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t|_V$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
 
-If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a soft sheaves of rings, over which $A$ is a module sheaf, thus $A$ is soft.
+If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a soft sheaf of rings, over which $A$ is a module sheaf, thus $A$ is soft.
 \end{proof}
 
 \begin{prop}\label{prop:finesheafcohomology}
@@ -2531,7 +2541,7 @@ Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups o
 \[
 0 \to A \to i_*(A|_U) \oplus j_*(A|_V) \to k_*(A|_{U \cap V})
 \]
-is exact, where the right hand side map is the difference of the restriction maps. This sequence not generally exact on the right, but it is on all $Y \subset X$ such that $Y \subseteq U$ or $Y \subseteq V$.
+is exact, where the right hand side map is the difference of the restriction maps. This sequence is not in general exact on the right, but it is on all $Y \subset X$ such that $Y \subseteq U$ or $Y \subseteq V$.
 
 Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal U$. Assume that every element of $\mathcal U$ is either entirely contained in $U$ or entirely contained in $V$. Denote by $\mathcal U|_Y$ for $Y \subseteq X$ the intersection of the open cover with $Y$, and by $\mathbf U|_Y$ the associated topological groupoid. Then
 \[
@@ -2847,46 +2857,114 @@ H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}
 \section{Chern classes}\label{sec:chernclasses}
 \chapterauthor{Kaj Börjesson}
 
-There are different but equivalent ways to define Chern classes. We will follow the approach of \cite{tomdieck:algebraic-topology} and use Euler classes and projective bundles. However, we are making it a bit less complicated by not considering arbitrary generalized cohomology theories. In this section cohomology is always taken with integer coefficients.
+The aim of this section is to compute the cohomology ring of the classifying space $BU(n)$ for complex $n$-dimensional bundles. The main result is:
+
+\begin{thm}
+The cohomology of $BU(n)$ is given by
+\[
+H^*(BU(n);\Z) \cong \Z[c_1,c_2,\dots],
+\]
+where $|c_i|=2i$.
+
+Moreover, the map in cohomology induced by the inclusion of the diagonal matrices $(\S^1)^n \to U(n)$,
+\[
+H^*(BU(n);\Z) \to H^*((B\S^1)^n;\Z) = H^*((\CC P^\infty)^n;\Z) \cong \Z[t_1,\dots,t_n]; \quad |t_i| = 2,
+\]
+maps $c_i$ to the $i$th elementary symmetric polynomial in $t_1,\dots,t_n$, so that we obtain an isomorphism
+\[
+H^*(BU(n);\Z) \cong H^*((B\S^1)^n)^{\Sigma_n}
+\]
+into the fixed points of the permutation action of the symmetric group $\Sigma_n$ on the generators $t_i$.
+\end{thm}
+
+The class $c_i$ is called the $i$th \emph{universal Chern class}. Given a vector bundle $E \to B$ classified by a map $f\colon B \to BU(n)$, the $i$th \emph{Chern class} $c_i(E)$ of the vector bundle is by definition the pullback $f^*(c_i) \in H^{2i}(B;\Z)$.
+
+Some preparatory results are needed to prove this theorem.
 
 \subsection{Leray-Hirsch theorem and Thom classes}
 
-\begin{defn}
-Consider a pair of spaces $A\subset X.$ There is a short exact sequence $$0\rightarrow C^*(A)\rightarrow C^*(X)\rightarrow C^*(X)/C^*(A)\rightarrow 0.$$ Let $H^*(X,A)$ be the cohomology of the complex $C^*(X)/C^*(A).$ 
-\end{defn}
-
-\begin{thm}[Leray-Hirsch]
-Let $$0\rightarrow (F,F')\xrightarrow{i} (E,E') \xrightarrow{p} B $$ be a relative fiber bundle. Suppose that $H^*(F,F')$ is a finitely generated abelian group and that there are elements $a_j\in H^*(E,E')$ such that $i^*(a_j)$ is a basis of $H^*(F,F').$ Then the map $$L:H^*(B)\otimes H^*(F,F')\xrightarrow{b\otimes i^*(a_j)\mapsto p^*(b)\otimes a_j}H^*(E,E')$$ is an isomorphism of abelian groups.
+\begin{thm}[Leray-Hirsch] \label{thm:leray-hirsch}
+Let $B$ be a space homotopy equivalent to a CW complex,  $p\colon E \to B$ be a fiber bundle with fiber $i\colon F \hookrightarrow E$, and let $R$ be a ring. Assume that there exist elements $e_1,\dots,e_n \in H^*(E;R)$ such that $\{i^*(e_i)\}$ forms an $R$-basis of $H^*(F;R)$. (In particular, the latter cohomology module is finitely generated free.) Then the map
+\begin{align*}
+m\colon H^*(B;R) \otimes_R H^*(F;R) &\to& H^*(E;R)\\
+b \otimes i^*(e_i) &\mapsto& p^*(b)e_i
+\end{align*}
+is an isomorphism of $R$-modules. 
 \end{thm}
+
+One can think of the Leray-Hirsch theorem as a generalization of the Künneth theorem, Cor.~\ref{cor:kunneth}. The Künneth theorem requires the fiber bundle to be trivial, i.~e. $E \cong B \times F$, and it makes the stronger assertion that the map $m$ is an isomorphism of rings.
 
 \begin{proof}
-See \cite[Theorem 17.8.1]{tomdieck:algebraic-topology}.
+First note that if $j\colon B' \hookrightarrow B$ is a subspace then $p|_{B'}\colon p^{-1}(B') \to B'$ satisfies the conditions of the theorem as well, with $e_i' = j^*(e_i)$.
+
+Let us first assume that $B$ is a finite-dimensional CW complex. We use induction on the skeleton to prove the theorem for $B$. If $B$ is $0$-dimensional, then it is discrete, $E \cong F \times B$, and the theorem follows. Thus assume that the theorem is proven for the $(n-1)$-skeleton of an $n$-dimensional CW complex $B$. Then $B = B_1 \cup B_2$, where $B$ is a neighborhood retract of an open neighborhood $B_1$, and $B_2 \cong \coprod_{\alpha in I} C_\alpha$ is a disjoint union of open $n$-cells. The Mayer-Vietoris sequence is applicable to this decomposition, as it is applicable to the corresponding decomposition of total spaces $E = E_1 \cup E_2$, where $E_i = p^{-1}(B_i)$. We obtain a commutative diagram with exact rows:
+\[
+\begin{tikzcd}
+H^k(B) \otimes H^*(F) \ar[r] \ar[d] & (H^k(B_1) \oplus H^k(B_2)) \otimes H^*(F) \ar[r]\ar[d] & H^*(B_1 \cap B_2) \otimes H^*(F) \ar[d] \\
+H^k(E) \ar[r] & H^k(E_1) \oplus H^k(E_2) \ar[r] & H^k(E_1 \cap E_2).
+\end{tikzcd}
+\]
+The top row comes from the Mayer-Vietoris sequence for $(B_1,B_2)$, tensored with the free module $H^*(F)$, and the vertical maps are the maps $m$. By the induction hypothesis and the fact that $E_2 \to B_2$ is a trivial bundle, the middle vertical map is an isomorphism. Since $B_1 \cap B_2 \simeq \coprod_{\alpha \in I} \S^{n-1}$, the vertical map on the right hand side is also an isomorphism by inductive assumption. Thus by the 5-lemma, so is the map on the left-hand side.
+
+The result follows for arbitrary CW complexes because $H^n(B) \cong H^n(B^{(n+1)})$ by the Mayer-Vietoris sequence for the skeleta of $B$ as above. The result for spaces that are not CW complexes but are homotopy equivalent to such follows from homotopy invariance.
 \end{proof}
 
+We apply this theorem to a particular space constructed from a vector bundle.
+
 \begin{defn}
-Let $\xi:E\rightarrow B$ be a real $n$-dimensional vector bundle and let $E^0$ be the total space with the zero section deleted. A Thom class is an element $t\in H^n(E,E^0)$ such that the restriction to each fiber induces a basis of $H^n(F,F^0)\cong H^n(S^n).$
+Let $p\colon E\rightarrow B$ be a Euclidean $n$-dimensional vector bundle. Denote by
+\[
+\S(E) = \{x \in E \mid \|x\| = 1\} \quad \text{and} \quad \mathbf{D}(E) = \{x \in E \mid \|x\| \leq 1\}
+\]
+the associated \emph{sphere and disc bundle}, respectively. The \emph{Thom space} $M(p)$ of $p$ is the quotient space $\mathbf{D}(E)/\S(E)$.
+
+A \emph{Thom class} for $E$ is an element $\tau \in H^n(M(p);\Z)$ such that the restriction to each fiber induces a basis of $H^n(\mathbf D^n/\S^{n-1};\Z)\cong H^n(\S^n;\Z).$
 \end{defn}
 
-\begin{remark}
-Thom classes exist whenever the bundle is orientable, in particular for complex vector bundles considered as real vector bundles.
-\end{remark}
+A Thom class may or may not exist for a given vector bundle $p$:
 
-The Leray-Hirsh theorem now gives the following theorem as a special case.
+\begin{exer}
+Show that a Thom class exists iff $E$ is an orientable vector bundle, and that in this case, there are two different Thom classes corresponding to the two possible orientations of $E$.
+\end{exer}
 
-\begin{thm}[Thom isomorphism]
-Given a Thom class $t,$ the map $$\Phi:H^k(B)\xrightarrow{b \mapsto p^*(b)\smile t} H^{k+n}(E,E^0)$$ is an isomorphism.
+
+\begin{thm}[Thom isomorphism] \label{thm:thomiso}
+Let $p\colon E \to B$ be an $n$-dimensional real vector bundle with a Thom class $\tau \in H^n(M(p);\Z)$. Then the map
+\[
+\Phi\colon H^k(B;\Z)\xrightarrow{b \mapsto p^*(b) \tau} H^{k+n}(M(p);\Z)
+\]
+is an isomorphism.
 \end{thm}
+\begin{proof}
+Let $\hat M(p)$ be the fiber bundle which is the fiberwise quotient of $\mathbf D(E)$ by $\mathbf S(E)$. Then $\hat M(p)$ has fiber $\S^n$ and $M(p) \cong \hat M(p)/s(B)$, where $s\colon B \to E$ is the zero section of $E$.
+The Leray-Hirsch theorem~\ref{thm:leray-hirsch} implies that $H^*(\hat M(p)) \cong H^*(\S^n) \otimes H^*(B)$. By dividing out, we obtain the claimed isomorphism $H^*(M(p)) \cong \tilde H^*(\S^n) \otimes H^*(B)$.
+\end{proof}
 
 \subsection{Euler classes and the Gysin sequence}
 
-The pair $(E,E^0)$ gives an induced long exact sequence in cohomology: $$ \dots \rightarrow H^{k-1}(E^0)\rightarrow H^{k}(E,E^0)\xrightarrow{j} H^k(E)\rightarrow H^k(E^0)\rightarrow \dots $$ Assuming a Thom class and using that $p^*:H^*(B)\cong H^*(E)$ we can rewrite it as follows.
-
-\begin{thm}[Gysin sequence] Given a Thom class, there is a long exact sequence $$ \dots \rightarrow H^{k-1}(E^0)\rightarrow H^{k-n}(B)\xrightarrow{J} H^k(B)\rightarrow H^k(E^0)\rightarrow \dots $$ where $J$ is given by multiplying with the element $e=(p^*)^{-1}\circ j(t)\in H^k(B).$
-\end{thm}
-
 \begin{defn}
-The element $e$ in the above theorem is called the Euler class.
+Let $p\colon E \to B$ be a vector bundle with a Thom class $\tau \in H^n(M(p))$. The image $e(p)\in H^n(B)$ under the map
+\[
+H^n(M(p)) \xrightarrow{q^*} H^n(\mathbf D(E)) \xleftarrow[\cong]{p^*} H^n(B)
+\]
+is called the \emph{Euler class} of $p$, where $q\colon \mathbf D(E) \to M(p)$ is the quotient map and $p\colon \mathbf D(E) \to B$ the restriction of the projection, a homotopy equivalence
 \end{defn}
+
+\begin{thm}[Gysin sequence] \label{thm:gysinsequence}
+Let $p\colon E \to B$ be a vector bundle with Thom class $\tau \in H^n(M(p))$ and Euler class $e \in H^n(B)$. Then there is a long exact sequence
+\[
+\cdots \to H^{k-1}(\S(E)) \to H^{k-n}(B) \xrightarrow{e} H^k(B) \xrightarrow{p^*} H^k(\S(E)) \to \cdots.
+\]
+\end{thm}
+\begin{proof}
+This follows from the Thom isomorphism theorem and the commutativity of the following diagram:
+\[
+\begin{tikzcd}
+H^{k-1}(\S(E)) \ar[r,"\partial"] \ar[dr,style=dotted] & H^k(M(p)) \ar[r, "q^*"] & H^k(\mathbf D(E)) \ar[r] & H^k(\S(E))\\
+& H^{k-n}(B) \ar[u,"\cong"] \ar[r,"e"] & H^k(B) \ar[u,"p^*"] \ar[ur,""]
+\end{tikzcd}
+\]
+\end{proof}
 
 \subsection{Projective bundles and Chern classes}
 
