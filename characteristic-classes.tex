@@ -2855,11 +2855,10 @@ H^k(M;\R) \cong H^k(M;d\Omega^{-1}(M)) \cong H^1(M;d\Omega^{k-2}) \cong H^k_{dR}
 \chapter{Characteristic classes}
 
 \section{Chern classes}\label{sec:chernclasses}
-\chapterauthor{Kaj Börjesson}
 
 The aim of this section is to compute the cohomology ring of the classifying space $BU(n)$ for complex $n$-dimensional bundles. The main result is:
 
-\begin{thm}
+\begin{thm}\label{thm:cohomologyofBU}
 The cohomology of $BU(n)$ is given by
 \[
 H^*(BU(n);\Z) \cong \Z[c_1,c_2,\dots],
@@ -2963,8 +2962,26 @@ Let $p\colon E \to B$ be a vector bundle with a Thom class $\tau \in H^n(M(p))$.
 \[
 H^n(M(p)) \xrightarrow{q^*} H^n(\mathbf D(E)) \xleftarrow[\cong]{p^*} H^n(B)
 \]
-is called the \emph{Euler class} of $p$, where $q\colon \mathbf D(E) \to M(p)$ is the quotient map and $p\colon \mathbf D(E) \to B$ the restriction of the projection, a homotopy equivalence
+is called the \emph{Euler class} of $p$, where $q\colon \mathbf D(E) \to M(p)$ is the quotient map and $p\colon \mathbf D(E) \to B$ the restriction of the projection, a homotopy equivalence.
 \end{defn}
+
+The Euler class is our first example of a characteristic class, i.~e. a cohomology class in $H^*(B)$ naturally associated to a vector bundle on $B$. Strictly speaking, it is a characteristic class for \emph{oriented} vector bundles, as an orientation of $E$ is the same as a choice of Thom class of $E$. When the orientation of $E$ is reversed, the Euler class $e(E)$ changes sign.
+
+\begin{lemma}\label{lemma:eulerclassofsum}
+Let $p\colon E \to B$, $p'\colon E' \to B$ be two vector bundles over the same base space $B$. Then $e(E \oplus E') = e(E) e(E')$.
+\end{lemma}
+\begin{proof}
+The Thom space of $E \oplus E'$ is the \emph{smash product} 
+\[
+M(p \oplus p') \cong M(p) \wedge M(p') =_{\operatorname{def}} M(p) \times M(p') / (M(p) \times \{\infty\} \cup \{\infty\} \times M(p')),
+\]
+and the K\"unneth Theorem in combination with the long exact sequence shows that
+\[
+\tilde H^*(M(p \oplus p')) \cong \tilde H^*(M(p)) \otimes \tilde H^*(M(p')).
+\]
+Under this isomorphism, the Thom classes $\tau$, $\tau'$ of $E$ and $E'$ tensor to a Thom class $\tau \otimes \tau'$ of $E \oplus E'$. Thus $e(E \oplus E') = e(E)e(E')$ as well.
+\end{proof}
+
 
 \begin{thm}[Gysin sequence] \label{thm:gysinsequence}
 Let $p\colon E \to B$ be a vector bundle with Thom class $\tau \in H^n(M(p))$ and Euler class $e \in H^n(B)$. Then there is a long exact sequence
@@ -3007,94 +3024,111 @@ Inductively, all odd-dimensional cohomology groups are zero, and hence the long 
 \[
 0 \to H^{2k-2n}(BU(n)) \xrightarrow{e} H^{2k}(BU(n)) \to H^{2k}(BU(n-1)) \to 0.
 \]
-Thus multiplication by $e$ is injective, and the projection $H^{2k}(BU(n)) \to H^{2k}(BU(n-1))$ is surjective. This implies that $H^*(BU(n)) \cong H^*(BU(n-1))[e]$ and, inductively and setting $c_n=e$, $H^*(BU(n)) \cong \Z[c_1,\dots,c_n]$.
+Thus multiplication by $e$ is injective, and the projection $H^{2k}(BU(n)) \to H^{2k}(BU(n-1))$ is surjective. This implies that $H^*(BU(n)) \cong H^*(BU(n-1))[e]$ and, inductively and setting $c_n=e$, $H^*(BU(n)) \cong \Z[c_1,\dots,c_n]$. This proves the first part of Theorem~\ref{thm:cohomologyofBU}.
 
+For a vector bundle $E \to B$, recall that we define its $i$th Chern class $c_i(E) \in H^{2i}(B)$ as $f^*(c_i)$, where $f\colon B \to BU(n)$ is the map classifying $E$. We define the \emph{total Chern class}
+\[
+c(E) = 1 + c_1(E) + c_2(E) + \cdots \in H^*(B).
+\]
+We formally define $c_0(E)=1$ and $c_n(E)=0$ for $n > \dim(E)$.
 
-Let $\xi:E\rightarrow B$ be an $n$-dimensional complex line bundle. $\CC^*$ acts fiberwise on $E^0.$ Passing to the quotient gives a $\CC P^{n-1}$-bundle $p:P\rightarrow B.$ The tautological line bundles over every fiber glues together into a complex line bundle $q:Q\rightarrow P.$ There is a classifying map $\kappa_\xi:P\rightarrow \CC P^\infty$ corresponding to this line bundle. This gives us a class $e_\xi =\kappa^*(e)\in H^*(P).$
-
------ old stuff from here on
-
-
-\begin{lemma} \label{lemma:projectivebundlecohomology}
-The cohomology $H^*(P)$ is a free left $H^*(B)$-module with basis $$1,e_\xi,\dots,e_\xi^{n-1}$$ where the module structure is given by $xy=p^*(x)\smile y.$ In particular, the map $$p^*:H^*(B)\rightarrow H^*(P)$$ is injective.
+We collect some properties of Chern classes.
+\begin{lemma}\label{lemma:chernclassprops}
+Let $E \to B$ be an $n$-dimensional complex vector bundle. Then
+\begin{enumerate}
+	\item $c_i(E) = 0$ for $i>n$, and $c_n(E)$ is equal to the Euler class $e$.
+	\item $c(E \oplus \CC) = c(E)$, where $\CC$ denotes the trivial $1$-dimensional line bundle. In particular, $c(E)=1$ is $E$ is a trivial vector bundle.
+	\item If $f\colon B' \to B$ is a map and $E'=f^*E$ is the pullback bundle then $c_i(E')=f^*c_i(E)$.
+	\item For the tautological line bundle $\mathcal O(-1)$ on $\CC P^n$, $c(\mathcal O(-1)) = 1+x$, where $x$ is a generator for $H^2(\CC P^n)$.
+\end{enumerate}
 \end{lemma}
-
 \begin{proof}
-Use the Leray-Hirsh theorem together with the computation of $H^*(\CC P^{n-1}).$
+\begin{enumerate}
+\item The first part holds by definition, and the second part by the inductive construction of Chern classes.
+\item The bundle If $f\colon E \to BU(n)$ classifies the bundle $E$ then the bundle $E \oplus \CC$ is classified by the map $E \xrightarrow{f} BU(n) \to BU(n+1)$, where the last map in the standard inclusion. By the inductive construction of Chern classes,  under the map $H^*(BU(n+1)) \to H^*(BU(n))$,
+\[
+c_i \mapsto \begin{cases} c_i;& i \leq n\\
+0;& i=n+1\end{cases},
+\]
+we have that $c_i(E \oplus \CC) = c_i(E)$ for $i \leq n$ and $c_{n+1}(E \oplus \CC) = 0 = c_{n+1}(E)$. The higher Chern classes are all $0$.
+\item This holds by functoriality of the pullback.
+\item This is the base case of the inductive construction of Chern classes.
+\end{enumerate}
 \end{proof}
 
-\begin{lemma}
-There exists unique elements $c_i(\xi)\in H^{2i}(B)$ such that $$\sum_{j=0}^n(-1)^jc_j(\xi)e_\xi^{n-j}=0.$$
+\begin{lemma}[Whitney sum formula] \label{lemma:Whitneysumformula}
+Let $E$, $E'$ be complex vector bundles over the same base space $B$. Then
+\[
+c(E \oplus E') = c(E) c(E')
+\]
 \end{lemma}
-
+Less concisely, this can be expressed by saying
+\[
+c_n(E \oplus E') = \sum_{i+j=n} c_i(E) c_j(E').
+\]
 \begin{proof}
-Since $1,e_\xi,\dots,e_\xi^{n-1}$ is a basis we can write $t_\xi^n$ as a linear combination in a unique way.
+The bundles $E$ and $E'$ are classified by maps $f\colon B \to BU(m)$ and $f'\colon B \to BU(n)$, and the direct sum is classified by the map $B \xrightarrow{(f,f')} BU(m) \times BU(n) \xrightarrow{\mu} BU(m+n)$, where map $\mu$ is induced by block sums of matrices. By the K\"unneth theorem (Cor.~\ref{cor:kunneth}), 
+\[
+H^*(BU(m) \otimes BU(n)) \cong H^*(BU(m)) \otimes H^*(BU(n)) \cong \Z[c_1,\dots,c_m] \otimes \Z[c_1,\dots,c_n].
+\]
+It suffices to show that the sum of the tautological bundles $\tau_m \oplus \tau_n$ on $BU(m) \times BU(n)$ has Chern class $c(\tau_m \oplus \tau_n) = c(\tau_m) c(\tau_n)$, i.e. that $c=1+c_1+c_2+\cdots+c_{m+n} \in H^*(BU(m+n))$ maps to $(1+c_1+\cdots+c_m) \otimes (1+c_1+\cdots+c_m) \in H^*(BU(m)) \otimes H^*(BU(n))$ under $\mu^*$.
+
+For simplicity, write $x_i = c_i \otimes 1$ and $y_j = 1 \otimes c_j \in H^*(BU(m)) \otimes H^*(BU(m))$, and let $p_{m,n} = \mu^*(c) \in \Z[x_1,\dots,x_m,y_1,\dots,y_n]$. We now use induction to show that $p_{m,n} = (1+x_1+\cdots+x_m)(1+y_1+\cdots+y_n)$. When $m+n=0$, there is nothing to show, thus assume the result is shown for $p_{m',n'}$ where $(m',n')<(m,n)$.
+
+Consider the bundle $(\tau_{m-1} \oplus \CC) \oplus \tau_n$. Its total Chern class, by induction and Lemma~\ref{lemma:chernclassprops}, is $(1+c_1+\cdots+c_{m-1})\otimes(1+c_1+\cdots+c_n)$, thus
+\[
+p_{m,n}(x_1,\dots,x_{m-1},0,y_1,\cdots,y_n) = (1+x_1+\cdots+x_{m-1})(1+y_1+\cdots+y_n)
+\]
+and thus
+\[
+p_{m,n} \cong (1+x_1+\cdots+x_m)(1+y_1+\cdots+y_n) \pmod{x_m}.
+\]
+Similarily and symmetrically, 
+\[
+p_{m,n} \cong (1+x_1+\cdots+x_m)(1+y_1+\cdots+y_n) \pmod{y_n}.
+\]
+Since $x_m$ and $y_n$ are coprime, it follows that the congruence holds module $x_my_n$, that is,
+\[
+p_{m,n} \cong (1+x_1+\cdots+x_m)(1+y_1+\cdots+y_n)+ x_my_n y \quad \text{for some } u \in \Z.
+\]
+The factor $u$, which in principle could be any polynomial in the $x_i$ and $y_j$, must have degree zero because otherwise the $m+n$-dimensional bundle $\tau_m \oplus \tau_n$ would have a nontrivial Chern class $c_i$ with $i>m+n$.
+
+By Lemma~\ref{lemma:chernclassprops}, the top Chern class $c_{m+n}(\tau_m \oplus \tau_n)$ is the Euler class, and by Lemma~\ref{lemma:eulerclassofsum}, this is zero. This concludes the induction.
 \end{proof}
 
-\begin{defn}
-The element $c_i(\xi)$ is called the $i:$th Chern class of the bundle $\xi.$ Put $c_j=0$ if $j>n.$
-\end{defn}
+An interesting special case is when $E = L_1 \oplus \cdots \oplus L_n$ is a sum of complex line bundles. In this case,
+\[
+c(L_i) = 1 + c_1(L_i)
+\]
+and thus
+\[
+c(E) = \prod_{i=1}^n (1 + c_1(L_i)) = \sum_{i=0}^n \sigma_i(c_1(L_1),\dots,c_1(L_n)),
+\]
+where $\sigma_i(t_1,\dots,t_n)$ denotes the $i$th elementary symmetric polynomial in the variables $t_i$. The universal such example is defined over the space $BU(1) \times \cdots \times BU(1)$ ($n$ copies) and thus we obtain that under the map $BU(1)^n = (\CC P^\infty)^n \to BU(n)$ classifying the $n$-fold Whitney sum, the $n$th Chern class is mapped onto the $n$th elementary symmetric polynomial in $H^*(BU(1)^n) \cong \Z[t_1,\dots,t_n]$. This completes the proof of Theorem~\ref{thm:cohomologyofBU}.
 
-\begin{lemma}\label{lemma:chernnatural}
-The Chern classes satisfies naturality: $$f^*(c_i(\xi))=c_i(\eta)$$ for bundle maps $f:\eta \rightarrow \xi.$
-\end{lemma}
+The identification $H^*(BU(n)) \cong H^*(BU(1)^m)^{\Sigma_n}$ has the following useful corollary.
 
+\begin{corollary}[Splitting Principle] \label{cor:splittingprincforcomplexbundles}
+Let $E \to B$ be a complex vector bundle. Then there exists a space $B'$ and a map $f\colon B' \to B$ with the properties
+\begin{enumerate}
+	\item $f^*\colon H^*(B) \to H^*(B')$ is injective; and
+	\item $f^*E$ is isomorphic to a sum of complex line bundles.
+\end{enumerate}
+\end{corollary}
 \begin{proof}
-By going backwards in the construction and using functoriality.
-\end{proof}
+Let $g\colon BU(1)^n \to BU(n)$ be induced by the inclusion of the diagonal matrices. Then $H^*(BU(1)^n)$ is a free module over $H^*(BU(n))$ of finite rank $n!$. Choose a module basis $b_i \in H^*(BU(1)^n$. The the Leray-Hirsch theorem is applicable for the fiber bundle $BU(1)^n \to BU(n)$ with fiber $U(n)/U(1)^n$.
 
-\begin{lemma} \label{lemma:chernsumformula}
-The Chern classes satisfies the sum formula:
-$$c_i(\xi\oplus\eta)=\sum_{i+j=r}c_i(\xi)c_j(\eta).$$
-\end{lemma}
-
-\begin{proof}
-The idea is to consider the subspaces $P(\xi)\subset P(\xi\oplus\eta) \supset P(\eta).$ The subspace $P(\xi)$ is a deformation retract of $U=P(\xi\oplus\eta)\setminus P(\eta)$ and vice versa, $P(\eta)$ is a deformation retract of $V=P(\xi\oplus\eta)\setminus P(\xi).$ Consider the elements $$x=\sum_{i=0}^{\dim \xi}(-1)^ic_i(\xi)e_{\xi\oplus\eta}^{\dim \xi -i},\quad y=\sum_{j=0}^{\dim \eta}(-1)^jc_j(\eta)e_{\xi\oplus\eta}^{\dim \eta -j}.$$ By the definition of Chern classes and the naturality, $x$ is sent to zero under the map $$H^*(P(\xi\oplus\eta))\rightarrow H^*(P(\xi)).$$ Thus is comes from an element $x' \in H^*(P(\xi\oplus\eta),P(\eta)).$ Similarly we get an element $y'.$ Now $U$ and $V$ is an open covering, $H^*(P(\xi\oplus\eta),P(\eta))\cong H^*(P(\xi\oplus\eta),V)$ and $H^*(P(\xi\oplus\eta),P(\xi))\cong H^*(P(\xi\oplus\eta),U).$ This means $x'y'=0$ since the relative cup product lands in $H^*(P(\xi\oplus\eta),P(\xi\oplus\eta))$ which is trivial. This means that $xy=0.$ But $xy$ is also a linear combination of $1,e_{\xi\oplus\eta}\dots, e_{\xi\oplus\eta}^{\dim \xi\oplus\eta}.$ The coefficients in this product gives by definition the Chern classes of $\xi\oplus\eta.$ Comparing the coefficients now gives the result.
-\end{proof}
-
-
-
-\subsection{Cohomology of $BU(n)$}\label{subsec:cohomologyBU}
-
-To compute the cohomology of $BU(n)$ we need a lemma connecting $BU(n)$ and projective bundles.
-
-\begin{lemma}\label{lemma:projectivebundleBU(n))}
-The classifying map $BU(n-1)\times BU(1)\rightarrow BU(n)$ of the product of the tautological bundles $\gamma_{n-1}$ and $\gamma_1$ is the projective bundle of the tautological bundle $\gamma(n)$ on $BU(n).$
-\end{lemma}
-
-\begin{proof}
-See \cite[Theorem 19.3.1]{tomdieck:algebraic-topology}.
-\end{proof}
-
-\begin{thm}
-Let $\kappa: (BU(1))^n \rightarrow BU(n)$ be the classifying map of the product $\gamma_1(1)\times \dots \times \gamma_1(n).$ Then $\kappa^*:H^*(BU(n)) \rightarrow H^*((BU(1))^n)$ is injective and the image consists of all symmetric polynomials. The elementary symmetric polynomials correspond to Chern classes.
-\end{thm}
-
-\begin{proof}
-Let $\sigma$ be a permutation on $n$ elements. It acts by permuting the factors in $(BU(1))^n$ and also on the bundle $\gamma_1(1)\times \dots \times \gamma_1(n)$ in the same way. Now $\kappa \circ \sigma$ is homotopic to $\kappa$ since both maps represent isomorphic bundles. Now $H^*(BU(1)^n)\cong H^*((\CC P^\infty)^n)\cong \Z [T_1,\dots,T_n]$ where $T_i$ has degree $2.$ The permutation $\sigma$ induce a map $\sigma^*$ that acts by permuting the $T_i$:s. By homotopy invariance of cohomology the image of $\kappa^*$ is contained in the symmetric subring of $\Z [T_1,\dots,T_n].$ Note that $T_j=c_i(\gamma_1(j)).$ Now by using naturality of Chern classes we obtain $$\kappa^*c_i(\gamma_n)=c_i\kappa^*(\gamma_n)=c_i(\gamma_1(1)\oplus \dots \oplus \gamma_1(n)).$$ Now we can apply the sum formula $i$ times (separating one summand at a time) and see that we get the $i$:th elementary symmetric polynomial in the $T_i$:s. Since the elementary symmetric polynomials form a basis of the symmetric subring of $\Z [T_1,\dots,T_n]$ the map $\kappa^*$ hits the whole symmetric subring. Now we only have to show injectivity. Using the map from Lemma \ref{lemma:projectivebundleBU(n))} we get a map $$H^*(BU(n))\rightarrow H^*(BU(n-1)\times BU(1))\cong H^*(BU(n-1))[T_n].$$ By Lemma \ref{lemma:projectivebundlecohomology} the map is injective. By induction we now obtain the map to $\Z [T_1,\dots,T_n]$ that is injective.
+Now let $B'$ be the pullback in the diagram
+\[
+\begin{tikzcd}
+B' \ar[r,"\alpha"] \ar[d,"f"] & BU(1)^n \ar[d,"g"]\\
+B \ar[r] &BU(n),
+\end{tikzcd}
+\]
+where $B \to BU(n)$ is the map classifying $E$. The $B' \to B$ is also a fiber bundle with fiber $U(n)/U(1)^n$, and the pullbacks $\alpha^*(b_i)$ allow the application of the Leray-Hirsch theorem to this fiber bundle as well. In particular, $f^*$ is injective (it even makes $H^*(B')$ into a free $H^*(B)$-module), and the commutativity of the diagram shows that $f^*E$ splits as a sum of complex line bundles, classified by the map $\alpha$.
 \end{proof}
 
 \subsection{Sample computations of Chern classes}\label{subsec:computationschern}
-
-In calculations with Chern classes, it is often useful to introduce the following notations:
-
-\begin{defn}
-Let $E \to B$ be a complex vector bundle. Then its \emph{total Chern class} is the formal sum
-\[
-c(E) = \sum_{i=0}^\infty c_i(E) \in H^*(B),
-\]
-where $c_0(E)=1$ by definition.
-\end{defn}
-The sum formula from Lemma~\ref{lemma:chernsumformula} can then be concisely formulated as
-\[
-c(E \oplus E') = c(E)c(E').
-\]
-
-By definition, the Chern class $c_i(\tau)$, where $\tau$ is the universal bundle over $BU(n)$, is $c_i \in H^*(BU(n)) = \Z\pow{c_1,\dots,c_n}$.
-
-\begin{example}
-Let $E \to B$ be a trivial complex vector bundle. Then $c(E) = 1$, i.~e. all Chern classes of positive degree are $0$. This is obvious because the classifying map $B \to BU(n)$ is nullhomotopic and therefore induces the zero map on cohomology groups in positive degree.
-\end{example}
 
 \begin{example}
 Let $E=T\S^n \otimes \CC \to \S^n$ be the complexified tangent bundle of $\S^n$. Then $c(E)=1$. The tangent bundle is nontrivial (at least for $n \neq 0,1,3,7$), as is the complexified version, and thus Chern classes cannot reliably detect whether a bundle is trivial or not. To see that $c(E)=1$, note that the normal bundle $N\S^n$ of $\S^n$ with its standard embedding in $\R^{n+1}$ is a trivial line bundle and the sum $T\S^n \oplus N\S^n \cong T\R^{n+1}$ is trivial as well. Thus
@@ -3117,6 +3151,8 @@ H^*(B) \cong \Z\pow{c_1(E_1),c_1(E_2)}
 and thus $c_1(E_1 \otimes E_2)$ is some linear combination $\alpha c_1(E_1) + \beta c_2(E_2)$. Since tensoring with a trivial line bundle is the identity, we must have $\alpha=\beta=1$. 
 \end{proof}
 
+Note that it is far from true that $c_i(E_1 \otimes E_2) = c_i(E_1) + c_i(E_2)$ for $i>1$. The splitting principle allows to compute these in principle.
+
 \begin{lemma}
 Let $E \to B$ be a complex vector bundle and $\overline E$ its complex conjugate bundle. Then
 \[
@@ -3127,11 +3163,6 @@ c_i(\overline E) = (-1)^i c_i(E).
 Using the splitting principle, it suffices to show that $c_1(\overline E) = -c_1(E)$, where $E$ is a complex line bundle. But in that case, $E \otimes \overline E$ is the trivial line bundle and the result follows from Lemma~\ref{lemma:chernoftensorproduct}.
 \end{proof}
 
-Note that it is far from true that $c_i(E_1 \otimes E_2) = c_i(E_1) + c_i(E_2)$ for $i>1$.
-
-\begin{exer}
-Use the splitting principle and Lemma~\ref{lemma:chernoftensorproduct} to find an explicit formula for $c_n(E_1 \oplus E_2)$.
-\end{exer}
 
 \begin{example}\label{exa:chernclassofcpn}
 We compute the total Chern class of the tangent bundle of $\CP^n$. We can employ a similar method to that in the computation of Chern classes of tangent bundles of spheres, noting that
