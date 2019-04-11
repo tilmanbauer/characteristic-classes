@@ -2107,17 +2107,17 @@ F(X) \to F(\mathbf U) \rightrightarrows F(\mathbf U \times_X \mathbf U) \cdots.
 \end{defn}
 
 \begin{example}
-We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^0_0\colon C^{-1} \to C^0$ is just restriction: $d^0_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
+We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^{-1}_0\colon C^{-1} \to C^0$ is just restriction: $d^{-1}_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
 \[
 C^1_{\mathcal U}(X;F) = \prod_{\alpha,\beta} F(U_{\alpha\beta})
 \]
-and the two maps $d^1_0$ and $d^1_1$ are given by
+and the two maps $d^0_1$ and $d^1_1$ are given by
 \[
-d^1_0((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \quad d^1_1((c_\alpha))_{\alpha,\beta} = c_\alpha|_{U_{\alpha\beta}}
+d^0_1((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \quad d^1_1((c_\alpha))_{\alpha,\beta} = c_\alpha|_{U_{\alpha\beta}}
 \]
 We see that the diagram
 \[
-1 \to C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^0_0} C^{0}_{\mathcal U}(X;F) \overset{d^1_0}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
+1 \to C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^{-1}_0} C^{0}_{\mathcal U}(X;F) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
 \]
 is an equalizer diagram.
 \end{example}
@@ -2125,7 +2125,7 @@ is an equalizer diagram.
 \begin{defn}
 Given a cosimplicial abelian group $A$, we define maps
 \[
-d^n\colon A^{n} \to A^{n+1} \text{ by } d^n(x) = d^0_n(x)-d^1_n(x)+d^2_n(x)-\cdots\pm d^n_n(x)
+d^n\colon A^{n} \to A^{n+1} \text{ by } d^n(x) = d^0_{n+1}(x)-d^1_{n+1}(x)+d^2_{n+1}(x)-\cdots\pm d^{n+1}_{n+1}(x)
 \]
 and groups
 \begin{align*}
@@ -2136,17 +2136,17 @@ H^n(A) =& Z^n(A)/B^n(A)
 \end{align*}
 If $A$ is merely a cosimplicial (possible nonabelian) group, we can still define
 \[
-Z^1(A) = \{x \in A^1 \mid d^0(x)d^1(x)^{-1}d^2(x)=1\}
+Z^1(A) = \{x \in A^1 \mid d^0_2(x)d^1_2(x)^{-1}d^2_2(x)=1\}
 \]
 and
 \[
 H^1(A) = Z^1(A)/A^0,
 \]
-where $A^0$ acts on $Z^1(A)$ by $a_0.a_1 = d^1_0(a_0) a_1 d^1_1(a_0)^{-1}$. Note that for abelian $A$, the two definitions of $H^1_{\mathcal U}$ coincide.
+where $A^0$ acts on $Z^1(A)$ by $a_0.a_1 = d^0_1(a_0) a_1 d^1_1(a_0)^{-1}$. Note that for abelian $A$, the two definitions of $H^1_{\mathcal U}$ coincide.
 
 If $A$ is just a cosimplical set, we can only define
 \[
-H^0(A) = Z^0(A) = \{x \in A^0 \mid d^0_0(x) = d^1_0(x)\}.
+H^0(A) = Z^0(A) = \{x \in A^0 \mid d^0_1(x) = d^1_1(x)\}.
 \]
 \end{defn}
 
@@ -2159,7 +2159,7 @@ If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $
 \end{defn}
 
 \begin{defn}
-A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n)$. We say that $h$ is a homotopy from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists.
+A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ with products is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n) = \prod_{s \in S_n} Y^n$. We say that $h$ is a \textit{homotopy} from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists. 
 \end{defn}
 
 \begin{lemma}\label{lemma:cosimphomotopicmaps}
