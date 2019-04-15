@@ -433,7 +433,7 @@ The inverse construction of a vector bundle from a sheaf given above depends hea
 
 
 \section{Bundles as cocycles}
-
+\label{sec:bundlesascocycles}
 Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open cover $U_\alpha$ of $B$ such that each $U_\alpha$ is a trivializing neighborhood, so that we can choose isomorphisms
 \[
 \phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^n \times U_{\alpha}).
@@ -826,6 +826,12 @@ where $(x,\frac12)_1 \sim (-x,\frac12)_2$ and $(x,0)_1 \sim (-x,1)_2$. Here the 
 is an isomorphism over $B$.
 
 \end{example}
+
+In general, the pullback functor $f^*$ that sends a sheaf on $B$ to a sheaf on $B'$ is the left adjoint of the pushforward functor $f_*$. For an explicit construction, let $G$ be a sheaf on $B$. Then $f^*G$ is the sheaf associated to the presheaf
+\begin{align*}
+B' \supset U \mapsto \colim_{f(U) \subset V} G(V)
+\end{align*}
+where the indexing category of the colimit is those open subsets $V$ that contain $f(U)$. We make this into a sheaf by `sheafification', as explained in Proposition~\ref{prop:sheafification}.
 
 
 \subsection{Whitney sums} \label{ssec:whitneysums}
@@ -2158,6 +2164,12 @@ Z^n_{\mathcal U}(X;F) = Z^n(F(\nerve \mathbf U)); \quad B^n_{\mathcal U}(X;F) = 
 If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $H^i_{\mathcal U}$ for $i \leq 1$; for $F$ a sheaf of sets only for $i=0$.
 \end{defn}
 
+\begin{exer}
+	Let $G$ be a topological group and let $F$ be the sheaf $U \mapsto \map(U,G)$ on a space $X$ with open cover $\mathcal{U}$. Then the definitions of $Z^1_{\mathcal U}(X;G)$ and $H^1_{\mathcal{U}}(X;G)$ as defined above agrees with the definition from Section~\ref{sec:bundlesascocycles}.
+\end{exer}	
+	
+	
+
 \begin{defn}
 A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ with products is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n) = \prod_{s \in S_n} Y^n$. We say that $h$ is a \textit{homotopy} from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists. 
 \end{defn}
@@ -2197,10 +2209,10 @@ If $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ and $\mathcal V = \{V_\beta\}_{\be
 \end{proof}
 
 \begin{lemma}\label{lemma:dircolimitofabeliangroups}
-Let $F\colon C \to \Ab$ be a functor, where $C$ is a directed ordered set and $\Ab$ is the category of abelian groups. Then
+Let $F\colon C \to \Ab$ be a functor, where $C$ is a directed poset and $\Ab$ is the category of abelian groups. Then
 \begin{enumerate}
-\item For every $x \in \colim_C F$, there exists $c \in C$ and $x_c \in F(c)$ such that $\iota_c(c)=x$.
-\item If $x \in F(c)$ and $y \in F(d)$ are such that $\iota_c(x)=\iota_d(y) \in \colim_C F$ then there exists $e \in C$, $c \leq e \geq d$ such that $x \mapsto e$ and $y \mapsto e$ in $F(e)$.
+\item For every $x \in \colim_C F$, there exists $c \in C$ and $x_c \in F(c)$ such that $\iota_c(x_c)=x$.
+\item If $x \in F(c)$ and $y \in F(d)$ are such that $\iota_c(x)=\iota_d(y) \in \colim_C F$ then there exists $e \in C$, $c \leq e \geq d$ such that $x$ and $y$ are mapped to the same element in $F(e)$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -2208,21 +2220,21 @@ For $c \leq d$ in $C$, let $\iota_{cd}\colon F(c) \to F(d)$ denote the induced m
 \[
 \colim_C F = \bigoplus_{c \in C} F(c)/\sim,
 \]
-where $\sim$ is generated additively by $x \sim \iota_{cd}(x)$ for $x \in F(c)$. Thus every element $x \in \colim_C F$ has a representative $(y_d)_{d \in C} \in \bigoplus_{d \in C}$. Since all but finitely many $y_d$ are zero and $C$ is directed, there exists a $c$ such that $d \leq c$ for all $c$ such that $y_d \neq 0$. Thus $x_c = \sum_{d \in C} \iota_{dc}(y_d)$ is well-defined, and $\iota_c(x_c) = x$. This proves the first part.
+where $\sim$ is generated additively by $x \sim \iota_{cd}(x)$ for $x \in F(c)$. Thus every element $x \in \colim_C F$ has a representative $(y_d)_{d \in C} \in \bigoplus_{d \in C} F(d)$. Since all but finitely many $y_d$ are zero and $C$ is directed, there exists a $c$ such that $d \leq c$ for all $d$ such that $y_d \neq 0$. Thus $x_c = \sum_{d \in C} \iota_{dc}(y_d)$ is well-defined, and $\iota_c(x_c) = x$. This proves the first part.
 
 For the second part, we may assume $c=d$ since we can otherwise pass to a common upper bound of $c$ and $d$ in $C$ because $C$ is directed. Moreover, the first part showed that the colimit in abelian groups is actually equal to the colimit in sets, thus we verify the claim using the universal property for colimits of set-valued functors.
-If $\iota_{ce}(x) \neq \iota_{ce}(y)$ for all $e \geq c$ then we can construct compatible maps from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(c) \mapsto 0$ and $\alpha(d) \mapsto 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
+If $\iota_{ce}(x) \neq \iota_{ce}(y)$ for all $e \geq c$ then we can construct compatible maps $\alpha$ from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(x) = 0$ and $\alpha(y) = 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
 \end{proof}
 
 \begin{lemma}\label{lemma:cofinalcolimit}
-Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that for every $c \in C$ there is a $d \in D$ with $c \leq D$. Let $F\colon C \to \Set$ be a functor. Then $\colim_C F \cong \colim_D F|_D$.
+Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that for every $c \in C$ there is a $d \in D$ with $c \leq d$. Let $F\colon C \to \Set$ be a functor. Then $\colim_C F \cong \colim_D F|_D$.
 \end{lemma}
 \begin{proof}
 Since there are compatible maps $F(d) \to \colim_C F$ for every $d \in D$, there is a natural map $\colim_D F|_D \to \colim_C F$, and we have to show it is bijective. For surjectivity, any $x \in \colim_C F$ has a representative $x_c \in F(c)$, thus also $\iota_{cd}(x_c) \in F(d)$ for some $d \geq c$. For injectivity, if $x_d$, $y_{d'}$ map to the same element in $\colim_C F$ then there is a $c \in C$ such that $\iota_{dc}(x_d) = \iota_{d'c}(y_{d'})$ by Lemma~\ref{lemma:dircolimitofabeliangroups}. By cofinality, we can choose $c \in D$ and thus $x_d$ and $y_{d'}$ become equivalent in $\colim_D F|_D$.
 \end{proof}
 
 \begin{thm}\label{thm:principalbundlesbycechcohomology}
-Let $X$ be a paracompact space and $G$ ba a topological group. Then the natural map
+Let $X$ be a paracompact space and $G$ a topological group. Then the natural map
 \[
 \Phi\colon\colon \Princ_G(X)/\text{iso} \to H^1(X;G)
 \]
@@ -2309,11 +2321,11 @@ Let $x \in \colim_C F$ map to $0$ in $\colim_C F''$. Choose a representative $x_
 \end{proof}
 
 \begin{lemma}\label{lemma:les}
-Let $0 \to A' \xrightarrow{i} A \xrightarrow{j} A'' \to 0$ be a short exact sequence of cosimplicial abelian groups. Then there is a long exact sequence in cohomology
+Let $0 \to A' \xrightarrow{j} A \xrightarrow{i} A'' \to 0$ be a short exact sequence of cosimplicial abelian groups. Then there is a long exact sequence in cohomology
 \[
 0 \to H^0(A') \xrightarrow{j^*} H^0(A) \xrightarrow{i^*} H^0(A'') \xrightarrow{\delta} H^1(A') \xrightarrow{j^*} H^1(A) \xrightarrow{i^*} H^1(A'') \xrightarrow{\delta} \cdots.
 \]
-If $0 \to A' \xrightarrow{i} G \xrightarrow{j} G'' \to 1$ is merely a short exact sequence of groups with $A'$ abelian (and normal in $A$), we still have a somewhat long exact sequence of pointed sets
+If $0 \to A' \xrightarrow{j} G \xrightarrow{i} G'' \to 1$ is merely a short exact sequence of groups with $A'$ abelian (and normal in $G$), we still have a somewhat long exact sequence of pointed sets
 \[
 0 \to H^0(A') \xrightarrow{j^*} H^0(G) \xrightarrow{i^*} H^0(G'') \xrightarrow{\delta} H^1(A') \xrightarrow{j^*} H^1(G) \xrightarrow{i^*} H^1(G'') \xrightarrow{\delta} H^2(A').
 \]
@@ -2340,7 +2352,7 @@ as well as their colimits
 \]
 \end{corollary}
 \begin{proof}
-By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
+By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A'') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
 \begin{defn}
@@ -2348,15 +2360,15 @@ Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group}
 \[
 \tilde H^n(X;A) = \ker(H^n(X;A) \to H^n(\{x_0\};A_{x_0})).
 \]
-In the particular case where $A$ is representable, we have thus that
+In the particular case where $A$ is representable, we can define
 \[
-C^n(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A),
+\tilde C^n_{\mathcal U}(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A),
 \]
-where $\map_*$ denotes the maps that send the base point $x_0$ to $0$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$.
+where $\map_*$ denotes the maps that send the base point $x_0$ to $0$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$. Then the reduced cohomology is given by the cohomology of $\tilde C^n_{\mathcal U}(X;A)$.
 \end{defn}
 
 \begin{lemma}\label{lemma:cohomologyofquotient}
-Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = \ker(A \to i_*i^*A)$. This sheaf is given by
+Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some open $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = \ker(A \to i_*i^*A)$. This sheaf is given by
 \[
 F(V) = \{f\colon V \to A \mid f \text{ vanishes in a neighborhood of $V \cap K$}\}.
 \]
@@ -2365,15 +2377,15 @@ Then $H^n(X;F) \cong \tilde H^n(X/K;A)$.
 \begin{proof}
 Note that for $L \subseteq K$ open in $K$, 
 \[
-(i^*(A))(L) = \colim_{V \supseteq f(L)} A(V) = \colim_V \map(V,A),
+(i^*(A))(L) = \colim_{V \supseteq i(L)} A(V) = \colim_V \map(V,A),
 \]
-where $V$ runs over open subsets of $X$ containing $f(L)$. The restriction map
+where $V$ runs over open subsets of $X$ containing $i(L)$. The restriction map
 \[
 r\colon \colim_V \map(V,A) \to \map(L,A)
 \]
-is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $K$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) = f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence.
+is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $X$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) = f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence, where $j$ is the map of sheaves $\map(-,A) \to i^*A: f \mapsto f \circ p$ on $K$. It follows that $F$ is homotopy equivalent to the kernel of $\map(-,A) \to (- \cap K, A)$ on $X$.
 
-We have that $F(U_{\alpha_0\cdots\alpha_n}) \simeq \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $V \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
+Let $\mathcal U = \{U_\alpha\}$ be an open cover of $X$. By Lemma~\ref{lemma:cosimphomotopicmaps}, we have that $F(U_{\alpha_0\cdots\alpha_n}) \simeq \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $K \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
 \[
 H^n_{\mathcal U}(X;F) \cong \tilde H^n_{\mathcal U/K}(X/K;A)
 \]
@@ -2391,7 +2403,7 @@ The sequence
 \[
 0 \to F \to A \to i_*i^*A \to 0
 \]
-where $i \colon K \to X$ is the inclusion and $F$ as in Lemma~\ref{lemma:cohomologyofquotient}, is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-A$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
+where $i \colon K \to X$ is the inclusion and $F$ as in Lemma~\ref{lemma:cohomologyofquotient}, is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-U$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
 \[
 0 \to F(\mathcal \nerve U) \to A(\mathcal \nerve U) \to i_*i^*\mathcal \nerve U \to 0
 \]
@@ -2404,14 +2416,17 @@ Since such compatible open covers are cofinal in all open covers, we obtain the 
 
 
 \section{Homotopy invariance}
-
-\begin{defn} A sheaf $F$ on a paracompact topological space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
+%I added the Hausdorff condition, since in general I think one asks F(X) -> i^{-1}F(Z) to be surjective, and f^{-1}(Z) is given by the colimit in this definion when X is paracompact Hausdorff. See Wedhorn - Manifolds, Sheaves, and Cohomology, Prop 9.1. JH
+\begin{defn} A sheaf $F$ on a paracompact Hausdorff space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
 
 It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft, i.~e. if every sheaf homomorphism $F|_K \to F|_K$ can be extended to all of $X$.
 \end{defn}
-
+Here, the sheaf of maps $\Hom(F,F)$ is the sheaf $U \mapsto \Hom(F|_U,F|_U)$.
+%I don't see how to easily go to the second description of fine sheaves. Don't we need to sheafify to get F_K -> F_K? JH
 \begin{example}
-The sheaf $C^0$ is soft by the Tietze extension theorem. The same is true for the sheaf $C^\infty$ of smooth functions on a manifold by using a smooth bump function.
+The sheaf $C^0$ is soft. Indeed, let $K \subset X$ be closed and $f:U \to \R$ continuous with $K \subset U$. By Urysohn's lemma, take an open neighborhood $V$ of $K$ such that $\bar{V} \subset U$. By the Tietze extension theorem, we can extend $f|_{\bar{V}}$ to $\tilde{f}:X \to \R$. Now $(\tilde{f}|_V,V) = (f,U)$ in $\colim_{K \subset U}C^0(U)$.
+
+ The same is true for the sheaf $C^\infty$ of smooth functions on a manifold by using a smooth bump function.
 \end{example}
 
 \begin{lemma}\label{lemma:sheafpartitionofunity}
@@ -2433,7 +2448,7 @@ whose details we leave to the reader.
 Let $X$ be paracompact. Then fine sheaves of abelian groups on $X$ are soft, and soft sheaves of rings are fine. Any module sheaf over a soft (fine) sheaf of rings is also soft (fine).
 \end{prop}
 \begin{proof}
-Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U) \to M(K)$, where $U$ is some open set containing $K$. Pick some other open set $V \supset K$ such that $\overline V \subset U$; this exists by paracompactness. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R(X)$ consisting of two sections $\{s_U,s_{X-\overline V}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t|_V$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
+Let $R$ be a soft sheaf of rings and $M$ an $R$-module sheaf. Let $K \subseteq X$ be closed and $t \in M(U)$, where $U$ is some open set containing $K$. Pick some other open set $V \supset K$ such that $\overline V \subset U$; this exists by paracompactness. Then by Lemma~\ref{lemma:sheafpartitionofunity}, there exists a partition of $1 \in R(X)$ consisting of two sections $\{s_U,s_{X-\overline V}\}$ with supports as indicated in the indices. Then $s_U t$ is an extension of $t|_V$ to $M(X)$, thus $M$ is soft. In particular, $\Hom(M,M)$, as an $R$-module sheaf, is soft, hence $M$ itself is even fine.
 
 If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a soft sheaf of rings, over which $A$ is a module sheaf, thus $A$ is soft.
 \end{proof}
@@ -2444,20 +2459,19 @@ Let $X$ be a paracompact space and $A$ a soft sheaf of abelian groups on it. The
 \begin{proof}
 Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J\colon U_J \to A)_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by paracompactness, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
 
-Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K) = (c_J)$. If $\{1,\dots,n-1\} \subseteq K$, choose $u_K$ arbitrarily, for instant as the trivial function. Now we use induction and assume that $u_K$ is defined for every $K$ such that $|K \cap \{1,\dots,N\}| = n-1$ for some $N$. If $|K \cap \{1,\dots,N+1\}| = n$, i.~e. $N+1 \in K$, let $k$ denote the smallest integer not in $K$ (necessarily less or equal to $N$) and define
+Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K)) = (c_J)$. If $\{1,\dots,n-1\} \subseteq K$, choose $u_K$ arbitrarily, i.e.\ take some $K \subset J$ and some extension of $c_J$ to $U_K$. Now we use induction and assume that $u_K$ is defined for every $K$ such that $|K \cap \{1,\dots,N\}| = n-1$ for some $N$. If $|K \cap \{1,\dots,N+1\}| = n$, i.~e. $N+1 \in K$, let $k$ denote the smallest integer not in $K$ (necessarily less or equal to $N$) and define
 \[
 u_K = c_{K\cup\{k\}}+\sum_{i=1}^{n} (-1)^i u_{K_i \cup \{k\}},
 \]
 extended to all of $U_K$ in any way. Here $K_i$ denotes $K$ with the $i$th element omitted. The cocycle condition on $c_J$ guarantees that $d((u_K))=(c_J)$.
 \end{proof}
-
+%This induction doesn't seem to work. The condition |K \cap \{1,\dots,N+1\}| = n is not the same as N+1 \in K, e.g. K = {1,...,n} , N = n is a counter example. Also I don't see how u_{K_i \cup \{k\}} can be assumed to be already defined.
 
 \begin{corollary}\label{cor:Omodulecohomology}
 Let $X$ be a paracompact space and $N$ a $C^0_X$-module sheaf. Then $H^n(X;N)=0$ for $n>0$. Similarly, for $M$ a smooth manifold and $N$ a $C^\infty_X$-module sheaf, $H^n(X;N)=0$ for $n>0$.\qed
 \end{corollary}
 
-
-Now let $A$ be a topological abelian group. As shown in Corollary~\ref{cor:EG}, $A$ acts freely on $EA$, but in the case of an \emph{abelian} group $A$, $EA$ is actually itself a group which has $A$ as a normal subgroup acting by left multiplication with quotient group $BA$. Thus
+Now let $A$ be a topological abelian group. As shown in Corollary~\ref{cor:EG}, $A$ acts freely on $EA$, but in the case of an \emph{abelian} group $A$, $EA$ is actually itself a group which has $A$ as a normal subgroup acting by left multiplication with quotient group $BA$. Indeed, the functor $E(-)$ commutes with products, hence preserves group objects, and topological abelian groups are group objects in the category of topological groups. Thus
 \[
 0 \to A \to EA \to BA \to 0
 \]
@@ -2467,7 +2481,7 @@ is a short exact sequence of topological abelian groups.
 For any contractible space $F$ the sheaf on a paracompact space $X$ represented by $F$ is soft.
 \end{lemma}
 \begin{proof}
-Let $h\colon F \times [0,1] \to F$ be a contracting homotopy, that is, $F_0$ is constant ($=p$) and $F_1=\id$. Let $K \subset X$ and $s\colon U \to F$ represent a section of $F$ over $X$ for some open $U \supset K$. Choose another open set $V \supset K$ such that $\overline V \subset U$. It suffices to extend $s|_V$ over all of $X$. Choose a map $f\colon X \to [0,1]$ with $f|_{\overline V} = 1$ and $f_{X-U}=0$. Now define $\tilde s\colon X \to F$ by
+Let $h\colon F \times [0,1] \to F$ be a contracting homotopy, that is, $h_0$ is constant ($=p$) and $h_1=\id$. Let $K \subset X$ and $s\colon U \to F$ represent a section of $F$ over $X$ for some open $U \supset K$. Choose another open set $V \supset K$ such that $\overline V \subset U$. It suffices to extend $s|_V$ over all of $X$. Choose a map $f\colon X \to [0,1]$ with $f|_{\overline V} = 1$ and $f_{X-U}=0$. Now define $\tilde s\colon X \to F$ by
 \[
 \tilde s(x) = \begin{cases} h(x,f(x)); & x \in U\\
 p\; & x \not\in U.\end{cases}
@@ -2549,7 +2563,7 @@ Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal 
 \]
 is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in cohomology. Since the poset of covers which are compatible with the union $U \cup V$ in the above sense is cofinal in all covers, we get a long exact sequence in \v Cech cohomology:
 \[
-0 \to H^0(U \cap V,A) \to H^0(U,A) \oplus H^0(V,A) \to H^0(X,A) \to H^1(U \cap V,A) \to \cdots.
+0 \to H^0(X,A) \to H^0(U,A) \oplus H^0(V,A) \to H^0(U\cap V,A) \to H^1(X,A) \to \cdots.
 \]
 This is known as the Mayer-Vietoris sequence.
 
@@ -2596,6 +2610,7 @@ U \times V \mapsto A(U) \otimes B(V),
 and extended to all opens of $X \times Y$ by the gluing condition. This, unfortunately, is often not a sheaf due to the fact that the tensor product does not preserve the equalizer diagram in the sheaf condition. We need to “sheafify”.
 
 \begin{prop}
+\label{prop:sheafification}	
 Let $X$ be a topological space and $F\colon B^\op \to C$ a presheaf defined on some basis $B \subseteq \Open(X)$ of the topology of $X$ with values in a category $C$ that has all limits and directed colimits. As for sheaves, let $F_x$ denote the stalk of $F$ at $x \in B$ and, for $t \in F(V)$ and $x \in V$, let $t_x$ denote the image of $t$ in $F_x$. Let $\mathcal U = \{U_\alpha\}_{\alpha \in I} \subseteq B$ be an open cover of $U \subseteq X$. Define
 \[
 \tilde F\colon \Open(X)^\op \to C
