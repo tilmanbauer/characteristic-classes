@@ -165,7 +165,7 @@ Note that the addition is well-defined.
 
 To verify local triviality, let us first consider a point $t \neq \overline 0 \in B$, where $\overline 0$ denotes the equivalence class of $0=1$. Then we can choose a neighborhood $U \ni t$ such that $\overline 0 \not\in U$ and $E_U \xrightarrow{(x,t) \mapsto (x,t)} \R \times U$ is a well-defined isomorphism of vector spaces over $U$. On the other hand, for $t = \overline 0$, choose $U = B-\{\frac12\}$ and define
 \[
-E_U \xrightarrow{(x,t) \mapsto \begin{cases} (x,t); & t<\frac12\\ (-x,t); & x>\frac12\end{cases}} \R \times U
+E_U \xrightarrow{(x,t) \mapsto \begin{cases} (x,t); & t<\frac12\\ (-x,t); & t>\frac12\end{cases}} \R \times U
 \]
 This is also a an isomorphism of vector spaces over $U$, so we are done.
 
@@ -291,7 +291,7 @@ If $R$ is a sheaf of rings (or $k$-algebras) on a space $X$ then an \emph{$R$-mo
 \[
 R(U) \times M(U) \to M(U),
 \]
-natural in $U$, that makes $M(U)$ an $R(U)$-module for all $U$. A \emph{morphism of $R$-module sheaves} $f\colon M \to N$ is a morphism of sheaves such that for every $U$, $f(U)\colon M(U) \to M(U)$ is an $R(U)$-module homomorphism.
+natural in $U$, that makes $M(U)$ an $R(U)$-module for all $U$. A \emph{morphism of $R$-module sheaves} $f\colon M \to N$ is a morphism of sheaves such that for every $U$, $f(U)\colon M(U) \to N(U)$ is an $R(U)$-module homomorphism.
 
 \begin{prop}
 Let $p\colon E \to B$ be a $k$-vector bundle. Then $\Gamma_p$ is a sheaf of $\mathcal O_B$-modules. Moreover, $\Gamma_p$ is \emph{locally free}, i.~e. if for every $x \in B$ there exists a neighborhood $U \ni x$ such that $\Gamma_p|_U \cong \mathcal O_U^n$ for some $n \geq 0$.
@@ -320,7 +320,7 @@ is an equivalence of categories.
 In order to give an inverse construction, we need in particular to extract the fiber over a single point $b \in B$ from a sheaf $F$.
 
 \begin{defn}
-The \emph{stalk at $b \in B$} of a sheaf on $F$ is
+The \emph{stalk at $b \in B$} of a sheaf $F$ is
 \[
 F_b = \colim_{U \in \Open_b(B)} F(U),
 \]
@@ -815,7 +815,7 @@ If $f\colon B' \to B$ is a finite covering space map of degree $n$ then $f_*$ ma
 The sheaf-theoretic formulation of the pullback of a vector bundle is arguably most easily defined as the sheaf of sections of the pullback bundle associated to the sheaf, i.~e., using the equivalence between locally free $\mathcal O_B$-module sheaves and vector bundles.
 
 \begin{example}
-Let $f\colon \S^1 \to \S^1$ be the map of degree~$2$ and $\mu\colon E \to \S^1$ the Möbius bundle. I claim that $f^*\mu$ is the trivial line bundle on $\S^1$. Let us think of the Möbius bundle as defined by $E = \R \times [0,1]\mathord\sim$, where $(x,0) \sim (-x,1)$. Then
+Let $f\colon \S^1 \to \S^1$ be the map of degree~$2$ and $\mu\colon E \to \S^1$ the Möbius bundle. I claim that $f^*\mu$ is the trivial line bundle on $\S^1$. Let us think of the Möbius bundle as defined by $E = (\R \times [0,1])/\mathord\sim$, where $(x,0) \sim (-x,1)$. Then
 \[
 f^*E \cong (\R \times \left[0,\frac12\right] \sqcup \R \times \left[\frac12,1\right])/\mathord\sim,
 \]
@@ -3293,7 +3293,7 @@ One can actually show  for every vector bundle $E\to B$, where $B$ is Hausdorff 
 \section{Pontryagin classes} The Pontryagin classes are defined for real vector bundles $E\to B$ where the $i$:th Prontryagin class $p_i(E)$ is a cohomology classes in $H^{4i}(B;\Z)$ (note that the coefficient ring is $\Z$).
 
 To a given real vector bundle $E\to B$, there is an associated complex vector bundle $E\otimes \CC\to B$, attained by complexifying $E$. We define $i$:th  Pontryagin class to be 
-$$p_i(E)= (-1)^jc_{2i}(E\otimes \CC)\in H^{4i}(B;\Z).$$
+$$p_i(E)= (-1)^ic_{2i}(E\otimes \CC)\in H^{4i}(B;\Z).$$
 
 \begin{prop}
  Let $E\to B$ be a real vector bundle. Then $p_i(E)$ maps to $w_{2i}(E)^2$ under the coefficient homomorphism $H^{4i}(B;\Z)\to H^{4i}(B;\Z/2\Z)$.
@@ -3651,6 +3651,7 @@ The left hand side is the $(i, j)$ entry of the product $AP'(A)$ while the right
 \end{lemma}
 
 \begin{prop}
+\label{prop:p-curvature-closed}
 Let $\nabla^2$ be the curvature tensor of a connection $\nabla$ on a vector bundle $E \to M$, and let $P$ be an invariant polynomial. Then $d(P(\nabla^2)) = 0$. In other words, $P(\nabla^2)$ is a closed form.
 \begin{proof}
 Since exterior derivative is a local operation, it is sufficient to compute $d(P(\nabla^2))$ in a trivializing neighborhood of $E$. In such a neighborhood, there is a set of $n$ sections $s_1, s_2, \ldots, s_n$ which are linearly independent at each point. As noted previously, having fixed these we may express $\nabla$ at each point using a matrix $\omega$ of one-forms, i.e. a section of the bundle $M_n(\Omega_M^1)$, as
@@ -3719,6 +3720,7 @@ completing the proof.
 We have now reduced the study of invariant polynomials to the study of the elementary invariant polynomials $\sigma_i$. The final step is to connect these to Chern classes, which we will do in the following theorem.
 
 \begin{thm}
+\label{thm:sym-polynomial-chern}
 Let $E \to M$ be a complex vector bundle with a connection $\nabla$. Then
 \[[\sigma_k(\nabla^2)] = (2\pi i)^kc_k(E) \quad \text{for } k = 1, 2, \ldots, n.\]
 \begin{proof}
@@ -3758,16 +3760,158 @@ Since $f^*$ is a monomorphism, this implies that $[C(\nabla^2)] = f^*c(E)$ and t
 % Construction of characteristic classes from application of an invariant polynomial p to the curvature tensor K. Show that the image is always a closed form and independent of the connection (and hence the curvature).
 % Characterization of invariant polynomials and identification with Chern classes (complex case) or Pontryagin classes (real case)
 
-\section{The genereralized Gauß-Bonnet theorem}
+\section{The generalised Gauß-Bonnet theorem}
 
 % Definition of the Pfaffian
 
-\begin{thm}
-Let $E$ be an oriented $n$-dimensional real vector bundle, where $n$ is even. Choose a Euclidean metric on $E$ and a compatible connection, and let $K\colon E \to \Omega^2_M \otimes E$ denote the corresponding curvature tensor. Then
-\[
-\operatorname{Pf}(K) = e(E).
-\]
+\begin{defn}
+    Consider a commutative ring $R$ and a skew-symmetric matrix $A \in M_{2n}(R)$. Define the \textit{Pfaffian} of $A$, that is $\operatorname{Pf}(A)$, to be
+    $$\operatorname{Pf}(A) = \frac{1}{2^n n!} \sum_{\sigma \in \operatorname{S}_{2n}} \operatorname{sgn}(\sigma) \prod_{k=1}^n A_{\sigma(2k-1) \sigma(2k)}.$$
+\end{defn}
+
+One can prove the following proprieties of the Pfaffian.
+
+\begin{prop}
+\label{prop:pfaffin-proprieties}
+    If $A$ is a skew-symmetric matrix $A \in M_{2n}(R)$, then
+    $$\operatorname{Pf}(A)^2 = \det{A} \qquad \text{and} \qquad \operatorname{Pf}(B^TAB) = \operatorname{Pf}(A)\det(B)$$
+    for any $B \in M_{2n}(R)$.
+\end{prop}
+
+As a simple corollary, if $B \in \operatorname{SO}_{2n}(R)$ we get
+\begin{align}
+    \label{remark:pfaffian-commutative-so}
+    \operatorname{Pf}(BA)=\operatorname{Pf}(AB).
+\end{align}
+
+\begin{defn}
+    Let $p:E \rightarrow M$ be a smooth oriented $2n$-dimensional vector bundle with Euclidean metric and compatible connection $\nabla$. Define $\operatorname{Pf}(\nabla^2)|_U := \operatorname{Pf}([\Omega_{ij}])$ where
+    $$\nabla^2(s_i) = \sum_{j=1}^{2n} {\Omega_{ij}} \otimes s_j$$
+    for an oriented orthonormal basis $\{s_1,\dots,s_{2n}\}$ of sections over a trivialising neighbourhood $U$.
+\end{defn}
+
+\begin{remark}
+    Note that the matrix $\Omega:=[\Omega_{ij}] = dw-w\wedge w$ is skew-symmetric since the connection is compatible with the metric.
+\end{remark}
+
+\begin{remark}
+    The definition is well defined, that is, $\operatorname{Pf}(\nabla^2)$ does not depend of the choice of the oriented basis. If the $\{s_1',\dots, s_n'\}$ is another oriented orthonormal basis of $E_U$, then exists a matrix $X \in \operatorname{SO}_n(\mathbb{C})$ such that
+    $$\{s_1,\dots,s_n\} \xrightarrow{X} \{s_1',\dots, s_n'\}.$$
+    Then 
+    $$[\Omega_{ij}] = X^T[\Omega_{ij}']X$$
+    and so $\operatorname{Pf}([\Omega_{ij}]) = \operatorname{Pf}([\Omega_{ij}'])$ by Proposition \ref{prop:pfaffin-proprieties}.
+\end{remark}
+
+\begin{lemma}
+    For any skew-symmetric matrix $A\in M_{2n}(R)$, the matrix 
+    $$\operatorname{Pf}'(A):=\left[ \frac{\partial \operatorname{Pf}}{\partial A_{ij}}(A) \right]^T$$
+    is skew-symmetric.
+\end{lemma}
+
+\begin{proof}
+    By definition of $\operatorname{Pf}$, it is clear that 
+    $$\operatorname{Pf}'(A)_{ii}=0$$
+    for $i \in \{1,\dots,2n\}$. So fix different $i,j \in \{1,\dots,2n\}$ and define
+    $$X_{ij} = \{\sigma \in \operatorname{S}_{2n} \ | \ \exists k \in\{1,\dots n\} \text{ such that } \sigma(2k-1) = i \text{ and } \sigma(2k)=j \}.$$
+    Note that for each $\sigma \in X_{ij}$, there is only one $k_{\sigma,ij}$ that satisfies $\sigma(2k_{\sigma,ij}-1) = i$ and $\sigma(2k_{\sigma,ij})=j$. Define
+    $$\beta_r =  \left(\begin{matrix}
+    \dots & 2r-1 & 2r & \dots \\
+    \dots & 2r & 2r-1 & \dots
+    \end{matrix} \right) \in \operatorname{S}_{2n}$$
+     and the map 
+    \begin{align*}
+        \varphi_{ij}:X_{ij} &\rightarrow X_{ji}\\
+        \sigma &\mapsto \sigma \circ \beta_{k_{\sigma,ij}}
+    \end{align*}
+    In fact $\varphi_{ij}$ is well defined since
+    \begin{align*}
+        \varphi_{ij}(\sigma)(2k_{\sigma,ij}-1) = \sigma \circ \beta_{k_{\sigma,ij}}(2k_{\sigma,ij}-1)=\sigma(2k_{\sigma,ij}) = j
+    \end{align*}
+    and similarly $\varphi_{ij}(\sigma)(2k_{\sigma,ij}) = i$. So $\varphi_{ij}(\sigma) \in X_{ji}$. Moreover
+    \begin{equation}
+        \label{rosetta}
+        k_{\sigma,ij} = k_{\varphi_{ij}(\sigma),ji}.
+    \end{equation}
+    We also have that the map $\varphi_{ij}$ is bijective with inverse $\varphi_{ji}$. By definition,
+    \begin{align*}
+        \frac{\partial\operatorname{Pf}}{\partial A_{ij}}(A) &= \frac{\partial}{\partial A_{ij}} \frac{1}{2^n n!} \sum_{\sigma \in \operatorname{S}_{2n}} \operatorname{sgn}(\sigma) \prod_{k=1}^n A_{\sigma(2k-1) \sigma(2k)} \\
+        &= \frac{1}{2^n n!} \sum_{\sigma \in X_{ij}} \operatorname{sgn}(\sigma) \frac{\partial}{\partial A_{ij}} \prod_{k=1}^n A_{\sigma(2k-1) \sigma(2k)} \\
+        &= \frac{1}{2^n n!} \sum_{\sigma \in X_{ij}} \operatorname{sgn}(\sigma)  \prod_{k \not = k_{\sigma,ij}} A_{\sigma(2k-1) \sigma(2k)} \\
+        &= \frac{1}{2^n n!} \sum_{\sigma \in X_{ji}} \operatorname{sgn}(\varphi_{ji}(\sigma)) \prod_{k \not = k_{\varphi_{ji}(\sigma),ij}} A_{\varphi_{ji}(\sigma)(2k-1) \varphi_{ji}(\sigma)(2k)}.
+    \end{align*}
+    Since (\ref{rosetta}) holds  and
+    $$A_{\varphi_{ji}(\sigma)(2k-1) \varphi_{ji}(\sigma)(2k)} = A_{\sigma(2k-1) \sigma(2k)}$$
+    for $k \not = k_{\sigma,ji}$, we get
+    \begin{align*}
+        \frac{\partial\operatorname{Pf}}{\partial A_{ij}} = \dots &= \frac{1}{2^n n!} \sum_{\sigma \in X_{ji}} \operatorname{sgn}(\varphi_{ji}(\sigma)) \prod_{k \not = k_{\sigma,ji}} A_{\sigma(2k-1) \sigma(2k)} \\
+        &= \frac{1}{2^n n!} \sum_{\sigma \in X_{ji}} \operatorname{sgn}(\sigma)\operatorname{sgn}(\beta_{k_{\sigma,ij}}) \prod_{k \not = k_{\sigma,ji}} A_{\sigma(2k-1) \sigma(2k)} \\
+        &= - \frac{1}{2^n n!} \sum_{\sigma \in X_{ji}} \operatorname{sgn}(\sigma) \prod_{k \not = k_{\sigma,ji}} A_{\sigma(2k-1) \sigma(2k)} = \dots = - \frac{\partial\operatorname{Pf}}{\partial A_{ji}}.
+    \end{align*}
+    So $\operatorname{Pf}'(A)$ is skew-symmetric.
+\end{proof}
+
+\begin{lemma}
+    For any skew-symmetric matrix $A\in M_{2n}(R)$, we have
+    $$\operatorname{Pf}'(A)A = A\operatorname{Pf}'(A).$$
+\end{lemma}
+
+\begin{proof}
+    Fix different $i,j \in \{1,\dots,2n\}$. Define
+    $$B_{rs}(t) = 
+    \begin{cases}
+        \cos(t),& \text{if }(r,s)=(i,i)\\
+        \cos(t),& \text{if }(r,s)=(j,j)\\
+        \sin(t),& \text{if }(r,s)=(i,j)\\
+        -\sin(t),& \text{if }(r,s)=(j,i)\\
+        \delta_{rs},& \text{in the other cases}
+    \end{cases}.$$
+    Then $B(t):=[B_{rs}(t)] \in \operatorname{SO}_{2n}(R)$. From (\ref{remark:pfaffian-commutative-so}),
+    $$\operatorname{Pf}(B(t)A) = \operatorname{Pf}(AB(t)).$$
+    Differentiating both sides we get
+    $$\sum_{r,s,k} \frac{\partial \operatorname{Pf}}{\partial A_{rs}}(B(t)A) B_{rk}'(t)A_{ks} = \sum_{r,s,k} \frac{\partial \operatorname{Pf}}{\partial A_{rs}}(B(t)A) A_{rk}B_{ks}'(t).$$
+    Taking $t=0$, we get
+    $$\sum_{s=1}^n \frac{\partial \operatorname{Pf}}{\partial A_{is}}(A)A_{js} - \frac{\partial \operatorname{Pf}}{\partial A_{js}}(A)A_{is} = \sum_{r=1}^n \frac{\partial \operatorname{Pf}}{\partial A_{rj}}(A) A_{ri} - \frac{\partial \operatorname{Pf}}{\partial A_{ri}}(A) A_{rj},$$
+    which is equivalent to
+    $$[\operatorname{Pf}'(A)^TA^T - A\operatorname{Pf}'(A)]_{ij} = [A^T\operatorname{Pf}'(A)^T - \operatorname{Pf}'(A)A]_{ij}.$$
+    Since $A$ and $\operatorname{Pf}'(A)$ are skew-symmetric, we get $[\operatorname{Pf}'(A)A]_{ij} = [A\operatorname{Pf}'(A)]_{ij}$. In case $i=j$, we get
+    $$[\operatorname{Pf}'(A)A]_{ii} = \sum_{k=1}^n \operatorname{Pf}'(A)_{ik}A_{ki} = \sum_{k=1}^n A_{ki} \operatorname{Pf}'(A)_{ik} = [A^T\operatorname{Pf}'(A)^T]_{ii} = [A\operatorname{Pf}'(A)]_{ii}.$$
+    Thus $\operatorname{Pf}'(A)$ and $A$ commute.
+\end{proof}
+
+\begin{prop}
+    The exterior form $\operatorname{Pf}(\nabla^2)$ is a closed form.
+\end{prop}
+
+\begin{proof}
+    Since the matrices $\operatorname{Pf}'(A)$ and $A$ commute for any skew-symmetric matrix $A$, the same proof as in Proposition \ref{prop:p-curvature-closed} holds.
+\end{proof}
+
+\begin{thm}[Generalised Gauß-Bonnet theorem]
+    Let $E$ be an oriented $2n$-dimensional $\mathbb{R}$-vector bundle. Choose a Euclidean metric on $E$ and a compatible connection $\nabla$, and let $\nabla^2$ denote the corresponding curvature tensor. Then
+    $$[\operatorname{Pf}(\nabla^2/(2\pi))] = e(E).$$
 \end{thm}
+
+\begin{proof}
+    Let $\gamma$ be a $4n$-universal bundle for all bundles with dimension less or equal than $4n$. Using Theorem \ref{thm:sym-polynomial-chern}, we get
+    $$[\det(\nabla^2)] = [\sigma_{2n}(\nabla^2)] = (2\pi i)^{2n}c_{2n}(E \otimes_{\mathbb{R}} \mathbb{C}) = (-1)^n(2\pi)^{2n}c_{2n}(E \otimes_{\mathbb{R}} \mathbb{C}) = (2\pi)^{2n}p_n(E).$$
+    Since $p_n(\gamma) = e(\gamma)^2$ and using Proposition \ref{prop:pfaffin-proprieties}, we get
+    $$[\operatorname{Pf}(\nabla_\gamma^2)]^2 = (2\pi)^{2n}e(\gamma)^2.$$
+    So
+    $$[\operatorname{Pf}(\nabla_\gamma^2)] = \pm (2\pi)^{n}e(\gamma). $$
+    By definition, the Pfaffian is a polynomial of degree $n$, so we get
+    \begin{align}
+    \label{lampada}
+       [\operatorname{Pf}(\nabla_\gamma^2/(2\pi))] = \pm e(\gamma).
+    \end{align}
+    Let $\xi$ be $4m$-dimensional vector bundle with $m \leq n$ and $f:\xi \rightarrow \gamma$ a orientation preserving bundle map. From (\ref{lampada}), we get
+    $$[\operatorname{Pf}(\nabla_\xi^2/(2\pi))] = f^*([\operatorname{Pf}(\nabla_\gamma^2/(2\pi))]) = \pm f^*(e(\gamma)) = \pm e(\xi).$$
+    In particular 
+    $$[\operatorname{Pf}(\nabla^2/(2\pi))] = \pm e(E).$$
+    Note that the $\pm$ sign does not change with $\xi$. Let us see which sign is correct. Consider $F= E_1 \oplus E_2$, where and $E_1,E_2$ are $2$-plane bundles. Then
+    $$[\operatorname{Pf}(\nabla_F^2/(2\pi))] = [\operatorname{Pf}(\nabla_{E_1}^2/(2\pi))] \cdot [\operatorname{Pf}(\nabla_{E_2}^2/(2\pi))] = \pm e(E_1)\cdot \pm e(E_2) = e(E)$$
+    Thus 
+    $$[\operatorname{Pf}(\nabla^2/(2\pi))] = e(F).$$
+\end{proof}
 
 % Examples, reduction to 2D case
 
@@ -4370,12 +4514,12 @@ so $F\alpha_y \circ Ff = FGFf \circ F \alpha_x \implies F(\alpha_y \circ f) = F(
 
 One of the most powerful concepts of category theory is the notions of (co)limits. Let $I$ be any small category, which we will call the \emph{indexing category}, and let $F\colon I \to \C$ be a functor into another, not necessarily small, category $\C$. We sometimes refer to $F$ as a \emph{diagram} in $\C$.
 
-\begin{defn} An object $X \in \C$ together with morphisms $p_i\colon X \to F(i)$ for each $i \in \ob(I)$ is called a \emph{cone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\alpha \circ F(p_i) = F(p_j)$, i.~e. if the maps $p_i$ are compatible with the maps in the diagram. A cone $(X,p_i)$ is called a \emph{limit} for $F$ if it is universal. This means that for any other cone $(Y,q_i)$ there is a unique morphism $f \in \Hom_\C(Y,X)$ such that $q_i = p_i \circ f$ for all $i \in I$.
+\begin{defn} An object $X \in \C$ together with morphisms $p_i\colon X \to F(i)$ for each $i \in \ob(I)$ is called a \emph{cone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $F(\alpha) \circ p_i = p_j$, i.~e. if the maps $p_i$ are compatible with the maps in the diagram. A cone $(X,p_i)$ is called a \emph{limit} for $F$ if it is universal. This means that for any other cone $(Y,q_i)$ there is a unique morphism $f \in \Hom_\C(Y,X)$ such that $q_i = p_i \circ f$ for all $i \in I$.
 \end{defn}
 
 A \emph{cocone} resp. \emph{colimit} of $F$ is defined as a cone resp. limit of the functor $F^\op\colon I^\op \to \C^\op$; however, since we will be using this quite often, here is what this means explicitly:
 
-\begin{defn} An object $X \in \C$ together with morphisms $\iota_i\colon F(i) \to X$ for each $i \in \ob(I)$ is called a \emph{cocone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\iota_j \circ \alpha = \iota_i$. A cocone $(X,\iota_i)$ is called a \emph{colimit} for $F$ if for any other cocone $(Y,\eta_i)$ there is a unique morphism $f \in \Hom_\C(X,Y)$ such that $\iota_i = f \circ \eta_i$ for all $i \in I$.
+\begin{defn} An object $X \in \C$ together with morphisms $\iota_i\colon F(i) \to X$ for each $i \in \ob(I)$ is called a \emph{cocone} for $F$ if for each $\alpha \in \Hom_I(i,j)$, $\iota_j \circ F(\alpha) = \iota_i$. A cocone $(X,\iota_i)$ is called a \emph{colimit} for $F$ if for any other cocone $(Y,\eta_i)$ there is a unique morphism $f \in \Hom_\C(X,Y)$ such that $f \circ \iota_i = \eta_i$ for all $i \in I$.
 \end{defn}
 
 (Co)limits need not exist, but if they do exist, they are unique up to unique isomorphism. One denotes the unique limit by $\lim F = \lim_{i \in I} F(i)$, neglecting the cone maps $p_i$ in the notation, and the colimit by $\colim F = \colim_{i \in I} F(i)$.
@@ -4405,11 +4549,11 @@ In the special case of set-valued functors, limits and colimits have useful elem
 Let $F\colon I \to \Set$ be a functor. Then
 \begin{enumerate}
 \item For every $x \in \colim F$ there is an $i \in I$ and an $x_i \in F(i)$ such that $\iota_i(x_i) = x$.\label{lem:setvaluedlim:colim}
-\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(x')$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
+\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(y)$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,\1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
+For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi' \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
 
 For \eqref{lem:setvaluedlim:lim}, we employ a similar argument. Let $f,\;g \colon \{0\} \to \lim F$ be given by $f(0) = x$, $g(0) = y$. Since $p_i \circ f = p_i \circ g$ for all $i$ by assumption, $p_i \circ f$ and $p_i \circ g$ are identical cones for $F$, hence the maps $f$ and $g$ are the same. Hence $x=y$.
 \end{proof}
