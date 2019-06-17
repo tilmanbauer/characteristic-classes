@@ -43,6 +43,8 @@
 
 \newcommand{\exterior}{\bigwedge\nolimits}
 \newcommand{\chapterauthor}[1]{\hfill\emph{#1}\par\noindent}
+\newcommand{\ud}{\mathrm{d}}
+\newcommand{\ui}{\mathrm{i}}
 
 \newtheorem{warning}[equation]{Warning}
 \subject{\textsc{Lecture Notes}}
@@ -3412,7 +3414,7 @@ which is symmetric and positive definite.
 
 A smooth manifold equipped with a Riemannian metric is called a Riemannian manifold. At each point $p \in M$, $\langle,\rangle_p$ is an inner product on $T_pM$. It is smoothly varying in the sense that for smooth vector fields $X,Y$ on $M$, $p \mapsto \langle X_p,Y_p\rangle_p \in \mathbb{R}$ is a smooth function on $M$.
 
-\section{Connections}
+\section{Connections} \label{section-connections}
 \chapterauthor{Rune Suhr}
 
 A connection gives a way of differentiating vector fields to obtain a new vector field. This in turn provides a way of identifying tangent spaces at different points in a manifold by means of parallel translation of tangent vectors along curves between the points.
@@ -3499,7 +3501,7 @@ On every Riemannian manifold, there exists exactly one Levi-Civita connection.
 
 First a little lemma.
 
-\begin{lemma}
+\begin{lemma} \label{skew-sym}
 Let $\{s_i\}$ be a pointwise orthonormal basis for $\Gamma (U)$, i.e. $\langle s_i,s_j\rangle_p=\delta_{ij}$ at each $p \in U$. Then $\nabla$ on $E_U$ is compatbile with $\langle,\rangle$ if and only if the connection matrix $[\omega_{ij}]$ of $\nabla$ is skew-symmetric.
 \end{lemma}
 
@@ -3542,7 +3544,7 @@ w_{kj}=\sum_i C_{ijk} \theta_i.
 
 To define the curvature of a vector bundle equipped with a connection $\nabla$ we want to define a connection on the bundle $\Omega^1_M(U) \otimes E(U)$ from $\nabla$.
 
-\begin{lemma}
+\begin{lemma} \label{connection1-2}
 Given a connection $\nabla$ on $E$ there is a unique $k$-linear map 
 \[
 \hat{\nabla}: \Gamma (\Omega^1 (M)\otimes E)) \to \Gamma (\Omega^2(M)\otimes E)
@@ -3582,7 +3584,7 @@ We thus have
 %
 % This is not in general a chain complex. Curvature = \nabla^2.
 %
-\begin{lemma}
+\begin{lemma} \label{curvature-vb}
 The morphism $\nabla^2\colon \Gamma(E) \to \Gamma(\Omega^2_M \otimes E)$ is a map of vector bundles.
 \end{lemma}
 
@@ -3607,7 +3609,7 @@ we have
 \end{align*} where $\Omega_{ik}= d \omega_{ik} - \sum_j \omega_{ij}\wedge \omega_{jk}$, or in matrix notation
 \[
 \Omega= d \omega - \omega \wedge \omega.
-\]
+\] \label{curvature-matrix}
 Note that $\wedge$ denotes matrix multiplication in the ring of matrices of differential forms, which means that $\omega \wedge \omega$ is not necessarily zero.
 
 % That means it's a map of *local* sheaves of $C^\infty_M$-algebras.
@@ -3617,7 +3619,7 @@ Note that $\wedge$ denotes matrix multiplication in the ring of matrices of diff
 
 % Examples. spheres and projective spaces with positive curvature. Surfaces of genus > 1 with negative curvature, flat torus, maybe non-flat tori (as embedded in R^3).
 
-\section{Cohomology classes from curvature}
+\section{Cohomology classes from curvature} \label{section-chern-curvature}
 \chapterauthor{Eric Larsson}
 
 We will now extract invariants from the curvature tensor of a connection on a complex vector bundle over a smooth manifold. The first step is to construct a family of differential forms from the curvature tensor and show that they are closed, so that they gives rise to cohomology classes in de Rham cohomology. In other words, we will have constructed an algebraic invariant for a vector bundle equipped with a connection. What is remarkable is that these cohomology classes are \emph{independent of the chosen connection}, and hence invariants of the vector bundle itself.
@@ -3681,7 +3683,7 @@ proving that $P(\nabla^2)$ is a closed form.
 \end{proof}
 \end{prop}
 
-\begin{prop}
+\begin{prop} \label{prop:p-curvature-derham}
 Let $E \to M$ be a vector bundle and let $P$ be an invariant polynomial. If $\nabla_0$ and $\nabla_1$ are two connections on $E$ and $\nabla_0^2$ and $\nabla_1^2$ are the corresponding curvature tensors, then $[P(\nabla_0^2)] = [P(\nabla_1^2)]$ as cohomology classes in de Rham cohomology.
 \begin{proof}
 This follows essentially from the fact that the space of connections for a vector bundle is convex. Consider the manifold $M \times \R$. We have a projection $\pi \colon M \times \R \to M$ and two inclusions $i_0, i_1 \colon M \to M \times \R$ defined by $i_0(x) = (x, 0)$ and $i_1(x) = (x, 1)$.
@@ -3762,6 +3764,73 @@ Since $f^*$ is a monomorphism, this implies that $[C(\nabla^2)] = f^*c(E)$ and t
 
 % Construction of characteristic classes from application of an invariant polynomial p to the curvature tensor K. Show that the image is always a closed form and independent of the connection (and hence the curvature).
 % Characterization of invariant polynomials and identification with Chern classes (complex case) or Pontryagin classes (real case)
+
+\subsection{The Gauss--Bonnet Theorem}
+
+Let $M$ be a two-dimensional oriented Riemannian manifold. Let $\{\theta_1,\theta_2\}$ be a local oriented orthonormal basis for $\Omega^1(M)=\Gamma(T^*M)$. By definition, the 
+Levi-Civita connection $\nabla:\Omega^1(M)\to\Omega^1(M;T^*M)$ is compatible with the metric, so by Lemma \ref{skew-sym} its connection matrix $[\omega_{ij}]$, and by \eqref{curvature-matrix} its connection matrix $[\Omega_{ij}]$, are skew symmetric with respect to this basis,
+\begin{equation*}
+\begin{pmatrix}0&\omega_{12}\\-\omega_{12}&0\end{pmatrix},\qquad\begin{pmatrix}0&\Omega_{12}\\-\Omega_{12}&0\end{pmatrix},
+\end{equation*}
+and moreover $\Omega_{12}=\ud\omega_{12}$. Now, all $2\times2$ skew-symmetric matrices are invariant under conjugation by rotations, which implies in particular that the local 2-form $\Omega_{12}$ independent of the choice of oriented orthonormal basis. The local forms can be pieced together to form a well-defined global form $\Omega_{12}$ called the \define{Gauss-Bonnet 2-form} on $M$.
+
+Let $\ud A:=-\theta_1\wedge\theta_2$ denote the oriented area 2-form. As we are working over the cotangent bundle $T^*M$, we have of course
+\begin{equation*}
+\Omega_{12}=\mathcal{K}\,\ud A,
+\end{equation*}
+for some scalar function $\mathcal{K}$ called the \define{Gaussian curvature}. It is independent of the orientation since both $\Omega_{12}$ and $\ud A$ change sign if the orientation is reversed. In a sufficiently small open subset $U$ of $M$, one can choose coordinates $x,y$ such that the metric tensor in $\Omega(M;T^*M|_U)$ has the form $\ud x\otimes\ud x+g(x,y)^2\,\ud y\otimes\ud y$. These are called \define{geodesic corrdinates}. With respect to an orthonormal basis for $\Gamma(T^*M|_U)$, the proof of Theorem \ref{levi-civita} informs us that the one form $\omega_{12}$ is the unique solution to
+\begin{equation*}
+\ud\theta_1=\omega_{12}\wedge\theta_2,\qquad\ud\theta_2=-\omega_{12}\wedge\theta_1.
+\end{equation*}
+Taking $\theta_1=\ud x$ and $\theta_2=g(x,y)\,\ud y$, this implies that $\omega_{12}=g_x\,\ud y$. Then
+\begin{equation*}
+\Omega_{12}=\ud\omega_{12}=\ud(g_x\,\ud y)=g_{xx}\,\ud x\wedge\ud y=-\frac{g_{xx}}{g}\,\ud A
+\end{equation*}
+Hence in geodesic coordinates, the Gaussian curvature is
+\begin{equation*}
+\mathcal{K}=-\frac{g_{xx}}{g}.
+\end{equation*}
+
+
+\begin{Example}\label{gcsphere}
+If $M$ is the unit sphere, then taking $x,y$ as coordinates for latitude and longitude respectively, we have $g(x,y)=\cos x$, and so $\mathcal{K}=1$.
+\end{Example}
+
+Let $\ue[M]=\iint\ue(T^*M)$ denote the Euler number of $M$, where $\ue(T^*M)$ is the Euler class of the cotangent bundle. Recall that given a complex vector bundle $F$ over $M$, its underlying real vector bundle $F_\mathbb{R}$ has a canonical preferred orientation, and so the Euler class $\ue(F_\mathbb{R})=c_{\dim(M)}(F)$ is well-defined (see e.g. Lemma 14.1 of \emph{Characteristic Classes} by \emph{J.W. Milnor} and \emph{J.D. Stasheff}].
+
+\begin{theorem}[The Gauss--Bonnet Theorem]
+For any two-dimensional closed oriented Riemannian manifold $M$,
+\begin{equation}
+\iint_M\Omega_{12}\equiv\iint_M\mathcal{K}\,\ud A=2\pi\ue[M].
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $E$ be a real oriented plane bundle over $M$ with Euclidean metric. Now, $E$ has a canonical complex structure $J$ which corresponds to anticlockwise rotation by  $\frac{\pi}{2}$.  If $U$ is an some neighbourhood of a point in $M$, then given an orthonormal basis $\{s_1,s_2\}$ for $\Gamma(E|_U)$, we have $Js_1(x)=s_2(x)$ for all $x\in U$. If $\nabla$ is a compatible connection, then by Lemma \ref{curvature-vb},
+\begin{equation*}
+\nabla s_1=\omega_{12}\otimes s_2,\qquad\nabla s_2=-\omega_{12}\otimes s_1.
+\end{equation*}
+Thus $\nabla$ induces a connection on the complex line bundle $L$ in which $s_2=Js_1$ is identified with $\ui s_1$:
+\begin{equation*}
+\nabla s_1=\ui\omega_{12}\otimes s_1.
+\end{equation*}
+It follows that the corresponding $1\times1$ connection matrix is $(\ui\omega_{12})$, and the curvature matrix is thus $(\ud(\ui\omega_{12}))=(\ui\Omega_{12})$. Now, the trace is of course an invariant polynomial, and so taking the trace of the curvature yields a closed 2-form by Proposition \ref{prop:p-curvature-closed}:
+\begin{equation*}
+\text{trace}[\ui\Omega_{12}]=\ui\Omega_{12}.
+\end{equation*}
+According to Proposition \ref{prop:p-curvature-derham}, this corresponds to a characteristic cohomology class $[\ui\Omega_{12}]\in H_\text{dR}^2(M;\mathbb{C})$, but $L$ is a line bundle for which the only such classes are multiples of the (top) Chern class $c_1(L)$. Moreover, the plane bundle $E$ is identified with $L_\mathbb{R}$, and so
+\begin{equation*}
+[\ui\Omega_{12}]=a\,\ue(E)
+\end{equation*}
+for some $a\in\mathbb{C}$.
+
+Let us now take $E=T^*M$. We have
+\begin{equation*}
+\ui\iint_M\mathcal{K}\,\ud A=\iint_M\ui\Omega_{12}=a\ue[M].
+\end{equation*}
+It is sufficient to evaluate this for a single example. If $M$ is the sphere, then by example \eqref{gcsphere}, we have $\mathcal{K}=1$, and so $a=2\pi$.
+\end{proof}
+
 
 \section{The generalised Gauß-Bonnet theorem}
 
@@ -3917,6 +3986,214 @@ As a simple corollary, if $B \in \operatorname{SO}_{2n}(R)$ we get
 \end{proof}
 
 % Examples, reduction to 2D case
+
+
+\subsection{An alternative approach to Chern--Weil theory: The fibrewise trace}
+
+To conclude this chapter, we describe an alternative approach to constructing characteristic forms and classes from curvature using the fibrewise trace instead of invariant polynomials. Let $E$ be a complex vector bundle over a manifold $M$. In Section \ref{section-connections} we defined a connection $\nabla^E:\Gamma(E)\to\Omega^1(M;E)$ on $E$, and in Lemma \ref{connection1-2} we saw that one could associate to it a unique map $\hat{\nabla}^E:\Omega^1(M;E)\to\Omega^2(M;E)$ satisfying the Leibniz formula. More generally, however, $\nabla^E$ can be extended to give a canonical map $\Omega^*(M;E)\to\Omega^*(M;E)$, which for convenience we still denote by $\nabla^E$, satisfying the Leibniz formula. In particular,
+\begin{equation*}
+\nabla^E(\Omega^n(M;E))\subseteq\Omega^{n+1}(M;E)
+\end{equation*}
+so that the map coincides with $\hat{\nabla}^E$ on $\Omega^1(M;E)$.
+
+\begin{lemma}
+Every connection $\nabla^E$ on $E$ has a unique $\mathbb{C}$-linear extension $\nabla^E:\Omega^*(M;E)\to\Omega^*(M;E)$ satisfying the Leibniz formula
+\begin{equation}
+\nabla^E(\omega\otimes s)=(\ud\omega)\otimes s-\theta\wedge\nabla s
+\end{equation}
+for all $\omega\in\Omega^*(M)$ and all $s\in\Gamma(E)$.
+\end{lemma}
+\begin{proof}
+Follows by iterating the proof of Lemma \ref{connection1-2}.
+\end{proof}
+
+With this convention, the notion $K^E=(\nabla^E)^2$ for the curvature makes sense. It is an immediate consequence of Lemma \ref{curvature-vb} that $K^E(s)$ at $x$ depends only on $s(x)$ and not the values of $s$ elsewhere for if $s,s'\in\Gamma(E)$ with $s(x)=s'(x)$, then, with respect to a basis of sections $\{s_1,\dots,s_n\}$ in a neighbourhood of $x$, we have $s'-s=\sum_jf_js_j$ locally, where each $f_j$ vanishes at $x$, so $K^E(s')-K^E(s)=\sum_jf_jK^E(s_j)$, which too vanishes at $x$. Hence $K^E:s(x)\mapsto K^E(s)(x)$ defines a smooth section of the complex vector bundle $\text{Hom}(E,\Omega^2(M;E))$. Thus $K^E$ can  be identified as an element of $\Gamma(\text{End}(E))$ with coefficients in $\Omega^2(M)$. More precisely,
+\begin{equation*}
+K^E\in\Omega^2(M;\text{End}(E))\cong\Gamma(\text{Hom}(E,\Omega^2(M;E))).
+\end{equation*}
+
+
+Given a section $A\in\Gamma(\text{End}(E))$, its fibrewise trace $\text{tr}[A]\in C^\infty(M)$, is given by 
+\begin{equation}\label{fibretrace}
+\text{trace}[A]=\sum_i\alpha_{ii},
+\end{equation}
+where $A(s_i)=\sum_{j}\alpha_{ij}s_j$ with respect to a local basis $\{s_1,\dots,s_n\}$ of sections of $\text{End}(E)$. This induces a map, also called the \define{fibrewise trace},
+\begin{equation}
+\text{trace}:\Omega^*(M;\text{End}(E))\to\Omega^*(M)
+\end{equation}
+such that
+\begin{equation*}
+\text{trace}[\omega A]=\omega\,\text{trace}[A]
+\end{equation*}
+for all $\omega\in\Omega^*(M)$ and all $A\in\Gamma(\text{End}(E))$. Then the formula \eqref{fibretrace} is still valid. This is well-defined, since if $\{s_1',\dots,s_n'\}$ is another local basis of sections of $E$ and $(\alpha_{ij}')$ is the matrix of forms with respect to that basis, then $(\alpha_{ij})=T(\alpha_{ij}')T^{-1}$ where $T$ is the change of basis matrix, and hence $\text{tr}((\alpha_{ij}))=\text{tr}((\alpha_{ij}'))$. Of course, the fibrewise trace is an invariant polynomial.
+
+The \define{Lie bracket} on $\text{End}(E)$, given by $[A,B]=AB-BA$ for $A,B\in\text{End}(E)$, can also be extended to $\Omega^*(M;\text{End}(E))$ via
+\begin{equation}\label{liebracket}
+[\omega A,\eta B]=(\omega A)(\eta B)-(-1)^{(\deg\omega)(\deg\eta)}(\eta B)(\omega A)
+\end{equation}
+for all $A,B\in\Gamma(\text{End}(E))$ and all $\omega,\eta\in\Omega^*(M)$.
+
+\begin{lemma}\label{tracelie}
+If $A,B\in\Omega^*(M;\emph{End}(E))$, then
+\begin{equation}
+\emph{trace}[[A,B]]=0.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Suppose that $A\in\Omega^m(M;\text{End}(E))$ and $B\in\Omega^n(M;\text{End}(E))$. With respect to a local basis of sections of $\text{End}(E)$, one has
+\begin{equation*}
+A(s_i)=\sum_j\alpha_{ij}\otimes s_j,\qquad B(s_i)=\sum_j\beta_{ij}\otimes s_j,
+\end{equation*}
+for some $\alpha_{ij}\in\Omega^m(M)$ and $\beta_{ij}\in\Omega^n(M)$. Then by \eqref{liebracket},
+\begin{align*}
+[A,B](s_i)&=\sum_{j,k}(\alpha_{ij}\wedge\beta_{jk})\otimes s_k-(-1)^{mn}\sum_{j,k}(\beta_{ij}\wedge\alpha_{jk})\otimes s_k\\
+&=\sum_{j,k}(\alpha_{ij}\wedge\beta_{jk})\otimes s_k-\sum_{j,k}(\alpha_{jk}\wedge\beta_{ij})\otimes s_k
+\end{align*}
+which has vanishing trace.
+\end{proof}
+
+
+\begin{lemma}\label{dtrace}
+Let $\nabla^E$ be a connection on $E$. Then for any $A\in\Omega^*(M;\emph{End}(E))$, one has
+\begin{equation}\label{dtraceeq}
+\ud\,\emph{trace}[A]=\emph{trace}[[\nabla^E,A]].
+\end{equation}
+\end{lemma}
+\begin{proof}
+Let $\nabla^E,\tilde{\nabla}^E$ be two connections on $E$. By the Leibniz rule formula, for any $\omega\in\Omega^*(M)$ and $s\in\Gamma(E)$, one has
+\begin{align*}
+(\nabla^E-\tilde{\nabla}^E)(\omega s)&=\{(\ud\omega)s+(-1)^{\deg\omega}\omega\wedge\nabla^Es\}-\{(\ud\omega)s+(-1)^{\deg\omega}\omega\wedge\tilde{\nabla}^Es\}\\
+&=(-1)^{\deg\omega}\omega\wedge(\nabla^E-\tilde{\nabla}^Es)
+\end{align*}
+In particular this implies that $\nabla^E-\tilde{\nabla}^E$ is $C^\infty(M)$-linear, and thus $\nabla^E-\tilde{\nabla}^E\in\Omega^1(M;\text{End}(E))$. By Lemma \ref{tracelie}, we have $\text{trace}[[\nabla^E-\tilde{\nabla}^E,A]]=0$ for any $A\in\Omega^*(M;\text{End}(E))$, whence
+\begin{equation}
+\text{trace}[[\nabla^E,A]]=\text{trace}[[\tilde{\nabla}^E,A]]
+\end{equation}
+is independent of the choice of connection.
+
+Given any $x\in M$, since $\text{trace}[[\nabla^E,A]]$ is a local operator, one may pick a sufficiently small neighbourhood $U$ of $x$ such that $E|_U$ is a trivial vector bundle. Let $\nabla^E$ be the trivial connection on $E|_U$. Let $\{s_1,\dots,s_n\}$ be a local basis of sections on $E|_U$ so $\nabla^E(s_i)=s_i$ for each $s_i$, and write $A(s_i)=\sum_j\alpha_{ij}\otimes s_j$. One then has 
+\begin{align*}
+[\nabla^E,A](s_i)&=\nabla^E\Big(\sum_j\alpha_{ij}\otimes s_j\Big)-A(\nabla^E(s_i))\\
+&=\sum_j\ud\alpha_{ij}\otimes s_j+\sum_j\alpha_{ij}\otimes\nabla^E(s_j)-A(s_i)\\
+&=\sum_j\ud\alpha_{ij}\otimes s_j.
+\end{align*}
+Taking the trace of both sides gives \eqref{dtraceeq}. The local forms are uniquely defined, and so this formula holds globally.
+\end{proof}
+
+
+Let $f(x)=a_0+a_1x+a_2x^2+\cdots$ be a power series in one variable. If $K^E$ is the curvature of the connection $\nabla^E$ on $E$, then $(K^E)^n\in\Omega^{2n}(M;\text{End}(E))$ for each $n$, and so $\text{trace}[f(K^E)]\in\Omega^*(M)$. The following is a version of the Chern--Weil Theorem. See analogously Propositions \ref{prop:p-curvature-closed} and \ref{prop:p-curvature-derham}.
+
+\begin{theorem}[The Chern--Weil Theorem]\label{cw}
+Let $f$ be a formal power series.
+\begin{itemize}
+\item[\emph{(i)}] If $\nabla^E$ be a connection on $E$ with curvature $K^E$, then the form $\emph{trace}[f(K^E)]\in\Omega^*(M)$ is closed, that is
+\begin{equation}
+\ud\,\emph{trace}[f(K^E)]=0.
+\end{equation}
+\item[\emph{(ii)}] If $\nabla^E,\tilde{\nabla}^E$ are two connections on $E$ with respective curvatures $K^E,\tilde{K}^E$, then there exists a form $\omega\in\Omega^*(M)$ such that
+\begin{equation}
+\emph{trace}[f(K^E)]-\emph{trace}[f(\tilde{K}^E)]=\ud\omega.
+\end{equation}
+\end{itemize}
+\end{theorem}
+\begin{proof}
+\noindent (i) Observe the identity
+\begin{equation}\label{bianchi}
+[\nabla^E,(K^E)^n]=[\nabla^E,(\nabla^E)^{2n}]=0
+\end{equation}
+for each $n\in\mathbb{N}$. Then by Lemma \ref{dtrace},
+\begin{align*}
+\ud\,\text{trace}[f(K^E)]&=\text{trace}[[\nabla^E,f(K^E)]]\\
+&=\text{trace}[[\nabla^E,a_0+a_1K^E+a_2(K^E)^2+\dots]]\\
+&=a_1\text{trace}[[\nabla^E,K^E]]+a_1\text{trace}[[\nabla^E,(K^E)^2]]+\dots\\
+&=0.
+\end{align*}
+
+\noindent (ii) For $t\in[0,1]$ define the new connection $\nabla_t^E:=(1-t)\nabla^E+t\tilde{\nabla}^E$ on $E$. In particular, we have $\nabla_0^E=\nabla^E$ and $\nabla_1^E=\tilde{\nabla}^E$. Let $K_t^E$ denote the curvature of $\nabla_t^E$. Then, 
+\begin{equation*}
+\frac{\ud}{\ud t}\text{trace}[f(K_t^E)]=\text{trace}\left[\frac{\ud K_t^E}{\ud t} f'(K_t^E)\right]=\text{trace}\left[\frac{\ud(\nabla_t^E)^2}{\ud t}f'(K_t^E)\right]=\text{trace}\left[\left[\nabla_t^E,\frac{\ud\nabla_t^E}{\ud t}\right]f'(K_t^E)\right]\\
+\end{equation*}
+where here $f'(x)$ is the formal power series expansion of the derivative of $f$. Now, using the identity \eqref{bianchi} and again Lemma \ref{dtrace}, we compute
+\begin{equation*}
+\frac{\ud}{\ud t}\text{trace}[f(K_t^E)]=\text{trace}\left[\left[\nabla_t^E,\frac{\ud\nabla_t^E}{\ud t}f'(K_t^E)\right]\right]=\ud\,\text{trace}\left[\frac{\ud\nabla_t^E}{\ud t}f'(K_t^E)\right].
+\end{equation*}
+Finally, integrating with respect to $t$ over the interval $[0,1]$ thus gives
+\begin{equation*}
+\text{trace}[f(K^E)]-\text{trace}[f(\tilde{K}^E)]=\ud\left(-\int_0^1\text{trace}\left[\frac{\ud\nabla_t^E}{\ud t}f'(K_t^E)\right]\,\ud t\right)
+\end{equation*}
+as required.
+\end{proof}
+
+
+Let $\nabla^E$ be a connection on $E$ with curvature $K^E$, and let $f$ be a formal power series.
+
+\begin{definition}
+The form
+\begin{equation*}
+f(E,\nabla^E):=\text{trace}\left[f\Big(\frac{\ui}{2\pi}K^E\Big)\right]\in\Omega^*(M)
+\end{equation*}
+is called the \define{characteristic form of $E$ associated to $\nabla^E$ and $f$}. By Theorem \ref{cw}, it determines a cohomology class 
+\begin{equation*}
+f(E):=\left[\text{trace}\left[f\Big(\frac{\ui}{2\pi}K^E\Big)\right]\right]\in H_\text{dR}^*(M;\mathbb{C})
+\end{equation*}
+which is independent of the choice of connection on $E$. This is called the \define{characteristic class of $E$ associated to $f$}. 
+\end{definition}
+
+Now let $\nabla^{E_1},\dots,\nabla^{E_r}$ be connections on the respective vector bundles $E_1,\dots,E_r$ over $M$, and let $f_1,\dots,f_r$ be power series. It follows directly from Theorem \ref{cw} and properties of the exterior derivative that the product
+\begin{equation*}
+f_1(E_1,\nabla^{E_1})\wedge\cdots\wedge f_r(E_r,\nabla^{E_r})\in\Omega^*(M)
+\end{equation*}
+of characteristic forms is also closed and determines a class in $H_\text{dR}^*(M;\mathbb{C})$ which is independent of the connection. The same can of course be said about $\mathbb{C}$-linear combinations of such expressions.
+
+\begin{definition}
+A \define{characteristic form} is a $\mathbb{C}$-linear combination of products of characteristic forms of vector bundles $E_1,\dots,E_r$ associated to the respective connections $\nabla^{E_1},\dots,\nabla^{E_r}$ and power series $f_1,\dots,f_r$. The associated class in $H_\text{dR}^*(M;\mathbb{C})$ is called a \define{characteristic class}.
+\end{definition}
+
+\begin{example}
+Consider $\log(1+x)$ and $\exp(x)$ as formal power series. Then, in the sense of the above definition,
+\begin{equation}\label{cwchern0}
+\det\left(I+\frac{\ui}{2\pi}K^E\right)=\exp\left(\text{trace}\left[\log\left(I+\frac{\ui}{2\pi}K^E\right)\right]\right)
+\end{equation}
+is a characteristic form. This is of course nothing other than the Chern form of $E$ associated to $\nabla^E$. This approach to Chern forms is directly analogous to that discussed in Section \ref{section-chern-curvature}.
+\end{example}
+
+\begin{theorem}
+Let $M$ be an oriented manifold and let $f(E_1,\dots,E_r;\nabla^{E_1},\dots,\nabla^{E_r})$ be a characteristic form on $M$. The number
+\begin{equation}
+\left\langle f(E_1,\dots,E_r)\middle|[M]\right\rangle:=\int_Mf(E_1,\dots,E_n;\nabla^{E_1},\dots,\nabla^{E_r})
+\end{equation}
+is independent of the choice of connections $\nabla^{E_1},\dots,\nabla^{E_r}$.
+\end{theorem}
+\begin{proof}
+It is sufficient to prove this for a product $f_1(E_1,\nabla^{E_1})\wedge\cdots\wedge f_r(E_r,\nabla^{E_r})$, where $f_1,\dots,f_r$ are power series. Without loss of generality, suppose that $\tilde{\nabla}^{E_1}$ is another connection on $E_1$. Then by Theorem \ref{cw}(ii), there exists $\omega\in\Omega^*(M)$ such that $f_1(E_1,\nabla^{E_1})-f_1(E_1,\tilde{\nabla}^{E_1})=\ud\omega$. Moreover by Theorem \ref{cw}(i) we have $\ud f_j(E_j,\nabla^{E_j})$ for each $j$, and so
+\begin{align*}
+\int_Mf_1(E_1,\nabla^{E_1})\cdots f_r(E_r,\nabla^{E_r})-\int_M&f_1(E_1,\tilde{\nabla}^{E_1})f_2(E_2,\nabla^{E_2})\cdots f_r(E_r,\nabla^{E_r})\\
+&=\int_M(\ud\omega)f_2(E_2,\nabla^{E_2})\cdots f_r(E_r,\nabla^{E_r})\\
+&=\int_M\ud\Big(f_2(E_2,\nabla^{E_2})\cdots f_r(E_r,\nabla^{E_r})\Big).
+\end{align*}
+This expression vanishes by Stokes' Theorem, proving the result.
+\end{proof}
+
+
+For for completeness, we conclude with an explicit exposition of Chern forms and Chern classes in terms of the fibrewise trace.
+
+\begin{definition}
+Let $\nabla^E$ be a connection on $E$. The form
+\begin{equation}
+c(E,\nabla^E):=\det\left(I+\frac{\ui}{2\pi}K^E\right)\in\Omega^*(M)
+\end{equation}
+is called the \define{Chern form} of $E$ associated to $\nabla^E$. It determines a cohomology class
+\begin{equation}
+c(E):=\left[\det\left(I+\frac{\ui}{2\pi}K^E\right)\right]\in H_\text{dR}^*(M;\mathbb{C})
+\end{equation}
+called the \define{(total) Chern class} of $E$. It is clear from \eqref{cwchern0} that the total Chern form can be expressed as a sum
+\begin{equation}
+c(E,\nabla^E)=1+c_1(E,\nabla^E)+c_2(E,\nabla^E)+\dots
+\end{equation}
+where $c_j(E,\nabla^E)\in\Omega^{2j}(M)$ for each $j\in\mathbb{N}$. Then $c_j(E,\nabla^E)$ is the \define{$j$-th Chern form} of $E$ associated to $\nabla^E$, and the associated cohomology class $c_j(E)$ is the \define{$j$-th Chern class} of $E$. The characteristic numbers formed by integrating products of Chern forms of $E$ over $M$ are called \define{Chern numbers}.
+\end{definition}
+
+
 
 \chapter{Characteristic classes in algebraic geometry (Draft)}
 \section{Introduction to schemes}
