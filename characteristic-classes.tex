@@ -1688,7 +1688,7 @@ The $X$-action on $EX$ when $X$ is a group follows from functoriality and the fr
 \end{proof}
 
 \section{Schubert cells}
-%\chapterauthor{Nima Amini}
+\chapterauthor{Nima Amini, Nasrin Altafi}
 
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
@@ -1766,59 +1766,81 @@ By Lemma~\ref{lemma:principalfibrationongrassmannian}, points of $G_n(k^N)$ are 
 Thus we may identify points in $G_n(k^N)$ with rank-$n$ matrices in row-reduced echelon form.
 \end{remark}
 
-\begin{defn} 
-A matrix $A \in k^{n\times N}$ in row reduced echelon form is said to be in \emph{$I$-echelon form} if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
-The sequence $I$ is often referred to as the \emph{Schubert symbol} of $A$.
-\end{defn}
+%\begin{defn} 
+%A matrix $A \in k^{n\times N}$ in row reduced echelon form is said to be in \emph{$I$-echelon form} if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
+%The sequence $I$ is often referred to as the \emph{Schubert symbol} of $A$.
+%\end{defn}
+Every $W\in C(a_1,\dots ,a_n)$ has the  unique canonical representative given by the row reduced echelon form of the matrix representative of $W$ where the pivots are in the columns indexed by $a_1,\dots ,a_n$. The matrix has entry $1$ in position $(i,a_i)$, for each $i=1,\dots ,n$ and zero to the left and below.
 
 \begin{example} \label{ex:echelonform}
-A point $A \in G_4(k^{8})$ in $\{ 1,2,5,7\}$-echelon form has shape
-\[
-A = \begin{pmatrix}
+An elements in the Schubert cell $W\in C(1,2,5,7) \in G_4(k^{8})$ has shape
+\begin{center}
+$W = \begin{pmatrix}
   1 & 0 & * & * & 0 & * & 0 & * \\
   0 & 1 & * & * & 0 & * & 0 & * \\
   0 & 0 & 0 & 0 & 1 & * & 0 & * \\
   0 & 0 & 0 & 0 & 0 & 0 & 1 & *
- \end{pmatrix}
-\]
+ \end{pmatrix}$
+\end{center}  \noindent
 where $*$ denotes an arbitrary element in $k$.  
 \end{example} \noindent
+
 \begin{remark}
-If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the stars is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (i.e.\ a weakly increasing sequence $\lambda_1 \leq \dots \leq \lambda_n$ of non-negative integers such that $\sum \lambda_i = N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
+If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the $*$'s is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
 \begin{align*}
 \displaystyle &**** \\	
 	      &**** \\   
 	      &**   \\
 	      &\hspace{0.08cm} * 
 \end{align*} \noindent
+
+We may denote the Schubert cell and Schubert variety associated to $(a_1,\dots ,a_n)$ by $C_\lambda$ and $\Omega_\lambda$, respectively, where $\lambda$ is the corresponding Ferrers diagram to $(a_1,\dots ,a_n)$. 
+
 Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-element subsets of $[N]$ so Schubert symbols are in correspondence with Ferrers diagrams of shape $\lambda$.
-\end{remark} 
+\end{remark} \noindent
 
-\begin{defn}
-Let $\lambda$ be an $n$-partition of $N-n$.
-The Schubert cell $\Omega_{\lambda}$ is the closure of the set of points in $G_n(K^N)$ with $I$-echelon form corresponding to $\lambda$.
-\end{defn} 
-
-\begin{remark}
-By Remark~\ref{rem:echelonform} it follows that
-\[
-G_n(k^N) = \bigsqcup_{\lambda} C_{\lambda}
-\]
-Furthermore each $I$-echelon matrix $A$ has exactly $|\lambda| = \lambda_1 + \cdots + \lambda_n$ degrees of freedom in the entries (i.e the number of $*$'s in $A$). This gives a homeomorphism 
-\begin{equation}\label{eq:schubertcellaffine}
+The Grassmannian has a decomposition as the disjoint union of 	Schubert cells:
+\begin{align*}
+\displaystyle G_n(k^N) = \bigsqcup_{\lambda} C_{\lambda},
+\end{align*} \noindent
+where for each $\lambda$ the dimension of the Schubert cell $C_\lambda$, the number of elements of $G_n(k^N)$ having the row reduced echelon form of $\lambda$, is equal to $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in the row reduced echelon form of the matrix). This gives the  homeomorphism 
+\begin{align}
+\label{schubertcellaffine}
 C_{\lambda} \simeq k^{|\lambda|}.
-\end{equation}
-
-To see this more rigorously one can argue via the so called Pl\"ucker embedding of $G_n(k^N)$ into the projective space $P^{\binom{N}{n} - 1}$. Label the projective coordinates of the points in $P^{\binom{N}{n} - 1}$ by the $n$-element subsets $I \subseteq [N]$. This embedding works by sending each matrix $A$ to the point determined coordinate-wise by the value of the $n \times n$ minor of $A$ indexed by $I$. Note that the action of $GL_n(k)$ on $A$ does not affect the projective coordinates since row-operations merely changes the minors up to a constant factor. Moreover the values under this map are indeed non-zero since $A$ has rank $n$. The homeomorphism in \ref{eq:schubertcellaffine} now follows by considering the image of $\Omega_{\lambda}$ under the embedding. \marginpar{Is this paragraph about the Plücker embedding really necessary?}
-
+\end{align} \noindent 
+\begin{prop}\label{prop:GrassmannianCWstructure}
+The Schubert cells $C(a_1,\dots ,a_n)$ are the cells of a CW structure on $G_n(k^N)$.
+\end{prop}
+\begin{proof}
+To construct the CW complex on $G_n(k^N)$ we use induction to define the attaching maps. First we need to find a characteristic map for every $\underline{a}:=(a_1,\dots ,a_n)$ which maps the interior of a closed disk to a cell $C(a_1,\dots ,a_n)$ of equal dimension. To do this we will consider the different echelon form, the \textit{orthonormal echeon form}. The $\underline{a}$-orthonormal echeon form of an element $W\in G_n(k^N)$ is defined in such a way that for each $i=1,\dots , n$ the entry $(i,a_i)$ is positive and the entries to the right of them are zero moreover the rows are orthonormal. For each $W\in G_n(k^N)$ there is a unique orthonormal echolon form.\\ 
+The $i$-th row of the $\underline{a}$-orthonomal echolon form belongs to the hemisphere $H_{a_i}$ in the unit sphere $\mathbb{S}^{a_i-1}\subset k^{a_i}\subset k^N$ consisting of unit vectors with non-negative $a_i$-th coordinates. In the Stiefel manifold $V_n(k^N)$, let $E(\underline{a})$ be the subspace of the frames $(v_1,\dots ,v_n)\in (\mathbb{S}^{N-1})^n$, where $v_i\in H_{a_i}$ for each $i$. We claim that $E(\underline{a})$ is homeomorphic to a closed ball. In fact, we show that  $\pi :E(\underline{a})\longrightarrow H_{a_1}$ defined by the projection onto the first coordinate is a trivial fiber bundle. To do so, for $v_0=(0,\dots ,0,1)\in  k^{a_1}\subset k^N$ define $p:E(\underline{a})\longrightarrow \pi^{-1}(v_0)$ in such a way that for a given $v\in H_{a_1}$ the map $p:\pi^{-1}(v)\longrightarrow \pi^{-1}(v_0)$ is obtained by applying the rotation that takes $v$ to $v_0$ and fixes the $(N-2)$-dimensional subspace orthogonal to $v$ and $v_0$. So $p$ is a bijection from $\pi^{-1}(v)$ to $\pi^{-1}(v_0)$ and therefore $\pi\times p :E(\underline{a})\longrightarrow H_{a_1}\times \pi^{-1}(v_0)$ is a continues bijection of compact Hausdorff spaces, hence a homeomorohism. \\
+Note that the fiber $\pi^{-1}(v_0)$ can be identified with $E(\underline{a}^\prime)$, where $\underline{a}^\prime=(a_2-1,\dots ,a_n-1)$. We inductively construct a homeomorohism
+$$
+E(\underline{a}^\prime)\longrightarrow H_{a_1}\times H^\prime_{a_1}\times \cdots \times H^{(k-1)}_{a_1},
+$$
+where $H^{i}_{a_1}$ is a hemisphere in $\mathbb{S}^{{a}^{(i)}_1-1}$ and $a^{i}=(a_{i+1}-i,\dots ,a_n-i)$.\\
+Let $D_{\underline{a}}$ be a closed disk of dimension $(a_1-1)+(a_2-2)+\cdots +(a_n-n)$. For a given cell $C(\underline{a})$, we can now define the characteristic map $\Phi_{\underline{a}}: D_{\underline{a}}\rightarrow G_n(k^N)$ to be the composition 
+$$
+D_{\underline{a}}\rightarrow H_{a_1}\times H^\prime_{a_1}\times \cdots \times H^{(k-1)}_{a_1}\rightarrow E(\underline{a}^\prime)\rightarrow G_n(k^N),
+$$
+where the last map takes the orthonormal vectors in an element of $E(\underline{a}^\prime)$ to its span. By the above discussion, $\Phi_{\underline{a}}$ restricted to the interior of $D_{\underline{a}}$ is homeomorphic to $C(\underline{a})$. The boundary of $D_{\underline{a}}$ is mapped to cells of lower dimensions obtained from $\underline{a}$ by decreasing some $a_i's$,  since the boundary of $E(\underline{a})$ consists of the $n$-tuples where at least one $v_i$ is in $\partial(H_{a_i})$.\\
+We can now create the CW complex on $G_n(k^N)$ with induction. Let $X^i$ be the union of the cells in $G_n(k^N)$ having dimension at most $i$. Assume that $X^i$ is a CW complex, and construct the space $Y$ by attaching every $(i+1)$-cell $C(\underline{a})\in X^{i+1}$ via $\Phi_{\underline{a}}\vert_{\partial(D_{\underline{a}})}:\partial(D_{\underline{a}}) \rightarrow X^i$. $Y$ is then a CW complex with natural continuous bijection $Y\rightarrow X^{i+1}$, which in fact is a homeomorphism since $Y$ consists only of a finite number of cells and is thus compact. So $X^{i+1}$ is a CW complex and we are done.
+\end{proof}
+With the above CW structure we are able to compute the cohomology groups of $G_n(k^N)$.
+The Schubert cells of the Complex Grassmannian $G_n(\mathbf{C}^N)$ are even dimensional and therefore all boundary maps are zero and we deduce the following
+\begin{thm}
+Each even dimensional integral cohomology group $H^{2i}(G_n(\mathbf{C}^N) ;\mathbb{Z})$ is a free abelian group generated by the Schubert cycles $\left[\Omega_\lambda \right]$ with $|\lambda | =i$. Each odd dimensional group is zero.
+\end{thm}
+\begin{remark}
+For the real Grassmannian $G_n(\mathbf{R}^N)$ as we have seen in the proof of Prop.~\ref{prop:GrassmannianCWstructure} that the degree of the attaching maps are $(-1)^k$ the boundary maps are $1+(-1)^k$. 
 \end{remark}
 \begin{example}
 Let us see how $G_2(\mathbf{R}^3)$ decomposes into Schubert cells. There are three possible Schubert symbols, namely $I_1 = \{ 1,2 \}, \thickspace I_2 = \{ 1,3 \}$ and $I_3 = \{ 2,3 \}$ corresponding to $2$-partitions of $3-2 = 1$ given by $\lambda_1 = (1,1), \thickspace \lambda_2 = (1,0)$ and $\lambda_3 = (0,0)$. 
 The three corresponding Schubert cells are parametrized by
 \begin{center}
-$\displaystyle \Omega_{\lambda_1} = \left \{  \begin{pmatrix} 1 & 0 & a \\ 0 & 1 & b \end{pmatrix} : a,b \in \mathbf{R} \right \}$, $\displaystyle \Omega_{\lambda_2} = \left \{  \begin{pmatrix} 1 & a & 0 \\ 0 & 0 & 1 \end{pmatrix} : a \in \mathbf{R} \right \}$ and $\displaystyle \Omega_{\lambda_3} = \left \{  \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \right \}$
-\end{center}
-of dimension $2,1$ and $0$ respectively. The two-dimensional subspaces in $\Omega_{\lambda_1}$ are given by planes  through the origin intersecting the two lines passing through the points $(1,0,0)$, $(0,1,0)$ and parallel to the $z$-axis. Likewise $\Omega_{\lambda_2}$ consists of the two dimensional subspaces geometrically described by planes through the origin containing the point $(0,0,1)$ and intersecting the line passing through the point $(1,0,0)$ parallel to the $y$-axis. Finally $\Omega_{\lambda_2}$ consists of a single subspace given by the $yz$-plane. By inspecting the matrices it is easy to see that the $\Omega_{\lambda_i}$ are pairwise disjoint and cover $G_2(\mathbf{R}^3)$.
+$\displaystyle C_{\lambda_1} = \left \{  \begin{pmatrix} 1 & 0 & a \\ 0 & 1 & b \end{pmatrix} : a,b \in \mathbf{R} \right \}$, $\displaystyle C_{\lambda_2} = \left \{  \begin{pmatrix} 1 & a & 0 \\ 0 & 0 & 1 \end{pmatrix} : a \in \mathbf{R} \right \}$ and $\displaystyle C_{\lambda_3} = \left \{  \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix} \right \}$
+\end{center} \noindent
+of dimension $2,1$ and $0$ respectively. The two-dimensional subspaces in $C_{\lambda_1}$ are given by planes  through the origin intersecting the two lines passing through the points $(1,0,0)$, $(0,1,0)$ and parallel to the $z$-axis. Likewise $C_{\lambda_2}$ consists of the two dimensional subspaces geometrically described by planes through the origin containing the point $(0,0,1)$ and intersecting the line passing through the point $(1,0,0)$ parallel to the $y$-axis. Finally $C_{\lambda_2}$ consists of a single subspace given by the $yz$-plane. By inspecting the matrices it is easy to see that the $C_{\lambda_i}$ are pairwise disjoint and cover $G_2(\mathbf{R}^3)$. Moreover, the nonzero cohomology groups are $H^0(G_2(\mathbf{R}^3);\mathbb{Z}),H^1(G_2(\mathbf{R}^3);\mathbb{Z})$ and $H^2(G_2(\mathbf{R}^3);\mathbb{Z})$ which are free cyclic group generated by $\left[\Omega_{\lambda_3} \right],\left[\Omega_{\lambda_2}\right]$ and $\left[\Omega_{\lambda_1} \right]$ respectively.
 \end{example}
 \begin{example}
 Consider the Grassmannian $G_2(\mathbf{C}^4)$. There are exactly five nonzero cohomology groups: the middle one $H^4(G_2(\mathbf{C}^4),\mathbb{Z})$ is free abelian with two generators $\left[\Omega({1,4}) \right]$ and $\left[\Omega({2,3}) \right]$ and the others $H^{2i}(G_2(\mathbf{C}^4)$ for $i=0,1,3,4$ are free cyclic with generators respectively $\left[\Omega({3,4}) \right]$,  $\left[\Omega({2,4}) \right]$,  $\left[\Omega({1,3}) \right]$ and  $\left[\Omega({1,2}) \right]$.
