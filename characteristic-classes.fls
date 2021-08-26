@@ -361,6 +361,7 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/ueuf.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm7.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm5.tfm
 INPUT characteristic-classes.bbl
 INPUT characteristic-classes.bbl

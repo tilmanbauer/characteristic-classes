@@ -1336,10 +1336,12 @@ t\colon M \to G_n(\R^N).
 
 The aim of this chapter is to study the Grassmannians, provide an alternate description of a classifying space $BG$ of $G$-bundles in full generality (that is, without assuming any specific kind of bundle or that the base space is a manifold). Furthermore, we compare $BG$ to the geometric construction with Grassmannians, and show that, indeed, isomorphism classes of principal $G$-bundles are in one-to-one correspondence with homotopy classes of maps to $BG$.
 
-\section{Bundles from free Lie group actions}
+\section{Bundles from free Lie group actions*}
 
-\begin{thm} \label{thm:freeLiegroupaction}
-Let $M$ be a smooth manifold with a smooth and free action of a compact Lie group $G$. Then $M/G$ is a smooth manifold, and the projection map $M \to M/G$ is a smooth principal $G$-bundle.
+The following theorem provides a rich source of smooth manifolds and bundles on them. Its proof (see e.g. \cite[Chapter 7]{lee:smooth-manifolds}) requires some differential topology, which is beyond the scope of this course. We will avoid using this theorem in an essential way, but the reader who is familiar with it may prefer the application of this theorem to the more pedestrian way.
+
+\begin{thm}[Quotient manifold theorem] \label{thm:freeLiegroupaction}
+Let $M$ be an $n$-dimensional smooth manifold with a smooth and free action of a compact Lie group $G$ of dimension $d$. Then $M/G$ is a smooth $(n-d)$-dimensional manifold, and the projection map $M \to M/G$ is a smooth principal $G$-bundle. \qed
 \end{thm}
 
 Now let $G$ be a compact Lie group, acting on a smooth manifold $M$. For $x \in M$, the stabilizer $\stab(x)$ is a closed subgroup of $G$, since it is the fiber of the map $G \to X$ that sends $g$ to $gx$. Thus $G/ \stab(x)$ is again a compact Lie group, and it acts freely and transitively on the orbit $Gx$. By the above theorem, the map
@@ -1387,11 +1389,15 @@ where $T_n(k)$ denotes the upper triangular $n\times n$-matrices with positive r
 \begin{lemma} \label{lemma:principalfibrationongrassmannian}
 The group $O(n)$ of orthogonal $n\times n$-matrices acts freely on $V_n(\R^N)$, and the canonical map $V_n(\R^N)/O(n) \to G_n(\R^N)$ is a homeomorphism. 
 
-The same is true for over $\CC$ if one replaces $O(n)$ by the group $U(n)$ of unitary matrices, or if one replaces $V_n(k^N)$ by $V_n^{\operatorname{nc}})(k^N)$ and $O(n)$ by $\GL_n(k)$.
+The group $U(n)$ of unitary $n\times n$-matrices acts freely on $V_n(\C^N)$, and the canonical map $V_n(\C^N)/U(n) \to G_n(\C^N)$ is a homeomorphism.
 \end{lemma}
 \begin{proof}
-The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. The fiber of the projection map $V_n(\R^N) \to G_n(\R^N)$ over a point $V \in G_n(\R^N)$ is the set of orthonormal bases of $V$, on which $O(n)$ acts freely and transitively, thus the projection map factors through a homeomorphism $V_n(\R^N)/O(n) \to G_n(\R^N)$. The proof in the complex and noncompact cases is the same.
+The group $O(n)$ acts on the $n$ orthonormal vectors of a point in $V_n(\R^N)$. The fiber of the projection map $V_n(\R^N) \to G_n(\R^N)$ over a point $V \in G_n(\R^N)$ is the set of orthonormal bases of $V$, on which $O(n)$ acts freely and transitively, thus the projection map factors through a homeomorphism $V_n(\R^N)/O(n) \to G_n(\R^N)$. The proof in the complex cases is the same.
 \end{proof}
+
+\begin{remark}
+In the same way, $\GL_n(\k^n)$ acts freely on $V_n^{\operatorname{nc}}(k)$ for $k=\R,\CC$ with the same quotient $\G_n(k^N)$.
+\end{remark}
 
 Picking the $n$ first columns of an $N\times N$-matrix gives us surjective maps
 \[
@@ -1419,13 +1425,13 @@ G_n(k^N) \cong G_{N-n}(k^N)
 \]
 \end{corollary}
 \begin{proof}
-This follows directly from the $G_n(k^N) \cong \frac{O(N)}{O(n) \times O(N-n)}$. Geometrically, the homeomorphism $G_n(k^N) \to G_{N-n}(k^N)$ is given by mapping an $n$-dimensional subspace of $k^N$ to its orthogonal (or unitary) complement.
+This follows directly from the $G_n(k^N) \cong \frac{O(N)}{O(n) \times O(N-n)}$. Geometrically, the homeomorphism $G_n(k^N) \to G_{N-n}(k^N)$ is given by mapping an $n$-dimensional subspace of $k^N$ to its orthogonal (or unitary) complement for any chosen scalar product.
 \end{proof}
 
 
 
 \begin{corollary} \label{cor:stiefelgrassmannbundle}\label{thm:grassmannianmanifolds}
-The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, and the projection map $p\colon V_n(k^N) \to G_n(V^N)$ is a principal $O(n)$-bundle (for $k=\R$) or $U(n)$-bundle (for $k=\CC$). They have the following real dimensions:
+The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\CC$, and the projection map $p\colon V_n(k^N) \to G_n(k^N)$ is a principal $O(n)$-bundle (for $k=\R$) or $U(n)$-bundle (for $k=\CC$). They have the following real dimensions:
 \begin{itemize}
 \item $\dim V_n(\R^N) = Nn - {n+1 \choose 2}$;
 \item $\dim V_n(\CC^N) = 2Nn - n^2$;
@@ -1436,9 +1442,9 @@ The spaces $V_n(k^N)$ and $G_n(k^N)$ are compact smooth manifolds for $k=\R$, $\
 
 \begin{proof}
 Theorem~\ref{thm:freeLiegroupaction} together with Lemma~\ref{lemma:grassstiefelashomogeneousspaces} shows that $V_n(k^N)$ is a smooth manifold, and Theorem~\ref{thm:freeLiegroupaction} with Lemma~\ref{lemma:principalfibrationongrassmannian} shows that $G_n(k^N)$ is a manifold and $p$ is a principal bundle.
-
 The claims about dimensions follow from the facts that $\dim O(n) = {n \choose 2}$ and $\dim U(n) = n^2$.
-\end{proof}
+
+We now give a proof without using the Quotient Manifold Theorem \ref{thm:freeLiegroupaction}. 
 
 To exhibit explicit charts for $G_n(k^N)$, it helps to do a little geometry. Let $V \in G_n(k^N)$ be a point, and let $V^\perp$ be its orthogonal (or unitary) complement. Now consider the set
 \begin{equation}\label{eq:grassmanncharts}
@@ -1448,7 +1454,25 @@ Clearly, $V \in U_V$ and $U_V$ is open. The map
 \[
 \phi_V\colon \Hom(V,V^\perp) \cong k^{n(N-n)} \to U_V; \quad \alpha \mapsto \{v+\alpha(v) \mid v \in V\},
 \]
-which can be thought of as sending a homomorphism $\alpha$ to its graph in $k^N = V \oplus V^\perp$, is a homeomorphism.
+which can be thought of as sending a homomorphism $\alpha$ to its graph in $k^N = V \oplus V^\perp$, is a homeomorphism. The change-of-coordinates map $\phi_V \circ \phi_W^{-1}$ is easily checked to be differentiable, so that $(U_V,\phi_V)_{V \in G_n(k^N)}$ is a smooth structure on $G_n(k^N)$, proving at the same time the claim about the dimensions.
+
+Now let $W_V = p^{-1}(U_V)$ be the preimage in $V_n(k^N)$ of the coordinate patch $U_V$. That is,
+\[
+W_V = \{(v_1,\dots,v_n) \in V_n(k^N) \mid \langle v_1,\dots,v_n\rangle \cap V^\perp = 0\}
+\]
+with $p(v_1,\dots,v_n) = \langle v_1,\dots,v_n\rangle$. Let $O(V)$ denote the group of orthogonal (resp. unitary) automorphisms of $V$. Choose any basis $e_1,\dots,e_n$ of $V$. Then there is a homeomorphism
+\[
+\psi_V\colon O(V) \times \Hom(V,V^\perp) \to W_V; \quad (U,\alpha) \mapsto (Ue_i+\alpha(Ue_i))_{1 \leq i \leq n}
+\]
+compatible with $\phi_V$ is the sense that
+\[
+\begin{tikzcd}
+O(V) \times \Hom(V,V^\perp) \arrow[r,"\text{proj}"] \arrow[d,"\psi_V"] & \Hom(V,V^\perp) \arrow[d,"\phi_V"]\\
+W_V \arrow[r,"p"] & U_V
+\end{tikzcd}
+\]
+commutes. This shows that $(W_V,\psi_V)_V$ is a smooth atlas for $V_n(k^N)$ and that $p$ is a principal $O(n)$-bundle (resp. $U(n)$-bundle) with trivializing charts the same as the coordinate charts of $G_n(k^N)$. The claims about the dimensions follows from the real dimensions of $O(n)$ and $U(n)$.
+\end{proof}
 
 \subsection{The tautological bundle}
 
@@ -1483,7 +1507,7 @@ A \emph{simplicial space} (or, more generally a simplicial object in a category 
 \[
 X\colon \Delta^\op \to \Top \quad \text{(or $C$)},
 \]
-where $\Delta$ denotes the category with objects the totally ordered sets $[n] = \{0,\dots,n\}$ and morphisms the monotonic maps. Similarly, an \emph{augmented simplicial space} is a functor
+where $\Delta$ denotes the category with objects the nonempty totally ordered sets $[n] = \{0,\dots,n\}$ and morphisms the monotonic maps. Similarly, an \emph{augmented simplicial space} is a functor
 \[
 X\colon \Delta^\op_+ \to \Top \quad \text{(or $C$)},
 \]
@@ -1690,7 +1714,9 @@ The $X$-action on $EX$ when $X$ is a group follows from functoriality and the fr
 \end{proof}
 
 \section{Schubert cells}
-%\chapterauthor{Nima Amini}
+\chapterauthor{Nima Amini}
+
+\marginpar{This section needs to be complemented by a study of the boundary of Schubert cells if it is to be useful in computing homology of real Grassmannians}
 
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
 Now we will instead view points in $G_n(k^N)$ as certain natural orbits of $n \times N$ matrices of full rank and thereby decompose $G_n(k^N)$ into affine spaces known as \textit{Schubert cells}. 
