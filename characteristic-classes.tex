@@ -25,6 +25,8 @@
 \DeclareMathOperator{\Open}{Open}
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\DivCl}{DivCl}
 \DeclareMathOperator{\Pic}{Pic}
 \DeclareMathOperator{\Princ}{Princ}
 \DeclareMathOperator{\chr}{char}
@@ -3766,19 +3768,20 @@ Since $f^*$ is a monomorphism, this implies that $[C(\nabla^2)] = f^*c(E)$ and t
 % Characterization of invariant polynomials and identification with Chern classes (complex case) or Pontryagin classes (real case)
 
 \subsection{The Gauss--Bonnet Theorem}
+\chapterauthor{Jacob Muller}
 
 Let $M$ be a two-dimensional oriented Riemannian manifold. Let $\{\theta_1,\theta_2\}$ be a local oriented orthonormal basis for $\Omega^1(M)=\Gamma(T^*M)$. By definition, the 
 Levi-Civita connection $\nabla:\Omega^1(M)\to\Omega^1(M;T^*M)$ is compatible with the metric, so by Lemma \ref{skew-sym} its connection matrix $[\omega_{ij}]$, and by \eqref{curvature-matrix} its connection matrix $[\Omega_{ij}]$, are skew symmetric with respect to this basis,
 \begin{equation*}
 \begin{pmatrix}0&\omega_{12}\\-\omega_{12}&0\end{pmatrix},\qquad\begin{pmatrix}0&\Omega_{12}\\-\Omega_{12}&0\end{pmatrix},
 \end{equation*}
-and moreover $\Omega_{12}=\ud\omega_{12}$. Now, all $2\times2$ skew-symmetric matrices are invariant under conjugation by rotations, which implies in particular that the local 2-form $\Omega_{12}$ independent of the choice of oriented orthonormal basis. The local forms can be pieced together to form a well-defined global form $\Omega_{12}$ called the \define{Gauss-Bonnet 2-form} on $M$.
+and moreover $\Omega_{12}=\ud\omega_{12}$. Now, all $2\times2$ skew-symmetric matrices are invariant under conjugation by rotations, which implies in particular that the local 2-form $\Omega_{12}$ independent of the choice of oriented orthonormal basis. The local forms can be pieced together to form a well-defined global form $\Omega_{12}$ called the \emph{Gauss-Bonnet 2-form} on $M$.
 
 Let $\ud A:=-\theta_1\wedge\theta_2$ denote the oriented area 2-form. As we are working over the cotangent bundle $T^*M$, we have of course
 \begin{equation*}
 \Omega_{12}=\mathcal{K}\,\ud A,
 \end{equation*}
-for some scalar function $\mathcal{K}$ called the \define{Gaussian curvature}. It is independent of the orientation since both $\Omega_{12}$ and $\ud A$ change sign if the orientation is reversed. In a sufficiently small open subset $U$ of $M$, one can choose coordinates $x,y$ such that the metric tensor in $\Omega(M;T^*M|_U)$ has the form $\ud x\otimes\ud x+g(x,y)^2\,\ud y\otimes\ud y$. These are called \define{geodesic corrdinates}. With respect to an orthonormal basis for $\Gamma(T^*M|_U)$, the proof of Theorem \ref{levi-civita} informs us that the one form $\omega_{12}$ is the unique solution to
+for some scalar function $\mathcal{K}$ called the \emph{Gaussian curvature}. It is independent of the orientation since both $\Omega_{12}$ and $\ud A$ change sign if the orientation is reversed. In a sufficiently small open subset $U$ of $M$, one can choose coordinates $x,y$ such that the metric tensor in $\Omega(M;T^*M|_U)$ has the form $\ud x\otimes\ud x+g(x,y)^2\,\ud y\otimes\ud y$. These are called \emph{geodesic corrdinates}. With respect to an orthonormal basis for $\Gamma(T^*M|_U)$, the proof of Theorem \ref{levi-civita} informs us that the one form $\omega_{12}$ is the unique solution to
 \begin{equation*}
 \ud\theta_1=\omega_{12}\wedge\theta_2,\qquad\ud\theta_2=-\omega_{12}\wedge\theta_1.
 \end{equation*}
@@ -3792,18 +3795,18 @@ Hence in geodesic coordinates, the Gaussian curvature is
 \end{equation*}
 
 
-\begin{Example}\label{gcsphere}
+\begin{example}\label{gcsphere}
 If $M$ is the unit sphere, then taking $x,y$ as coordinates for latitude and longitude respectively, we have $g(x,y)=\cos x$, and so $\mathcal{K}=1$.
-\end{Example}
+\end{example}
 
-Let $\ue[M]=\iint\ue(T^*M)$ denote the Euler number of $M$, where $\ue(T^*M)$ is the Euler class of the cotangent bundle. Recall that given a complex vector bundle $F$ over $M$, its underlying real vector bundle $F_\mathbb{R}$ has a canonical preferred orientation, and so the Euler class $\ue(F_\mathbb{R})=c_{\dim(M)}(F)$ is well-defined (see e.g. Lemma 14.1 of \emph{Characteristic Classes} by \emph{J.W. Milnor} and \emph{J.D. Stasheff}].
+Let $e[M]=\iint e(T^*M)$ denote the Euler number of $M$, where $e(T^*M)$ is the Euler class of the cotangent bundle. Recall that given a complex vector bundle $F$ over $M$, its underlying real vector bundle $F_\mathbb{R}$ has a canonical preferred orientation, and so the Euler class $e(F_\mathbb{R})=c_{\dim(M)}(F)$ is well-defined (see e.g. \cite[Lemma 14.1]{milnor-stasheff}.
 
-\begin{theorem}[The Gauss--Bonnet Theorem]
+\begin{thm}[The Gauss--Bonnet Theorem]
 For any two-dimensional closed oriented Riemannian manifold $M$,
 \begin{equation}
-\iint_M\Omega_{12}\equiv\iint_M\mathcal{K}\,\ud A=2\pi\ue[M].
+\iint_M\Omega_{12}\equiv\iint_M\mathcal{K}\,\ud A=2\pi e[M].
 \end{equation}
-\end{theorem}
+\end{thm}
 
 \begin{proof}
 Let $E$ be a real oriented plane bundle over $M$ with Euclidean metric. Now, $E$ has a canonical complex structure $J$ which corresponds to anticlockwise rotation by  $\frac{\pi}{2}$.  If $U$ is an some neighbourhood of a point in $M$, then given an orthonormal basis $\{s_1,s_2\}$ for $\Gamma(E|_U)$, we have $Js_1(x)=s_2(x)$ for all $x\in U$. If $\nabla$ is a compatible connection, then by Lemma \ref{curvature-vb},
@@ -3820,20 +3823,20 @@ It follows that the corresponding $1\times1$ connection matrix is $(\ui\omega_{1
 \end{equation*}
 According to Proposition \ref{prop:p-curvature-derham}, this corresponds to a characteristic cohomology class $[\ui\Omega_{12}]\in H_\text{dR}^2(M;\mathbb{C})$, but $L$ is a line bundle for which the only such classes are multiples of the (top) Chern class $c_1(L)$. Moreover, the plane bundle $E$ is identified with $L_\mathbb{R}$, and so
 \begin{equation*}
-[\ui\Omega_{12}]=a\,\ue(E)
+[\ui\Omega_{12}]=a\,e(E)
 \end{equation*}
 for some $a\in\mathbb{C}$.
 
 Let us now take $E=T^*M$. We have
 \begin{equation*}
-\ui\iint_M\mathcal{K}\,\ud A=\iint_M\ui\Omega_{12}=a\ue[M].
+\ui\iint_M\mathcal{K}\,\ud A=\iint_M\ui\Omega_{12}=ae[M].
 \end{equation*}
 It is sufficient to evaluate this for a single example. If $M$ is the sphere, then by example \eqref{gcsphere}, we have $\mathcal{K}=1$, and so $a=2\pi$.
 \end{proof}
 
 
 \section{The generalised Gauß-Bonnet theorem}
-
+\chapterauthor{Bernardo Fernandes}
 % Definition of the Pfaffian
 
 \begin{defn}
@@ -3989,6 +3992,8 @@ As a simple corollary, if $B \in \operatorname{SO}_{2n}(R)$ we get
 
 
 \subsection{An alternative approach to Chern--Weil theory: The fibrewise trace}
+\chapterauthor{Jacob Muller}
+
 
 To conclude this chapter, we describe an alternative approach to constructing characteristic forms and classes from curvature using the fibrewise trace instead of invariant polynomials. Let $E$ be a complex vector bundle over a manifold $M$. In Section \ref{section-connections} we defined a connection $\nabla^E:\Gamma(E)\to\Omega^1(M;E)$ on $E$, and in Lemma \ref{connection1-2} we saw that one could associate to it a unique map $\hat{\nabla}^E:\Omega^1(M;E)\to\Omega^2(M;E)$ satisfying the Leibniz formula. More generally, however, $\nabla^E$ can be extended to give a canonical map $\Omega^*(M;E)\to\Omega^*(M;E)$, which for convenience we still denote by $\nabla^E$, satisfying the Leibniz formula. In particular,
 \begin{equation*}
@@ -4017,7 +4022,7 @@ Given a section $A\in\Gamma(\text{End}(E))$, its fibrewise trace $\text{tr}[A]\i
 \begin{equation}\label{fibretrace}
 \text{trace}[A]=\sum_i\alpha_{ii},
 \end{equation}
-where $A(s_i)=\sum_{j}\alpha_{ij}s_j$ with respect to a local basis $\{s_1,\dots,s_n\}$ of sections of $\text{End}(E)$. This induces a map, also called the \define{fibrewise trace},
+where $A(s_i)=\sum_{j}\alpha_{ij}s_j$ with respect to a local basis $\{s_1,\dots,s_n\}$ of sections of $\text{End}(E)$. This induces a map, also called the \emph{fibrewise trace},
 \begin{equation}
 \text{trace}:\Omega^*(M;\text{End}(E))\to\Omega^*(M)
 \end{equation}
@@ -4027,7 +4032,7 @@ such that
 \end{equation*}
 for all $\omega\in\Omega^*(M)$ and all $A\in\Gamma(\text{End}(E))$. Then the formula \eqref{fibretrace} is still valid. This is well-defined, since if $\{s_1',\dots,s_n'\}$ is another local basis of sections of $E$ and $(\alpha_{ij}')$ is the matrix of forms with respect to that basis, then $(\alpha_{ij})=T(\alpha_{ij}')T^{-1}$ where $T$ is the change of basis matrix, and hence $\text{tr}((\alpha_{ij}))=\text{tr}((\alpha_{ij}'))$. Of course, the fibrewise trace is an invariant polynomial.
 
-The \define{Lie bracket} on $\text{End}(E)$, given by $[A,B]=AB-BA$ for $A,B\in\text{End}(E)$, can also be extended to $\Omega^*(M;\text{End}(E))$ via
+The \emph{Lie bracket} on $\text{End}(E)$, given by $[A,B]=AB-BA$ for $A,B\in\text{End}(E)$, can also be extended to $\Omega^*(M;\text{End}(E))$ via
 \begin{equation}\label{liebracket}
 [\omega A,\eta B]=(\omega A)(\eta B)-(-1)^{(\deg\omega)(\deg\eta)}(\eta B)(\omega A)
 \end{equation}
@@ -4083,7 +4088,7 @@ Taking the trace of both sides gives \eqref{dtraceeq}. The local forms are uniqu
 
 Let $f(x)=a_0+a_1x+a_2x^2+\cdots$ be a power series in one variable. If $K^E$ is the curvature of the connection $\nabla^E$ on $E$, then $(K^E)^n\in\Omega^{2n}(M;\text{End}(E))$ for each $n$, and so $\text{trace}[f(K^E)]\in\Omega^*(M)$. The following is a version of the Chern--Weil Theorem. See analogously Propositions \ref{prop:p-curvature-closed} and \ref{prop:p-curvature-derham}.
 
-\begin{theorem}[The Chern--Weil Theorem]\label{cw}
+\begin{thm}[The Chern--Weil Theorem]\label{cw}
 Let $f$ be a formal power series.
 \begin{itemize}
 \item[\emph{(i)}] If $\nabla^E$ be a connection on $E$ with curvature $K^E$, then the form $\emph{trace}[f(K^E)]\in\Omega^*(M)$ is closed, that is
@@ -4095,7 +4100,7 @@ Let $f$ be a formal power series.
 \emph{trace}[f(K^E)]-\emph{trace}[f(\tilde{K}^E)]=\ud\omega.
 \end{equation}
 \end{itemize}
-\end{theorem}
+\end{thm}
 \begin{proof}
 \noindent (i) Observe the identity
 \begin{equation}\label{bianchi}
@@ -4127,17 +4132,17 @@ as required.
 
 Let $\nabla^E$ be a connection on $E$ with curvature $K^E$, and let $f$ be a formal power series.
 
-\begin{definition}
+\begin{defn}
 The form
 \begin{equation*}
 f(E,\nabla^E):=\text{trace}\left[f\Big(\frac{\ui}{2\pi}K^E\Big)\right]\in\Omega^*(M)
 \end{equation*}
-is called the \define{characteristic form of $E$ associated to $\nabla^E$ and $f$}. By Theorem \ref{cw}, it determines a cohomology class 
+is called the \emph{characteristic form of $E$ associated to $\nabla^E$ and $f$}. By Theorem \ref{cw}, it determines a cohomology class 
 \begin{equation*}
 f(E):=\left[\text{trace}\left[f\Big(\frac{\ui}{2\pi}K^E\Big)\right]\right]\in H_\text{dR}^*(M;\mathbb{C})
 \end{equation*}
-which is independent of the choice of connection on $E$. This is called the \define{characteristic class of $E$ associated to $f$}. 
-\end{definition}
+which is independent of the choice of connection on $E$. This is called the \emph{characteristic class of $E$ associated to $f$}. 
+\end{defn}
 
 Now let $\nabla^{E_1},\dots,\nabla^{E_r}$ be connections on the respective vector bundles $E_1,\dots,E_r$ over $M$, and let $f_1,\dots,f_r$ be power series. It follows directly from Theorem \ref{cw} and properties of the exterior derivative that the product
 \begin{equation*}
@@ -4145,9 +4150,9 @@ f_1(E_1,\nabla^{E_1})\wedge\cdots\wedge f_r(E_r,\nabla^{E_r})\in\Omega^*(M)
 \end{equation*}
 of characteristic forms is also closed and determines a class in $H_\text{dR}^*(M;\mathbb{C})$ which is independent of the connection. The same can of course be said about $\mathbb{C}$-linear combinations of such expressions.
 
-\begin{definition}
-A \define{characteristic form} is a $\mathbb{C}$-linear combination of products of characteristic forms of vector bundles $E_1,\dots,E_r$ associated to the respective connections $\nabla^{E_1},\dots,\nabla^{E_r}$ and power series $f_1,\dots,f_r$. The associated class in $H_\text{dR}^*(M;\mathbb{C})$ is called a \define{characteristic class}.
-\end{definition}
+\begin{defn}
+A \emph{characteristic form} is a $\mathbb{C}$-linear combination of products of characteristic forms of vector bundles $E_1,\dots,E_r$ associated to the respective connections $\nabla^{E_1},\dots,\nabla^{E_r}$ and power series $f_1,\dots,f_r$. The associated class in $H_\text{dR}^*(M;\mathbb{C})$ is called a \emph{characteristic class}.
+\end{defn}
 
 \begin{example}
 Consider $\log(1+x)$ and $\exp(x)$ as formal power series. Then, in the sense of the above definition,
@@ -4157,13 +4162,13 @@ Consider $\log(1+x)$ and $\exp(x)$ as formal power series. Then, in the sense of
 is a characteristic form. This is of course nothing other than the Chern form of $E$ associated to $\nabla^E$. This approach to Chern forms is directly analogous to that discussed in Section \ref{section-chern-curvature}.
 \end{example}
 
-\begin{theorem}
+\begin{thm}
 Let $M$ be an oriented manifold and let $f(E_1,\dots,E_r;\nabla^{E_1},\dots,\nabla^{E_r})$ be a characteristic form on $M$. The number
 \begin{equation}
 \left\langle f(E_1,\dots,E_r)\middle|[M]\right\rangle:=\int_Mf(E_1,\dots,E_n;\nabla^{E_1},\dots,\nabla^{E_r})
 \end{equation}
 is independent of the choice of connections $\nabla^{E_1},\dots,\nabla^{E_r}$.
-\end{theorem}
+\end{thm}
 \begin{proof}
 It is sufficient to prove this for a product $f_1(E_1,\nabla^{E_1})\wedge\cdots\wedge f_r(E_r,\nabla^{E_r})$, where $f_1,\dots,f_r$ are power series. Without loss of generality, suppose that $\tilde{\nabla}^{E_1}$ is another connection on $E_1$. Then by Theorem \ref{cw}(ii), there exists $\omega\in\Omega^*(M)$ such that $f_1(E_1,\nabla^{E_1})-f_1(E_1,\tilde{\nabla}^{E_1})=\ud\omega$. Moreover by Theorem \ref{cw}(i) we have $\ud f_j(E_j,\nabla^{E_j})$ for each $j$, and so
 \begin{align*}
@@ -4177,21 +4182,21 @@ This expression vanishes by Stokes' Theorem, proving the result.
 
 For for completeness, we conclude with an explicit exposition of Chern forms and Chern classes in terms of the fibrewise trace.
 
-\begin{definition}
+\begin{defn}
 Let $\nabla^E$ be a connection on $E$. The form
 \begin{equation}
 c(E,\nabla^E):=\det\left(I+\frac{\ui}{2\pi}K^E\right)\in\Omega^*(M)
 \end{equation}
-is called the \define{Chern form} of $E$ associated to $\nabla^E$. It determines a cohomology class
+is called the \emph{Chern form} of $E$ associated to $\nabla^E$. It determines a cohomology class
 \begin{equation}
 c(E):=\left[\det\left(I+\frac{\ui}{2\pi}K^E\right)\right]\in H_\text{dR}^*(M;\mathbb{C})
 \end{equation}
-called the \define{(total) Chern class} of $E$. It is clear from \eqref{cwchern0} that the total Chern form can be expressed as a sum
+called the \emph{(total) Chern class} of $E$. It is clear from \eqref{cwchern0} that the total Chern form can be expressed as a sum
 \begin{equation}
 c(E,\nabla^E)=1+c_1(E,\nabla^E)+c_2(E,\nabla^E)+\dots
 \end{equation}
-where $c_j(E,\nabla^E)\in\Omega^{2j}(M)$ for each $j\in\mathbb{N}$. Then $c_j(E,\nabla^E)$ is the \define{$j$-th Chern form} of $E$ associated to $\nabla^E$, and the associated cohomology class $c_j(E)$ is the \define{$j$-th Chern class} of $E$. The characteristic numbers formed by integrating products of Chern forms of $E$ over $M$ are called \define{Chern numbers}.
-\end{definition}
+where $c_j(E,\nabla^E)\in\Omega^{2j}(M)$ for each $j\in\mathbb{N}$. Then $c_j(E,\nabla^E)$ is the \emph{$j$-th Chern form} of $E$ associated to $\nabla^E$, and the associated cohomology class $c_j(E)$ is the \emph{$j$-th Chern class} of $E$. The characteristic numbers formed by integrating products of Chern forms of $E$ over $M$ are called \emph{Chern numbers}.
+\end{defn}
 
 
 
@@ -4391,25 +4396,25 @@ Hence we have induced homomorphisms $A_kY\to A_{k+n}X$, so $A_*$ becomes a contr
 \section{Cartier divisors and line bundles}
 \chapterauthor{Erik Lindell}
 
-From this point on we will only consider varieties, i.e. schemes that are reduced and irreducible, unless otherwise is stated. Throughout the section we view vectors bundles on a variety $X$ as locally free $\mathscr{O}_X$-module sheaves of finite rank, and in particular line bundles as such sheaves of rank 1. Our goal is to construct the algebro-geometric analogues to the Chern classes that we have already seen in topology.
+From this point on we will only consider varieties, i.e. schemes that are reduced and irreducible, unless otherwise is stated. Throughout the section we view vectors bundles on a variety $X$ as locally free $\mathcal{O}_X$-module sheaves of finite rank, and in particular line bundles as such sheaves of rank 1. Our goal is to construct the algebro-geometric analogues to the Chern classes that we have already seen in topology.
 
-On a variety $X$, let $K(U)$ denote the field of fractions of the ring $\mathscr{O}_X(U)$, which is an integral domain since $X$ is assumed to be integral. Since any open $U\subset X $ is dense, it follows that $K:=K(U)=K(X)$. We call $K$ the field of \textit{rational functions} on $X$ and denote by $\mathscr{K}_X$ the constant sheaf associated to $K$. Note that at any point $x\in X$, the stalk $\mathscr{K}_{X,x}$ is equal to the fraction field $\mathrm{Frac}(\mathscr{O}_{X,x})$.
+On a variety $X$, let $K(U)$ denote the field of fractions of the ring $\mathcal{O}_X(U)$, which is an integral domain since $X$ is assumed to be integral. Since any open $U\subset X $ is dense, it follows that $K:=K(U)=K(X)$. We call $K$ the field of \textit{rational functions} on $X$ and denote by $\mathcal{K}_X$ the constant sheaf associated to $K$. Note that at any point $x\in X$, the stalk $\mathcal{K}_{X,x}$ is equal to the fraction field $\mathrm{Frac}(\mathcal{O}_{X,x})$.
 
 Before we define Chern classes for general vector bundles, we will start with the special case of line bundles. As we will see, once the first Chern class of a line bundle is constructed, the higher Chern classes are quite straightforward to construct. The construction of the first Chern class, however, is somewhat involved and will require us to take a detour to discuss \textit{Cartier divisors}, from which we will construct this class. Cartier divisors can be defined on general schemes, but the definition for varieties is simpler and sufficient for our purposes. 
 
-\begin{dfn}
-A Cartier divisor on a variety $X$ is a global section of the sheaf $\mathscr{K}_X^\times/\mathscr{O}_X^\times$. A Cartier divisor is \textit{principal} if it comes from a global section of $\mathscr{K}_X^\times$, i.e. if it is the image in $\mathscr{K}_X^\times/\mathscr{O}_X^\times$ of such a section. Two Cartier divisors are said to be \textit{linearly equivalent} if their difference is principal.
-\end{dfn}
+\begin{defn}
+A Cartier divisor on a variety $X$ is a global section of the sheaf $\mathcal{K}_X^\times/\mathcal{O}_X^\times$. A Cartier divisor is \textit{principal} if it comes from a global section of $\mathcal{K}_X^\times$, i.e. if it is the image in $\mathcal{K}_X^\times/\mathcal{O}_X^\times$ of such a section. Two Cartier divisors are said to be \textit{linearly equivalent} if their difference is principal.
+\end{defn}
 
 \begin{remark}
-Such a section can be represented by giving a collection $(U_i,f_i)$, where the $U_i$ are open sets that together form an open covering of $X$, and where $f_i\in\mathscr{K}_X^\times(U_i)$, satisfying $f_i/f_j\in\mathscr{O}_X^\times(U_i\cap U_j)$ for all $i,j$. A principal Cartier divisor is thus a divisor that can be represented as $(X,f)$.
+Such a section can be represented by giving a collection $(U_i,f_i)$, where the $U_i$ are open sets that together form an open covering of $X$, and where $f_i\in\mathcal{K}_X^\times(U_i)$, satisfying $f_i/f_j\in\mathcal{O}_X^\times(U_i\cap U_j)$ for all $i,j$. A principal Cartier divisor is thus a divisor that can be represented as $(X,f)$.
 \end{remark}
 
 The Cartier divisors of a variety $X$ is a group and on representatives the group operation can be written as $(U_i,f_i)+(V_j,g_j)=(U_i\cap V_j,f_ig_j)$. We denote this group by $\Div X$. Note that the neutral element is represented by $(X,1)$. The set of principal Cartier divisors form a normal subgroup, so we may also consider the quotient group of Cartier divisors considered up to linear equivalence. We call this the \textit{divisor class group} of $X$ and denote it $\DivCl X$.
 
-Cartier divisors are closely related to line bundles on their underlying schemes. In the case of varieties, we shall see that line bundles are in fact completely determined by Cartier divisors. To be able to state this result, recall first that the tensor product of any two line bundles is also a line bundle, and that for any line bundle $\mathscr{L}$, we have $\mathscr{L}\otimes\mathscr{O}_X\cong\mathscr{L}$. Furthermore, recall that the dual bundle of $\mathscr{L}$ is defined by $\mathscr{L}^\vee:=\sHom(\mathscr{L},\mathscr{O}_X)$. Then
-$$\mathscr{L}^\vee\otimes\mathscr{L}\cong\sHom(\mathscr{L},\mathscr{L})=\mathscr{O}_X,$$
-so the set of isomorphism classes of line bundles on a variety (and actually on any scheme) $X$ forms a group under tensor product, with $\mathscr{O}_X$ as neutral element. This is the \textit{Picard group} of $X$, denoted by $\Pic X$.
+Cartier divisors are closely related to line bundles on their underlying schemes. In the case of varieties, we shall see that line bundles are in fact completely determined by Cartier divisors. To be able to state this result, recall first that the tensor product of any two line bundles is also a line bundle, and that for any line bundle $\mathcal{L}$, we have $\mathcal{L}\otimes\mathcal{O}_X\cong\mathcal{L}$. Furthermore, recall that the dual bundle of $\mathcal{L}$ is defined by $\mathcal{L}^\vee:=\Hom(\mathcal{L},\mathcal{O}_X)$. Then
+$$\mathcal{L}^\vee\otimes\mathcal{L}\cong\Hom(\mathcal{L},\mathcal{L})=\mathcal{O}_X,$$
+so the set of isomorphism classes of line bundles on a variety (and actually on any scheme) $X$ forms a group under tensor product, with $\mathcal{O}_X$ as neutral element. This is the \textit{Picard group} of $X$, denoted by $\Pic X$.
 
 We can now state the main result of this section:
 
@@ -4417,15 +4422,15 @@ We can now state the main result of this section:
 Let $X$ be a variety. Then $\DivCl X\cong\Pic X$.
 \end{prop}
 
-\begin{proof} We will construct a surjective homomorphism $\mathscr{L}:\Div X\to\Pic X$, whose kernel will be the subgroup of principal Cartier divisors. For any Cartier divisor $D$, represented by $(U_i,f_i)$, we let $\mathscr{L}(D)$ be the subsheaf of $\mathscr{K}_X$ that is generated on $U_i$ by $f_i^{-1}$. By assumption $f_i/f_j$ is a unit of $\mathscr{O}_X(U_i\cap U_j)$, so $f_i^{-1}$ and $f_j^{-1}$ generate the same $\mathscr{O}_X$-module on the intersection. Furthermore, the map $\mathscr{O}_X(U_i)\to\mathscr{L}(D)(U_i)$ given by $1\mapsto f_i^{-1}$ is an isomorphism, so $\mathscr{L}(D)$ is locally free and of rank 1.
+\begin{proof} We will construct a surjective homomorphism $\mathcal{L}:\Div X\to\Pic X$, whose kernel will be the subgroup of principal Cartier divisors. For any Cartier divisor $D$, represented by $(U_i,f_i)$, we let $\mathcal{L}(D)$ be the subsheaf of $\mathcal{K}_X$ that is generated on $U_i$ by $f_i^{-1}$. By assumption $f_i/f_j$ is a unit of $\mathcal{O}_X(U_i\cap U_j)$, so $f_i^{-1}$ and $f_j^{-1}$ generate the same $\mathcal{O}_X$-module on the intersection. Furthermore, the map $\mathcal{O}_X(U_i)\to\mathcal{L}(D)(U_i)$ given by $1\mapsto f_i^{-1}$ is an isomorphism, so $\mathcal{L}(D)$ is locally free and of rank 1.
 
-To prove that this map is a homomorphism, note first that $\mathscr{L}((X,1))=\mathscr{O}_X$. Suppose now that $D$ is represented by $(U_i,f_i)$. Then $-D$ is the divisor represented by $(U_i,f_i^{-1})$. On $U_i$, $\mathcal{L}(-D)$ is then generated by $f_i$ as a $\mathscr{O}_X$-module. Thus we get an obvious map $\mathscr{L}(D)\otimes\mathscr{L}(-D)\to\mathscr{O}_X$ which maps $f_i^{-1}\otimes f_i\mapsto 1$ on $U_i$ and this map is clearly an isomorphism of sheaves.
+To prove that this map is a homomorphism, note first that $\mathcal{L}((X,1))=\mathcal{O}_X$. Suppose now that $D$ is represented by $(U_i,f_i)$. Then $-D$ is the divisor represented by $(U_i,f_i^{-1})$. On $U_i$, $\mathcal{L}(-D)$ is then generated by $f_i$ as a $\mathcal{O}_X$-module. Thus we get an obvious map $\mathcal{L}(D)\otimes\mathcal{L}(-D)\to\mathcal{O}_X$ which maps $f_i^{-1}\otimes f_i\mapsto 1$ on $U_i$ and this map is clearly an isomorphism of sheaves.
 
-Now let $D_1$ be a divisor represented by $(U_i,f_i)$ and $D_2$ a divisor represented by $(V_j,g_j)$, so that $D_1+D_2$ is represented by $(U_i\cap V_j,f_ig_j)$. Then $\mathscr{L}(D_1+D_2)$ is generated on $U_i\cap V_j$ by $f_i^{-1}g_j^{-1}$, while $\mathscr{L}(D_1)\otimes\mathscr{L}(D_2)$ is generated by $f_i^{-1}\otimes g_j^{-1}$, so as in the previous case, there exists an obvious isomorphism $\mathscr{L}(D_1)\otimes\mathscr{L}(D_2)\to\mathscr{L}(D_1+D_2)$. Thus $\mathscr{L}$ is a group homomorphism.
+Now let $D_1$ be a divisor represented by $(U_i,f_i)$ and $D_2$ a divisor represented by $(V_j,g_j)$, so that $D_1+D_2$ is represented by $(U_i\cap V_j,f_ig_j)$. Then $\mathcal{L}(D_1+D_2)$ is generated on $U_i\cap V_j$ by $f_i^{-1}g_j^{-1}$, while $\mathcal{L}(D_1)\otimes\mathcal{L}(D_2)$ is generated by $f_i^{-1}\otimes g_j^{-1}$, so as in the previous case, there exists an obvious isomorphism $\mathcal{L}(D_1)\otimes\mathcal{L}(D_2)\to\mathcal{L}(D_1+D_2)$. Thus $\mathcal{L}$ is a group homomorphism.
 
-To prove surjectivity, we first show that any line bundle $\mathscr{L}$ on $X$ is a subsheaf of $\mathscr{K}_X$. First note that $\mathscr{L}$ is a subsheaf of $\mathscr{L}\otimes_{\mathscr{O}_X}\mathscr{K}_X$. On any locally trivializing open set $U$, we have by definition $\mathscr{L}|_U\cong\mathscr{O}_X|_U$, so $(\mathscr{L}\otimes\mathscr{K}_X)|_U\cong\mathscr{K}_X|_U$. Thus $\mathscr{L}\otimes\mathscr{K}_X$ is isomorphic to the constant sheaf $\mathscr{K}_X$, and in this way we get an embedding of $\mathscr{L}$ into $\mathscr{K}_X$. Using this embedding of $\mathscr{L}$ into $\mathscr{K}_X$, we define a Cartier divisor by taking a trivializing open cover $(U_i)$ and defining $f_i$ on $U_i$ to be inverse of a generator of $\mathscr{L}(U_i)\cong\mathscr{O}_X(U_i)$.
+To prove surjectivity, we first show that any line bundle $\mathcal{L}$ on $X$ is a subsheaf of $\mathcal{K}_X$. First note that $\mathcal{L}$ is a subsheaf of $\mathcal{L}\otimes_{\mathcal{O}_X}\mathcal{K}_X$. On any locally trivializing open set $U$, we have by definition $\mathcal{L}|_U\cong\mathcal{O}_X|_U$, so $(\mathcal{L}\otimes\mathcal{K}_X)|_U\cong\mathcal{K}_X|_U$. Thus $\mathcal{L}\otimes\mathcal{K}_X$ is isomorphic to the constant sheaf $\mathcal{K}_X$, and in this way we get an embedding of $\mathcal{L}$ into $\mathcal{K}_X$. Using this embedding of $\mathcal{L}$ into $\mathcal{K}_X$, we define a Cartier divisor by taking a trivializing open cover $(U_i)$ and defining $f_i$ on $U_i$ to be inverse of a generator of $\mathcal{L}(U_i)\cong\mathcal{O}_X(U_i)$.
 
-Finally, we show that the kernel of this homomorphism is precisely the subgroup of principal divisors. If $D$ is represented by $(X,f)$, then $\mathscr{L}(D)$ is generated by $1/f$ on all of $X$. Thus the map sending $1\mapsto 1/f$ defines an isomorphism $\mathscr{O}_X\cong\mathscr{L}(D)$. Saying that $D$ is in the kernel, is the same thing as saying that such an isomorphism exists, so the subgroup of principal divisors is contained in the kernel. Conversely, if $\mathscr{L}(D)\cong\mathscr{O}_X$, i.e. if $D$ is in the kernel, then $D$ is represented by $(X,f^{-1})$, where $f$ is the image of $1\in\mathscr{O}_X(X)$ under this isomorphism.
+Finally, we show that the kernel of this homomorphism is precisely the subgroup of principal divisors. If $D$ is represented by $(X,f)$, then $\mathcal{L}(D)$ is generated by $1/f$ on all of $X$. Thus the map sending $1\mapsto 1/f$ defines an isomorphism $\mathcal{O}_X\cong\mathcal{L}(D)$. Saying that $D$ is in the kernel, is the same thing as saying that such an isomorphism exists, so the subgroup of principal divisors is contained in the kernel. Conversely, if $\mathcal{L}(D)\cong\mathcal{O}_X$, i.e. if $D$ is in the kernel, then $D$ is represented by $(X,f^{-1})$, where $f$ is the image of $1\in\mathcal{O}_X(X)$ under this isomorphism.
 \end{proof}
 
 \section{The first Chern class of a line bundle}
@@ -4433,14 +4438,14 @@ Finally, we show that the kernel of this homomorphism is precisely the subgroup 
 
 If $[D]$ is a Cartier divisor class of an $n$-dimensional variety $X$, there is a canonical way to associate to it a cycle class of dimension $n-1$ in $X$, i.e. an element of $A_{n-1}(X)$. Combining this with the isomorphism $\Pic X\cong\DivCl X$ from the previous section, we get a canonical way of assigning such a cycle class to a line bundle. We call this class the \textit{first Chern class} of the line bundle. 
 
-In order to make this construction explicit, we first need to define the \textit{order of vanishing} of a Cartier divisor along a subvariety of $X$. First of all, if $Y$ is a subvariety of $X$, with generic point $\eta$, we define $\mathscr{O}_{X,Y}:=\mathscr{O}_{X,\eta}$, i.e the stalk of structure sheaf at the generic point. We call this the \textit{local ring of }$X$\textit{ along }$Y$. For any $f=a/b\in\mathscr{K}_{X,\eta}=\mathrm{Frac}(\mathscr{O}_{X,Y})$, we define
-$$\ord_{\mathscr{O}_{X,Y}}(f):=\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/a)-\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/b).$$
-The assignment $f\mapsto\ord_{\mathscr{O}_{X,Y}}(f)$ is a well-defined group homomorphism $\mathrm{Frac}(\mathscr{O}_{X,Y})^\times\to\mathbb{Z}$, but since proving this would require us to take quite a detour through a number of lemmas from commutative algebra, we refer the interested reader to \cite[Appendix A]{fulton:intersection-theory}. If $a\in\mathscr{O}_{X,Y}^\times$, then of course
-$$\ord_{\mathscr{O}_{X,Y}}(a)=\mathrm{length}_{\mathscr{O}_{X,Y}}(\mathscr{O}_{X,Y}/a)=\mathrm{length}_{\mathscr{O}_{X,Y}}(0)=0,$$
-so $\mathscr{O}_{X,Y}^\times$ is contained in the kernel of this homomorphism.
+In order to make this construction explicit, we first need to define the \textit{order of vanishing} of a Cartier divisor along a subvariety of $X$. First of all, if $Y$ is a subvariety of $X$, with generic point $\eta$, we define $\mathcal{O}_{X,Y}:=\mathcal{O}_{X,\eta}$, i.e the stalk of structure sheaf at the generic point. We call this the \textit{local ring of }$X$\textit{ along }$Y$. For any $f=a/b\in\mathcal{K}_{X,\eta}=\mathrm{Frac}(\mathcal{O}_{X,Y})$, we define
+$$\ord_{\mathcal{O}_{X,Y}}(f):=\mathrm{length}_{\mathcal{O}_{X,Y}}(\mathcal{O}_{X,Y}/a)-\mathrm{length}_{\mathcal{O}_{X,Y}}(\mathcal{O}_{X,Y}/b).$$
+The assignment $f\mapsto\ord_{\mathcal{O}_{X,Y}}(f)$ is a well-defined group homomorphism $\mathrm{Frac}(\mathcal{O}_{X,Y})^\times\to\mathbb{Z}$, but since proving this would require us to take quite a detour through a number of lemmas from commutative algebra, we refer the interested reader to \cite[Appendix A]{fulton:intersection-theory}. If $a\in\mathcal{O}_{X,Y}^\times$, then of course
+$$\ord_{\mathcal{O}_{X,Y}}(a)=\mathrm{length}_{\mathcal{O}_{X,Y}}(\mathcal{O}_{X,Y}/a)=\mathrm{length}_{\mathcal{O}_{X,Y}}(0)=0,$$
+so $\mathcal{O}_{X,Y}^\times$ is contained in the kernel of this homomorphism.
 
-If $D$ is a Cartier divisor, represented by $(U_i,f_i)$, we take $i$ to be an index such that $\eta\in U_i$ and let $f$ be the germ of $f_i$ at $\eta$. Then $f$ is well-defined up to a unit of $\mathscr{O}_{X,Y}$, i.e. it does not depend on the representation $(U_i,f_i)$ or the choice of $i$. This means that the map $\ord_Y:\Div X\to\mathbb{Z}$, defined by 
-$$\ord_Y(D):=\ord_{\mathscr{O}_{X,Y}}(f),$$
+If $D$ is a Cartier divisor, represented by $(U_i,f_i)$, we take $i$ to be an index such that $\eta\in U_i$ and let $f$ be the germ of $f_i$ at $\eta$. Then $f$ is well-defined up to a unit of $\mathcal{O}_{X,Y}$, i.e. it does not depend on the representation $(U_i,f_i)$ or the choice of $i$. This means that the map $\ord_Y:\Div X\to\mathbb{Z}$, defined by 
+$$\ord_Y(D):=\ord_{\mathcal{O}_{X,Y}}(f),$$
 is a well-defined group homomorphism. This is called the \textit{order of vanishing} of $D$ along $Y$. If the order of vanishing is positive, we say that $D$ has a zero of the corresponding order along $Y$ and if it is negative, we say that it has a pole of the corresponding order along $Y$. 
 
 \begin{example}
@@ -4454,9 +4459,9 @@ For any Cartier divisor $D$, the order of vanishing of $D$ is only nonzero along
 \end{prop} 
 
 \begin{proof}
-We let $|D|$ denote the set of points $x$ in $X$ such that the image of $D$ in the stalk $(\mathscr{K}_X^\times/\mathscr{O}_X^\times)_x$ is not 1. If $D$ is represented by $(U_i,f_i)$ this is the set of points where $(f_i)_x$ does not belong to $\mathscr{O}_{X,x}^\times$, where $i$ is an index such that $x\in U_i$ (note that if this holds for one such $i$, it holds for them all). This set is called the \textit{support of} $D$ and is a closed subset of $X$. Note that if $\dim(\mathscr{O}_{X,x})=0$ at any point $x\in X$, then $\mathscr{O}_{X,x}$ is an integral domain with the only prime ideal being (0), which means that it is a field. Thus $\mathscr{K}_{X,x}=\mathrm{Frac}(\mathscr{O}_{X,x})=\mathscr{O}_{X,x}$, so $\mathscr{K}_{X,x}^\times/\mathscr{O}_{X,x}^\times$ is the the trivial group. Thus this point cannot belong to the support of $D$, which means that the codimension of $|D|$ in $X$ is at least 1.
+We let $|D|$ denote the set of points $x$ in $X$ such that the image of $D$ in the stalk $(\mathcal{K}_X^\times/\mathcal{O}_X^\times)_x$ is not 1. If $D$ is represented by $(U_i,f_i)$ this is the set of points where $(f_i)_x$ does not belong to $\mathcal{O}_{X,x}^\times$, where $i$ is an index such that $x\in U_i$ (note that if this holds for one such $i$, it holds for them all). This set is called the \textit{support of} $D$ and is a closed subset of $X$. Note that if $\dim(\mathcal{O}_{X,x})=0$ at any point $x\in X$, then $\mathcal{O}_{X,x}$ is an integral domain with the only prime ideal being (0), which means that it is a field. Thus $\mathcal{K}_{X,x}=\mathrm{Frac}(\mathcal{O}_{X,x})=\mathcal{O}_{X,x}$, so $\mathcal{K}_{X,x}^\times/\mathcal{O}_{X,x}^\times$ is the the trivial group. Thus this point cannot belong to the support of $D$, which means that the codimension of $|D|$ in $X$ is at least 1.
 
-Next, note that if $Y$ is a subvariety of $X$ and $Y\not\subseteq|D|$, then the generic point $\eta_Y$ of $Y$ cannot be contained in $|D|$, since this is a closed set. Thus $(f_i)_{\eta_Y}$ belongs to $\mathscr{O}_{X,\eta_Y}^\times$ if $\eta_Y\in U_i$, so $\ord_Y(D)=0$. If $Y$ has codimension 1 and the order of vanishing of $D$ along $Y$ is nonzero, it must thus be an irreducible component of $|D|$. Since we assume that our varieties are noetherian, $|D|$ has a finite number of irreducible components, so the number of such subvarieties is finite.
+Next, note that if $Y$ is a subvariety of $X$ and $Y\not\subseteq|D|$, then the generic point $\eta_Y$ of $Y$ cannot be contained in $|D|$, since this is a closed set. Thus $(f_i)_{\eta_Y}$ belongs to $\mathcal{O}_{X,\eta_Y}^\times$ if $\eta_Y\in U_i$, so $\ord_Y(D)=0$. If $Y$ has codimension 1 and the order of vanishing of $D$ along $Y$ is nonzero, it must thus be an irreducible component of $|D|$. Since we assume that our varieties are noetherian, $|D|$ has a finite number of irreducible components, so the number of such subvarieties is finite.
 \end{proof}
 
 This means that we can define a map $\operatorname{cyc}:\Div X\to Z_{n-1}(X)$ by
@@ -4465,11 +4470,11 @@ which is a group homomorphism, by the previous results. This is called the \text
 
 Since we are considering varieties, we can now combine this with Proposition 1.4, to get a well-defined group homomorphism from $\Pic X\to A_{n-1}(X)$.
 
-\begin{dfn}
+\begin{defn}
 Let $X$ be a variety. Then we define a group homomorphism
 $$c_1:\Pic X\cong\DivCl X\overset{\operatorname{cyc}}{\longrightarrow}A_{n-1}(X).$$
-For a vector bundle $\mathscr{L}\in\Pic X$, we call $c_1(\mathscr{L})\in A_{n-1}$ the \textit{first Chern class} of $\mathscr{L}$.
-\end{dfn}
+For a vector bundle $\mathcal{L}\in\Pic X$, we call $c_1(\mathcal{L})\in A_{n-1}$ the \textit{first Chern class} of $\mathcal{L}$.
+\end{defn}
 
 \section{The splitting construction}
 \chapterauthor{Erik Lindell}
@@ -4477,7 +4482,8 @@ For a vector bundle $\mathscr{L}\in\Pic X$, we call $c_1(\mathscr{L})\in A_{n-1}
 From this point on we only consider smooth varieties. This is because the definition of higher Chern classes only makes sense\footnote{Actually, it is possible to extend the definition of Chern classes to the case of singular varieties as well, but this is beyond the scope of this text} when the Chow groups form a ring, such as in Proposition ?. Before we move on to talk about these classes, we will talk about the \textit{splitting construction}, which will allow us to construct higher Chern classes from those on line bundles. 
 
 \begin{lemma}
-Let $X$ be a smooth variety and $E$ a vector bundle of rank $r$ on $X$. Then there exists a smooth variety $Y$, together with a morphism $\varphi:Y\to X$ with the following properties:\begin{enumerate}[(a)]
+Let $X$ be a smooth variety and $E$ a vector bundle of rank $r$ on $X$. Then there exists a smooth variety $Y$, together with a morphism $\varphi:Y\to X$ with the following properties:
+\begin{enumerate}[label=(\alph*)]
     \item The pullback map $\varphi^*:A(X)\to A(Y)$ is injective.
     \item There exist line bundles $L_1,\ldots, L_r$ and vector bundles $E_1,\ldots, E_r$, with $E_1=L_1$, such that
      $$0\to L_{i+1}\to E_{i+1}\to E_i\to 0,\ \ \ i=1,\ldots, r-1,$$
