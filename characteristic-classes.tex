@@ -699,7 +699,7 @@ These morphisms have to satisfy the following axioms:
 \begin{description}
 \item[(Associativity)] $\mu(\mu(f,g),h) = \mu(f,\mu(g,h))$ for $(f,g,h) \in \mor \C \times_{\ob\C} \mor \C \times_{\ob \C} \mor \C$;
 \item[(Identities)] $s\circ u = t \circ u = \id_{\ob \C}$.
-\item[(Unitality)] $\mu(f,u \circ s) = f = \mu(u \circ t,f)$ for all $f \in \mor \C$;
+\item[(Unitality)] $\mu(f,u(s(f))) = f = \mu(u(t(f)),f)$ for all $f \in \mor \C$;
 \end{description}
 
 A \emph{functor} $F$ between category objects $\C$ and $\D$ in $C$ consists of two morphisms in $C$,
@@ -1579,7 +1579,7 @@ Note that
 \]
 we will denote an element in $\nerve_n\mathbf U$ by $x^{\alpha_0\cdots\alpha_n}$.
 
-\begin{example}
+\begin{example} \marginpar{This is what some might call the first barycentric subdiviision of the nerve of $\mathcal U$. Skip.}
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ as before. Denote by $b(\mathcal U)$ the set of those finite subsets $J$ of $I$ such that $U_J = \bigcap_{\alpha \in J} U_\alpha$ is nonempty. We make $b(\mathcal U)$ into a poset (and hence a category) by inclusion of subsets. Then the \emph{(small) nerve} $\nerve b(\mathcal U)$ of $\mathcal U$ is the nerve of $b(\mathcal U)$.
 \end{example}
 
@@ -1715,7 +1715,8 @@ The $X$-action on $EX$ when $X$ is a group follows from functoriality and the fr
 
 \section{Schubert cells}
 
-\marginpar{This section needs to be complemented by a study of the boundary of Schubert cells if it is to be useful in computing homology of real Grassmannians}
+\marginpar{This section needs to be better integrated into the book. It uses homology, which hasn't yet been defined.}
+
 \chapterauthor{Nima Amini, Nasrin Altafi}
 
 In Thm.~\ref{thm:grassmannianmanifolds} it was proved that $G_n(k^N)$ may be viewed as a compact smooth manifold over $k = \mathbf{R}, \mathbf{C}$. 
@@ -1798,7 +1799,7 @@ Thus we may identify points in $G_n(k^N)$ with rank-$n$ matrices in row-reduced 
 %A matrix $A \in k^{n\times N}$ in row reduced echelon form is said to be in \emph{$I$-echelon form} if $A$ has its pivots in columns $I = \{i_1 < \cdots < i_n \}$. 
 %The sequence $I$ is often referred to as the \emph{Schubert symbol} of $A$.
 %\end{defn}
-Every $W\in C(a_1,\dots ,a_n)$ has the  unique canonical representative given by the row reduced echelon form of the matrix representative of $W$ where the pivots are in the columns indexed by $a_1,\dots ,a_n$. The matrix has entry $1$ in position $(i,a_i)$, for each $i=1,\dots ,n$ and zero to the left and below.
+Every $W\in C(a_1,\dots ,a_n)$ has a unique canonical representative given by the row-reduced echelon form of the matrix representative of $W$ where the pivots are in the columns indexed by $a_1,\dots ,a_n$. The matrix has entry $1$ in position $(i,a_i)$, for each $i=1,\dots ,n$ and zeroes to the left, above, and below.
 
 \begin{example} \label{ex:echelonform}
 An elements in the Schubert cell $W\in C(1,2,5,7) \in G_4(k^{8})$ has shape
@@ -1814,7 +1815,7 @@ where $*$ denotes an arbitrary element in $k$.
 \end{example} \noindent
 
 \begin{remark}
-If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns with respect to a vertical axis, we find that the patterns formed by the $*$'s is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
+If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot columns) and then reflect the remaining columns horizontally, the patterns formed by the $*$s is a Ferrers diagram of shape $\lambda$, that is, a pictorial representation of a partition $\lambda$ of $N-n$ with $n$ parts (or a weakly increasing sequence of $n$ non-negative integers bounded by $N-n$). In Example~\ref{ex:echelonform} the corresponding Ferrers diagram of shape $\lambda = (4,4,2,1)$ is
 \begin{align*}
 \displaystyle &**** \\	
 	      &**** \\   
@@ -1822,25 +1823,30 @@ If we remove columns with indices in the Schubert symbol $I$ (i.e the pivot colu
 	      &\hspace{0.08cm} * 
 \end{align*} \noindent
 
-We may denote the Schubert cell and Schubert variety associated to $(a_1,\dots ,a_n)$ by $C_\lambda$ and $\Omega_\lambda$, respectively, where $\lambda$ is the corresponding Ferrers diagram to $(a_1,\dots ,a_n)$. 
+We denote the Schubert cell and Schubert variety associated to $(a_1,\dots ,a_n)$ by $C_\lambda$ and $\Omega_\lambda$, respectively, where $\lambda$ is the partition corresponding to $(a_1,\dots ,a_n)$. 
 
-Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-element subsets of $[N]$ so Schubert symbols are in correspondence with Ferrers diagrams of shape $\lambda$.
+Finally note that partitions of $N-n$ into $n$ parts are in bijection with $n$-element subsets of $\{1,\dots,N\}$, so Schubert symbols are in bijective correspondence with Ferrers diagrams of shape $\lambda$.
 \end{remark} \noindent
 
-The Grassmannian has a decomposition as the disjoint union of 	Schubert cells:
+The Grassmannian has a decomposition as a disjoint union of Schubert cells:
 \begin{align*}
 \displaystyle G_n(k^N) = \bigsqcup_{\lambda} C_{\lambda},
 \end{align*} \noindent
-where for each $\lambda$ the dimension of the Schubert cell $C_\lambda$, the number of elements of $G_n(k^N)$ having the row reduced echelon form of $\lambda$, is equal to $|\lambda| = \lambda_1 + \cdots + \lambda_n$ number of degrees of freedom in the entries (i.e the number of $*$'s in the row reduced echelon form of the matrix). This gives the  homeomorphism 
+where for each $\lambda$,
+\[
+\dim(C_\lambda) = |\lambda| = \lambda_1 + \cdots + \lambda_n
+\] 
+because that is the number of degrees of freedom in the entries (i.e the number of $*$s in the row reduced echelon form of the matrix). This gives a homeomorphism 
 \begin{align}
 \label{schubertcellaffine}
 C_{\lambda} \simeq k^{|\lambda|}.
-\end{align} \noindent 
+\end{align}
+
 \begin{prop}\label{prop:GrassmannianCWstructure}
 The Schubert cells $C(a_1,\dots ,a_n)$ are the cells of a CW structure on $G_n(k^N)$.
 \end{prop}
 \begin{proof}
-To construct the CW complex on $G_n(k^N)$ we use induction to define the attaching maps. First we need to find a characteristic map for every $\underline{a}:=(a_1,\dots ,a_n)$ which maps the interior of a closed disk to a cell $C(a_1,\dots ,a_n)$ of equal dimension. To do this we will consider the different echelon form, the \textit{orthonormal echeon form}. The $\underline{a}$-orthonormal echeon form of an element $W\in G_n(k^N)$ is defined in such a way that for each $i=1,\dots , n$ the entry $(i,a_i)$ is positive and the entries to the right of them are zero moreover the rows are orthonormal. For each $W\in G_n(k^N)$ there is a unique orthonormal echolon form.\\ 
+To construct the CW complex on $G_n(k^N)$ we use induction to define the attaching maps. First we need to find a characteristic map for every $\underline{a}:=(a_1,\dots ,a_n)$ which maps the interior of a closed disk to a cell $C(a_1,\dots ,a_n)$ of equal dimension. To do this we will consider a different echelon form, the \textit{orthonormal echeon form}. The $\underline{a}$-orthonormal echeon form of an element $W\in G_n(k^N)$ is defined in such a way that for each $i=1,\dots , n$ the entry $(i,a_i)$ is positive and the entries to the right of them are zero moreover the rows are orthonormal. For each $W\in G_n(k^N)$ there is a unique orthonormal echolon form.\\ 
 The $i$-th row of the $\underline{a}$-orthonomal echolon form belongs to the hemisphere $H_{a_i}$ in the unit sphere $\mathbb{S}^{a_i-1}\subset k^{a_i}\subset k^N$ consisting of unit vectors with non-negative $a_i$-th coordinates. In the Stiefel manifold $V_n(k^N)$, let $E(\underline{a})$ be the subspace of the frames $(v_1,\dots ,v_n)\in (\mathbb{S}^{N-1})^n$, where $v_i\in H_{a_i}$ for each $i$. We claim that $E(\underline{a})$ is homeomorphic to a closed ball. In fact, we show that  $\pi :E(\underline{a})\longrightarrow H_{a_1}$ defined by the projection onto the first coordinate is a trivial fiber bundle. To do so, for $v_0=(0,\dots ,0,1)\in  k^{a_1}\subset k^N$ define $p:E(\underline{a})\longrightarrow \pi^{-1}(v_0)$ in such a way that for a given $v\in H_{a_1}$ the map $p:\pi^{-1}(v)\longrightarrow \pi^{-1}(v_0)$ is obtained by applying the rotation that takes $v$ to $v_0$ and fixes the $(N-2)$-dimensional subspace orthogonal to $v$ and $v_0$. So $p$ is a bijection from $\pi^{-1}(v)$ to $\pi^{-1}(v_0)$ and therefore $\pi\times p :E(\underline{a})\longrightarrow H_{a_1}\times \pi^{-1}(v_0)$ is a continues bijection of compact Hausdorff spaces, hence a homeomorohism. \\
 Note that the fiber $\pi^{-1}(v_0)$ can be identified with $E(\underline{a}^\prime)$, where $\underline{a}^\prime=(a_2-1,\dots ,a_n-1)$. We inductively construct a homeomorohism
 $$
