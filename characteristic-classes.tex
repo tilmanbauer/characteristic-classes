@@ -443,7 +443,8 @@ Let $p\colon E \to B$ be an $n$-dimensional $k$-vector bundle and choose an open
 \phi_\alpha \in \map_{U_\alpha}(E_{U_\alpha},k^n \times U_{\alpha}).
 \]
 
-%I've changed g_\alpha\beta from \phi_\beta\phi_\alpha^{-1} to \phi_\alpha\phi_\beta^{-1} to make COC3 work. In what follows I've might have missed changing some indexation. (JH)
+\marginpar{JH: I've changed $g_\alpha\beta$ from $\phi_\beta\phi_\alpha^{-1}$ to $\phi_\alpha\phi_\beta^{-1}$ to make COC3 work. In what follows I've might have missed changing some indexation.}
+
 Now let $U_{\alpha\beta} = U_\alpha \cap U_\beta$. Then we can compose two such trivializations and obtain an isomorphism
 \[
 \tilde g_{\alpha\beta}\colon k^{n} \times U_{\alpha\beta} \xrightarrow{(\phi_\beta|_{U_{\alpha\beta}})^{-1}} E_{U_{\alpha\beta}} \xrightarrow{\phi_\alpha|_{U_{\alpha\beta}}} k^{n} \times U_{\alpha\beta}.
@@ -502,7 +503,7 @@ If vector bundles give rise to cocycles with values in $\GL_n(k)$, it is natural
 	An $n$-dimensional vector bundle is a fiber bundle with fiber $k^n$.
 \end{example}	
 
-%I changed the left action into a right action. This seems to be more standard in the literature, and the relationship with vector bundles comes out more nicely, as seen in the change-of-coordinate maps. Again I hope I've changed it consistenly throughout. (JH)
+\marginpar{JH: I changed the left action into a right action. This seems to be more standard in the literature, and the relationship with vector bundles comes out more nicely, as seen in the change-of-coordinate maps. Again I hope I've changed it consistenly throughout.}
 \begin{defn}
   Let $G$ be a topological group. A \emph{free and transitive $G$-space over $B$} is a space $E$ over $B$ with a right $G$-action $G \to \map_B(E,E)$ which is free and transitive on each fiber. A map of free and transitive $G$-spaces over $B$ is a map $f\in\map_B(E,F)$ which is $G$-equivariant, i.~e., for each $x \in E$, $f  (x.g) = f(x).g$. 
 
@@ -1527,7 +1528,11 @@ The main source of simplicial spaces is the nerve construction for a topological
 
 
 \begin{defn}
-Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the simplicial space defined by $X_n = \mor \C \times_{\ob \C} \cdots \times_{\ob \C} \mor\C$, where the fiber product has $n$ factors. In particular, $X_0 = \ob \C$. We specify the morphism by defining the \emph{face maps} $d_i^n\colon X_n \to X_{n-1}$ induced by $d^i_n$ and the \emph{degeneracy maps} $s_i^n\colon X_n \to X_{n+1}$ induced by $s^i_n$:
+Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the simplicial space defined by
+\[
+(\nerve\C)_n = \nerve_n\C = \mor \C \times_{\ob \C} \cdots \times_{\ob \C} \mor\C,
+\]
+where the fiber product has $n$ factors. In particular, $\nerve_0 \C = \ob \C$ and $\nerve_1 \C = \mor \C$. We specify the morphisms by defining the \emph{face maps} $d_i^n\colon \nerve_n \C \to \nerve_{n-1} C$ induced by $d^i_n$ and the \emph{degeneracy maps} $s_i^n\colon \nerve_n \C \to \nerve_{n+1} \C$ induced by $s^i_n$:
 \begin{itemize}
 \item $d_i = \id_{\mor \C} \times \cdots \times \mu \times \cdots \times \id_{\mor \C}$, where $\mu$ appears in the $i$th place;
 \item $s_i = \id_{\mor \C} \times \cdots \times u \times \cdots \times \id_{\mor \C}$, where $u$ appears in the $i$th place.
@@ -1535,12 +1540,11 @@ Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the s
 The associativity and unitality axioms guarantee that this is a well-defined simplicial space.
 \end{defn}
 
-If $\C$ is an ordinary (small) category, we have explicitly that
+If $\C$ has a discrete set of objects, we have explicitly that
 \[
-X_n = \coprod_{X_0,\dots,X_n \in C} \Hom(X_{n-1},X_n) \times \dots \times \Hom(X_1,X_2) \times \Hom(X_0,X_1),
+\nerve_n\C = \coprod_{X_0,\dots,X_n \in \ob \C} \Hom(X_{n-1},X_n) \times \dots \times \Hom(X_1,X_2) \times \Hom(X_0,X_1),
 \]
-%bad notation for the X_i
-i.~e., $X_n$ is the space of composable chains of $n$ morphisms.
+i.~e., $\nerve_n\C_n$ is the space of composable chains of $n$ morphisms.
 
 \begin{example}\label{ex:translationcat}
 Let $X$ be a space. We define the \emph{translation category} $T(X)$ of $X$ to have $\ob T(X) = X$ and $\mor T(X) = X \times X$, where the source and target maps are the two projections, the unit map is the diagonal, and the composition is the projection to the first and third factors:
@@ -1602,7 +1606,7 @@ What information do we lose by passing from a topological category to its nerve?
 The nerve functor is full and faithful. 
 \end{prop}
 \begin{proof}
-We clearly have that $(\nerve\C)_0 = \ob\C$ and $(\nerve\C)_1 = \mor\C$. The unit maps are recovered as $s^0_0$, the source and target maps by $d^1_0$ and $d^1_1$. Finally, the composition map in $\C$ is the map $d^2_1\colon (\nerve_\C)_2 \to (\nerve\C)_1$ since $(\nerve_\C)_2 = \mor\C \times_{\ob\C} \mor\C$.
+We have that $\nerve_0\C = \ob\C$ and $\nerve_1\C = \mor\C$. The unit maps are recovered as $s^0_0$, the source and target maps by $d^1_0$ and $d^1_1$. Finally, the composition map in $\C$ is the map $d^2_1\colon \nerve_2\C \to \nerve_1\C$ since $\nerve_2\C = \mor\C \times_{\ob\C} \mor\C$.
 \end{proof}
 
 Note that it is also easy to describe when a simplicial set $X$ is the nerve of a category: precisely when it is determined by its $1$-skeleton in the sense that
@@ -1671,7 +1675,7 @@ Moreover, every point in $|X|$ is represented by a unique pair $(x,t) \in X^{\op
 \]
 is continuous and bijective (but clearly not a homeomorphism). Details can be found in \cite{milnor:57}.
 
-The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and $k$-products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the $k$-product coincides with the usual product. 
+The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and Kelley products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the Kelley product coincides with the usual product. 
 \begin{thm}[{\cite[Theorem 11.5]{may:72}}] \label{thm:geomrealizationandproduct}
 The geometric realization commutes with products in the category of Kelley spaces. In other words,
 \[
@@ -2127,7 +2131,7 @@ In order to turn the cocycle characterization into an alternative definition for
 
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. As before, we denote by $\mathbf U = \coprod_{\alpha \in I} U_{\alpha}$ the disjoint union of all elements of the cover, by $p\colon \mathbf U \to X$ the canonical projection. We also abuse notation and write $\mathbf U$ for the topological groupoid $(\mathbf U, \mathbf U \times_X \mathbf U)$ (cf. Example~\ref{exa:covergroupoid}). The nerve $\nerve\mathbf U$ is thus a simplicial space whose geometric realization is homotopy equivalent with $X$ (Theorem~\ref{thm:paracompactnerve}) as long as $X$ is paracompact.
 
-Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
+Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$ satisfying the sheaf condition. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
 
 \begin{defn}
 A map $f\colon Y \to X$ of topological spaces is called a \emph{partial cover} if it is a disjoint union of open inclusions. It is called a \emph{cover} if it is also surjective. Define a category $S(X)$ with objects the partial covers of $X$ and morphisms commuting triangles
@@ -2199,7 +2203,7 @@ and groups
 Z^n(A) =& \ker(d^n\colon A^n \to A^{n+1}),\\
 B^n(A) =& \im(d^{n-1}\colon A^{n-1} \to A^{n}),\\
 \intertext{and}
-H^n(A) =& Z^n(A)/B^n(A)
+H^n(A) =& Z^n(A)/B^n(A).
 \end{align*}
 If $A$ is merely a cosimplicial (possible nonabelian) group, we can still define
 \[
@@ -2229,7 +2233,9 @@ If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $
 	Let $G$ be a topological group and let $F$ be the sheaf $U \mapsto \map(U,G)$ on a space $X$ with open cover $\mathcal{U}$. Then the definitions of $Z^1_{\mathcal U}(X;G)$ and $H^1_{\mathcal{U}}(X;G)$ as defined above agrees with the definition from Section~\ref{sec:bundlesascocycles}.
 \end{exer}	
 	
-	
+\begin{remark}
+For a topological group $G$, the sheaf considered in the above exercise could be understood as a sheaf of topological groups (with a suitable topology on the mapping spaces $\map(U,G)$). This is for instance necessary in the study of \emph{continuous cohomology}, which we will not consider. 
+\end{remark}
 
 \begin{defn}
 A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ with products is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n) = \prod_{s \in S_n} Y^n$. We say that $h$ is a \textit{homotopy} from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists. 
@@ -2247,16 +2253,19 @@ Given a cosimplicial homotopy $h\colon X \to \hom([1],Y)$, denote by $\tilde h\c
 Given a refinement $\{V_\beta\}$ of an open cover $\{U_\alpha\}$ of $X$, the map of nerves $\nerve \mathbf V \to \nerve \mathbf U$ is well-defined up to simplicial homotopy by Proposition~\ref{prop:refinementhomotopyinvariant} and therefore the map induced on $C_{\mathcal U}(X) \to C_{\mathcal V}(X)$ is well-defined up to cosimplicial homotopy and thus induces a well-defined map on Čech cohomology. We have proved:
 
 \begin{thm}\label{thm:welldefinedrefinement}
-Let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ with a refinement $\{V_\beta\}_{\beta \in J}$. Let $\rho$, $\sigma\colon J \to I$ be two functions such that $V_{\beta} \subseteq U_{\rho(\beta)}$, $V_\beta \subseteq U_{\sigma(\beta)}$. Denote by $\rho^*$ and $\sigma^*\colon C^n_{\mathcal U}(X;G) \to C^n_{\mathcal V}(X;G)$ the induced maps on Čech cochains. Then on cohomology,
+Let $X$ be space and $F$ a sheaf of abelian groups on $X$.
+Let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ with a refinement $\{V_\beta\}_{\beta \in J}$. Let $\rho$, $\sigma\colon J \to I$ be two functions such that $V_{\beta} \subseteq U_{\rho(\beta)}$, $V_\beta \subseteq U_{\sigma(\beta)}$. Denote by $\rho^*$ and $\sigma^*\colon C^n_{\mathcal U}(X;F) \to C^n_{\mathcal V}(X;F)$ the induced maps on Čech cochains. Then on cohomology,
 \[
-\rho^* = \sigma^*\colon H^*_{\mathcal U}(X;G) \to H^*_{\mathcal V}(X;G).
-\]\qed
+\rho^* = \sigma^*\colon H^*_{\mathcal U}(X;F) \to H^*_{\mathcal V}(X;F).
+\]
+This statement also holds for $H^1$ when $F$ is merely a sheaf of groups, and for $H^0$ if $F$ is merely a sheaf of sets.
+\qed
 \end{thm}
 
 \begin{defn}
-The \emph{$n$th Čech cohomology group} of $X$ with coefficients in $G$ ($n \in \mathbf N_0$, $n \leq 1$ if is $G$ nonabelian) is the colimit
+The \emph{$n$th Čech cohomology group} of $X$ with coefficients in the sheaf of groups $F$ ($n \in \mathbf N_0$, $n \leq 1$ if $F$ is nonabelian) is the colimit
 \[
-H^n(X;G) = \colim_{\mathcal U} H^n_{\mathcal U}(X;G),
+H^n(X;F) = \colim_{\mathcal U} H^n_{\mathcal U}(X;F),
 \]
 where $\mathcal U$ runs over the poset $\Cov(X)$ of open covers of $X$ with a morphism from $\mathcal U$ to $\mathcal V$ if $\mathcal V$ is a refinement of $\mathcal U$.
 \end{defn}
@@ -2352,13 +2361,17 @@ H^n(X;A) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;A).
 We will now restrict out attention on a particular class of sheaves: representable sheaves, and in particular, locally constant sheaves.
 
 \begin{defn}
-A sheaf $F$ of topological spaces (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,X)$ for some topological space (group, abelian group) $X$. If $X$ is discrete, we call $F$ \emph{locally constant}.
+A sheaf $F$ of sets (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,T)$ for some topological space (topological group, topological abelian group) $T$. If $T$ is discrete, we call $F$ \emph{locally constant}.
 \end{defn}
 
-If $A$ is a (topological) group, we will denote the sheaf $\map(-,A)$ on any space $X$ simply by $A$, without danger of confusion.
+\begin{example}
+The sheaf on a space $X$ represented by the topological abelian group $\R$ is the structure sheaf $\mathcal O_{X}$ of continuous functions to the reals.
+\end{example}
+
+If $G$ is a topological group, we will denote the sheaf $\map(-,G)$ of groups on any space $X$ by $G$, without danger of confusion.\footnote{We will, however, continue writing $\mathcal O_{X}$ for the sheaf represented by $\R$. In our notation, $H^n(X;G)$ is very different from $H^n(X;G^\delta)$, where $G^\delta$ is $G$ with the discrete topology.}
 
 \begin{lemma}
-Let $A$ be an abelian group and $f\colon X \to Y$ a map of topological spaces. Then there is an induced map
+Let $A$ be a (discrete) abelian group and $f\colon X \to Y$ a map of topological spaces. Then there is an induced map
 \[
 f^*\colon H^n(Y;A) \to H^n(X;A)
 \]
@@ -2477,13 +2490,14 @@ Since such compatible open covers are cofinal in all open covers, we obtain the 
 
 
 \section{Homotopy invariance}
-%I added the Hausdorff condition, since in general I think one asks F(X) -> i^{-1}F(Z) to be surjective, and f^{-1}(Z) is given by the colimit in this definion when X is paracompact Hausdorff. See Wedhorn - Manifolds, Sheaves, and Cohomology, Prop 9.1. JH
+\marginpar{JH: I added the Hausdorff condition, since in general I think one asks $F(X) \to i^{-1}F(Z)$ to be surjective, and $f^{-1}(Z)$ is given by the colimit in this definion when X is paracompact Hausdorff. See Wedhorn - Manifolds, Sheaves, and Cohomology, Prop 9.1.}
 \begin{defn} A sheaf $F$ on a paracompact Hausdorff space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
 
 It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft, i.~e. if every sheaf homomorphism $F|_K \to F|_K$ can be extended to all of $X$.
 \end{defn}
 Here, the sheaf of maps $\Hom(F,F)$ is the sheaf $U \mapsto \Hom(F|_U,F|_U)$.
-%I don't see how to easily go to the second description of fine sheaves. Don't we need to sheafify to get F_K -> F_K? JH
+\marginpar{JH: I don't see how to easily go to the second description of fine sheaves. Don't we need to sheafify to get $F_K \to F_K$?}
+
 \begin{example}
 The sheaf $C^0$ is soft. Indeed, let $K \subset X$ be closed and $f:U \to \R$ continuous with $K \subset U$. By Urysohn's lemma, take an open neighborhood $V$ of $K$ such that $\bar{V} \subset U$. By the Tietze extension theorem, we can extend $f|_{\bar{V}}$ to $\tilde{f}:X \to \R$. Now $(\tilde{f}|_V,V) = (f,U)$ in $\colim_{K \subset U}C^0(U)$.
 
@@ -2526,7 +2540,7 @@ u_K = c_{K\cup\{k\}}+\sum_{i=1}^{n} (-1)^i u_{K_i \cup \{k\}},
 \]
 extended to all of $U_K$ in any way. Here $K_i$ denotes $K$ with the $i$th element omitted. The cocycle condition on $c_J$ guarantees that $d((u_K))=(c_J)$.
 \end{proof}
-%This induction doesn't seem to work. The condition |K \cap \{1,\dots,N+1\}| = n is not the same as N+1 \in K, e.g. K = {1,...,n} , N = n is a counter example. Also I don't see how u_{K_i \cup \{k\}} can be assumed to be already defined.
+\marginpar{JH: This induction doesn't seem to work. The condition $|K \cap \{1,\dots,N+1\}| = n$ is not the same as $N+1 \in K, e.g. K = {1,...,n}$ , $N = n$ is a counter example. Also I don't see how $u_{K_i \cup \{k\}}$ can be assumed to be already defined.}
 
 \begin{corollary}\label{cor:Omodulecohomology}
 Let $X$ be a paracompact space and $N$ a $C^0_X$-module sheaf. Then $H^n(X;N)=0$ for $n>0$. Similarly, for $M$ a smooth manifold and $N$ a $C^\infty_X$-module sheaf, $H^n(X;N)=0$ for $n>0$.\qed
@@ -2664,7 +2678,7 @@ Show that the map $\R P^{2n} \to \CP^n$ which sends a $1$-dimensional real subsp
 \section{The product in cohomology}
 
 Let $X$, $Y$ be spaces and $A$, $B$ sheaves of abelian groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. 
-%Don't we need sheaves of R-modules in what follows?
+\marginpar{Don't we need sheaves of R-modules in what follows?}
 
 We can now consider the presheaf on $X \times Y$ given by
 \[
@@ -2751,7 +2765,7 @@ F(M) = H^*(A) \otimes_R H^*(M); \quad G(M) = H^*(A \otimes_R M).
 \]
 Both functors are \emph{cohomological}, i.~e. they map short exact sequences of $R$-modules to long exact sequences and commute with (infinite) direct sums. This is true for $F$ because $H^*(A)$ is free and hence tensoring with it is an exact functor, and for $G$ because $A$ is free. (Flatness would of course suffice in both cases, but we will not need this added generality.) Furthermore, $F(R) = H^*(A) = G(R)$. By exactness and the long exact sequence, they agree on all chain complexes.
 \end{proof}
-%This proof seems to be missing something. The conclusion cannot be right, since the asumption on B is not used. The argument seems to work for free modules, but needs more work for chain complexes of free modules JH.
+\marginpar{JH: This proof seems to be missing something. The conclusion cannot be right, since the asumption on B is not used. The argument seems to work for free modules, but needs more work for chain complexes of free modules.}
 
 \begin{corollary}[Künneth Theorem]\label{cor:kunneth}
 Let $R$ be a ring and $X$, $Y$ spaces such that $H^i(X;R)$ is a finitely generated free $R$-module for all $i$. Then the cross product induces an isomorphism
@@ -2969,7 +2983,7 @@ b \otimes i^*(e_i) &\mapsto p^*(b)e_i
 \end{align*}
 is an isomorphism of $R$-modules. 
 \end{thm}
-%I think one needs the condition on all fibers i_x:F to E for x in B. JH
+\marginpar{JH: I think one needs the condition on all fibers $i_x:F \to E$ for x in B. }
 
 One can think of the Leray-Hirsch theorem as a generalization of the Künneth theorem, Cor.~\ref{cor:kunneth}. The Künneth theorem requires the fiber bundle to be trivial, i.~e. $E \cong B \times F$, and it makes the stronger assertion that the map $m$ is an isomorphism of rings.
 
@@ -3013,7 +3027,7 @@ There is a continuous map $\Delta\colon M(p) \to \mathbf D(E) \times M(p)/\mathb
 \end{cases}
 \]
 By the K\"unneth isomorphism
-%Don't we need either H^*(D(E)) or H^*(M(p)) to be free over Z to use Kunneth here? I don't think either of these statements is true in general. Also, I don't think the above isomorphism is needed to induce the desired module structure. JH 
+\marginpar{JH: Don't we need either $H^*(D(E))$ or$ H^*(M(p))$ to be free over Z to use Kunneth here? I don't think either of these statements is true in general. Also, I don't think the above isomorphism is needed to induce the desired module structure.}
  and the long exact sequence, we have that
 \[
 \tilde H^*(\mathbf D(E) \times M(p)/\mathbf D(E) \times \{\infty\}) \cong H^*(\mathbf D(E)) \otimes \tilde H^*(M(p))
@@ -3201,7 +3215,7 @@ Let $E \to B$ be a complex vector bundle. Then there exists a space $B'$ and a m
 \end{corollary}
 \begin{proof}
 Let $g\colon BU(1)^n \to BU(n)$ be induced by the inclusion of the diagonal matrices. Then $H^*(BU(1)^n)$ is a free module over $H^*(BU(n))$ of finite rank $n!$. Choose a module basis $b_i \in H^*(BU(1)^n$. The the Leray-Hirsch theorem is applicable for the fiber bundle $BU(1)^n \to BU(n)$ with fiber $U(n)/U(1)^n$.
-%I don't see how we get a basis of n! JH
+\marginpar{JH: I don't see how we get a basis of n!}
 
 Now let $B'$ be the pullback in the diagram
 \[
@@ -3289,7 +3303,7 @@ $$\R P^{n-1}\overset{p(\iota)}\longrightarrow P(E)\overset{P(p)}\longrightarrow 
 
 Let $\alpha\in H^1(\R P^\infty;\Z/2\Z)$ be the generator of $H^*(\R P^\infty;\Z/2\Z)$ and let $x=P(g)^*(\alpha)\in H^1(P(E);\Z/2\Z)$.
 We claim  that $P(\iota)^*(x^i)$ is the generator of $H^i(\R P^{n-1};\Z/2\Z)$. This follows from the fact that $P(\iota)^*(x)= (P(g)\circ P(\iota))^*(\alpha)$ and that $P(g)\circ P(\iota):\R P^{n-1}\to \R P^\infty$ is an embedding of $\R P^{n-1}$ into $\R P^\infty$ and will therefore induce isomorphisms on cohomology groups $H^k(\R P^\infty;\Z/2\Z)\overset\sim\to H^k(\R P^{n-1};\Z/2\Z)$ for $k\leq n-1$.
-%I don't think being an embedding is enough here, since that concept doesn't depend on n-1. JH
+\marginpar{JH: I don't think being an embedding is enough here, since that concept doesn't depend on n-1.}
 
 The Leray-Hirsch theorem gives now that $H^*(P(E);\Z/2\Z)$ is a free $H^*(B;\Z/2\Z)$-module with basis $1,x,x^2,\dots,x^{n-1}$. This means in particular that $x^n$ can uniquely be expressed as a linear combination of $1,x,\dots,x^{n-1}$ with coefficients in $H^*(B;\Z/2\Z)$. Thus, there are certain classes $w_i(E)\in H^i(B;\Z/2\Z)$ such that
 $$x^n+w_1(E)x^{n-1}+\dots+w_n(E)\cdot1=0.$$
