@@ -2163,7 +2163,7 @@ is an equalizer.
 The reason for this extension is that we can now apply the sheaf $F$ to the simplicial space $\nerve \mathbf U$ to get a cosimplicial object in $C$.
 
 \begin{defn}
-The \emph{category of cosimplicial objects in $C$} is the functor category from the cosimplicial category $\Delta$ (cf.~Section~\ref{sec:simplicial-spaces}) to $C$. Similarly, the category of \emph{coaugmented} cosimplicial objects in $C$ is the functor category from $\Delta_+$ to $\C$. We denote the images of the standard coface and codegeneracy maps $d^i_n$ and $s^i_n$ in $C$ by the same names.
+The \emph{category of cosimplicial objects in $C$} is the functor category $[\Delta,C]$ from the cosimplicial category $\Delta$ (cf.~Section~\ref{sec:simplicial-spaces}) to $C$. Similarly, the category of \emph{coaugmented} cosimplicial objects in $C$ is the functor category $[\Delta_+,C]$. We denote the images of the standard coface and codegeneracy maps $d^i_n$ and $s^i_n$ in $C$ by the same names.
 \end{defn}
 
 \begin{defn}
@@ -4630,14 +4630,13 @@ In this appendix, we collect some basic notions of category theory needed in the
 A \emph{category} $\C$ consists of a class $\ob \C$ of \emph{objects} and, for each pair $x$, $y \in \ob \C$, a set $\Hom_\C(x,y)$ of \emph{morphisms}, together with the following structure:
 \begin{itemize}
 \item for each $x \in \ob \C$, a distinguished element $\id_x \in \Hom_\C(x,x)$, called the \emph{identity},
-\item for each triple $(x,y,z)$ of objects, a \emph{composition map} $\mu\colon \Hom_\C(y,z) \times \Hom_\C(x,y) \to \Hom(x,z)$.
+\item for each triple $(x,y,z)$ of objects, a \emph{composition map} $\mu\colon \Hom_\C(y,z) \times \Hom_\C(x,y) \to \Hom_\C(x,z)$.
 \end{itemize}
-Usually, composition $\mu(g,f)$ is denoted suggestively by $g \circ f$.
-These have to satisfy the axims that composition must be associative and unital with respect to the identities.
+Usually, composition $\mu(g,f)$ is denoted suggestively by $g \circ f$ and is required to be associative and unital with respect to the identities.
 
 A (covariant) \emph{functor} $F\colon \C \to \D$ between two categories $\C$ and $\D$ is a collections of map
 \[
-F\colon \ob \C \to \ob \C \quad \text{and} \quad F\colon \Hom_\C(x,y) \to \Hom_\D(F(x),F(y)) \text{ for each } x,\;y \in \ob \C
+F\colon \ob \C \to \ob \D \quad \text{and} \quad F\colon \Hom_\C(x,y) \to \Hom_\D(F(x),F(y)) \text{ for each } x,\;y \in \ob \C
 \]
 such that $F(\id_x) = \id_{F(x)}$ for each $x \in \ob \C$, and $F(g \circ f) = F(g) \circ F(f)$ for each composable pair of morphisms $f$, $g$.
 \end{defn}
@@ -4654,20 +4653,24 @@ Note that reflexivity of the order relation corresponds to the existence of iden
 
 \begin{example}
 There are plenty of ways to construct new categories from old. Here follows some common constructions:
-\begin{enumerate}[label=\alph*)]
+\begin{enumerate}[label=(\alph*)]
 \item Let $\C$ be a category. The category $\C^\op$, called the \emph{opposite category} of $\C$, has the same objects as $\C$, but it has $\Hom_{\C^\op}(x,y) = \Hom_\C(y,x)$. The identities are the same, but composition is defined in the opposite order:
 \[
 \mu_{\C^\op}(g,f) = \mu_\C(f,g).
 \]
 This also gives a trivial yet important \emph{duality principle} in category theory:
-``If some statement $P$ holds in a category, then so does the dualized statement $P^{\op}$ with the direction of morphisms reversed''.
-\item $\D$ is a \emph{subcategory} of $\C$ if $\ob \D \subseteq \ob \C$ and for $x,y \in \ob \D$ we have $\Hom_{\D}(x,y) \subseteq \Hom_{\C}(x,y)$. For example the category of abelian groups form a subcategory of the category of groups, the category of sheaves form a subcategory of the category of presheaves and the category of $n$-dimensional vector bundles over a space $B$ forms a subcategory of the catgeory of all vector bundles over $B$ etc. 
-\item Given categories $\C$ and $\D$ the \emph{product category} $\C \times \D$ has objects $(x,y)$ where $x \in \ob C$ and $y \in \ob \D$, and morphisms $(f,g):(x,y) \to (u,v)$ where $f:x \to u$ in $\C$ and $g:y \to v$ in $\D$.
-\item Let $\C$ be a category and $b \in \ob \C$. The \emph{slice category} $\C / b$ is the category with $\ob \C/b = \Hom_{\C}(\ob \C, b)$, that is, the morphisms in $\C$ with codomain $b$. The morphisms $(f:x \to b) \to (g:y \to b)$ in $\C/b$ are given by morphisms $h \in \Hom_{\C}(x,y)$ making below triangle commute
+``If some statement $P$ holds in every category, then so does the dualized statement $P^{\op}$ with the direction of morphisms reversed.''
+\item $\D$ is a \emph{subcategory} of $\C$ if $\ob \D \subseteq \ob \C$ and for $x,y \in \ob \D$ we have $\Hom_{\D}(x,y) \subseteq \Hom_{\C}(x,y)$. For example the category of abelian groups forms a subcategory of the category of groups, the category of sheaves forms a subcategory of the category of presheaves and the category of $n$-dimensional vector bundles over a space $B$ forms a subcategory of the catgeory of all vector bundles over $B$. If the subcategory $\D$ has the property that $\Hom_\D(x,y)=\Hom_\C(x,y)$ whenevery $x,\;y \in \D$ then $\D$ is called a \emph{full subcategory}.
+\item Given categories $\C$ and $\D$, the \emph{product category} $\C \times \D$ has objects $(x,y)$ where $x \in \ob C$ and $y \in \ob \D$, and morphisms $(f,g):(x,y) \to (u,v)$ where $f:x \to u$ in $\C$ and $g:y \to v$ in $\D$.
+\item Given a set $X$, we can consider $X$ as a category $\C$ with $\ob \C=X$ and
+\[
+\Hom_\C(x,y) = \begin{cases} \{\id_x\}; & x=y\\ \emptyset; & x \neq y\end{cases}.
+\] A category of this shape is called \emph{discrete}.
+\item Let $\C$ be a category and $b \in \ob \C$. The \emph{slice category}, \emph{over category}, or \emph{comma category} $\C / b$ is the category with $\ob \C/b = \Hom_{\C}(\ob \C, b)$, that is, the morphisms in $\C$ with target $b$. The morphisms $(f\colon x \to b) \to (g\colon y \to b)$ in $\C/b$ are given by morphisms $h \in \Hom_{\C}(x,y)$ making following triangle commute:
 \begin{center}
 \begin{tikzpicture}[description/.style={fill=white,inner sep=2pt}]
-\matrix (m) [matrix of math nodes, row sep=3em,
-column sep=2.5em, text height=1.5ex, text depth=0.25ex]
+\matrix (m) [matrix of math nodes, row sep=2em,
+column sep=1em, text depth=0.25ex]
 { x & & y \\
 & b & \\ };
 \path[->,font=\scriptsize]
@@ -4676,18 +4679,19 @@ edge node[below] {$ f \hspace{0.5cm}$} (m-2-2)
 (m-1-3) edge node[auto] {$ g $} (m-2-2);
 \end{tikzpicture}
 \end{center}
-Examples of slice categories include the category of topological spaces over a base space $B$ which forms part of the definition of the category of vector bundles. Dually one may define the \emph{coslice category} $\C \setminus b$ with objects $\Hom_{\C}(b, \ob \C)$ and morphisms defined analogously. 
+Examples of slice categories include the category of topological spaces over a base space $B$, which forms part of the definition of the category of vector bundles. Dually one may define the \emph{coslice category} $\C \setminus b$ with objects $\Hom_{\C}(b, \ob \C)$ and morphisms defined analogously. 
 \end{enumerate}
 \end{example}
 
 \begin{example}
 Basic examples of functors include:
-\begin{enumerate}[label=\alph*)]
-\item The \emph{identity functor} $\id_\C : \C \to \C$ is the functor sending every object to itself and every morphism to itself.
-\item A \emph{contravariant functor} $F\colon \C \to \D$ is simply a covariant functor $\C^\op \to \D$. Presheaves are examples of contravariant functors, as is the functor from the category of vector spaces over a field $k$ to its opposite category, assigning to every vector space its dual space and every linear map to its dual linear map. 
-\item If $\D$ is a subcategory of $\C$ then there is an \emph{inclusion functor} $\D \hookrightarrow \C$. Likewise if $\C \times \D$ is a product category we have \emph{projection functors} $\pi_1 : \C \times \D \to \C$ and $\pi_2 : \C \times \D \to \D$.
-\item A \emph{forgetful functor} $F:\C \to \D$ is a functor which ``forgets'' part of the structure in $\C$. For example we can define a functor $F$ from the category of groups to the category of sets by mapping every group to its underlying set and every homomorphism to its underlying function, forgetting the group structure. Similarly we have a functor from the category of rings to the category of groups by forgetting the ring multiplication. 
-\item A functor between partially ordered sets is an order-preserving map.
+\begin{enumerate}[label=(\alph*)]
+\item The \emph{identity functor} $\id_\C\colon \C \to \C$ is the functor sending every object to itself and every morphism to itself.
+\item A \emph{contravariant functor} $F\colon \C \to \D$ is the same as a covariant functor $\C^\op \to \D$ (or $\C \to \D^{\op}$, but we will by convention only use the first point of view). Presheaves are examples of contravariant functors, as is the functor from the category of vector spaces over a field $k$ to its opposite category, assigning to every vector space its dual space and to every linear map its dual linear map. 
+\item If $\D$ is a subcategory of $\C$ then there is an \emph{inclusion functor} $\D \hookrightarrow \C$. 
+\item If $\C \times \D$ is a product category we have \emph{projection functors} $\pi_1 \colon \C \times \D \to \C$ and $\pi_2 \colon \C \times \D \to \D$.
+\item A \emph{forgetful functor} $F:\C \to \D$ is a functor which ``forgets'' part of the structure in $\C$. An example is the functor $F$ from the category of groups to the category of sets which maps a group to its underlying set and a homomorphism to its underlying function, forgetting the group structure. Similarly we have a functor from the category of rings to the category of groups by forgetting the ring multiplication. 
+\item A functor between partially ordered sets is a monotonic map.
 \item Let $\C$ be a category and $x \in \ob \C$, the \emph{Hom-functor} $\Hom(x, -)\colon\C \to \\Set$ sends each object $y \in \ob \C$ to the set $\Hom_{\C}(x,y)$ and every morphism $g \in \Hom_{\C}(y,z)$ to the morphism 
 \begin{align*}
 \displaystyle \Hom(x,g): \Hom_{\C}(x,y) &\to \Hom_{\C}(x,z) \\
@@ -4702,22 +4706,22 @@ Note that this functor simply post-composes morphisms with $g$.
 One can perfectly well talk about isomorphism of categories, but often this is a notion too strict to be useful in practice. One therefore mimicks homotopy theory and defines ``homotopies'' between functors (natural transformations) and ``homotopy equivalences'' of categories (equivalences).
 
 \begin{defn}
-Let $F$, $G\colon \C \to \D$ be two functors between categories. A \emph{natural transformation} $\eta\colon F \rightsquigarrow G$ consists of a morphism $\eta_x\colon F(x) \to G(x)$ for each $x \in \ob(\C)$ such that the following diagram commutes for each morphism $f\in\Hom_\C(x,y)$:
+Let $F$, $G\colon \C \to \D$ be two functors between categories. A \emph{natural transformation} $\eta\colon F \to G$ consists of a morphism $\eta_x\colon F(x) \to G(x)$ for each $x \in \ob(\C)$ such that the following diagram commutes for each morphism $f\in\Hom_\C(x,y)$:
 \[
 \begin{tikzpicture}
-	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+	\matrix (m) [matrix of math nodes, column sep=3ex,row sep=3ex]
 	{
 		F(x) & G(x)\\
 		F(y) & G(y)\\
 	};
 	\path[->,font=\scriptsize]
 	(m-1-1)	edge node[auto]{$\eta_x$} 	(m-1-2)
-			edge node[auto]{$F(f)$}		(m-2-1)
+			edge node[auto,swap]{$F(f)$}		(m-2-1)
 	(m-1-2)	edge node[auto]{$G(f)$}		(m-2-2)
 	(m-2-1) edge node[auto]{$\eta_y$}	(m-2-2);
 \end{tikzpicture}
 \]
-If $\eta_x$ is an isomorphism for each $x$, we call $\eta$ a natural isomorphism and the functors $F$, $G$ isomorphic.
+If $\eta_x$ is an isomorphism for each $x$, we call $\eta$ a \emph{natural isomorphism} and the functors $F$, $G$ isomorphic.
 A pair of functors $F\colon \C \to \D$ and $G \colon \D \to \C$ together with natural isomorphisms $\id_\C \to G\circ F$ and $\id_\D \to F \circ G$ is called an \emph{equivalence of categories}. 
 \end{defn}
 
@@ -4727,145 +4731,146 @@ Often, one loosely says that a certain map is ``natural.'' Note that this has a 
 
 \begin{defn}
 Let $F\colon \C \to \D$ be a functor.
-We say that $F$ is \emph{faithful} if for every pair of objects $x$, $y \in \C$, $F\colon \Hom_\C(x,y) \to \Hom_\D(Fx,Fy)$ is injective, and that $F$ is \emph{full} if that map is surjective. The functor $F$ is called \emph{essentially surjective (on objects)} if for every $y \in \ob \D$ there exists $x \in \ob \C$ such that $Fx \cong y$. 
+We say that $F$ is \emph{faithful} if for every pair of objects $x$, $y \in \C$, $F\colon \Hom_\C(x,y) \to \Hom_\D(Fx,Fy)$ is injective, and that $F$ is \emph{full} if that map is surjective. The functor $F$ is called \emph{essentially surjective (on objects)} if for every $y \in \ob \D$ there exists $x \in \ob \C$ such that $F(x) \cong y$. 
 \end{defn}
 \begin{prop}
 Let $F\colon \C \to \D$ be a functor. Then $F$ is part of an equivalence $(F,G, \alpha, \beta)$ if and only if $F$ is full, faithful, and essentially surjective on objects.
 \end{prop}
-\begin{proof}
-Suppose the data $(F,G,\alpha, \beta)$ gives an equivalence between the categories $\C$ and $\D$. \newline
-$F$ \textbf{faithful}:  Let $f,g \in \Hom_{\C}(x,y)$ with $Ff = Fg$. By naturality of the isomorphism $\alpha:\id_{\C} \to GF$ we have the following commutative squares
-\begin{center}
-\tikz[anchor=center,baseline] \node{
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     x & GFx \\
-     y & GFy \\};
-  \path[-stealth]
-    (m-1-1) edge node [left] {$f$} (m-2-1)
-            edge node [below] {$\cong$} (m-1-2)
-            edge node [above] {$\alpha_x$} (m-1-2)
-    (m-1-2) edge node [right] {$GFf$} (m-2-2)
-    (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
-   		    edge node [above] {$\cong$} (m-2-2); 
-\end{tikzpicture}
-};
-\tikz[anchor=center,baseline] \node{
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     x & GFx \\
-     y & GFy \\};
-  \path[-stealth]
-    (m-1-1) edge node [left] {$g$} (m-2-1)
-            edge node [below] {$\cong$} (m-1-2)
-            edge node [above] {$\alpha_x$} (m-1-2)
-    (m-1-2) edge node [right] {$GFg$} (m-2-2)
-    (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
-   		    edge node [above] {$\cong$} (m-2-2); 
-\end{tikzpicture}
-};
-\end{center} \noindent
-Thus $f = \alpha_y^{-1} \circ GFf \circ \alpha_x = \alpha_y^{-1} \circ GFg \circ \alpha_x = g$. Hence $F$ is faithful. By a similar argument one shows $G$ is faithful. \newline
-$F$ \textbf{full}: Let $h:Fx \to Fy$ be a morphism in $\D$. Define $f:x \to y$ via the composition
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     x & GFx \\
-     y & GFy \\};
-  \path[-stealth]
-    (m-1-1) edge node [left] {$f$} (m-2-1)
-            edge node [below] {$\cong$} (m-1-2)
-            edge node [above] {$\alpha_x$} (m-1-2)
-    (m-1-2) edge node [right] {$Gh$} (m-2-2)
-    (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
-   		    edge node [above] {$\cong$} (m-2-2); 
-\end{tikzpicture}
-\end{center} \noindent
-so that $f = \alpha_y^{-1} \circ Gh \circ \alpha_x$. By naturality of $\alpha$, $f$ also makes below diagram commute
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     x & GFx \\
-     y & GFy \\};
-  \path[-stealth]
-    (m-1-1) edge node [left] {$f$} (m-2-1)
-            edge node [below] {$\cong$} (m-1-2)
-            edge node [above] {$\alpha_x$} (m-1-2)
-    (m-1-2) edge node [right] {$GFf$} (m-2-2)
-    (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
-   		    edge node [above] {$\cong$} (m-2-2); 
-\end{tikzpicture}
-\end{center} \noindent
-Therefore $\alpha_y^{-1} \circ GFf \circ \alpha_x = \alpha_y^{-1} \circ Gh \circ \alpha_x \implies GFf = Gh \implies Ff = h$ since $G$ is faithful. Hence $F$ is full. \newline
-$F$ \textbf{essentially surjective}: Let $y \in \ob \D$. Since $\beta: \id_{\D} \to FG$ is a natural isomorphism we have that $y \thickspace \substack{\beta_y \\ \cong} \thickspace FGy$. Thus letting $x := Gy \in \ob \C$ we get that $y \cong Fx$ as required. Hence $F$ is essentially surjective. Conversely suppose $F: \C \to \D$ is full, faithful and essentially surjective on objects. We construct a functor $G$ and a natural isomorphism $\beta: \id_\D \to FG$ as follows: For each $y \in \ob \D$ choose a pair $(Gy, \beta_y)$ such that $\beta_y:y \to FGy$ is an isomorphism. Such an isomorphism exists since $F$ is essentially surjective on objects. Next we define what $G$ should do on morphisms. Given a morphism $h: y \to z$ in $\D$ the composite
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     y & z \\
-     FGy & FGz \\};
-  \path[-stealth]
-    (m-2-1) edge node [left] {$\beta_y^{-1}$} (m-1-1)
-    		edge node [right] {$\cong$} (m-1-1)
-    (m-1-1)
-            edge node [above] {$h$} (m-1-2)
-    (m-1-2) edge node [right] {$\beta_z$} (m-2-2)
-    		edge node [left] {$\cong$} (m-2-2)
-    (m-2-1) edge node [below] {$F(Gh)$} (m-2-2); 
-\end{tikzpicture}
-\end{center}  \noindent
-can be written $F(Gh)$ for a unique morphism $Gh:Gy \to Gz$ since $F$ is full and faithful. We have left to check that $G$ is a functor. Clearly if $h = \id_y$ then
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     y & y \\
-     FGy & FGy \\};
-  \path[-stealth]
-    (m-2-1) edge node [left] {$\beta_y^{-1}$} (m-1-1)
-    		edge node [right] {$\cong$} (m-1-1)
-    (m-1-1)
-            edge node [above] {$\id_y$} (m-1-2)
-    (m-1-2) edge node [right] {$\beta_y$} (m-2-2)
-    		edge node [left] {$\cong$} (m-2-2)
-    (m-2-1) edge node [below] {$F(G\id_y)$} (m-2-2); 
-\end{tikzpicture}
-\end{center} \noindent
-so $F(G\id_y) = \beta_y \circ \id_y \circ \beta_y^{-1} = \id_{FGy} = F(\id_{Gy}) \implies G \id_y = \id_{Gy}$ since $F$ is faithful. Moreover if $h':z \to u$ is a morphism in $\D$ then both $G(h' \circ h)$ and $G(h') \circ G(h)$ are the unique $f$ making below square commute
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     y & w \\
-     FGy & FGw \\
-  };
-  \path[-stealth]
-    (m-1-1) edge node [left] {$\beta_y$} (m-2-1)
-            edge node [above] {$h' \circ h$} (m-1-2)
-    (m-1-2) edge node [right] {$\beta_w$} (m-2-2)
-    (m-2-1) edge node [below] {$Ff$} (m-2-2); 
-\end{tikzpicture}
-\end{center} \noindent
-Therefore $G(h' \circ h) = G(h') \circ G(h)$. Thus $G$ is a functor. Now $\beta: \id_\D \to FG$ is natural by construction. We obtain $\alpha_x$ from the component $\beta_{Fx}: Fx \to FGFx$ since $\beta_{Fx} = F(\alpha_x)$ for unique $\alpha_x: x \to GFx$ because $F$ is full and faithful. Similarly $\beta_{Fx}^{-1} : FGFx \to Fx$ can be written as $\beta_{Fx}^{-1} = Ff$ for some morphism $f:GFx \to x$ since $F$ is full and faithful. Thus $F\id_x = \id_{Fx} = \beta_{Fx}^{-1} \circ \beta_{Fx} = Ff \circ F(\alpha_x) = F(f \circ \alpha_x) \implies \id_x = f \circ \alpha_x$ since $F$ is faithful. Similarly $\alpha_x \circ f = \id_{GFx}$ so $\alpha_x$ is an isomorphism. Finally $\alpha$ is natural since by naturality of $\beta$ below square commutes
-\begin{center}
-\begin{tikzpicture}
-  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
-  {
-     Fx & FGFx \\
-     Fy & FGFy \\};
-  \path[-stealth]
-    (m-1-1) edge node [left] {$Ff$} (m-2-1)
-            edge node [above] {$\beta_{Fx} = F \alpha_x$} (m-1-2)
-    (m-1-2) edge node [right] {$FGFf$} (m-2-2)
-    (m-2-1) edge node [below] {$\beta_{Fy} = F\alpha_y$} (m-2-2); 
-\end{tikzpicture}
-\end{center} \noindent
-so $F\alpha_y \circ Ff = FGFf \circ F \alpha_x \implies F(\alpha_y \circ f) = F(GFf \circ \alpha_x) \implies \alpha_y \circ f = GFf \circ \alpha_x$ since $F$ is faithful. Hence $\alpha$ is natural giving the equivalence $(F,G, \alpha, \beta)$ between categories $\C$ and $D$.
-\end{proof}
+For a proof, see \cite[Theorem IV.4.1]{maclane:cwm}.
+% \begin{proof}
+% Suppose the data $(F,G,\alpha, \beta)$ gives an equivalence between the categories $\C$ and $\D$. \newline
+% $F$ \textbf{faithful}:  Let $f,g \in \Hom_{\C}(x,y)$ with $Ff = Fg$. By naturality of the isomorphism $\alpha:\id_{\C} \to GF$ we have the following commutative squares
+% \begin{center}
+% \tikz[anchor=center,baseline] \node{
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      x & GFx \\
+%      y & GFy \\};
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$f$} (m-2-1)
+%             edge node [below] {$\cong$} (m-1-2)
+%             edge node [above] {$\alpha_x$} (m-1-2)
+%     (m-1-2) edge node [right] {$GFf$} (m-2-2)
+%     (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
+%    		    edge node [above] {$\cong$} (m-2-2); 
+% \end{tikzpicture}
+% };
+% \tikz[anchor=center,baseline] \node{
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      x & GFx \\
+%      y & GFy \\};
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$g$} (m-2-1)
+%             edge node [below] {$\cong$} (m-1-2)
+%             edge node [above] {$\alpha_x$} (m-1-2)
+%     (m-1-2) edge node [right] {$GFg$} (m-2-2)
+%     (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
+%    		    edge node [above] {$\cong$} (m-2-2); 
+% \end{tikzpicture}
+% };
+% \end{center} \noindent
+% Thus $f = \alpha_y^{-1} \circ GFf \circ \alpha_x = \alpha_y^{-1} \circ GFg \circ \alpha_x = g$. Hence $F$ is faithful. By a similar argument one shows $G$ is faithful. \newline
+% $F$ \textbf{full}: Let $h:Fx \to Fy$ be a morphism in $\D$. Define $f:x \to y$ via the composition
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      x & GFx \\
+%      y & GFy \\};
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$f$} (m-2-1)
+%             edge node [below] {$\cong$} (m-1-2)
+%             edge node [above] {$\alpha_x$} (m-1-2)
+%     (m-1-2) edge node [right] {$Gh$} (m-2-2)
+%     (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
+%    		    edge node [above] {$\cong$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center} \noindent
+% so that $f = \alpha_y^{-1} \circ Gh \circ \alpha_x$. By naturality of $\alpha$, $f$ also makes below diagram commute
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      x & GFx \\
+%      y & GFy \\};
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$f$} (m-2-1)
+%             edge node [below] {$\cong$} (m-1-2)
+%             edge node [above] {$\alpha_x$} (m-1-2)
+%     (m-1-2) edge node [right] {$GFf$} (m-2-2)
+%     (m-2-1) edge node [below] {$\alpha_y$} (m-2-2)
+%    		    edge node [above] {$\cong$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center} \noindent
+% Therefore $\alpha_y^{-1} \circ GFf \circ \alpha_x = \alpha_y^{-1} \circ Gh \circ \alpha_x \implies GFf = Gh \implies Ff = h$ since $G$ is faithful. Hence $F$ is full. \newline
+% $F$ \textbf{essentially surjective}: Let $y \in \ob \D$. Since $\beta: \id_{\D} \to FG$ is a natural isomorphism we have that $y \thickspace \substack{\beta_y \\ \cong} \thickspace FGy$. Thus letting $x := Gy \in \ob \C$ we get that $y \cong Fx$ as required. Hence $F$ is essentially surjective. Conversely suppose $F: \C \to \D$ is full, faithful and essentially surjective on objects. We construct a functor $G$ and a natural isomorphism $\beta: \id_\D \to FG$ as follows: For each $y \in \ob \D$ choose a pair $(Gy, \beta_y)$ such that $\beta_y:y \to FGy$ is an isomorphism. Such an isomorphism exists since $F$ is essentially surjective on objects. Next we define what $G$ should do on morphisms. Given a morphism $h: y \to z$ in $\D$ the composite
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      y & z \\
+%      FGy & FGz \\};
+%   \path[-stealth]
+%     (m-2-1) edge node [left] {$\beta_y^{-1}$} (m-1-1)
+%     		edge node [right] {$\cong$} (m-1-1)
+%     (m-1-1)
+%             edge node [above] {$h$} (m-1-2)
+%     (m-1-2) edge node [right] {$\beta_z$} (m-2-2)
+%     		edge node [left] {$\cong$} (m-2-2)
+%     (m-2-1) edge node [below] {$F(Gh)$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center}  \noindent
+% can be written $F(Gh)$ for a unique morphism $Gh:Gy \to Gz$ since $F$ is full and faithful. We have left to check that $G$ is a functor. Clearly if $h = \id_y$ then
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      y & y \\
+%      FGy & FGy \\};
+%   \path[-stealth]
+%     (m-2-1) edge node [left] {$\beta_y^{-1}$} (m-1-1)
+%     		edge node [right] {$\cong$} (m-1-1)
+%     (m-1-1)
+%             edge node [above] {$\id_y$} (m-1-2)
+%     (m-1-2) edge node [right] {$\beta_y$} (m-2-2)
+%     		edge node [left] {$\cong$} (m-2-2)
+%     (m-2-1) edge node [below] {$F(G\id_y)$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center} \noindent
+% so $F(G\id_y) = \beta_y \circ \id_y \circ \beta_y^{-1} = \id_{FGy} = F(\id_{Gy}) \implies G \id_y = \id_{Gy}$ since $F$ is faithful. Moreover if $h':z \to u$ is a morphism in $\D$ then both $G(h' \circ h)$ and $G(h') \circ G(h)$ are the unique $f$ making below square commute
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      y & w \\
+%      FGy & FGw \\
+%   };
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$\beta_y$} (m-2-1)
+%             edge node [above] {$h' \circ h$} (m-1-2)
+%     (m-1-2) edge node [right] {$\beta_w$} (m-2-2)
+%     (m-2-1) edge node [below] {$Ff$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center} \noindent
+% Therefore $G(h' \circ h) = G(h') \circ G(h)$. Thus $G$ is a functor. Now $\beta: \id_\D \to FG$ is natural by construction. We obtain $\alpha_x$ from the component $\beta_{Fx}: Fx \to FGFx$ since $\beta_{Fx} = F(\alpha_x)$ for unique $\alpha_x: x \to GFx$ because $F$ is full and faithful. Similarly $\beta_{Fx}^{-1} : FGFx \to Fx$ can be written as $\beta_{Fx}^{-1} = Ff$ for some morphism $f:GFx \to x$ since $F$ is full and faithful. Thus $F\id_x = \id_{Fx} = \beta_{Fx}^{-1} \circ \beta_{Fx} = Ff \circ F(\alpha_x) = F(f \circ \alpha_x) \implies \id_x = f \circ \alpha_x$ since $F$ is faithful. Similarly $\alpha_x \circ f = \id_{GFx}$ so $\alpha_x$ is an isomorphism. Finally $\alpha$ is natural since by naturality of $\beta$ below square commutes
+% \begin{center}
+% \begin{tikzpicture}
+%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+%   {
+%      Fx & FGFx \\
+%      Fy & FGFy \\};
+%   \path[-stealth]
+%     (m-1-1) edge node [left] {$Ff$} (m-2-1)
+%             edge node [above] {$\beta_{Fx} = F \alpha_x$} (m-1-2)
+%     (m-1-2) edge node [right] {$FGFf$} (m-2-2)
+%     (m-2-1) edge node [below] {$\beta_{Fy} = F\alpha_y$} (m-2-2); 
+% \end{tikzpicture}
+% \end{center} \noindent
+% so $F\alpha_y \circ Ff = FGFf \circ F \alpha_x \implies F(\alpha_y \circ f) = F(GFf \circ \alpha_x) \implies \alpha_y \circ f = GFf \circ \alpha_x$ since $F$ is faithful. Hence $\alpha$ is natural giving the equivalence $(F,G, \alpha, \beta)$ between categories $\C$ and $D$.
+% \end{proof}
 
 \section{Limits and colimits}\label{app:limits}
 
@@ -4885,11 +4890,7 @@ A category that has (co)limits for all diagrams is called (co)complete.
 
 The limit for the empty diagram ($\ob I = \emptyset$) is called a \emph{initial object}, if it exists, and the colimit a \emph{terminal object}. By definition, an object $x$ is initial if $\Hom(x,y)$ is a singleton for every $y \in \C$; analogously $x$ is terminal if $\Hom(y,x)$ is a singleton for every $y \in \C$.
 
-A category $I$ is called \emph{discrete} if 
-\[
-\Hom_\C(x,y) =\begin{cases} \emptyset; & x \neq y\\ \{\id_x\}; & x = y.\end{cases}
-\]
-Small discrete categories are thus the same as sets (and functors between small discrete categories the same as functions). A diagram $F\colon I \to \C$ indexed by a small discrete category $I$ is just a collection $x_i$ of objects of $\C$. A (co)limit of such a functor, if it exists, is called a (co)product and denoted by
+A diagram $F\colon I \to \C$ indexed by a small discrete category $I$ is just a collection $x_i$ of objects of $\C$. A (co)limit of such a functor, if it exists, is called a (co)product and denoted by
 \[
 \lim F = \prod_{i \in I} X_i \quad\text{and}\quad \colim F = \coprod_{i \in I} X_i.
 \]
@@ -4901,27 +4902,46 @@ X \rightrightarrows Y,
 \]
 i.~e. where $I$ consists of two objects $a$ and $b$ and $\Hom_I(a,b) = \{f,g\}$, whereas $\Hom_I(a,a) = \{\id_a\}$, $\Hom_I(b,b) = \{\id_b\}$, and $\Hom_I(b,a) = \emptyset$. One can, for instance, think of this category as the category whose objects are the ordered sets $[0]$ and $[1]$ and the morphisms the strictly monotonic maps. If the limit of a functor $F\colon I \to \C$ exists for such a diagram, it is called the \emph{equalizer} of $F(f)$ and $F(g)$ and denoted by $\eq(X \rightrightarrows Y)$. Unsurprisingly, the dual notion is called the \emph{coequalizer} $\coeq(X \rightrightarrows Y)$.
 
-In the special case of set-valued functors, limits and colimits have useful element-wise descriptions:
+The equalizer of two maps $f,\;g \colon X \to Y$ in the category of sets is the subset $\{x \in X \mid f(x)=g(x)\}$. The coequalizer is the quotient $Y/\sim$, where $\sim$ is the equivalence relation generated by the relation $(f(x) \sim g(x))_{x \in X}$.
+
+Limits and colimits have useful descriptions when the category $\C$ is (co-) complete:
+\begin{lemma}
+Let $F\colon I \to \C$ be a functor. Then
+\[
+\colim F \cong \coeq\Bigl(\coprod_{i \xrightarrow{\alpha} j \in I} F(i) \rightrightarrows \coprod_{i \in I} F(i)\Bigr),
+\]
+where the two maps are given by the identity map on $F(i)$ and the map $F(\alpha)$. Similarly,
+\[
+\lim F \cong \eq\Bigl(\prod_{j \in I} F(i) \rightrightarrows \prod_{i \xrightarrow{\alpha} j \in I} F(j)\Bigr),
+\]
+where the two maps are given by the identity map on $F(j)$ and the map $F(\alpha)$.
+\end{lemma}
+
+For a proof, see \cite[Theorem~V.2.2]{maclane:cwm}. In particular, for functors into sets we get
 \begin{lemma}\label{lem:setvaluedlim}
 Let $F\colon I \to \Set$ be a functor. Then
 \begin{enumerate}
 \item For every $x \in \colim F$ there is an $i \in I$ and an $x_i \in F(i)$ such that $\iota_i(x_i) = x$.\label{lem:setvaluedlim:colim}
-\item For every pair $x$, $y \in \lim F$ such that $p_i(x) = p_i(y)$ for all $i$, we have that $x=y$.\label{lem:setvaluedlim:lim}
-\end{enumerate}
+\item If for $x_i \in F(i)$, $x_j \in F(j)$, we have that $\iota_i(x_i) = \iota_j(x_j)$ then there exists a finite ``zigzag'' subcategory $Z$ of $I$,
+\[
+Z = (i=i_0) \to i_1 \leftarrow i_2 \to i_3 \leftarrow \cdots \leftarrow (i_n=j)
+\]
+and elements $y_k \in F(i_k)$ such that $y_0=x_i$, $y_n=x_j$, and 
+\[
+y_0 \mapsto y_1 \mapsfrom y_2 \mapsto y_3 \mapsfrom \cdots \mapsfrom y_n
+\]
+under the maps induced by he previous zigzag. \label{lema:setvaluedlim:colimequivalence}
+\end{enumerate}\qed
 \end{lemma}
-\begin{proof}
-For \eqref{lem:setvaluedlim:colim}, let $\pi\colon \colim F \to \{0,1\}$ be the map that sends $x$ to $1$ and every other element to $0$. Then $\pi \circ \iota_i$ is a cocone for $F$. If $\pi \circ \iota_i$ is not constantly $0$ for some $i \in I$ then there is an $x_i \in F(i)$ such that $\pi(\iota_i(x_i))=1$, hence $\iota_i(x_i) = x$. Otherwise, if $\pi \circ \iota_i \equiv 0$ for all $i$, the map $\pi' \equiv 0\colon \colim F \to \{0,1\}$ is another map such that $\pi' \circ \iota_i$ is a cocone, contradicting the uniqueness in the definition of colimit.
 
-For \eqref{lem:setvaluedlim:lim}, we employ a similar argument. Let $f,\;g \colon \{0\} \to \lim F$ be given by $f(0) = x$, $g(0) = y$. Since $p_i \circ f = p_i \circ g$ for all $i$ by assumption, $p_i \circ f$ and $p_i \circ g$ are identical cones for $F$, hence the maps $f$ and $g$ are the same. Hence $x=y$.
-\end{proof}
+Note that this statement is false for other category, e.g. abelian groups, since an element in $A \oplus B$ need not be in $A \sqcup B$.
 
-Finally, we will consider a special case of (co)limits whose usefulness is not that apparent.
-
+Finally, we will consider a special case of (co)limits which are particularly well-behaved.
 \begin{defn}
 A category $I$ is called \emph{cofiltered} if it is small and:
 \begin{description}
 \item[(Fi1)] For every $i,\;j \in \ob(I)$ there is another object $k \in \ob(I)$ with morphisms $i \leftarrow k \to j$;
-\item[(Fi2)] For every two morphisms $f,g\colon i \to j$ there is another object $k$ with a morphism $h\colon k \to i$ such that $f \circ h = g \circ h$.
+\item[(Fi2)] For every two morphisms $f,g\colon i \rightrightarrows j$ there is another object $k$ with a morphism $h\colon k \to i$ such that $f \circ h = g \circ h$.
 \end{description}
 The category $I$ is called \emph{filtered} if $I^\op$ is filtered.
 \end{defn}
@@ -4930,7 +4950,7 @@ A complete category is clearly cofiltered since one can take $k = i \times j$ in
 A particular kind of filtered category is a poset (Ex.~\ref{exa:posetcat}) which is filtered. This goes by the name of a \emph{directed set}:
 
 \begin{defn}
-A poset $(X,\leq)$ is called \emph{inverse} if for all pairs $x$, $y \in X$ there is a $z \in X$ such that $x \leq z$ and $y \leq z$ (in other words, if any finite subset has an upper bound). The dual notion is called an \emph{inverse set}.
+A poset $(X,\leq)$ is called \emph{directed} if for all pairs $x$, $y \in X$ there is a $z \in X$ such that $x \leq z$ and $y \leq z$ (in other words, if any finite subset has an upper bound). The dual notion is called an \emph{inverse set}.
 \end{defn}
 
 The reason filtered categories have a special place when computing limits and colimits are the following results:
@@ -4939,14 +4959,13 @@ The reason filtered categories have a special place when computing limits and co
 Let $I$ be a filtered category and $F\colon I \to \Set$ a functor to the category of sets. Denote the structure maps $F(i) \to \colim F$ by $\iota_i$. Then
 \begin{enumerate}
 \item For any $x$, $x' \in \colim F$ there is some $i \in \ob(I)$ and $x_i,\; x'_i \in F(i)$ such that $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$. \label{lem:filteredcolimitset:ex}
-\item If $x_i$, $x_i' \in F(i)$ are such that $\iota_i(x_i) = \iota_i(x'_i) \in \colim F$ then there is a $j \in I$ and a morphism $\alpha \in \Hom_I(i,j)$ such that $F(\alpha)(x_i) = F(\alpha)(x'_i) \in F(j)$. \label{lem:filteredcolimitset:un}
+\item If $x_i \in F(i)$, $x_{i'} \in F(i')$ are such that $\iota_i(x_i) = \iota_{i'}(x_{i'}) \in \colim F$ then there is a $j \in I$ and morphisms $\alpha \in \Hom_I(i,j)$, $\alpha' \in \Hom_I(i',j)$ such that $F(\alpha)(x_i) = F(\alpha')(x_{i'}) \in F(j)$. \label{lem:filteredcolimitset:un}
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 For \eqref{lem:filteredcolimitset:ex}, Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim} guarantees the existence of $i'$ and $i'' \in I$ with elements $y_{i'} \in F(i')$ and $y_{i''} \in F(i'')$ such that $\iota_{i'}(y_{i'}) = x$ and $\iota_{i''}(y_{i''}) = x'$. By (Fi1), choose morphisms $i' \xrightarrow{\alpha} i \xleftarrow{\beta} i''$ and define $x_i = F(\alpha)(x_{i'})$ and $x'_i = F(\beta)(x_{i''})$. Then $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$.
 
-For \eqref{lem:filteredcolimitset:un}, \dots.......
-
+For \eqref{lem:filteredcolimitset:un}, choose a zigzag as in Lemma~\ref{lema:setvaluedlim:colimequivalence} and choose $j$ such that morphisms $i_k \to j$ exist in $I$ for all $0 \leq k \leq n$. It follows immediately from the cofiltered property that all $y_{k}$ map to the same element $y \in F(j)$.
 \end{proof}
 
 \begin{lemma} \label{lemma:filteredcolimfinitelim}
@@ -4978,22 +4997,7 @@ F_2(\beta) \circ p_{j'} \circ \iota_i = p_j \circ \iota_i = \iota_{i'} \circ p_j
 \]
 \emph{Surjectivity of $\phi$:} Given $y \in \lim_j \colim_i F(i,j) = \lim F_2$, the element $p_j(y) \in F_2(j) = \colim_i F(i,j)$ has to be in the image of $\phi_{i_jj}$ for some $i_j \in I$ by Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim}. Let $x_j \in F_1(i_j)$ be such a preimage. The surjectivity of $\phi$ is equivalent to asking that we can find an $i \in I$ \emph{independent of $j$} such that $p_j(y) \in \im(\phi_{ij})$ for all $j$. But since $J$ is finite and $I$ filtered, there is an object $i \in I$ with maps $\alpha_j \colon i_j \to i$. Then $\alpha_j(x_j) \in F_1(i)$ for all $j$, and $\phi_{ij}(\alpha_j(x_j)) = p_j(y)$.
 
-\emph{Injectivity of $\phi$:} Let $x$, $x' \in \colim_i F_1$ be two elements such that $\phi(x) = \phi(x')$. By Lemma~\ref{lem:filteredcolimitset} there are elements $x_i$ and $x'_i \in F_1(i)$ such that $\iota_i(x_i) = x$ and $\iota_i(x'_i) = x'$. Then for all $j \in J$, the elements $y = p_j(\phi(x)) = \phi_{ij}(x_i)$ and $p_j(\phi(x')) = \phi_{ij}(x'_i)$ in $F_2(j)$ are equal. By Lemma~\ref{lem:filteredcolimitset}, there is an $\alpha \in \Hom_I(i,i')$ and $y_j \in F(i',j)$ such that $p_j(\alpha(x_i) = p_j(\alpha(x'_i) = y_j$ and $\iota_{i'}(y_j) = y$ for all $j$. Since this is true for all $j$, $\alpha(x_i) = \alpha(x'_i)$ by Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:lim} and hence $x=x'$.
-\end{proof}
-
-\section{Exactness}
-
-Let $\mathcal A$ denote the category of abelian groups (or $R$-modules for some ring $R$). Then for any small category $I$, the category $\mathcal A^I$ of functors $I \to \mathcal A$ is also abelian; kernels and cokernels are computed objectwise. In particular, a sequence $X \to Y \to Z$ in $\mathcal A^I$ is exact if and only if for each $i \in I$, $X(i) \to Y(i) \to Z(i)$ is exact.
-
-\begin{thm}\label{thm:filteredcolimexact}
-If $I$ is filtered then the functor
-\[
-\colim_I \colon \mathcal A^I \to \mathcal A
-\]
-is exact, i.~e. it maps exact sequences to exact sequences.
-\end{thm}
-\begin{proof}
-We only have to show left exactness, i.~e. that $\colim_I$ preserves kernels. But the kernel of a map $f\colon X \to Y$ is the limit of the finite diagram $X \xrightarrow{f} Y \leftarrow 0$ in any abelian category, hence by Lemma~\ref{lemma:filteredcolimfinitelim}, $\colim_I$ preserves them.
+\emph{Injectivity of $\phi$:} Let $x$, $x' \in \colim_i F_1$ be two elements such that $\phi(x) = \phi(x')$. By Lemma~\ref{lem:filteredcolimitset} there are elements $x_i$ and $x'_i \in F_1(i)$ such that $\iota_i(x_i) = x$ and $\iota_i(x'_i) = x'$. Then for all $j \in J$, the elements $y = p_j(\phi(x)) = \phi_{ij}(x_i)$ and $p_j(\phi(x')) = \phi_{ij}(x'_i)$ in $F_2(j)$ are equal. By Lemma~\ref{lem:filteredcolimitset}, there is an $\alpha \in \Hom_I(i,i')$ and $y_j \in F(i',j)$ such that $p_j(\alpha(x_i) = p_j(\alpha(x'_i) = y_j$ and $\iota_{i'}(y_j) = y$ for all $j$. Since this is true for all $j$, $\alpha(x_i) = \alpha(x'_i)$ and hence $x=x'$.
 \end{proof}
 
 \nocite{milnor-stasheff}
