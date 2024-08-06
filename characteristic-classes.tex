@@ -39,10 +39,11 @@
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\divisor}{div}
 \DeclareMathOperator{\tw}{tw}
+\DeclareMathOperator{\Proj}{Proj}
 
 \renewcommand{\C}{\mathcal C}
 \newcommand{\nerve}{\mathcal N}
-
+\newcommand{\Reg}[1]{\mathcal O_{#1}}
 \newcommand{\exterior}{\bigwedge\nolimits}
 \newcommand{\chapterauthor}[1]{\hfill\emph{#1}\par\noindent}
 \newcommand{\ud}{\mathrm{d}}
@@ -190,7 +191,7 @@ We now define the \emph{tautological line bundle} $\mathcal O(-1)$ on $P^n$ by
 \[
 E = \{ (x,L) \mid L \in P^n, x \in L\}.
 \]
-It is called tautological because the fiber $E_L$ over a line $L \in P^n$ \emph{is that line}. The notation $\mathcal O(-1)$ will become clear later (Section~\ref{sec:firstchern}). The total space $E_n$ is topologized as a subspace of $k^{n+1} \times P^n$, and the projection map is the obvious one, mapping $(x,L)$ to $L$. Much as in Example~\ref{exa:mobiusstrip}, we see that the vector-space-over-$P^n$ structure of the $(n+1)$-dimensional trivial vector bundle $k^{n+1} \times P^n$ restricts to the subspace $E$, and it remains to show local triviality.
+It is called tautological because the fiber $E_L$ over a line $L \in P^n$ \emph{is that line}. The notation $\mathcal O(-1)$ will become clear later (Section~\ref{subsec:projectiveschemes}). The total space $E_n$ is topologized as a subspace of $k^{n+1} \times P^n$, and the projection map is the obvious one, mapping $(x,L)$ to $L$. Much as in Example~\ref{exa:mobiusstrip}, we see that the vector-space-over-$P^n$ structure of the $(n+1)$-dimensional trivial vector bundle $k^{n+1} \times P^n$ restricts to the subspace $E$, and it remains to show local triviality.
 
 Choose an arbitrary scalar product $\langle \cdot,\cdot \rangle$ on $k^{n+1}$, let $L \in P^n$ be a line in $k^{n+1}$, $x_0 \in L$ a point of norm $1$, and choose $U = \{ L' \in P^n \mid L,L' \text{ are not orthogonal}\}$. Then there is a bijective map
 \[
@@ -236,7 +237,7 @@ E = \{(x,L) \mid L \in kP^n,\; x \in L^\perp\}.
 That is, the point $x$ is in the hyperplane orthogonal to $L$. Shows that this defines a vector bundle, which we will call $\mathcal O(-1)^\perp$.
 \end{exer}
 
-\begin{exer}
+\begin{exer} 
 Let $k=\R$, $\CC$, or $\mathbf H$. Show that there is a homeomorphism between $kP^1$, the one-dimensional projective space over $k$, and $\S^{\dim_\R(k)}$, i.~e. $\S^1$, $\S^2$, and $\S^4$, respectively.
 
 Show that the Möbius bundle $\mu$ of Example~\ref{exa:mobiusstrip} is isomorphic to the tautological line bundle $\mathcal O(-1)$ on $\R P^1$.
@@ -1043,7 +1044,7 @@ A topological space $M$ is called a (topological, real) manifold if it is Hausdo
 
 We now return to the point of view of Section~\ref{sec:bundlesassheaves}, where we thought of a vector bundle on a space $B$ as a locally finite-dimensional free sheaf of $\mathcal O_B$-modules.
 
-\subsection{Smooth manifolds}
+\subsection{Smooth manifolds}\label{subsec:smooth-manifolds}
 
 \begin{defn}
 A ring $R$ is called \emph{local} if it possesses a unique maximal ideal, which we will denote by $R_+$ in these notes. A \emph{morphism of local rings} is a ring morphism $f\colon R \to S$ such that $f(R_+) \subseteq S_+$.
@@ -1355,7 +1356,7 @@ is a smooth $G/\stab(x)$-bundle. But $G/\stab(x)$ acts transitively on $Gx$, so 
 \end{corollary}	
 
 
-\section{Stiefel and Grassmann manifolds}
+\section{Stiefel and Grassmann manifolds}\label{sec:stiefelgrassmann}
 
 In this section we will construct spaces $G_n(k^N)$ whose points correspond to $n$-dimensional linear subspaces of $k^N$. Obviously, for this to be nonempty, we need that $N \geq n$. These spaces are called \emph{Grassmann manifolds} or just \emph{Grassmannians} after their discoverer, 19th century mathematician Hermann Graßmann. They are in fact compact manifolds (when $k=\R$ or $\CC$) and, more generally, smooth projective varieties for any field $k$.
 
@@ -4269,45 +4270,29 @@ where $c_j(E,\nabla^E)\in\Omega^{2j}(M)$ for each $j\in\mathbb{N}$. Then $c_j(E,
 
 
 \chapter{Characteristic classes in algebraic geometry (Draft)}
+
+In algebraic geometry, vector bundles are objects of study as fundamental as in algebraic topology or differential geometry. Much of the theory is similar to topology; in particular, characteristic classes can be defined and usefully applied. Other aspects are more complicated, as for instance the rigidity of algebraic structure precludes the existence of classifying spaces (schemes) for vector bundles.
+
 \section{Introduction to schemes}
-\chapterauthor{Stefano Marseglia}
+\chapterauthor{with contributions by Stefano Marseglia}
 
-Let $A$ be a ring and denote by $\Spec A$ the set of all its prime ideals. For any ideal $I$ of $A$ put
-$V(I)=\{\mathfrak p \in \Spec A : I \subseteq \mathfrak p\}$
-and for $f\in A$
-$D(f)= \Spec A\setminus V(fA)$.
-It follows immediately that there exists a unique topology on $\Spec A$ whose close subsets are of the form $V(I)$ and, moreover, the sets of the form $D(f)$ constitute a basis of open subsets. This topology is called the \emph{Zariski tolopology}. Note that a point is closed if and only if the corresponding prime ideal is maximal.
+We will assume that the reader is familiar with the basic language of schemes, the Zariski topology, and divisors, and provide only the briefest of introductions in order to set up notation.
 
-Given a ring homomorphism $\varphi:A\to B$ we obtain a induced continuous map $\Spec \varphi: \Spec B \to \Spec A$ defined by $\mathfrak p \mapsto \varphi^{-1}(\mathfrak p)$. Hence $\Spec$ is a contravariant functor form the category of rings to topological spaces.
+All rings in this chapter are commutative and unital. We denote by $\Spec A$ the spectrum of prime ideals of the ring $A$ with the Zariski topology generated by the open subsets $D(f) \subset \Spec A$ consisting of prime ideals not containing $f$, for any $f \in  A$. We denote the affine line over a ring $R$ by $\mathbb A^1_R = \Spec R[T]$, whose points consist of a ``generic'' point $(0)$ and the closed points (maximal ideals) $(T-z)$, with $z\in A$.
 
-\begin{example}
- Given a field $K$, then $\Spec K$ consists of a point corresponding to the zero ideal.
+Recall the definition of a smooth manifold as a locally ringed space (Section~\ref{subsec:smooth-manifolds}) which is locally isomorphic to $(\mathbf R^n,C^\infty)$. The definition of schemes is completely analogous, with the role of the ``local models'' played by $\Spec A$.
 
- The \emph{affine complex line} $\mathbb A_\CC^1=\Spec \CC[T]$ consists of a ``generic'' point $(0)$ and closed points $(T-z)$, with $z\in \CC$.
-\end{example}
-Let us consider the space $X = \Spec A$ with the Zariski topology. The association $\mathcal O_X(D(f))=A_f$ induces a sheaf of rings $\mathcal O_X$ on $X$, with $\mathcal O_X(X)=A$. Moreover the stalk $\mathcal O_{X,\mathfrak p}$ at a point $\mathfrak p\in X$ is canonically isomorphic to $A_\mathfrak p$. Hence the pair $(X,\mathcal O_X)$ is a locally ringed space.
-\begin{defn} \marginpar{xref Section 2}
- A locally ringed space isomorphic to $(\Spec A,\mathcal O_{\Spec A})$ for some ring $A$ is called \emph{affine scheme}. A \emph{scheme} is a locally ringed space $(X,\mathcal O_X)$ that admits a open covering $\{U_i\}_{i\in I}$ such that $(U_i,\mathcal O_{U_i})$ is an affine scheme for every $i$. For such a $U_i$, the ring $\mathcal O_X(U_i)$ is called \emph{the coordinate ring}.
+Let us consider the space $X = \Spec A$ with the Zariski topology. The association $\Reg{X}(D(f))=A[f^{-1}]$ defines a sheaf of rings $\Reg{X}$ on $X$, with $\Reg{X}(X)=A$. Moreover, the stalk $\mathcal O_{X,p}$ at a point $p\in X$ is canonically isomorphic to $A_p$. Hence the pair $(X,\Reg{X})$ is a locally ringed space. Henceforth we mean by $\Spec A$ this locally ringed space, not just the underlying topological space.
 
- A \emph{morphism of schemes} is a morphism of the associated locally ringed spaces.
+\begin{defn}
+A \emph{scheme} is a locally ringed spaces $(X,\Reg{X})$ locally isomorphic to $\Spec A$ for some ring $A$. A scheme isomorphic to $\Spec A$ itself is called an \emph{affine scheme}. A \emph{morphism of schemes} is a morphism of the associated locally ringed spaces.
 \end{defn}
 
 Given a scheme $(X,\mathcal O_X)$, its \emph{open subschemes} are of the form $(U,\mathcal O_X|_U)$, where $U$ is any open subset of $X$. But it is not possible to restrict in a canonical way the structure sheaf of $X$ to a closed subset \marginpar{what about the pullback?}. Hence a \emph{closed subscheme} $Y$ of $X$ must come with an additional data, the corresponding \emph{ideal sheaf} $\mathcal I(Y)$, that is for every affine open $U$ of $X$, the closed subscheme $Y$ is determined by an ideal in the ring $\mathcal O_X(U)$.
 
-\begin{defn}
- Let $S$ be a scheme. An \emph{$S$-scheme} or \emph{scheme over $S$} is a scheme $X$ with a morphism $\pi:X\to S$. The morphism $\pi$ is called the structure morphism. A \emph{morphism} of $S$-schemes is a scheme morphism compatible with the structure morphisms. If $S$ is an affine scheme, say $S=\Spec A$, we say that $X$ is an $A$-scheme. 
-\end{defn}
+An affine scheme $\Spec A$ is called \emph{reduced} if $A$ has no nilpotent elements, and a scheme $X$ is reduced if it is locally isomorphic to reduced schemes.
 
-\begin{example}
- We define the \emph{$n$-dimensional affine space over $A$} as
- \[
- \mathbb A^n_A = \Spec A[T_1,\cdots,T_n].
- \]
-\end{example}
-
-A scheme is called \emph{reduced} if there is an affine open covering consisting of coordinate rings with no nilpotent elements.
-
-A scheme (or any topological space) is \emph{irreducible} if it cannot be written as the union of two distinct closed subsets. We can establish a partial order relation by inclusion among the irreducible subsets of a topological space $X$, and then Zorn's Lemma implies the existence of the maximal elements, which are called the \emph{irreducible components} of $X$. Note that for an affine scheme $\Spec A$, the irreducible components correspond to the minimal prime ideals of $A$. In particular if $A$ is a integral domain then $\Spec A$ is irreducible.
+A scheme (or any topological space) is \emph{irreducible} if it cannot be written as the union of two distinct closed subsets. Any noetherian scheme (or topological space) can uniquely be written as a union of \emph{irreducible components} of $X$. Note that for an affine scheme $\Spec A$, the irreducible components correspond to the minimal prime ideals of $A$. In particular if $A$ is a integral domain then $\Spec A$ is irreducible.
 
 A scheme that is both reduced and irreducible is called \emph{integral}.
 
@@ -4316,14 +4301,77 @@ A scheme $X$ is called an \emph{algebraic scheme} over the field $K$ if it comes
 In what follows the word scheme will be used to refer to algebraic scheme.
 
 \begin{defn}
- A scheme $E$ with a morphism $p\colon E\to X$ is an \emph{affine bundle} of dimension $n$ over $X$ if $X$ has a open covering $\{U_\alpha\}_{\alpha \in I}$ such that there are isomorphisms over $U_\alpha$
+ A scheme $E$ with a morphism $p\colon E\to X$ over $\Spec K$ is an \emph{affine bundle} of dimension $n$ over $X$ if $X$ has a open covering $\{U_\alpha\}_{\alpha \in I}$ such that there are isomorphisms over $U_\alpha$
  \[\varphi_\alpha\colon p^{-1}(U_\alpha) \cong U_\alpha\times \mathbb A^n.\]
  Moreover, if  the composites $\varphi_\alpha\circ \varphi_\beta^{-1}$ over $U_{\alpha\beta}$ are linear, that is given by morphisms
  \[
- g_{\alpha,\beta}\colon U_\alpha\cap U_\beta:\to \GL_n(K),
+ g_{\alpha,\beta}\colon U_\alpha\cap U_\beta\to \GL_n(K),
  \]
- we call $E$ an \emph{algebraic vector bundle} over $X$.
+ we call $E$ an \emph{algebraic vector bundle} over $X$. We denote the category of $n$-dimensional algebraic vector bundlex by $\Vect^n_X$
 \end{defn}
+
+As in Chapter~\ref{sec:bundlesassheaves}, we can alternatively define an algebraic vector bundle as a finitely generated, locally free $\Reg{X}$-module sheaf on $X$, and the assignment $p \mapsto \Gamma_p$, which assigns to the morphism $p$ its sheaf of sections, exhibits the equivalence between the two approaches as in Theorem~\ref{thm:vbsheafequivalence} for topological vector bundles. 
+
+Similarily, isomorphism classes of vector bundles trivialized over an open cover $\mathcal U$ can be identified with cocycles \marginpar{figure this out properly.}
+
+\begin{remark}
+If $K=\R$ or $\CC$, the $K$-valued points of a scheme $X$ give a topological space (a smooth manifold if $X$ is a smooth scheme). Moreover, under this functor, an algebraic vector bundle is mapped to a topological vector bundle. The question of identifying the kernel and image of this map between algebraic and topological vector bundles is intricate and the topic of current research.
+\end{remark}
+
+\subsection{Projective schemes} \label{subsec:projectiveschemes}
+
+It is easy to see that the functor $\mathbb P^n$ which assigns to a ring $A$ the projective space $AP^n = (A^{n+1}-\{0\})/A^\times$ of equivalence classes $[x_0:\cdots:x_n]$ of $(n+1)$-tuples of elements up to simultaneous scaling by units, is in fact a scheme and can be covered by $n+1$ affine schemes.
+
+An arguably simpler way of looking at this, and related schemes, is to consider nonnegatively graded rings $A$ together with homogeneous ideals. One such ideal is the so-called irrelevant ideal $A_+$ of all elements of positive degree. Define $\Proj A$ to be the set of homogeneous prime ideals not containing the irrelevant ideal. This set is equipped with the Zariski topology, generated by the open sets $D(f)$ of homogeneous ideals not containing the homogeneous element $f \in A_+$. There exists a sheaf of rings $\mathcal O=\Reg{\Proj A}$ on $\Proj A$ with $\mathcal O(D(f)) = (A[f^{-1}])_0$, the $0$-graded component of the $\Z$-graded localization $A[f^{-1}]$. This makes $\Proj A = (\Proj A,\Reg{\Proj A})$ into a locally ringed space, which in fact is a scheme. Schemes of the form $\Proj A$ are called \emph{projective schemes}. (Note that this is not a local property!)
+
+\begin{example}
+Projective $n$-space $\mathbb P^n$ is given by
+\[
+\mathbb P^n = \Proj \Z[x_0,\dots,x_n],
+\]
+where all variable $x_i$ are given degree $1$.
+\end{example}
+
+The structure sheaf is the $0$-graded part of a sheaf of $\Z$-graded rings
+$\Reg{\Proj A}(n)$ given by
+\[
+\Reg{\Proj A}(n)(D(f)) = (A[f^{-1}])_n.
+\]
+Every $\mathcal O(n)$ is an invertible $\mathcal O$-sheaf, i.e. a line bundle, with $\mathcal O(n) \otimes \mathcal O(m) \cong \mathcal O(n+m)$.
+
+Let us make the connection between the Proj construction and the classical description of projective space more explicit. A maximal homogeneous ideal of $A[x_0,\dots,x_n]$ not containing $A_+$ is of the form
+\[
+m_a = (a_i X_j - a_j x_i)_{0 \leq i,j \leq n}
+\]
+for some $a=[a_0:\cdots:a_n] \in AP^n$; this gives a bijection between the closed points of $\Proj A[x_0,\dots,x_n]$ and $AP^n$.
+
+If $f_i=(x_i) \triangleleft A[x_0,\dots,x_n]$ then the closed points of $D(f_i)$ are the $m_a$ not containing $x_i$, which happens exactly when $a_i \neq 0$. Thus $D(f_i)$ corresponds to the open, affine subscheme $U_i$ with $U_i(A)= \{[a_0:\cdots:a_{i-1}:1:a_{i+1}:a_n]\}$.
+
+We have that
+\[
+\Reg{\mathbb P^n}(D(f_i)) = (A[x_0,\dots,x_n,x_i^{-1})_0 \cong A[\frac {x_0}{x_i},\dots,\frac {x_{i-1}}{x_i},\frac {x_{i+1}}{x_i},\dots,\frac{x_n}{x_i}]
+\]
+corresponds to the functions on the open affine $U_i$.
+
+The sections of the twisted sheaves $\mathcal O(m)$ over $D(f_i)$ are free modules over $\mathcal O(D(f_i))$ generated by $x_i^m$, and the cocycle defining $\mathcal O(m)$ is given by the maps
+\[
+D(f_i) \cap D(f_j) \to \GL_1 = \Spec \Z[t,t^{-1}]
+\]
+defined by $A[t,t^{-1}] \to A[x_0,\dots,x_n,x_i^{-1},x_j^{-1}]_0$ sending $t$ to $(x_i/x_j)^m$.
+
+\begin{remark}
+The line bundle $\Reg{X}(n)$ for a projective scheme $X=\Proj A$ does not have any nontrivial global sections for $n<0$ simply because $A$ is nonnegatively graded. This is in stark contrast to the differentiable case, where any positive-dimensional bundle has plenty of nontrivial sections. These can be constructed by local trivializations and partitions of unity, tools not available in the algebraic world.
+\end{remark}
+
+\section{Projective spaces and Grassmannians}
+
+We denote by $\mathbb P^n$ the scheme whose $k$-points are projective $n$-space: $\mathbb P^n(k) = kP^n$. Let $[x_0:\cdots:x_n]$ denote a point in $\mathbf P^n(A)$ for any ring $A$. Then $\mathbb P^n$ is covered by $n+1$ affine schemes $U_i \cong \mathbb A^n$ with $U_i(A)=\{[x_0:\cdots:x_{i-1}:1:x_{i+1}:x_n]\}$. A global section of the structure sheaf $\mathcal O=\Reg{\mathbb P^n}$, i.e. a morphism $\mathbb P^n \to \mathbb A^1$, can be thought of as a ring homomorphism $A[x_0,\dots,x_n]_{(x_0,\dots,x_n)}/\sim \to A$, natural in $A$, where $\sim$ is the equivalence relation given by simultaneously scaling the variables $x_0,\dots,x_n$ by elements of $A^\times$. Since no nonconstant polynomials are invariant under this scaling operation, $\mathcal O$ has only constant global sections: 
+
+\begin{example}
+The Grassmannian manifolds (Section~\ref{sec:stiefelgrassmann}) are projective schemes, and the tautological bundles over them are algebraic. An immediate, if naive, question is whether all algebraic vector bundles on a scheme $X$ are pulled back from the tautological bundle. The answer is no. The reason this works in a topological setting is partitions of unity, or paracompactness. 
+\end{example}
+
+One might want to press ahead and show that algebraic vector bundles are constructed by morphisms into some kind of classifying space. 
 
 A \emph{variety} is an integral scheme over a (usually algebraically closed) field. A \emph{subvariety} $V$ of a scheme $X$ is a closed integral subscheme of $X$. A subvariety $V$ corresponds to a prime ideal of the coordinate ring of any open affine set meeting $V$. The \emph{local ring} of $X$ along $V$, denoted $\mathcal O_{X,V}$ is the localization of such a ring at the corresponding prime ideal; its maximal ideal is denoted by $\mathcal M_{X,V}$ and the corresponding residue field $R(V)=\mathcal O_{X,V}/\mathcal M_{X,V}$ is called the \emph{function field} of $V$. \marginpar{Is $R(V)$ standard notation?}
 

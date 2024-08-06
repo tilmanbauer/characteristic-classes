@@ -11,12 +11,13 @@
   \usetikzlibrary{matrix,arrows,decorations}
 \else
   \RequirePackage[all]{xy}
+  \SelectTips{cm}{10}
+  \newdir { >} {{}*!/-5pt/@{>}}
 \fi
 \if1\csname loadsseq\endcsname
 \RequirePackage{sseq}
 \fi
 
-\SelectTips{cm}{10}
 
 \newcommand {\Spin}{\operatorname{Spin}}
 \newcommand {\modmod}{\;/\!\!/\;}
@@ -64,6 +65,7 @@
 \newcommand {\sm}{\wedge} 
 \newcommand{\KH}{\underline{\smash{K(n)}}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 
 \expandafter\def\csname c@figure\endcsname{\csname c@equation\endcsname}
 
@@ -89,7 +91,7 @@
 \newtheorem*{defn}{Definition} 
 \newtheorem{remark}[equation]{Remark}
 \newtheorem*{notation}{Notation}
-\newtheorem{exer}[equation]{Exercise}
+\newtheorem{exer}{Exercise}[section]
 
 \DeclareMathOperator{\Cotor}{Cotor}
 \DeclareMathOperator{\Tor}{Tor}
@@ -101,11 +103,11 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Fun}{Fun}
 \DeclareMathOperator{\Ar}{Ar}
-\newcommand{\holim}{\operatornamewithlimits{holim}}
-\newcommand{\hocolim}{\operatornamewithlimits{hocolim}}
-\newcommand{\colim}{\operatornamewithlimits{colim}}
-\newcommand{\LKan}{\operatornamewithlimits{LKan}}
-\newcommand{\RKan}{\operatornamewithlimits{RKan}}
+\DeclareMathOperator*{\holim}{holim}
+\DeclareMathOperator*{\hocolim}{hocolim}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator*{\LKan}{LKan}
+\DeclareMathOperator*{\RKan}{RKan}
 \newcommand{\weakprod}{\bigoplus}
 \DeclareMathOperator{\const}{const}
 \DeclareMathOperator{\Tot}{Tot}
@@ -123,7 +125,6 @@
 \DeclareMathOperator{\SU}{SU}
 \DeclareMathOperator{\End}{End}
 \makeatother
-\newdir { >} {{}*!/-5pt/@{>}}
 
 \DeclareMathOperator{\Set}{Set}
 \DeclareMathOperator{\Aut}{Aut}
