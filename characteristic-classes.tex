@@ -1971,7 +1971,7 @@ Consider the Grassmannian $G_2(\mathbf{C}^4)$. There are exactly five nonzero co
 \section{Paracompactness}\label{sec:paracompactness}
 
 \begin{defn}
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that intersects $U_\alpha$ nontrivially for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that intersects $U_\alpha$ nontrivially for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if it is Hausdorff and every open cover has a locally finite refinement.
 
 A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$. In writing the infinite sum above, it is implicitly assumed that the sets $f_{\beta}^{-1}(0,1]$ form a locally finite cover of $X$, which means that for every $x \in X$, only finitely many $f_\beta(x)$ are different from $0$.
 \end{defn}
@@ -1979,7 +1979,7 @@ A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a fami
 The following is a standard fact of point-set topology (cf.\ for example \cite[Chapter~I.12]{bredon:topology-geometry}):
 
 \begin{prop}
-A space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
+A Hausdorff space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
 \end{prop}
 
 Let us study the geometric realizations of \v Cech nerves of open covers. 
@@ -2010,7 +2010,7 @@ If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find t
 for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there  is only one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
 
 \begin{thm}\label{thm:paracompactnerve}
-The following are equivalent for a space $X$:
+The following are equivalent for a Hausdorff space $X$:
 \begin{enumerate}
 \item $X$ is paracompact\label{thm:paracompactnerve:paracompact}
 \item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ has a section (i.~e., a right inverse)\label{thm:paracompactnerve:section}
@@ -2415,36 +2415,36 @@ H^1(X;G) \cong [X,BG].
 
 \section{Functoriality}
 
-A morphism of sheaves of abelian groups $A \to B$ on $X$ induces a map between \v Cech cocycles and hence a homomorphism $H^*(X;A) \to H^*(X;B)$. This makes $H^*(X;-)$ into a covariant functor. But there is also a contravariant functoriality with respect to maps $f\colon X \to Y$ of spaces. Given an open cover $\mathcal V$ of $Y$, write $f^{-1}\mathcal V$ for the open cover of $X$ consisting of $f^{-1}(V)$ with $V \in \mathcal V$, and $f^{-1}\mathbf V$ for the associated topological groupoid. Then $f$ induces a simplicial map
+A morphism of sheaves of abelian groups $F \to G$ on $X$ induces a map between \v Cech cocycles and hence a homomorphism $H^*(X;F) \to H^*(X;G)$. This makes $H^*(X;-)$ into a covariant functor. But there is also a contravariant functoriality with respect to maps $f\colon X \to Y$ of spaces. Given an open cover $\mathcal V$ of $Y$, write $f^{-1}\mathcal V$ for the open cover of $X$ consisting of $f^{-1}(V)$ with $V \in \mathcal V$, and $f^{-1}\mathbf V$ for the associated topological groupoid. Then $f$ induces a simplicial map
 \[
 f\colon\nerve f^{-1}\mathbf V \to \nerve \mathbf V.
 \]
 
-If $A$ is a sheaf of abelian groups on $X$ then $f_*A$ is a sheaf of abelian groups on $Y$ defined by $f_*A(V) = A(f^{-1}V)$ (cf.\ Section~\ref{subsec:pullback-pushforward}). By this definition, we have a natural isomorphism
+If $F$ is a sheaf of abelian groups on $X$ then $f_*F$ is a sheaf of abelian groups on $Y$ defined by $f_*F(V) = F(f^{-1}V)$ (cf.\ Section~\ref{subsec:pullback-pushforward}). By this definition, we have a natural isomorphism
 \[
-A(\nerve f^{-1}\mathbf V) \cong f_*A(\nerve \mathbf V)
+F(\nerve f^{-1}\mathbf V) \cong f_*F(\nerve \mathbf V)
 \]
 which is compatible with the simplicial structure, and thus an induced isomorphism
 \[
-H_{f^{-1}\mathcal V}^n(X;A) \cong H_{\mathcal V}^n(Y;f_*A).
+H_{f^{-1}\mathcal V}^n(X;F) \cong H_{\mathcal V}^n(Y;f_*F).
 \]
 By passing to the colimit over all open covers $\mathcal V$, we thus get an induced map
 \begin{equation}\label{eq:inducedmaponcohomology}
-f^*\colon H^n(Y;f_*A) \to H^n(X;A)
+f^*\colon H^n(Y;f_*F) \to H^n(X;F)
 \end{equation}
 which may or may not be an isomorphism; the reason being that $f^{-1}\mathcal V$ does not, in general, range over \emph{all} open covers of $X$. For instance, if $f$ is a constant map, $f^{-1}\mathcal V$ only produces the trivial cover on $X$.
 
 \begin{lemma}\label{lemma:basechangeiso}
-If $f\colon X \hookrightarrow Y$ is the inclusion of a subspace, the map $f^*\colon H^n(Y;f_*A) \to H^n(X;A)$ is an isomorphism.
+If $f\colon X \hookrightarrow Y$ is the inclusion of a subspace, the map $f^*\colon H^n(Y;f_*F) \to H^n(X;F)$ is an isomorphism.
 \end{lemma}
 \begin{proof}
 By the definition of the subspace topology, every open set $U \subseteq X$ is the intersection $V \cap X$ of an open set $V \subseteq Y$ with $X$. Thus every open cover $\mathcal U$ of $X$ is contained in $f^*\mathcal V$ for an open cover $\mathcal V$ of $Y$. By Lemma~\ref{lemma:cofinalcolimit},
 \[
-H^n(X;A) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;A).
+H^n(X;F) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;F).
 \]
 \end{proof}
 
-We will now restrict out attention on a particular class of sheaves: representable sheaves, and in particular, locally constant sheaves.
+We will now restrict our attention to a particular class of sheaves: representable sheaves, and in particular, locally constant sheaves.
 
 \begin{defn}
 A sheaf $F$ of sets (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,T)$ for some topological space (topological group, topological abelian group) $T$. If $T$ is discrete, we call $F$ \emph{locally constant}.
@@ -2457,7 +2457,7 @@ The sheaf on a space $X$ represented by the topological abelian group $\R$ is th
 If $G$ is a topological group, we will denote the sheaf $\map(-,G)$ of groups on any space $X$ by $G$, without danger of confusion.\footnote{We will, however, continue writing $\mathcal O_{X}$ for the sheaf represented by $\R$. In our notation, $H^n(X;G)$ is very different from $H^n(X;G^\delta)$, where $G^\delta$ is $G$ with the discrete topology.}
 
 \begin{lemma}
-Let $A$ be a (discrete) abelian group and $f\colon X \to Y$ a map of topological spaces. Then there is an induced map
+Let $A$ be a topological abelian group and $f\colon X \to Y$ a map of topological spaces. Then there is an induced map
 \[
 f^*\colon H^n(Y;A) \to H^n(X;A)
 \]
@@ -2501,26 +2501,26 @@ The second part is a good exercise.
 \end{proof}
 
 \begin{corollary} \label{cor:lesfromsesofsheaves}
-Let $0 \to A' \xrightarrow{i} A \xrightarrow{j} A'' \to 0$ be a sequence of sheaves of abelian groups which is exact as a sequence of presheaves. \marginpar{Counterexample for short exact sequences of sheaves? Cf. Godement 5.10/11}
+Let $0 \to F' \xrightarrow{i} F \xrightarrow{j} F'' \to 0$ be a sequence of sheaves of abelian groups which is exact as a sequence of presheaves. \marginpar{Counterexample for short exact sequences of sheaves? Cf. Godement 5.10/11}
 Then for any space $X$, there is a natural long exact sequence of Čech cohomology groups
 \[
-0 \to H^0_{\mathcal U}(X;A') \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(X;A'') \xrightarrow{d} H^1_{\mathcal U}(X;A') \to \cdots
+0 \to H^0_{\mathcal U}(X;F') \to H^0_{\mathcal U}(X;F) \to H^0_{\mathcal U}(X;F'') \xrightarrow{d} H^1_{\mathcal U}(X;F') \to \cdots
 \]
 as well as their colimits
 \[
-0 \to H^0(X;A') \to H^0(X;A) \to H^0(X;A'') \xrightarrow{d} H^1(X;A') \to \cdots
+0 \to H^0(X;F') \to H^0(X;F) \to H^0(X;F'') \xrightarrow{d} H^1(X;F') \to \cdots
 \]
 \end{corollary}
 \begin{proof}
-By assumption, $0 \to C^n_{\mathcal U}(X;A') \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;A'') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
+By assumption, $0 \to C^n_{\mathcal U}(X;F') \to C^n_{\mathcal U}(X;F) \to C^n_{\mathcal U}(X;F'') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
 \begin{defn}
-Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a sheaf of abelian groups $A$ is defined by
+Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a sheaf of abelian groups $F$ is defined by
 \[
-\tilde H^n(X;A) = \ker(H^n(X;A) \to H^n(\{x_0\};A_{x_0})).
+\tilde H^n(X;F) = \ker(H^n(X;F) \to H^n(\{x_0\};F_{x_0})).
 \]
-In the particular case where $A$ is representable, we can define
+In the particular case where $F=\map(-,A)$ is representable, we can define
 \[
 \tilde C^n_{\mathcal U}(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A),
 \]
@@ -2576,8 +2576,8 @@ Since such compatible open covers are cofinal in all open covers, we obtain the 
 
 
 \section{Homotopy invariance}
-\marginpar{JH: I added the Hausdorff condition, since in general I think one asks $F(X) \to i^{-1}F(Z)$ to be surjective, and $f^{-1}(Z)$ is given by the colimit in this definion when X is paracompact Hausdorff. See Wedhorn - Manifolds, Sheaves, and Cohomology, Prop 9.1.}
-\begin{defn} A sheaf $F$ on a paracompact Hausdorff space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
+
+\begin{defn} A sheaf $F$ on a paracompact space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
 
 It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft, i.~e. if every sheaf homomorphism $F|_K \to F|_K$ can be extended to all of $X$.
 \end{defn}
