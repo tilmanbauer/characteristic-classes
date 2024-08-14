@@ -1,6 +1,5 @@
 %!TEX program = xelatex
 \documentclass[a4paper,openany]{scrbook}
-\usepackage[all,cmtip]{xy}
 \usepackage{amsthm}
 \usepackage{tilmansdef}
 \usepackage{tikz}
@@ -1694,7 +1693,7 @@ We will not dive deeper into these technicalities and instead note that our nerv
 X = \coeq \left( \mathbf U \times_X \mathbf U \rightrightarrows \mathbf U\right).
 \]
 
-\subsection{Simplicial homotopy}
+\subsection{Simplicial homotopy}\label{subsec:simplicial-homotopy}
 
 Denote by $I=\nerve [1]$ the nerve of the category $[1]$ which has two objects $\{0,1\}$ and one non-identity morphism $0 \to 1$. In other words, $I$ is the functor $\Delta^\op\to\Set$ which is represented by the object $[1] \in \Delta$, i.~e.
 \[
@@ -1738,7 +1737,11 @@ It is clear from the definition that geometric realization is a functor:
 The geometric realization is functorial, i.e.\ a map of simplicial spaces induces a map between their geometric realizations. \qed
 \end{lemma}
 
-The geometric realization $|X|$ can be given a somewhat smaller presentation by only considering \emph{nondegenerate} simplices, i.~e. elements $x \in X_n$ which are not in the image of $s_i$ for any $0 \leq i \leq n$, or equivalently, which are not of the form $f^*(y)$ for some $y \in X_m$ and a non-injective map $f\colon [n] \to [m]$. The collection $X^{\operatorname{nd}}_n \subseteq X_n$ of nondegenerate simplices forms a ``semi-simplicial'' or ``facial'' set, i.~e. a functor from the subcategory $\Lambda$ of $\Delta$ with the same objects but only injective maps as morphisms. We then have a coequalizer diagram
+\begin{remark}
+The geometric realization functor is meaningful and useful also for simplicial sets, i.e.\ discrete simplicial spaces.
+\end{remark}
+
+The geometric realization $|X|$ can be given a somewhat smaller presentation by only considering \emph{nondegenerate} simplices, i.~e. elements $x \in X_n$ which are not in the image of $s_i$ for any $0 \leq i \leq n$, or equivalently, which are not of the form $f^*(y)$ for some $y \in X_m$ and a non-injective map $f\colon [n] \to [m]$. The collection $X^{\operatorname{nd}}_n \subseteq X_n$ of nondegenerate simplices forms a semi-simplicial set. We then have a coequalizer diagram
 \begin{equation}\label{eq:realizationwithnondegenerates}
 \coprod_{f\colon [m] \hookrightarrow [n]} X^{\operatorname{nd}}_n \times \Delta^m \rightrightarrows \coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \Delta^n \to |X|.
 \end{equation}
@@ -1747,6 +1750,14 @@ Moreover, every point in $|X|$ is represented by a unique pair $(x,t) \in X^{\op
 \coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \mathring \Delta^n \to |X|
 \]
 is continuous and bijective (but clearly not a homeomorphism). Details can be found in \cite{milnor:57}.
+
+\begin{example}\label{exa:geomrealizationofinterval}
+Let $[1]$ be the category associated to the poset $\{0 < 1\}$, as in Subsection~\ref{subsec:simplicial-homotopy}. Then in $\nerve [1]$, there are two nondegenerate $0$-simplices ($0$ and $1$) and one nondegenerate $1$-simplex corresponding to the relation $r\colon 0 < 1$ and no other nondegenerate simplices. The two faces of the $1$-simplex are the two $0$-simplices. Accordingly,
+\[
+|\nerve [1]| = \Bigl(\{0,1\} \times \Delta^0 \sqcup \{r\} \times \Delta^1\Bigr)/\mathord{\sim},
+\]
+where $(r,0) \sim (0,*)$ and $(r,1) \sim (1,*)$. Thus $|\nerve [1]|$ is homeomorphic to the unit interval.
+\end{example}
 
 The following result is less obvious. It involves the set-theoretical notion of compactly generated weak Hausdorff spaces and Kelley products. We will not go into details here but remark that these spaces include all spaces of interest to us, and that for these spaces, the Kelley product coincides with the usual product. 
 \begin{thm}[{\cite[Theorem 11.5]{may:72}}] \label{thm:geomrealizationandproduct}
@@ -1774,7 +1785,7 @@ We have seen in the previous section that a functor $F\colon \C \to \D$ induces 
 \[
 B\alpha\colon B(\C \times [1]) \to \D,
 \]
-and by Thm~\ref{thm:geomrealizationandproduct}, $B(\C \times [1]) \cong B\C \times B[1]$ by the projection maps. The proof is finished by noting that $B[1] \cong \Delta^1 \cong [0,1]$.
+and by Thm~\ref{thm:geomrealizationandproduct}, $B(\C \times [1]) \cong B\C \times B[1]$ by the projection maps. The proof is finished by noting that $B[1] \cong [0,1]$ (Example~\ref{exa:geomrealizationofinterval}).
 \end{proof}
 
 \begin{exer}
@@ -1785,7 +1796,7 @@ By Proposition~\ref{prop:nervefullyfaithful}, the nerve functor from categories 
 For any nonempty space $X$, the space $EX := BT(X)$, i.~e. the geometric realization of the nerve of the translation category of $X$, is contractible. If moreover $X$ is a group then it acts freely on $EX$.
 \end{corollary}
 \begin{proof}
-By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category $T(X)$ is contractible, i.~e. equivalent to the one-point category. This is true since every object in $X$ is initial (and terminal): there is exactly one morphism between any two objects $x$, $y$, namely $(x,y)$.
+By Lemma~\ref{lemma:classifyinghomotopy}, it suffices to show that the category $T(X)$ is contractible, i.e.\ equivalent to the one-object, one-morphism category. This is true since every object in $X$ is initial (and terminal): there is exactly one morphism between any two objects $x$, $y$, namely $(x,y)$.
 
 The $X$-action on $EX$ when $X$ is a group follows from functoriality and the free $X$-action on $T(X)$, cf.~Example~\ref{ex:translationcatofgroup}.
 \end{proof}
@@ -1962,10 +1973,10 @@ Consider the Grassmannian $G_2(\mathbf{C}^4)$. There are exactly five nonzero co
 \begin{defn}
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that intersects $U_\alpha$ nontrivially for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if every open cover has a locally finite refinement.
 
-A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$.
+A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$. In writing the infinite sum above, it is implicitly assumed that the sets $f_{\beta}^{-1}(0,1]$ form a locally finite cover of $X$, which means that for every $x \in X$, only finitely many $f_\beta(x)$ are different from $0$.
 \end{defn}
 
-The following is a standard fact of point-set topology (cf. for example \cite[Chapter I.12]{bredon:topology-geometry}):
+The following is a standard fact of point-set topology (cf.\ for example \cite[Chapter~I.12]{bredon:topology-geometry}):
 
 \begin{prop}
 A space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
@@ -1996,7 +2007,7 @@ If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find t
 \[
 |\nerve\mathbf V| \to X
 \]
-for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there only is one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
+for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there  is only one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
 
 \begin{thm}\label{thm:paracompactnerve}
 The following are equivalent for a space $X$:
@@ -2110,8 +2121,10 @@ Let $B$ be a paracompact, contractible space. Then any principal $G$-bundle $E \
 The identity map on $B$ is homotopic to a constant map. The pullback of $E$ along a constant map is a trivial vector bundle. By Theorem~\ref{thm:homotopicpullbacks}, $E$ is thus trivial.
 \end{proof}
 
-\begin{defn} A cover $\mathcal U$ of $X$ is called \emph{contractible} if every finite intersection of elements of $\mathcal U$ is either empty or contractible.
+\begin{defn} A cover $\mathcal U$ of $X$ is called \emph{contractible} if every finite intersection of elements of $\mathcal U$ is either empty or contractible. 
 \end{defn}
+
+In the literature, the unfortunate term ``good cover'' is often used.
 
 \begin{corollary}\label{cor:H1realizedoncontractiblecovers}
 Let $\mathcal U$ be a contractible cover of a paracompact space $X$ and $G$ a topological group. Then the map from Prop.~\ref{prop:cocycleexistence}
@@ -2126,7 +2139,7 @@ As every $U_\alpha \in \mathcal U$ is contractible, $\mathcal U$ trivializes any
 
 \section{Universal bundles}
 
-In Corollary~\ref{cor:EG}, we constructed a spaces $EG$ with a free $G$-action which is furthermore (nonequivariantly) contractible, for any Lie group $G$. 
+In Corollary~\ref{cor:EG}, we constructed spaces $EG$ with a free $G$-action which is furthermore (nonequivariantly) contractible, for any Lie group $G$. 
 
 \begin{lemma}
 For a Lie group $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
@@ -2202,7 +2215,7 @@ For paracompactness, note that $V_n(k^\infty)$ is a countable union of compact s
 
 In order to turn the cocycle characterization into an alternative definition for vector bundles, we need to get rid of the dependence on a particular open cover $\{U_\alpha\}$. A good approach to doing this is via \emph{Čech cohomology}, which has the added benefit of being a suitable definition of singular cohomology. This is where characteristic classes live.
 
-Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. As before, we denote by $\mathbf U = \coprod_{\alpha \in I} U_{\alpha}$ the disjoint union of all elements of the cover, by $p\colon \mathbf U \to X$ the canonical projection. We also abuse notation and write $\mathbf U$ for the topological groupoid $(\mathbf U, \mathbf U \times_X \mathbf U)$ (cf. Example~\ref{exa:covergroupoid}). The nerve $\nerve\mathbf U$ is thus a simplicial space whose geometric realization is homotopy equivalent with $X$ (Theorem~\ref{thm:paracompactnerve}) as long as $X$ is paracompact.
+Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. As before, we denote by $\mathbf U = \coprod_{\alpha \in I} U_{\alpha}$ the disjoint union of all elements of the cover and by $p\colon \mathbf U \to X$ the canonical projection. We also abuse notation and write $\mathbf U$ for the topological groupoid $(\mathbf U, \mathbf U \times_X \mathbf U)$ (cf. Example~\ref{exa:covergroupoid}). The nerve $\nerve\mathbf U$ is thus a simplicial space whose geometric realization is homotopy equivalent with $X$ (Theorem~\ref{thm:paracompactnerve}) as long as $X$ is paracompact.
 
 Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$ satisfying the sheaf condition. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
 
@@ -2251,7 +2264,7 @@ F(X) \to F(\mathbf U) \rightrightarrows F(\mathbf U \times_X \mathbf U) \cdots.
 \end{defn}
 
 \begin{example}
-We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^{-1}_0\colon C^{-1} \to C^0$ is just restriction: $d^{-1}_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
+We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^0_0\colon C^{-1} \to C^0$ is just restriction: $d^0_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
 \[
 C^1_{\mathcal U}(X;F) = \prod_{\alpha,\beta} F(U_{\alpha\beta})
 \]
@@ -2261,7 +2274,7 @@ d^0_1((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \
 \]
 We see that the diagram
 \[
-1 \to C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^{-1}_0} C^{0}_{\mathcal U}(X;F) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
+C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^{0}_0} C^{0}_{\mathcal U}(X;F) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
 \]
 is an equalizer diagram.
 \end{example}
@@ -2307,7 +2320,7 @@ If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $
 \end{exer}	
 	
 \begin{remark}
-For a topological group $G$, the sheaf considered in the above exercise could be understood as a sheaf of topological groups (with a suitable topology on the mapping spaces $\map(U,G)$). This is for instance necessary in the study of \emph{continuous cohomology}, which we will not consider. 
+For a topological group $G$, the sheaf considered in the above exercise could be understood as a sheaf of topological groups (with a suitable topology on the mapping spaces $\map(U,G)$). This is for instance necessary in the study of \emph{continuous cohomology}, which we will not consider. We consider $F$ to be a sheaf of (discrete) groups only.
 \end{remark}
 
 \begin{defn}
