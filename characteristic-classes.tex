@@ -1,6 +1,6 @@
 %!TEX program = xelatex
 \documentclass[a4paper,openany]{scrbook}
-\usepackage{amsthm}
+\usepackage{amsthm,mathtools}
 \usepackage{tilmansdef}
 \usepackage{tikz}
 \usepackage{enumitem}
@@ -2211,83 +2211,76 @@ For paracompactness, note that $V_n(k^\infty)$ is a countable union of compact s
 
 \chapter{Cohomology} \label{ch:cohomology}
 
-\section{Čech cohomology}
+\section{Čech cohomology}\label{sec:cechcohomology}
 
-In order to turn the cocycle characterization into an alternative definition for vector bundles, we need to get rid of the dependence on a particular open cover $\{U_\alpha\}$. A good approach to doing this is via \emph{Čech cohomology}, which has the added benefit of being a suitable definition of singular cohomology. This is where characteristic classes live.
+In order to turn the cocycle characterization into an alternative definition for vector bundles, we need to get rid of the dependence on a particular open cover $\{U_\alpha\}$. A good approach to doing this is via \emph{Čech cohomology}, which has the added benefit of being a suitable definition of singular cohomology, at least for paracompact spaces. This is where characteristic classes live.
 
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. As before, we denote by $\mathbf U = \coprod_{\alpha \in I} U_{\alpha}$ the disjoint union of all elements of the cover and by $p\colon \mathbf U \to X$ the canonical projection. We also abuse notation and write $\mathbf U$ for the topological groupoid $(\mathbf U, \mathbf U \times_X \mathbf U)$ (cf. Example~\ref{exa:covergroupoid}). The nerve $\nerve\mathbf U$ is thus a simplicial space whose geometric realization is homotopy equivalent with $X$ (Theorem~\ref{thm:paracompactnerve}) as long as $X$ is paracompact.
 
-Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$ satisfying the sheaf condition. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
+% The following, previous extension of the definition of sheaves is wrong when plugging in presheaves, which is a problem because we need Cech cohomology with values in presheaves. Thus I replace it.
+%
+% Now let $F$ be a sheaf on $X$, i.~e. a functor from $\Open(X)$ to some category $C$ satisfying the sheaf condition. If $U$, $V \in \Open(X)$ are disjoint then $U \sqcup V \in \Open(X)$ is their categorical coproduct in $\Open(X)$. The sheaf condition implies that $F(U \sqcup V) \cong F(U) \times F(V)$. However, if $U$ and $V$ are not disjoint, their categorical coproduct does not exist. This is impractical for what follows; we therefore extend the functor $F\colon \Open(X) \to C$ to a larger category.
 
-\begin{defn}
-A map $f\colon Y \to X$ of topological spaces is called a \emph{partial cover} if it is a disjoint union of open inclusions. It is called a \emph{cover} if it is also surjective. Define a category $S(X)$ with objects the partial covers of $X$ and morphisms commuting triangles
-\[
-\begin{tikzpicture}
-	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
-	{
-		Y_1 && Y_2\\
-		 & X\\
-	};
-	\path[->,font=\scriptsize]
-	(m-1-1)	edge node[auto]{f} (m-1-3)
-			edge (m-2-2)
-	(m-1-3)	edge (m-2-2);
-\end{tikzpicture}
-\]
-Such a map is called a \emph{cover} if $f$ is a cover.
-\end{defn}
+% \begin{defn}
+% A map $f\colon Y \to X$ of topological spaces is called a \emph{partial cover} if it is a disjoint union of open inclusions. It is called a \emph{cover} if it is also surjective. Define a category $S(X)$ with objects the partial covers of $X$ and morphisms commuting triangles
+% \[
+% \begin{tikzpicture}
+% 	\matrix (m) [matrix of math nodes, column sep=2ex,row sep=3ex]
+% 	{
+% 		Y_1 && Y_2\\
+% 		 & X\\
+% 	};
+% 	\path[->,font=\scriptsize]
+% 	(m-1-1)	edge node[auto]{f} (m-1-3)
+% 			edge (m-2-2)
+% 	(m-1-3)	edge (m-2-2);
+% \end{tikzpicture}
+% \]
+% Such a map is called a \emph{cover} if $f$ is a cover.
+% \end{defn}
 
-We can now extend the definition of a sheaf:
-\begin{defn}
-A \emph{sheaf on $X$ with values in $C$} is a contravariant functor $F\colon S(X) \to C$ which sends coproducts to products and such that for each cover $f \in \Hom_{S(X)}(U,Y)$, the diagram
-\[
-F(Y) \to F(U) \rightrightarrows F(U \times_Y U)
-\]
-is an equalizer.
-\end{defn}
+% We can now extend the definition of a sheaf:
+% \begin{defn}
+% A \emph{sheaf on $X$ with values in $C$} is a contravariant functor $F\colon S(X) \to C$ which sends coproducts to products and such that for each cover $f \in \Hom_{S(X)}(U,Y)$, the diagram
+% \[
+% F(Y) \to F(U) \rightrightarrows F(U \times_Y U)
+% \]
+% is an equalizer.
+% \end{defn}
 
-The reason for this extension is that we can now apply the sheaf $F$ to the simplicial space $\nerve \mathbf U$ to get a cosimplicial object in $C$.
+% The reason for this extension is that we can now apply the sheaf $F$ to the simplicial space $\nerve \mathbf U$ to get a cosimplicial object in $C$.
 
 \begin{defn}
 The \emph{category of cosimplicial objects in $C$} is the functor category $[\Delta,C]$ from the cosimplicial category $\Delta$ (cf.~Section~\ref{sec:simplicial-spaces}) to $C$. Similarly, the category of \emph{coaugmented} cosimplicial objects in $C$ is the functor category $[\Delta_+,C]$. We denote the images of the standard coface and codegeneracy maps $d^i_n$ and $s^i_n$ in $C$ by the same names.
 \end{defn}
 
 \begin{defn}
-For a cover $\mathcal U$, we define the \emph{Čech $n$-cochains} of $X$ with respect to the cover $\mathcal U$ and values in the sheaf $F\colon S(X) \to C$ to be
+Let $\mathcal U=(U_\alpha)_{\alpha \in I}$ be a cover of a space $X$ and $F\colon S(X) \to C$ a presheaf with values in $C$. Then define the \emph{Čech $n$-cochains} of $X$ with respect to $\mathcal U$ and with values $F$ to be
 \[
-C^n_{\mathcal U}(X;F) =  F(\nerve_n(\mathbf U)).
+C^n_{\mathcal U}(X;F) =  \prod_{\alpha_0,\dots,\alpha_n \in I} F(U_{\alpha_0\cdots\alpha_n})
 \]
-Since $\nerve \mathbf U$ is a simplicial object in $S(X)$ and $F$ is a contravariant functor, the Čech cochains form a cosimplicial object in $C$, coaugmented by $F(X)$:
+We make $C^*_{\mathcal U}(X;F)$ into a cosimplicial object in $C$ by defining, for a morphism $f\colon [m] \to [n]$ in $\Delta$, a map
 \[
-F(X) \to F(\mathbf U) \rightrightarrows F(\mathbf U \times_X \mathbf U) \cdots.
+f_*\colon C^m_{\mathcal U}(X;F) \to C^n_{\mathcal U}(X;F)
 \]
+which is componentwise given, on $F(U_{\alpha_0\dots\alpha_n})$, as projection of the product to the factor $F(U_{\alpha_{f(0)}\dots \alpha_{f(m)}})$ followed by the functor $F$ applied to the inclusion $U_{\alpha_0\dots\alpha_n} \hookrightarrow U_{\alpha_{f(0)}\dots \alpha_{f(m)}}$. Indeed, we can coaugment this cosimplicial object with the map
+\[
+d_0^0\colon C^{-1}_{\mathcal U}(X;F) =_{\operatorname{def}} F(X) \to C^0_{\mathcal U}(X;F) = \prod_{\alpha \in I} F(U_\alpha)
+\]
+by the maps induced by the inclusions $U_\alpha \to X$.
 \end{defn}
 
-\begin{example}
-We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^0_0\colon C^{-1} \to C^0$ is just restriction: $d^0_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
-\[
-C^1_{\mathcal U}(X;F) = \prod_{\alpha,\beta} F(U_{\alpha\beta})
-\]
-and the two maps $d^0_1$ and $d^1_1$ are given by
-\[
-d^0_1((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \quad d^1_1((c_\alpha))_{\alpha,\beta} = c_\alpha|_{U_{\alpha\beta}}
-\]
-We see that the diagram
-\[
-C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^{0}_0} C^{0}_{\mathcal U}(X;F) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
-\]
-is an equalizer diagram.
-\end{example}
+
 
 \begin{defn}
 Given a cosimplicial abelian group $A$, we define maps
 \[
-d^n\colon A^{n} \to A^{n+1} \text{ by } d^n(x) = d^0_{n+1}(x)-d^1_{n+1}(x)+d^2_{n+1}(x)-\cdots\pm d^{n+1}_{n+1}(x)
+\delta^n\colon A^{n-1} \to A^{n} \text{ by } d^n(x) = d^0_{n}(x)-d^1_{n}(x)+d^2_{n}(x)-\cdots\pm d^{n}_{n}(x)
 \]
 and groups
 \begin{align*}
-Z^n(A) =& \ker(d^n\colon A^n \to A^{n+1}),\\
-B^n(A) =& \im(d^{n-1}\colon A^{n-1} \to A^{n}),\\
+Z^n(A) =& \ker(\delta^{n+1}n\colon A^n \to A^{n+1}),\\
+B^n(A) =& \im(\delta^{n}\colon A^{n-1} \to A^{n}),\\
 \intertext{and}
 H^n(A) =& Z^n(A)/B^n(A).
 \end{align*}
@@ -2307,14 +2300,46 @@ H^0(A) = Z^0(A) = \{x \in A^0 \mid d^0_1(x) = d^1_1(x)\}.
 \]
 \end{defn}
 
-\begin{defn}
-Let $F$ be a sheaf of abelian groups on a space $X$ and $\mathcal U$ an open cover of $X$. Then the \emph{Čech $n$-cocycles, Čech $n$-coboundaries, and the $n$th Čech cohomology groups with respect to the cover $\mathcal U$} are defined by
+For this definition to make sense, we need:
+\begin{lemma}\label{lemma:deltadeltanull}
+For any cosimplicial abelian group $A$, $B^n(A)\leq Z^n(A)$, i.e.\ $\delta^{n+1}\circ\delta^n=0$. 
+\end{lemma}
+\begin{proof}
+We can write $\delta^n$ as
 \[
-Z^n_{\mathcal U}(X;F) = Z^n(F(\nerve \mathbf U)); \quad B^n_{\mathcal U}(X;F) = B^n(F(\nerve \mathbf U)); \quad H^n_{\mathcal U}(X;F) = H^n(F(\nerve \mathbf U)).
+\delta^n(x) = \sum_{\alpha\colon [n-1] \hookrightarrow [n]} (-1)^{[n]-\im \alpha} \alpha_*(x),
 \]
-If $F$ is merely a sheaf of groups, we can still define $Z^i_{\mathcal U}$ and $H^i_{\mathcal U}$ for $i \leq 1$; for $F$ a sheaf of sets only for $i=0$.
+where we abuse notation to identify the set $[n]-\im(\alpha)$ with its sole element. Then
+\[
+\delta^{n+1}\delta^n(x) = \sum_{\alpha\colon [n-1] \to [n+1]} \Bigl(\sum_{\alpha=\alpha'\circ\alpha''} (-1)^{[n]-\im(\alpha'')}(-1)^{[n+1]-\im(\alpha')}\Bigr) \alpha_*(x),
+\]
+where $\alpha'$ and $\alpha''$ run through all possible factorizations of $\alpha$ through $[n]$. There are exactly two such factorizations for any $\alpha$, and the corresponding signs are opposite.
+\end{proof}
+
+\begin{defn}
+Let $F$ be a presheaf of abelian groups on a space $X$ and $\mathcal U$ an open cover of $X$. Then the \emph{Čech $n$-cocycles, Čech $n$-coboundaries, and the $n$th Čech cohomology groups with respect to the cover $\mathcal U$} are defined to be the groups $Z^n(A)$, $B^n(A)$ and $H^n(A)$ for the (unaugmented) cosimplicial abelian group $A=C^n_{\mathcal U}(X;F)$.
+
+If $F$ is merely a presheaf of groups, we can still define $Z^i_{\mathcal U}$ and $H^i_{\mathcal U}$ for $i \leq 1$; for $F$ a presheaf of sets only for $i=0$.
 \end{defn}
 
+\begin{lemma}\label{lemma:sheafcriterioncechcohomology}
+Let $F$ be a sheaf of groups on $X$ and $\mathcal U$ an open cover. Then the map $d_0^0 \colon F(X) \to H^0_{\mathcal U}(X;F)$ is an isomorphism. 
+\end{lemma}
+\begin{proof}
+We have that $C^{0}_{\mathcal U}(X;F) = \prod_{\alpha} F(U_\alpha)$. The homomorphism $d^0_0\colon C^{-1} \to C^0$ is just restriction: $d^0_0(c)_{\alpha} = c|_{U_\alpha}$. In dimension $1$, we have
+\[
+C^1_{\mathcal U}(X;F) = \prod_{\alpha,\beta} F(U_{\alpha\beta})
+\]
+and the two maps $d^0_1$ and $d^1_1$ are given by
+\[
+d^0_1((c_\alpha))_{\alpha,\beta} = c_\beta|_{U_{\alpha\beta}} \quad \text{and} \quad d^1_1((c_\alpha))_{\alpha,\beta} = c_\alpha|_{U_{\alpha\beta}}
+\]
+We see that the diagram
+\[
+F(X)=C^{-1}_{\mathcal U}(X;F) \xrightarrow{d^{0}_0} C^{0}_{\mathcal U}(X;F) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} C^1_{\mathcal U}(X;F)
+\]
+being an equalizer diagram follows from the sheaf condition on $F$.
+\end{proof}
 \begin{exer}
 	Let $G$ be a topological group and let $F$ be the sheaf $U \mapsto \map(U,G)$ on a space $X$ with open cover $\mathcal{U}$. Then the definitions of $Z^1_{\mathcal U}(X;G)$ and $H^1_{\mathcal{U}}(X;G)$ as defined above agrees with the definition from Section~\ref{sec:bundlesascocycles}.
 \end{exer}	
@@ -2324,22 +2349,61 @@ For a topological group $G$, the sheaf considered in the above exercise could be
 \end{remark}
 
 \begin{defn}
-A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in a category $C$ with products is a cosimplicial map $h\colon X \to \hom([1],Y)$, where $\hom(S,Y)$ for a simplicial set $S$ and a cosimplicial object $Y$ denotes the cosimplicial object $\hom(S,Y)^n = \hom(S_n,Y^n) = \prod_{s \in S_n} Y^n$. We say that $h$ is a \textit{homotopy} from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if such a homotopy exists. 
+Let $S$ be a simplicial set and $Y$ a cosimplicial object in a category $C$ with products. Define a cosimplicial object $\hom(S,Y)$ by
+\[
+\hom(S,Y)^n = \hom(S_n,Y^n) = \prod_{s \in S_n} Y^n
+\]
+and, for $f\colon [m] \to [n]$ and $(y_s)_{s \in S_n} \in \hom(S,Y)^n$,
+\[
+f^*((y_s))_t = f^*(y_{f_*(t)}) \quad (t \in S_{m}).
+\]
+A \emph{cosimplicial homotopy} from a cosimplicial object $X$ to a cosimplical object $Y$ in $C$ is a cosimplicial map $h\colon X \to \hom(I,Y)$, where $I$ is the simplicial set represented by $[1]$ as in Subsection~\ref{subsec:simplicial-homotopy}. We say that $h$ is a \textit{homotopy} from $f$ to $g$ if $h(x)(0)=f(x)$ and $h(x)(1)=g(x)$ and that $f$ and $g$ are \emph{cosimplicially homotopic} if they are connected by a zigzag of such homotopies. 
 \end{defn}
 
 \begin{lemma}\label{lemma:cosimphomotopicmaps}
 Cosimplicially homotopic maps induce the same maps in cohomology.
 \end{lemma}
 \begin{proof}
-For the sake of simplicity, we will show the proof for a sheaf with values in abelian groups, leaving the cases of $H^1$ for groups and $H^0$ for sets to the reader.
+For the sake of simplicity, we will show the proof for cosimplicial abelian groups, leaving the cases of $H^1$ for groups and $H^0$ for sets to the reader. It is clearly enough to show that for a cosimplicial homotopy $h\colon X \to \hom(I,Y)$ from $f$ to $g$, $f^*=g^*$ in cohomology. We will show the stronger result that $f$ and $g$ are \emph{cochain homotopic} maps from $(X,\delta_X)$ to $(Y,\delta_Y)$, i.e. that there are maps
+\[
+\tilde h_n \colon X^{n+1} \to Y^n \quad \text{s.t.}\quad f-g = \delta_Y \tilde h + \tilde h \delta_X.
+\]
+Unfortunately, the proof is a bit messy. The $n$-simplices in the simplicial set $I$ are $I_n = \{ \alpha_i \mid 0 \leq i \leq n+1\}$, where $\alpha\colon [n] \to [1]$ is the map that sends all $j \geq i$ to $1$ and the remaining $j$ to $0$. By evaluating $h(x)$ at $\alpha_i$ we thus get components
+\[
+h_n^i\colon X^n \to Y^n, \quad h^i_n(x) = h(x)(\alpha_i); \quad (0 \leq i \leq n+1)
+\]
+with the properties
+\begin{itemize}
+	\item $h_n^0=g^n$, $h_n^{n+1}=f^n$;
+	\item $h_n^j \circ d_n^i = \begin{cases}
+		d^i_n \circ h_{n-1}^{j-1}; & i < j\\
+		d^i_n \circ h_{n-1}^j; & i \geq j;
+	\end{cases}$
+	\item (Compatibility with the codegeneracies, which will not be needed)
+\end{itemize}
 
-Given a cosimplicial homotopy $h\colon X \to \hom([1],Y)$, denote by $\tilde h\colon X^{n+1} \to Y^n$ the map defined by $\tilde h(x) = \sum_{i=0}^n (-1)^i s^i h(x)(\alpha_i)$, where $\alpha_i\colon [n]\to[1]$ is the map that sends $i \to 0$ and $i+1 \to 1$. Then $\tilde h$ is a homotopy of cochain complexes, i.~e. $f-g = d\tilde h + \tilde h d$. \marginpar{Check signs and details.} Thus $f$ and $g$ induce the same map in cohomology.
+Now define $\tilde h\colon X^{n+1} \to Y^n$ by
+\[
+\tilde h_n = \sum_{i=0}^n (-1)^i s^i \circ h_n^{i+1}.
+\]
+We compute:
+\begin{align*}
+\delta \circ \tilde h_{n-1} &= \sum_{i=0}^{n} (-1)^i d^i \circ \tilde h_{n-1} = \sum_{i=0}^{n} \sum_{j=0}^{n-1} (-1)^{i+j} d^i \circ s^j \circ h^{j+1}\\
+\intertext{and}
+\tilde h_n \circ \delta &= \sum_{j=0}^{n} (-1)^j s^j \circ h^{j+1} \circ \delta\\
+&= \sum_{i=0}^{n+1} \sum_{j=0}^{n} (-1)^{i+j} s^j \circ h^{j+1} \circ d^i\\
+&= \sum_{\substack{(i,j) \in [n+1] \times [n]\\i< j+1}} (-1)^{i+j} s^j d^i h^j + \sum_{\substack{(i,j) \in [n+1] \times [n]\\i\geq j+1}} (-1)^{i+j} s^j d^i h^{j+1}\\
+&= \sum_{i=j \in [n]} h^j - \sum_{i=j+1 \in \{1,\dots,n\}} h^j\\
+& + \sum_{\substack{(i,j) \in [n+1] \times [n]\\i < j}} (-1)^{i+j} d^i s^{j-1} h^j + \sum_{\substack{(i,j) \in [n+1] \times [n]\\i> j+1}} (-1)^{i+j} d^{i-1} s^j h^{j+1}\\
+& = h^0-h^{n+1} + \sum_{\substack{(i,j) \in [n+1] \times [n-1]\\i \leq j}} (-1)^{i+j+1} d^i s^{j} h^{j+1} + \sum_{\substack{(i,j) \in [n] \times [n]\\i> j}} (-1)^{i+j+1} d^{i} s^j h^{j+1}\\
+&= f-g + \delta \circ \tilde h_{n-1}. 
+\end{align*}
 \end{proof}
 
 Given a refinement $\{V_\beta\}$ of an open cover $\{U_\alpha\}$ of $X$, the map of nerves $\nerve \mathbf V \to \nerve \mathbf U$ is well-defined up to simplicial homotopy by Proposition~\ref{prop:refinementhomotopyinvariant} and therefore the map induced on $C_{\mathcal U}(X) \to C_{\mathcal V}(X)$ is well-defined up to cosimplicial homotopy and thus induces a well-defined map on Čech cohomology. We have proved:
 
 \begin{thm}\label{thm:welldefinedrefinement}
-Let $X$ be space and $F$ a sheaf of abelian groups on $X$.
+Let $X$ be space and $F$ a presheaf of abelian groups on $X$.
 Let $\{U_\alpha\}_{\alpha \in I}$ be an open cover of $X$ with a refinement $\{V_\beta\}_{\beta \in J}$. Let $\rho$, $\sigma\colon J \to I$ be two functions such that $V_{\beta} \subseteq U_{\rho(\beta)}$, $V_\beta \subseteq U_{\sigma(\beta)}$. Denote by $\rho^*$ and $\sigma^*\colon C^n_{\mathcal U}(X;F) \to C^n_{\mathcal V}(X;F)$ the induced maps on Čech cochains. Then on cohomology,
 \[
 \rho^* = \sigma^*\colon H^*_{\mathcal U}(X;F) \to H^*_{\mathcal V}(X;F).
@@ -2349,7 +2413,7 @@ This statement also holds for $H^1$ when $F$ is merely a sheaf of groups, and fo
 \end{thm}
 
 \begin{defn}
-The \emph{$n$th Čech cohomology group} of $X$ with coefficients in the sheaf of groups $F$ ($n \in \mathbf N_0$, $n \leq 1$ if $F$ is nonabelian) is the colimit
+The \emph{$n$th Čech cohomology group} of $X$ with coefficients in the presheaf of groups $F$ ($n \in \mathbf N_0$, $n \leq 1$ if $F$ is nonabelian) is the colimit
 \[
 H^n(X;F) = \colim_{\mathcal U} H^n_{\mathcal U}(X;F),
 \]
@@ -2364,30 +2428,46 @@ The poset $C = \Cov(X)$ is \emph{directed}, i.~e. for every two elements $\mathc
 If $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ and $\mathcal V = \{V_\beta\}_{\beta \in J}$, define $\mathcal W = \{U_\alpha \cap V_\beta\}_{(\alpha,\beta) \in I \times J}$.
 \end{proof}
 
-\begin{lemma}\label{lemma:dircolimitofabeliangroups}
-Let $F\colon C \to \Ab$ be a functor, where $C$ is a directed poset and $\Ab$ is the category of abelian groups. Then
-\begin{enumerate}
-\item For every $x \in \colim_C F$, there exists $c \in C$ and $x_c \in F(c)$ such that $\iota_c(x_c)=x$.
-\item If $x \in F(c)$ and $y \in F(d)$ are such that $\iota_c(x)=\iota_d(y) \in \colim_C F$ then there exists $e \in C$, $c \leq e \geq d$ such that $x$ and $y$ are mapped to the same element in $F(e)$.
-\end{enumerate}
+A directed poset is a special case of a filtered category (Appendix~\ref{app:limits}.)
+
+\begin{lemma}\label{lemma:forgetfromabtosetcreatesdircolims}
+Let $F\colon C \to \Ab$ be a functor, where $C$ is directed and $\Ab$ is the category of abelian groups. Then $A=\colim F$, computed in the category of sets, carries a natural structure of an abelian group and is, with this structure, the colimit in the category of abelian groups.
 \end{lemma}
+A fancy way of phrasing the above is to say that the forgetful functor from $\Ab$ to $\Set$ \emph{creates} directed colimits.
 \begin{proof}
-For $c \leq d$ in $C$, let $\iota_{cd}\colon F(c) \to F(d)$ denote the induced map. Then one easily sees that $\colim F$ can be constructed as
+Let $x$, $y \in A$. By Lemma~\ref{lemma:filteredcolimitset}, there exists an $c \in C$ and $x_c\;,y_c \in A(c)$ such that $i_c(x_c)=x$ and $i_c(y_c)=y$. Define the sum $x+y \in A$ as $i_c(x_c+y_c)$.
+
+This is well-defined: if we had other representative $x'_d\;, y'_d \in A(d)$ of $x$ and $y$, then by Lemma~\ref{lemma:filteredcolimitset} there exists a third index $e \geq c,d$ such that $i_{c,e}(x_c)=i_{d,e}(x'_d)$ and $i_{c,e}(y_c)=i_{d,e}(y'_d)$. Thus
 \[
-\colim_C F = \bigoplus_{c \in C} F(c)/\sim,
+i_c(x_c+y_c) = i_e(i_{c,e})(x_c)+i_{c,e}(y_c))=i_e(i_{d,e}(x'_d)+i_{d,e}(y'_d)) = i_d(x'_d+y'_d).
 \]
-where $\sim$ is generated additively by $x \sim \iota_{cd}(x)$ for $x \in F(c)$. Thus every element $x \in \colim_C F$ has a representative $(y_d)_{d \in C} \in \bigoplus_{d \in C} F(d)$. Since all but finitely many $y_d$ are zero and $C$ is directed, there exists a $c$ such that $d \leq c$ for all $d$ such that $y_d \neq 0$. Thus $x_c = \sum_{d \in C} \iota_{dc}(y_d)$ is well-defined, and $\iota_c(x_c) = x$. This proves the first part.
-
-For the second part, we may assume $c=d$ since we can otherwise pass to a common upper bound of $c$ and $d$ in $C$ because $C$ is directed. Moreover, the first part showed that the colimit in abelian groups is actually equal to the colimit in sets, thus we verify the claim using the universal property for colimits of set-valued functors.
-If $\iota_{ce}(x) \neq \iota_{ce}(y)$ for all $e \geq c$ then we can construct compatible maps $\alpha$ from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(x) = 0$ and $\alpha(y) = 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
+With this structure, if $f_i\colon C(i) \to T$ are morphisms to a test object $T \in \Ab$ compatible with the maps $i_{cd}$, the induced map $f\colon A \to T$ is automatically a homomorphism, thus $A$ is the colimit in abelian groups.
 \end{proof}
 
-\begin{lemma}\label{lemma:cofinalcolimit}
-Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that for every $c \in C$ there is a $d \in D$ with $c \leq d$. Let $F\colon C \to \Set$ be a functor. Then $\colim_C F \cong \colim_D F|_D$.
-\end{lemma}
-\begin{proof}
-Since there are compatible maps $F(d) \to \colim_C F$ for every $d \in D$, there is a natural map $\colim_D F|_D \to \colim_C F$, and we have to show it is bijective. For surjectivity, any $x \in \colim_C F$ has a representative $x_c \in F(c)$, thus also $\iota_{cd}(x_c) \in F(d)$ for some $d \geq c$. For injectivity, if $x_d$, $y_{d'}$ map to the same element in $\colim_C F$ then there is a $c \in C$ such that $\iota_{dc}(x_d) = \iota_{d'c}(y_{d'})$ by Lemma~\ref{lemma:dircolimitofabeliangroups}. By cofinality, we can choose $c \in D$ and thus $x_d$ and $y_{d'}$ become equivalent in $\colim_D F|_D$.
-\end{proof}
+% \begin{lemma}\label{lemma:dircolimitofabeliangroups}
+% Let $F\colon C \to \Ab$ be a functor, where $C$ is a directed poset and $\Ab$ is the category of abelian groups. Then
+% \begin{enumerate}
+% \item For every $x \in \colim_C F$, there exists $c \in C$ and $x_c \in F(c)$ such that $\iota_c(x_c)=x$.
+% \item If $x \in F(c)$ and $y \in F(d)$ are such that $\iota_c(x)=\iota_d(y) \in \colim_C F$ then there exists $e \in C$, $c \leq e \geq d$ such that $x$ and $y$ are mapped to the same element in $F(e)$.
+% \end{enumerate}
+% \end{lemma}
+% \begin{proof}
+% For $c \leq d$ in $C$, let $\iota_{cd}\colon F(c) \to F(d)$ denote the induced map. Then one easily sees that $\colim F$ can be constructed as
+% \[
+% \colim_C F = \bigoplus_{c \in C} F(c)/\sim,
+% \]
+% where $\sim$ is generated additively by $x \sim \iota_{cd}(x)$ for $x \in F(c)$. Thus every element $x \in \colim_C F$ has a representative $(y_d)_{d \in C} \in \bigoplus_{d \in C} F(d)$. Since all but finitely many $y_d$ are zero and $C$ is directed, there exists a $c$ such that $d \leq c$ for all $d$ such that $y_d \neq 0$. Thus $x_c = \sum_{d \in C} \iota_{dc}(y_d)$ is well-defined, and $\iota_c(x_c) = x$. This proves the first part.
+
+% For the second part, we may assume $c=d$ since we can otherwise pass to a common upper bound of $c$ and $d$ in $C$ because $C$ is directed. Moreover, the first part showed that the colimit in abelian groups is actually equal to the colimit in sets, thus we verify the claim using the universal property for colimits of set-valued functors.
+% If $\iota_{ce}(x) \neq \iota_{ce}(y)$ for all $e \geq c$ then we can construct compatible maps $\alpha$ from $F(a)$ to $\{0,1\}$ for all $a \in C$ with $\alpha(x) = 0$ and $\alpha(y) = 1$ and hence the induced map from the colimit must map $\iota_c(x)$ to $0$ and $\iota_c(y)$ to $1$, which is a contradiction.
+% \end{proof}
+
+% \begin{lemma}\label{lemma:cofinalcolimit}
+% Let $C$ be a directed poset and $D \subseteq C$ \emph{cofinal}, i.~e. such that for every $c \in C$ there is a $d \in D$ with $c \leq d$. Let $F\colon C \to \Set$ be a functor. Then $\colim_C F \cong \colim_D F|_D$.
+% \end{lemma}
+% \begin{proof}
+% Since there are compatible maps $F(d) \to \colim_C F$ for every $d \in D$, there is a natural map $\colim_D F|_D \to \colim_C F$, and we have to show it is bijective. For surjectivity, any $x \in \colim_C F$ has a representative $x_c \in F(c)$, thus also $\iota_{cd}(x_c) \in F(d)$ for some $d \geq c$. For injectivity, if $x_d$, $y_{d'}$ map to the same element in $\colim_C F$ then there is a $c \in C$ such that $\iota_{dc}(x_d) = \iota_{d'c}(y_{d'})$ by Lemma~\ref{lemma:dircolimitofabeliangroups}. By cofinality, we can choose $c \in D$ and thus $x_d$ and $y_{d'}$ become equivalent in $\colim_D F|_D$.
+% \end{proof}
 
 \begin{thm}\label{thm:principalbundlesbycechcohomology}
 Let $X$ be a topological space and $G$ a topological group. Then the natural map
@@ -2401,7 +2481,7 @@ By Propositions~\ref{prop:cocycleisomorphisms} and~\ref{prop:cocycleexistence}, 
 \[
 \{\text{principal $G$-bundles on $X$ with trivializing cover $\mathcal U$}\}/\text{iso} \to H_\mathcal U^1(X,G)
 \]
-is a bijection and induces a well-defined map $\Phi$ as in the statement of the theorem. For injectivity, assume two vector bundles induce the same cohomology class in the colimit. Then by the above lemma, they have to agree already for some cover $\mathcal U$. Hence the cocycles are cohomologous for the cover $\mathcal U$ and the corresponding vector bundles are isomorphic. For surjectivity, any cohomology class lies in $H^1_{\mathcal U}$ for some $\mathcal U$ by the above lemma and hence comes from a vector bundle trivialized over $\mathcal U$.
+is a bijection and induces a well-defined map $\Phi$ as in the statement of the theorem. For injectivity, assume two vector bundles induce the same cohomology class in the colimit. Then by Lemmas~\ref{lemma:forgetfromabtosetcreatesdircolims} and \ref{lemma:filteredcolimitset}, they have to agree already for some cover $\mathcal U$. Hence the cocycles are cohomologous for the cover $\mathcal U$ and the corresponding vector bundles are isomorphic. For surjectivity, any cohomology class lies in $H^1_{\mathcal U}$ for some $\mathcal U$ by the two lemmas as before hence comes from a vector bundle trivialized over $\mathcal U$.
 \end{proof}
 
 Combining this result with Theorem~\ref{thm:classifying-space}, we obtain:
@@ -2413,41 +2493,42 @@ H^1(X;G) \cong [X,BG].
 \]
 \end{corollary}
 
+
 \section{Functoriality}
 
-A morphism of sheaves of abelian groups $F \to G$ on $X$ induces a map between \v Cech cocycles and hence a homomorphism $H^*(X;F) \to H^*(X;G)$. This makes $H^*(X;-)$ into a covariant functor. But there is also a contravariant functoriality with respect to maps $f\colon X \to Y$ of spaces. Given an open cover $\mathcal V$ of $Y$, write $f^{-1}\mathcal V$ for the open cover of $X$ consisting of $f^{-1}(V)$ with $V \in \mathcal V$, and $f^{-1}\mathbf V$ for the associated topological groupoid. Then $f$ induces a simplicial map
+A morphism of presheaves of abelian groups $F \to G$ on $X$ induces a map between \v Cech cochains and hence a homomorphism $H^*(X;F) \to H^*(X;G)$. This makes $H^*(X;-)$ into a covariant functor. But there is also a contravariant functoriality with respect to maps $f\colon X \to Y$ of spaces. Given an open cover $\mathcal V$ of $Y$, write $f^{-1}\mathcal V$ for the open cover of $X$ consisting of $f^{-1}(V)$ with $V \in \mathcal V$. For a presheaf $F$ on $X$, we obtain an induced map of \v Cech cochains
 \[
-f\colon\nerve f^{-1}\mathbf V \to \nerve \mathbf V.
+C^n_{f^{-1}\mathcal V}(X;F) \to C^n_{\mathcal V}(Y;f_*F)
 \]
-
-If $F$ is a sheaf of abelian groups on $X$ then $f_*F$ is a sheaf of abelian groups on $Y$ defined by $f_*F(V) = F(f^{-1}V)$ (cf.\ Section~\ref{subsec:pullback-pushforward}). By this definition, we have a natural isomorphism
+by
 \[
-F(\nerve f^{-1}\mathbf V) \cong f_*F(\nerve \mathbf V)
+\prod_{\alpha_0,\dots,\alpha_n} F(f^{-1}(V_{\alpha_0}) \cap \cdots \cap f^{-1}(V_{\alpha_n})) \to \prod_{\alpha_0,\dots,\alpha_n} (f_*F)(V_{\alpha_0\cdots\alpha_n}),
 \]
-which is compatible with the simplicial structure, and thus an induced isomorphism
+where the pushforward presheaf $f_*F$ is defined by $f_*F(V)=f(f^{-1}V)$ as in Subsection~\ref{subsec:pullback-pushforward}. In fact, this map is the identity map since $f^{-1}(V_{\alpha_0}) \cap \cdots \cap f^{-1}(V_{\alpha_n}) = f^{-1}(V_{\alpha_0\cdots\alpha_n})$.
+The we obtain a natural isomorphism (you might even say equality)
 \[
 H_{f^{-1}\mathcal V}^n(X;F) \cong H_{\mathcal V}^n(Y;f_*F).
 \]
 By passing to the colimit over all open covers $\mathcal V$, we thus get an induced map
 \begin{equation}\label{eq:inducedmaponcohomology}
-f^*\colon H^n(Y;f_*F) \to H^n(X;F)
+f^*\colon H^n(Y;f_*F) =\colim_{\mathcal V} H^n_{\mathcal V}(Y;f_*F) \cong \colim_{\mathcal V} H^n_{f^{-1}\mathcal V}(X;F) \to  H^n(X;F)
 \end{equation}
 which may or may not be an isomorphism; the reason being that $f^{-1}\mathcal V$ does not, in general, range over \emph{all} open covers of $X$. For instance, if $f$ is a constant map, $f^{-1}\mathcal V$ only produces the trivial cover on $X$.
 
 \begin{lemma}\label{lemma:basechangeiso}
-If $f\colon X \hookrightarrow Y$ is the inclusion of a subspace, the map $f^*\colon H^n(Y;f_*F) \to H^n(X;F)$ is an isomorphism.
+If $f\colon X \hookrightarrow Y$ is the inclusion of a closed subspace, the map $f^*\colon H^n(Y;f_*F) \to H^n(X;F)$ is an isomorphism.
 \end{lemma}
 \begin{proof}
-By the definition of the subspace topology, every open set $U \subseteq X$ is the intersection $V \cap X$ of an open set $V \subseteq Y$ with $X$. Thus every open cover $\mathcal U$ of $X$ is contained in $f^*\mathcal V$ for an open cover $\mathcal V$ of $Y$. By Lemma~\ref{lemma:cofinalcolimit},
+By the definition of the subspace topology, every open set $U \subseteq X$ is the intersection $V \cap X$ of an open set $V \subseteq Y$ with $X$. Thus every open cover $\mathcal U = \{U_\alpha\}$ of $X$ is contained in $f^*\mathcal V$ for the open cover $\mathcal V = \{V_\alpha\} \cup \{Y-X\}$ of $Y$, where $U_\alpha = V_\alpha \cap X$. By Lemma~\ref{lemma:cofinality},
 \[
-H^n(X;F) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;F).
+H^n(X;F) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;F).\qedhere
 \]
 \end{proof}
 
-We will now restrict our attention to a particular class of sheaves: representable sheaves, and in particular, locally constant sheaves.
+We will now restrict our attention to a particular class of presheaves: representable sheaves, and in particular, locally constant sheaves.
 
 \begin{defn}
-A sheaf $F$ of sets (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,T)$ for some topological space (topological group, topological abelian group) $T$. If $T$ is discrete, we call $F$ \emph{locally constant}.
+A presheaf $F$ of sets (groups, abelian groups) is called \emph{representable} if it is isomorphic to $\map(-,T)$ for some topological space (topological group, topological abelian group) $T$. If $T$ is discrete, we call $F$ \emph{locally constant}. Note that this implies that $F$ is a sheaf.
 \end{defn}
 
 \begin{example}
@@ -2477,7 +2558,7 @@ Composing this map with the map $f^*\colon H^n(Y;f_*A) \to H^n(X;A)$ of \eqref{e
 Let $F', \; F,\; F''\colon C \to \Ab$ be functors from a directed set $C$ to abelian groups and assume there are natural transformations $F' \to F \to F''$ such that $F'(c) \to F(c) \to F''(c) $ is exact for all $c$. Then $\colim_C F' \to \colim_C F \to \colim_C F''$ is also exact.
 \end{lemma}
 \begin{proof}
-Let $x \in \colim_C F$ map to $0$ in $\colim_C F''$. Choose a representative $x_c \in F(c)$, which exists by Lemma~\ref{lemma:dircolimitofabeliangroups}. While $x_c$ might not map to $0$ in $F''(c)$, it maps to $0$ in $F''(d)$ for some $d \geq c$ by Lemma~\ref{lemma:dircolimitofabeliangroups} again. Replacing $c$ by $d$, we can thus assume without loss of generality that it does map to $0$ in $F''(c)$. By exactness at $c$, there is thus a preimage in $F'(c)$, which maps to a preimage in $\colim_C F'$.
+As a left adjoint, every colimit is right exact, thus we only need to show that $F'(c) \to F(c)$ is injective. But this follows from the fact that directed colimits commute with finite limits (Lemma~\ref{lemma:filteredcolimfinitelim}): kernels are a special kind of finite limit, namely a pullback of the diagram $0 \leftarrow F \rightarrow F''$.
 \end{proof}
 
 \begin{lemma}\label{lemma:les}
@@ -2500,9 +2581,9 @@ The first statement is a standard result from homological algebra once we notice
 The second part is a good exercise.
 \end{proof}
 
-\begin{corollary} \label{cor:lesfromsesofsheaves}
-Let $0 \to F' \xrightarrow{i} F \xrightarrow{j} F'' \to 0$ be a sequence of sheaves of abelian groups which is exact as a sequence of presheaves. \marginpar{Counterexample for short exact sequences of sheaves? Cf. Godement 5.10/11}
-Then for any space $X$, there is a natural long exact sequence of Čech cohomology groups
+\begin{corollary} \label{cor:lesfromsesofpresheaves}
+Let $0 \to F' \xrightarrow{i} F \xrightarrow{j} F'' \to 0$ be an exact sequence of presheaves of abelian groups.
+Then for any paracompact space $X$, there is a natural long exact sequence of Čech cohomology groups
 \[
 0 \to H^0_{\mathcal U}(X;F') \to H^0_{\mathcal U}(X;F) \to H^0_{\mathcal U}(X;F'') \xrightarrow{d} H^1_{\mathcal U}(X;F') \to \cdots
 \]
@@ -2515,8 +2596,9 @@ as well as their colimits
 By assumption, $0 \to C^n_{\mathcal U}(X;F') \to C^n_{\mathcal U}(X;F) \to C^n_{\mathcal U}(X;F'') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
+
 \begin{defn}
-Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a sheaf of abelian groups $F$ is defined by
+Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a presheaf of abelian groups $F$ is defined by
 \[
 \tilde H^n(X;F) = \ker(H^n(X;F) \to H^n(\{x_0\};F_{x_0})).
 \]
@@ -2539,11 +2621,11 @@ Note that for $L \subseteq K$ open in $K$,
 \[
 (i^*(A))(L) = \colim_{V \supseteq i(L)} A(V) = \colim_V \map(V,A),
 \]
-where $V$ runs over open subsets of $X$ containing $i(L)$. The restriction map
+where $V$ runs over the open subsets of $X$ containing $L$. The restriction map
 \[
 r\colon \colim_V \map(V,A) \to \map(L,A)
 \]
-is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $X$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) = f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence, where $j$ is the map of sheaves $\map(-,A) \to i^*A: f \mapsto f \circ p$ on $K$. It follows that $F$ is homotopy equivalent to the kernel of $\map(-,A) \to (- \cap K, A)$ on $X$.
+is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $X$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) =_{\operatorname{def}} f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence, where $j$ is the map of sheaves $\map(-,A) \to i^*A: f \mapsto f \circ p$ on $K$. It follows that $F$ is homotopy equivalent to the kernel of $\map(-,A) \to (- \cap K, A)$ on $X$.
 
 Let $\mathcal U = \{U_\alpha\}$ be an open cover of $X$. By Lemma~\ref{lemma:cosimphomotopicmaps}, we have that $F(U_{\alpha_0\cdots\alpha_n}) \simeq \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $K \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
 \[
@@ -2579,10 +2661,10 @@ Since such compatible open covers are cofinal in all open covers, we obtain the 
 
 \begin{defn} A sheaf $F$ on a paracompact space $X$ is called \emph{soft} if for every closed set $K \subseteq X$, the restriction map $F(X) \to \colim_{U \supseteq K} F(U)$ is surjective, where $U$ runs over the directed set of all open sets containing $K$.
 
-It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft, i.~e. if every sheaf homomorphism $F|_K \to F|_K$ can be extended to all of $X$.
+It is called \emph{fine} if the sheaf of maps $\Hom(F,F)$ is soft.
 \end{defn}
 Here, the sheaf of maps $\Hom(F,F)$ is the sheaf $U \mapsto \Hom(F|_U,F|_U)$.
-\marginpar{JH: I don't see how to easily go to the second description of fine sheaves. Don't we need to sheafify to get $F_K \to F_K$?}
+
 
 \begin{example}
 The sheaf $C^0$ is soft. Indeed, let $K \subset X$ be closed and $f:U \to \R$ continuous with $K \subset U$. By Urysohn's lemma, take an open neighborhood $V$ of $K$ such that $\bar{V} \subset U$. By the Tietze extension theorem, we can extend $f|_{\bar{V}}$ to $\tilde{f}:X \to \R$. Now $(\tilde{f}|_V,V) = (f,U)$ in $\colim_{K \subset U}C^0(U)$.
@@ -2708,6 +2790,63 @@ This gives in principle a method to reduce the computation of cohomology groups 
 Show that the sphere $\S^n$ has a contractible cover consisting of $n+1$ elements.
 \end{exer}
 
+\subsection{\v Cech cohomology with coefficients in presheaves and sheafification}
+
+Note that the definition of \v Cech cohomology $H^*(X;F)$ does not require $F$ to be a sheaf -- a presheaf works just as well. However, just copying the definition of Section~\ref{sec:cechcohomology} for presheaves is less useful than the following:
+\begin{defn}
+Let $F$ be a presheaf with values in $C$ on a space $X$ and $Y \subseteq X$ open. The (augmented) \v Cech complex for an open cover $\mathcal U=(U_\alpha)$ of $Y$ is the (augmented) cosimplicial $C$-object
+\[
+C^\bullet_{\mathcal U}(X,F)\colon \Bigl( F(X) \xrightarrow{d_0^0} \Bigr) \prod_{\alpha} F(U_\alpha) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} \prod_{\alpha,\beta} F(U_{\alpha\beta}) \cdots
+\]
+and its \v Cech cohomology is the cohomology of the associated cochain complex.
+\end{defn}
+If $F$ sends coproducts to products (as sheaves do), then this definition agrees with the one given in Section~\ref{sec:cechcohomology}. The above definition does not come from applying a contravariant functor to a simplicial object; it should  not surprise that $C^\bullet_{\mathcal U}(X,F)$ is nevertheless a cosimplicial object. Similarly, we define the \v Cech cohomology to be the colimit of $H^*_{\mathcal U}(X,F)$ over all open covers $\mathcal U$.
+
+We see that the natural map
+\[
+d_0^0\colon F(Y) \xrightarrow{\iota} H^0_{\mathcal U}(Y;F)
+\]
+is an isomorphism if and only if $F$ is a sheaf for every open cover $\mathcal U$ of every open set $Y$. In particular, in this case $F(Y) = F_0(Y) =_{\operatorname{def}} H^0(Y,F)$.
+
+We will now construct a functor from presheaves to sheaves, called \emph{sheafification} $F \mapsto F^\#$, with a natural transformation $\eta\colon F \to F^\#$, such that $\eta$ induces a bijection
+\[
+\Hom_{\text{sheaves}}(F^\#,G) \xrightarrow[\cong]{\eta} \Hom_{\text{presheaves}}(F,G)
+\]
+for all sheaves $G$.
+
+It is tempting to guess that the functor $F_0$ is the sheafification, but this is not quite right as $F_0$ is not necessarily a sheaf. As a rule, it is generally not advisable to repeat something one knows not to work, but this case is an exception: the presheaf $(F_0)_0$ is a sheaf, and hence the sheafification of $F$:
+
+\begin{thm}\label{thm:sheafification}
+Call a presheaf $F$ \emph{separated} if the canonical map
+\[
+d_0^0\colon F(Y) \to H^0(Y;F)
+\]
+is injective for all open covers $\mathcal U=\{U_\alpha\}$ of any open subset $Y$. Then $F_0$ is separated for any presheaf $F$, and $F_0$ is a sheaf if $F$ is a separated presheaf.
+\end{thm}
+\begin{proof}
+First suppose that $F$ is any presheaf and $x,y \in F_0(Y)$ satisfy $d_0^0(x)=d_0^0(y)$ for some open cover $\mathcal U$. By directedness, there exists a refinement $\mathcal V$ of $\mathcal U$ such that $d_0^0(x)=d_0^0(y) \in H^0_{\mathcal V}(Y,F)$, which shows that $x=y$.
+
+The second part is left as an exercise for the reader.
+\end{proof}
+
+
+(l.e.s. for s.e.s. of sheaves)
+If we only assume the exactness as sheaves then there is a short exact sequence of presheaves
+\[
+0 \to F' \xrightarrow{i} F \xrightarrow{j_0} P'' \to 0,
+\]
+and $P'' \to F''$ is sheafification. The result follows from the following theorem.
+
+\begin{thm}\label{thm:cohomologyinvariantundersheafification}
+For any paracompact space $X$ and presheaf $F$, sheafification induces an isomorphism
+\[
+H^*(X;F) \to H^*(X;F^\#).
+\]
+\end{thm}
+\begin{proof}
+Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by the (already proven) presheaf part of Cor.~\ref{cor:lesfromsesofsheaves} to show the theorem when $F^\#=0$.
+
+\end{proof}
 
 
 \section{The Mayer-Vietoris sequence}
@@ -2773,7 +2912,7 @@ U \times V \mapsto A(U) \otimes B(V),
 and extended to all opens of $X \times Y$ by the gluing condition. This, unfortunately, is often not a sheaf due to the fact that the tensor product does not preserve the equalizer diagram in the sheaf condition. We need to “sheafify”.
 
 \begin{prop}
-\label{prop:sheafification}	
+\label{prop:sheafification}
 Let $X$ be a topological space and $F\colon B^\op \to C$ a presheaf defined on some basis $B \subseteq \Open(X)$ of the topology of $X$ with values in a category $C$ that has all limits and directed colimits. As for sheaves, let $F_x$ denote the stalk of $F$ at $x \in B$ and, for $t \in F(V)$ and $x \in V$, let $t_x$ denote the image of $t$ in $F_x$. Define
 \[
 \tilde F\colon \Open(X)^\op \to C
@@ -5112,7 +5251,7 @@ A poset $(X,\leq)$ is called \emph{directed} if for all pairs $x$, $y \in X$ the
 
 The reason filtered categories have a special place when computing limits and colimits are the following results:
 
-\begin{lemma} \label{lem:filteredcolimitset}
+\begin{lemma} \label{lemma:filteredcolimitset}
 Let $I$ be a filtered category and $F\colon I \to \Set$ a functor to the category of sets. Denote the structure maps $F(i) \to \colim F$ by $\iota_i$. Then
 \begin{enumerate}
 \item For any $x$, $x' \in \colim F$ there is some $i \in \ob(I)$ and $x_i,\; x'_i \in F(i)$ such that $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$. \label{lem:filteredcolimitset:ex}
@@ -5123,6 +5262,37 @@ Let $I$ be a filtered category and $F\colon I \to \Set$ a functor to the categor
 For \eqref{lem:filteredcolimitset:ex}, Lemma~\ref{lem:setvaluedlim}\eqref{lem:setvaluedlim:colim} guarantees the existence of $i'$ and $i'' \in I$ with elements $y_{i'} \in F(i')$ and $y_{i''} \in F(i'')$ such that $\iota_{i'}(y_{i'}) = x$ and $\iota_{i''}(y_{i''}) = x'$. By (Fi1), choose morphisms $i' \xrightarrow{\alpha} i \xleftarrow{\beta} i''$ and define $x_i = F(\alpha)(x_{i'})$ and $x'_i = F(\beta)(x_{i''})$. Then $\iota_i(x_i)=x$ and $\iota_i(x'_i)=x'$.
 
 For \eqref{lem:filteredcolimitset:un}, choose a zigzag as in Lemma~\ref{lema:setvaluedlim:colimequivalence} and choose $j$ such that morphisms $i_k \to j$ exist in $I$ for all $0 \leq k \leq n$. It follows immediately from the cofiltered property that all $y_{k}$ map to the same element $y \in F(j)$.
+\end{proof}
+
+If $\alpha\colon I \to J$ is a functor (of indexing categories) and $F\colon J \to C$ is a $J$-diagram, there is a natural map
+\[
+\colim_I F\circ \alpha \to \colim_J F
+\]
+induced by the compatible system of maps
+\[
+F(\alpha(i)) \xrightarrow{\iota_{\alpha(i)}} \colim F.
+\]
+This map is usually far from an isomorphism.
+
+\begin{defn}
+A functor $\alpha\colon I \to J$ is \emph{cofinal} if the comma category $j \downarrow F$ is connected for every $j \in J$. The objects of $j \downarrow F$ are given by pairs $(i,f\colon j \to \alpha(i))$ and a morphism from $(i,f)$ to $(i',f')$ is given by a morphism $g\colon i \to i'$ such that $f'=f\circ\alpha(g)$.
+\end{defn}
+
+In particular a cofinal subcategory of a poset $J$ is a subposet $I$ with the property that for every $i \in I$ there is a $j \in J$ with $i \leq j$. For instance, the cofinal posets of $\N$ are exactly the infinite subsets.
+
+\begin{lemma}\label{lemma:cofinality}
+If $\alpha \colon I \to J$ is cofinal then the natural map
+\[
+\Phi\colon \colim_I F\circ \alpha \to \colim_J F
+\]
+is an isomorphism.
+\end{lemma}
+\begin{proof}
+For the sake of simplicity, we will show this for functors from posets to sets.
+
+For the surjectivity of $\Phi$, let $x \in \colim_J F$. Let $x_j \in F(j)$ be a representative. By cofinality, there is an $i \geq j$, $I \in I$. Then $\iota_{ij}(x_j)$ is a representative for $x$ in $\colim_I F$.
+
+For the injectivity, suppose two elements $x,y \in \colim_I F$ map to the same element in $\colim_J F$. Choose representatives $x_i,y_i \in F(i)$. Since they map to the same element in $\colim_J F$, there must be a $j$ such that $\iota_{ij}(x_i)=\iota_{ij}(x_j)$. By cofinality, there is an $i'\geq j$, thus $\iota_{ii'}(x_i)=\iota_{ii'}(x_j)$, and thus $x=y \in \colim_I F$. 
 \end{proof}
 
 \begin{lemma} \label{lemma:filteredcolimfinitelim}
