@@ -651,7 +651,7 @@ Let
 \]
 We will construct the total space $E$ of the desired $G$-bundle by gluing the disjoint summands of $\tilde E$ together over all intersections $U_{\alpha\beta}$. Concretely, we define a relation $\sim$ on $\tilde E$ by
 \[
-  (x_\alpha,u_\alpha)_{\alpha} \sim (x_\beta,u_\beta)_{\beta} \quad \text{iff} \quad u_\alpha=u_\beta \text{ and } g_{\alpha\beta}x_\beta = x_\alpha.
+  (x_\alpha,u_\alpha)_{\alpha} \sim (x_\beta,u_\beta)_{\beta} \quad \text{iff} \quad u_\alpha=u_\beta \text{ and } g_{\alpha\beta}(u_\alpha) x_\beta = x_\alpha.
 \]
 The cocycle conditions (COC1) -- (COC3) are equivalent, in this order, to the reflexivity, symmetry, and transitivity of the relation $\sim$, thus $\sim$ is an equivalence relation, and we define $E = \tilde E/\mathord{\sim}$. Since identifications under $\sim$ only occur within a fiber, $p$ factors through a projection map $p\colon E \to B$.
 
@@ -1189,29 +1189,50 @@ Let $A=C^\infty(\R^n)$ be the algebra of smooth real-valued functions on $\R^n$.
 In fact, this is a derivation on the quotient algebra $C^\infty_0$ of germs of smooth functions at $0$.
 \end{example}
 
-\begin{defn}
-Let $M$ be a smooth manifold. Define a sheaf $TM$ by
+Derivations can also be defined on sheaves of $k$-algebras in the usual way: given a sheaf $A$ of $k$-algebras on a space $X$, we define
 \[
-TM(U) = \Der(C^{\infty}(U)).
+\Der(A) \subseteq \Hom(A,A)
 \]
+as the subpresheaf of the Hom sheaf whose sections over $U$ are derivations on $A(U)$ for all $U$. More explicitly,
+\[
+\Der(A)(U) = \{ f\colon A|_U \to A|_U \mid f(V)\colon A(V) \to A(V) \text{ is a derivation for all open } V \subseteq U\}.
+\]
+The presheaf $\Der(A)$ is in fact a sheaf: suppose $U$ is covered by $U_i$ and $s_i \in \Der(A)(U_i)$ are a family of sections of $\Der(A)(U_i)$ that agree on intersections $U_i \cap U_j$. Then by the sheaf property of the Hom sheaf, there exists a unique element $s \in \Hom(A,A)(U)$ such that $s|_{U_i}=s_i$. It only remains to show that $s$ is a derivation. So we need to see that for every $V \subseteq U$, $s(V)\colon A(V) \to A(V)$ is a derivation. By the sheaf property of $A$, there is a commutative diagram
+\[
+\begin{tikzcd}
+A(V) \ar[d,"s"] \ar[r,>->] & \prod_i A(V \cap U_i) \ar[r,"\cong"] & \prod_i A|_{U_i} (V \cap U_i) \ar[d,"\prod_i s_i"]\\
+A(V) \ar[r,>->] & \prod_i A(V \cap U_i) \ar[r,"\cong"] & \prod_i A|_{U_i} (V \cap U_i)\\
+\end{tikzcd}
+\]
+Since the right hand vertical map is a derivation, so is $s$.
+
+\begin{defn}
+Let $M$ be a smooth manifold. Then the \emph{tangent bundle} $TM$ on $M$ is defined as $TM=\Der(C^{\infty}_M)$.
 \end{defn}
 
 \begin{thm} \label{thm:tangentspacebundle}
 For an $n$-dimensional manifold $M$, $TM$ is an $n$-dimensional real vector bundle.
 \end{thm}
 \begin{proof}
-We have to show that $TM$ is a finitely generated, locally free sheaf of $C^\infty_M$-modules. This is a local question, so we may assume that $M = \R^n$. After choosing a basis of $\R^n$, the differential operators $\frac\partial{\partial x_i}$ are linearly independent global sections of $TM$. We will show that the map $(C^\infty_M)^n \to TM$ which sends $(f_1,\cdots,f_n)$ to the derivation $f_1\frac\partial{\partial x_1}+\cdots+f_n\frac\partial{\partial x_n}$ is an isomorphism of $C^\infty_M$-module sheaves. Let $X \in \Der(C^\infty_{\R^n})$ and $f \in C^\infty(\R^n)$. Then for any two points $x$, $p \in \R^n$ we have
+We have to show that the sheaf $TM$ is locally finitely generated free as a sheaf of $C^\infty_M$-modules. This is a local question, so we may assume that $M = \R^n$. After choosing a basis of $\R^n$, the differential operators $\frac\partial{\partial x_i}$ are linearly independent global sections of $TM$. We will show that the map $(C^\infty_M)^n \to TM$ which sends $(f_1,\cdots,f_n)$ to the derivation $f_1\frac\partial{\partial x_1}+\cdots+f_n\frac\partial{\partial x_n}$ is an isomorphism of $C^\infty_M$-module sheaves. Let $X \in \Der(C^\infty)(U)$ and $f \in C^\infty(U)$. Consider the difference
+\[
+\tilde X = X - \sum_{i=1}^n X(x_i) \frac\partial{\partial x_i}.
+\]
+Then $\tilde X(x_i) = 0$ for all $i$, and we are done if we can show that $\tilde X=0$. Thus we may replace $X$ by $\tilde X$ and assume that $X(x_i)=0$.
+
+Then for any two points $x$, $p \in U$ we have
 \begin{align*}
 f(x) = & f(p)+\int_0^1 \frac d {dt} f(tx+(1-t)p)\; dt = f(p) + \int_0^1 \sum_{i=1}^n\left.\frac{\partial f}{\partial x_i}\right|_{tx+(1-t)p} (x_i-p_i)\; dt \\
-= & f(p) + \sum_{i=1}^n (x_i-p_i) \int_0^1 \left.\frac{\partial f}{\partial x_i}\right|_{tx+(1-t)p}\; dt.
+= & f(p) + \sum_{i=1}^n (x_i-p_i) \int_0^1 \left.\frac{\partial f}{\partial x_i}\right|_{tx+(1-t)p}\; dt = f(p) + \sum_{i=1}^n (x_i-p_i) g_i.
 \end{align*}
 
 Applying $X$ and evaluating at $p$ using the Leibniz rule, we get
 \[
-X(f)(p) = \sum_{i=1}^n X(x_i-p_i)(p) \left.\frac{\partial f}{\partial x_i}\right|_p.
+X(f)(p) = \sum_{i=1}^n X(x_i-p_i)(p) g(p) = 0
 \]
-Since $X(x_i-p_i)(p) = g(p)$ is a real-valued continuous function of $p$, we have shown that $X(f)$ is a linear combination of $\frac{\partial f}{\partial x_i}$.
+Since $X(x_i-p_i) = X(X_i) - X(p_i) = 0$ by assumption and because $p_i$ is a constant.
 \end{proof}
+
 
 \begin{thm}
 For any smooth map $f\colon M \to N$ of smooth manifolds, there is an induced map $Tf\colon f_*TM \to TN \in \Vect(N)$ which is functorial in the sense that $T\id=\id$ and $T(f \circ g)=Tf \circ Tg$.
