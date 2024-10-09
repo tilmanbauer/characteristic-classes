@@ -748,6 +748,8 @@ Note that a category object in sets is just an ordinary category whose objects f
 
 A special case of a topological category is a category $\C$ when $\ob\C$ is just a discrete set (but the morphism sets do carry a nontrivial topology). Some authors call this a topological category, rather than our more general definition. An unambiguous name for this kind of category is a \emph{category enriched in topological spaces}. (In this setting it is usually not required for the class of objects to be a set.)
 
+On the other extreme, given a topological space $X$, we can consider $X$ as a category $\mathcal X$with $\ob \mathcal X = \mor \mathcal X = X$. Thus the only morphisms in this category are identity morphisms. We will not distinguish in notation between $X$ and the category thus formed.
+
 \begin{example}
 If $G$ is a Lie group, such as $\GL_n(k)$ for $k=\R$ or $\CC$, then we can consider $G$ as a topological category with one object $*$ and $\mor = \Hom(*,*) = G$. We will not distinguish in notation between the group $G$ and the one-object category thus defined.
 \end{example}
@@ -766,7 +768,7 @@ The pair $(\mathbf U,\mathbf U \times_X \mathbf U)$ becomes a topological catego
 \item $s(x,y) = x$ and $t(x,y) = y$;
 \item $\mu\colon (\mathbf U \times_X \mathbf U) \times_{\mathbf U} (\mathbf U \times_X \mathbf U) = \mathbf U \times_X \mathbf U \times_X \mathbf U \to \mathbf U \times_X \mathbf U$ by $(x,y,z) \mapsto (x,z)$.
 \end{itemize}
-This is in fact a groupoid as well. We denote it by $\mathbf U$.
+This is in fact a groupoid as well. We denote it by $\mathbf U$. It comes with a functor $\mathbf U \to X$ to the category with objects $X$ and only identity morphisms.
 
 An object in $\mathbf U$ is a pair $(x,\alpha)$ where $x \in U_\alpha$, and we are using $x_\alpha$ as a shorthand for this tuple. Similarly, a morphism in $\mathbf U$ (from $x_\alpha$ to $y_\beta$) only exists when $x=y \in U_\alpha \cap U_\beta$, and in that case it is unique. We denote it by $x_{\alpha\beta}$.
 \end{example}
@@ -1620,7 +1622,8 @@ Let $\C$ be a topological category. The \emph{nerve} $\nerve\C$ of $\C$ is the s
 \]
 where the fiber product has $n$ factors. In particular, $\nerve_0 \C = \ob \C$ and $\nerve_1 \C = \mor \C$. We specify the morphisms by defining the \emph{face maps} $d_i^n\colon \nerve_n \C \to \nerve_{n-1} C$ induced by $d^i_n$ and the \emph{degeneracy maps} $s_i^n\colon \nerve_n \C \to \nerve_{n+1} \C$ induced by $s^i_n$:
 \begin{itemize}
-\item $d_i = \id_{\mor \C} \times \cdots \times \mu \times \cdots \times \id_{\mor \C}$, where $\mu$ appears in the $i$th place;
+\item $d^n_0 = t \times \id_{\mor\C} \times \cdots \times \id_{\mor\C}$ and $d_n^n = \id_{\mor\C} \times \cdots \times \id_{\mor\C} \times s$;
+\item $d^n_i = \id_{\mor \C} \times \cdots \times \mu \times \cdots \times \id_{\mor \C}$ for $0<i<n$, where $\mu$ appears in the $i$th place;
 \item $s_i = \id_{\mor \C} \times \cdots \times u \times \cdots \times \id_{\mor \C}$, where $u$ appears in the $i$th place.
 \end{itemize}
 The associativity and unitality axioms guarantee that this is a well-defined simplicial space.
@@ -1654,13 +1657,13 @@ Show that for a topological group $G$, $\nerve(G)$ is isomorphic to the nerve of
 
 \begin{example}\label{ex:cechnerve}
 Recall from Example~\ref{exa:covergroupoid} the topological category $\mathbf U = (\mathbf U,\mathbf U \times_X \mathbf U)$ constructed from an open cover $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ of a space $X$. The $\nerve(\mathbf U,\mathbf U \times_X \mathbf U)$ is called the \emph{\v Cech nerve} of the covering $\mathcal U$, and we denote it by $\nerve\mathbf U$.
-\end{example}
 
 Note that
 \[
 \nerve_n\mathbf U = \mathbf U \times_X \cdots \times_X \mathbf U = \coprod_{\alpha_0,\dots,\alpha_n \in I} U_{\alpha_0\cdots\alpha_n};
 \]
-we will denote an element in $\nerve_n\mathbf U$ by $x_{\alpha_0\cdots\alpha_n}$.
+we will denote an element in $\nerve_n\mathbf U$ by $x_{\alpha_0\cdots\alpha_n}$. The canonical functor $\mathbf U \to X$ gives rise to a map of simplicial sets $\nerve \mathbf U \to X$, where $X$ is considered as the constant functor $\Delta^\op \to \Top$ with value $X$.
+\end{example}
 
 We remark in passing that the nerve construction is functorial: a functor $F\colon \C \to \D$ between topological categories induces a simplicial map $\nerve F\colon \nerve\C \to \nerve\D$ in the obvious way. 
 
@@ -1736,7 +1739,7 @@ The following proposition follows from the definition of natural transformations
 Let $F$, $G\colon C \to D$ be functors of topological categories. Then the nerve functor gives a homeomorphism between the space of natural transformations from $F$ to $G$ and the space of simplicial homotopies from $\nerve F$ to $\nerve G$. \qed
 \end{prop}
 
-\subsection{Geometric realization}
+\subsection{Geometric realization}\label{subsec:geometric-realization}
 
 A simplicial space is called “simplicial” because one can use its functorial information to glue together simplices to produce a space. Let $\Delta^n$ denote the standard $n$-simplices, i.~e. the convex hull of the standard basis vectors $e_0,\dots,e_n$ of $\R^{n+1}$. The following definition is central:
 
@@ -2005,13 +2008,16 @@ A Hausdorff space $X$ is paracompact iff every open cover has an associated part
 
 Let us study the geometric realizations of \v Cech nerves of open covers. 
 
-Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \subset U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
+Given a refinement $\{V_\beta\}_{\beta \in J}$ of an open cover $\{U_\alpha\}_{\alpha \in I}$, we can choose a function $\rho\colon J \to I$ such that $V_\beta \subset U_{\rho(\beta)}$ for all $\beta \in J$. This gives rise to a map $\tilde \rho\colon \mathbf V \to \mathbf U$ over $X$, hence a functor of topological groupoids $\mathbf V \to \mathbf U$.
 
 \begin{prop} \label{prop:refinementhomotopyinvariant}
-Let $\{V_\beta\}_{\beta \in J}$ be a refinement of an open cover $\{U_\alpha\}_{\alpha \in I}$ of a space $X$, and let $\rho_1,\;\rho_2\colon J \to I$ be two functions such that $V_\beta \in U_{\rho_i(\beta)}$ for all $\beta \in J$. Then $\rho_1$ and $\rho_2$ induce naturally isomorphic functors between the topological groupoids $\mathbf V$ and $\mathbf U$.
+Let $\{V_\beta\}_{\beta \in J}$ be a refinement of an open cover $\{U_\alpha\}_{\alpha \in I}$ of a space $X$, and let $\rho_1,\;\rho_2\colon J \to I$ be two functions such that $V_\beta \in U_{\rho_i(\beta)}$ for all $\beta \in J$. Then $\rho_1$ and $\rho_2$ induce naturally isomorphic functors $\tilde \rho_1$, $\tilde \rho_2$ between the topological groupoids $\mathbf V$ and $\mathbf U$ over $X$.
 
-In particular, the map $|\rho_*|\colon |\nerve\mathbf V| \to |\nerve \mathbf U|$ is independent of $\rho$ up to homotopy.
+In particular, the map $|\rho_*|\colon |\nerve\mathbf V| \to |\nerve \mathbf U|$ is independent of $\rho$ up to homotopy over $X$.
 \end{prop}
+
+The statement ``homotopy over $X$'' is to be understood as follows: Let $p_1\colon |\nerve \mathbf V| \to X$ and $p_2\colon |\nerve \mathbf U| \to X$ be the canonical maps to $|\nerve X| = X$. Then $f_1=|\nerve \tilde \rho_1|$ and $f_2=|\nerve \tilde \rho_2|$ satisfy $p_2(f(x))=p_1(x)$, and the homotopy $h\colon |\nerve \mathbf V| \times [0,1] \to |\nerve \mathbf U|$ satisfies $h(x,t)=p(x)$ for all $t \in [0,1]$.
+
 \begin{proof}
 Let $H$ be the map over $X$ defined by
 \[
@@ -2021,26 +2027,21 @@ We use this map to define a natural transformation $h\colon (\mathbf V,\mathbf V
 \[
 h(-,0) = \rho_1, \quad h(-,1) = \rho_2, \quad h(x^\beta,0 \to 1) = H(x^\beta).
 \]
-It is then straightforward to verify that $h$ is a functor. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
+It is then straightforward to verify that $h$ is a functor over the projection functor $X \times [0,1] \to X$. Since its target is a groupoid, it is automatically a natural isomorphism (rather than just a natural transformation) between $\rho_1$ and $\rho_2$.
 \end{proof}
 
-If we consider the case of a trivial cover $\mathcal X = \{X \to X\}$, we find that $|\nerve \mathbf X| \cong X$, and we get a natural map
-\[
-|\nerve\mathbf V| \to X
-\]
-for any other open cover $\mathcal V$. In fact, this map is well-defined on the nose, not just up to homotopy, since there  is only one map from the indexing set of $\mathcal V$ to the indexing set of $\mathcal X$, which is a singleton.
 
 \begin{thm}\label{thm:paracompactnerve}
 The following are equivalent for a Hausdorff space $X$:
 \begin{enumerate}
 \item $X$ is paracompact\label{thm:paracompactnerve:paracompact}
 \item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ has a section (i.~e., a right inverse)\label{thm:paracompactnerve:section}
-\item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ is a deformation retraction.\label{thm:paracompactnerve:deformationretraction}
+\item For every open cover $\mathcal U$, the natural map $p\colon |\nerve \mathbf U| \to X$ is a strong deformation retraction.\label{thm:paracompactnerve:deformationretraction}
 \end{enumerate}
 \end{thm}
 \begin{proof}
 \noindent\textbf{\eqref{thm:paracompactnerve:paracompact}$\Longrightarrow$\eqref{thm:paracompactnerve:deformationretraction}:}
-First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. Since $X$ is paracompact, there exists a locally finite refinement $\mathcal V \to \mathcal U$. Since a section $X \to |\nerve\mathbf V|$ composes with any map $\mathbf V \to \mathbf U$ realizing the refinement to a section $X \to |\nerve\mathbf U|$,  we may as well assume that $\mathcal U$ already is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
+First assume that $X$ is paracompact and $\mathcal U$ is an open cover. Choose a total order on the indexing set $I$ of $\mathcal U$. Since $X$ is paracompact, there exists a locally finite refinement $\mathcal V \to \mathcal U$. Since a section $X \to |\nerve\mathbf V|$ composes with any map $\mathbf V \to \mathbf U$ over $X$ realizing the refinement to a section $X \to |\nerve\mathbf U|$,  we may as well assume that $\mathcal U$ already is locally finite and that $f_\alpha\colon X \to [0,1]$ is a partition of unity such that $\overline{f_\alpha^{-1}(0,1]} \subseteq U_\alpha$.
 
 Define a map $r\colon X \to |\nerve\mathbf U|$ as follows. Every point $x \in X$ lies in finitely many $U_\alpha$, say in $U_J$, where $J=\{\alpha_0 < \cdots < \alpha_n\} \subset I$. Define $r(x)$ to be the equivalence class of the point $(x^J,f_J(x)) \in U_J \times \Delta^n$, where $x^J = x^{\alpha_0,\dots,\alpha_n} \in U_J \subseteq \nerve_n\mathbf U$ and $f_J(x)=(f_{\alpha_0}(x),\dots,f_{\alpha_n}(x)) \in \Delta^n$. We have to show that this map is continuous. Let $J' = \{\alpha \in I \mid x \in \overline{U_\alpha}\} \supseteq J$. By local finiteness, $J'$ must have finite cardinality, say $m+1$. 
 
@@ -2110,7 +2111,7 @@ Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G
 is a pullback diagram.
 \end{thm}
 \begin{proof}
-This proof follows Tom Dieck \cite[Chapter 14.3]{tomdieck:algebraic-topology}.
+This proof follows tom Dieck \cite[Chapter 14.3]{tomdieck:algebraic-topology}.
 By the compactness of $[0,1]$ and paracompactness of $B$, there exists a locally finite cover $\{U_\alpha \times [0,1]\}_{\alpha \in I}$ of trivializing neighborhoods for $p$. Let $\{f_\alpha\colon B \to [0,1]\}_{\alpha \in I}$ be a partition of unity with respect to $U_\alpha$. Now define
 \[
 F(x) = \max_{\alpha \in I} f_\alpha(x) \quad \text{and} \quad u_\alpha(x) = \frac{f_\alpha(x)}{F(x)}.
@@ -2164,7 +2165,7 @@ In Corollary~\ref{cor:EG}, we constructed spaces $EG$ with a free $G$-action whi
 
 \begin{lemma}
 For a Lie group $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
-\end{lemma}
+\end{lemma}\marginpar{Add a proof for general $G$ (we'll need that when we iterate the $B$ construction in Chapter 4).}
 \begin{proof}
 Segal notes in \cite{segal:68} that this fails to be true for a general topological group $G$, but it does hold for Lie groups. See, for instance, \cite{may:classifying-spaces}, where May shows that it suffices for a topological group $G$ to be well-pointed for this to hold.
 \end{proof}
@@ -2213,7 +2214,7 @@ Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G$-
 \end{corollary}
 \begin{proof}
 By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \cong f^*u$. This bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
-\end{proof}
+\end{proof}\marginpar{This last argument is a bit terse, add details.}
 
 Now consider the Grassmannians $G_n(k^N)$ for $k=\R$ or $\CC$. There are embeddings $i\colon G_n(k^N) \to G_n(k^{N+1})$ given by a linear inclusion of $k^N$ into $k^{N+1}$ (for instance by letting the last coordinate be zero). We define $G_n(k^\infty) = \bigcup_{N=1}^\infty G_n(k^N)$ to be the colimit, or union, of all of the finite-dimensional Grassmannians. 
 
