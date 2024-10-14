@@ -911,7 +911,7 @@ For two vector bundles $E$, $E'$ over $B$, we have an isomorphism of sheaves $\G
 The Whitney sum construction works in the same way for fiber bundles. In that case, the fiber of the sum is the product of the fibers of the summands, and the structure group of the sum is the product of the structure groups of the summands.
 
 \begin{exer}
-Let $f\colon \S^1 \to \S^1$ be the map $z \mapsto z^2$ of degree~$2$, and $\mu$ the Möbius bundle on $\S^1$. Then $f_*\mu$ is isomorphic to the Whitney sum $\R \oplus \mu$ of a trivial line bundle and the Möbius bundle over $\S^1$.
+Let $f\colon \S^1 \to \S^1$ be the map $z \mapsto z^2$ of degree~$2$, and $\mu$ the Möbius bundle on $\S^1$. Then $f_*\mu$ is isomorphic to the trivial $2$-dimensional bundle, while $f_*\R$, the pushforward of the trivial line bundle, is isomorphic to the Whitney sum $\R \oplus \mu$ of a trivial line bundle and the Möbius bundle over $\S^1$.
 \end{exer}
 
 \subsection{Kernels and Cokernels*}
@@ -927,7 +927,7 @@ These constructions of $\ker f$ and $\coker f$ are in general not locally trivia
 \[
 f\colon E \to E'; \quad f(x,b) = (bx,b).
 \]
-Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $B$ of Example~\ref{exa:coordinatecross}, which is not locally trivial.
+Then both $\ker f$ and $\coker f$ are isomorphic to the vector space over $\R$ of Example~\ref{exa:coordinatecross}, which is not locally trivial.
 \end{warning}
 
 
@@ -1765,15 +1765,19 @@ The geometric realization is functorial, i.e.\ a map of simplicial spaces induce
 The geometric realization functor is meaningful and useful also for simplicial sets, i.e.\ discrete simplicial spaces.
 \end{remark}
 
-The geometric realization $|X|$ can be given a somewhat smaller presentation by only considering \emph{nondegenerate} simplices, i.~e. elements $x \in X_n$ which are not in the image of $s_i$ for any $0 \leq i \leq n$, or equivalently, which are not of the form $f^*(y)$ for some $y \in X_m$ and a non-injective map $f\colon [n] \to [m]$. The collection $X^{\operatorname{nd}}_n \subseteq X_n$ of nondegenerate simplices forms a semi-simplicial set. We then have a coequalizer diagram
+The geometric realization $|X|$ can be given a somewhat smaller presentation by only considering \emph{nondegenerate} simplices, i.~e. elements $x \in X_n$ which are not in the image of $s_i$ for any $0 \leq i \leq n$, or equivalently, which are not of the form $f^*(y)$ for some $y \in X_m$ and a non-injective map $f\colon [n] \to [m]$. That is, the map 
 \begin{equation}\label{eq:realizationwithnondegenerates}
-\coprod_{f\colon [m] \hookrightarrow [n]} X^{\operatorname{nd}}_n \times \Delta^m \rightrightarrows \coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \Delta^n \to |X|.
+\coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \Delta^n \to |X|.
 \end{equation}
+is surjective. To see this, consider an element $(x,t) \in X_n \times \Delta^n$ such that $x$ is degenerate. Let $m$ be minimal such that there exists a surjective map $f\colon [n] \to [m]$ and an element $y \in X_m$ with $x = f^*(y)$. Then
+\[
+(x,t)=(f^*y,t) \sim (y,f_*t) \in X_m^{nd} \times \Delta^m.
+\]
 Moreover, every point in $|X|$ is represented by a unique pair $(x,t) \in X^{\operatorname{nd}}_n \times \mathring\Delta^n$, where $\mathring\Delta^n$ denotes the interior of $\Delta^n$. That is, the map
 \[
 \coprod_{n \geq 0} X^{\operatorname{nd}}_n \times \mathring \Delta^n \to |X|
 \]
-is continuous and bijective (but clearly not a homeomorphism). Details can be found in \cite{milnor:57}.
+is continuous and bijective (but clearly not a homeomorphism). Indeed, an element $t \in \Delta^n$ lies in the boundary iff $t = f_*(s)$ for some injective $f\colon [m] \to [n]$ and $s \in \mathring \Delta^m$. But then $(x,t) = (x,f_*(s))=(f^*(x),s)$. The element $f^*(x)$ may become degenerate even if $x$ was nondegenerate, but by induction on $n$, this reduction process will eventually finish. Details can be found in \cite{milnor:57}.
 
 \begin{example}\label{exa:geomrealizationofinterval}
 Let $[1]$ be the category associated to the poset $\{0 < 1\}$, as in Subsection~\ref{subsec:simplicial-homotopy}. Then in $\nerve [1]$, there are two nondegenerate $0$-simplices ($0$ and $1$) and one nondegenerate $1$-simplex corresponding to the relation $r\colon 0 < 1$ and no other nondegenerate simplices. The two faces of the $1$-simplex are the two $0$-simplices. Accordingly,
@@ -2101,7 +2105,7 @@ Let $G$ be a topological group, $p\colon E \to B$ a principal $G$-bundle, $X$ a 
 To prove this, we need a technical result about covering homotopies:
 
 \begin{thm}\label{thm:homotopylifting}
-Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G$-bundle. Denote by $E_t \to B$ the $G$-bundle $p^{-1}(B \times \{t\}) \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
+Let $B$ be a paracompact space and $p\colon E \to B \times [0,1]$ a principal $G$-bundle. Denote by $E_t \to B$ the $G$-bundle $p^{-1}(B \times \{t\}) \to B \times \{t\} \cong B$. Then there exists a map $r \in \map_B(E,E_1)$ of principal $G$-bundles with $r|_{E_1} = \id$ (i.~e.\ a retraction of the inclusion $E_1 \to E$ over $B$) such that the diagram
 \[
 \begin{tikzcd}
 		E \ar[r,"r"] \ar[d,"p"] & E_1 \ar[d,"p"] \\
@@ -2161,13 +2165,61 @@ As every $U_\alpha \in \mathcal U$ is contractible, $\mathcal U$ trivializes any
 
 \section{Universal bundles}
 
-In Corollary~\ref{cor:EG}, we constructed spaces $EG$ with a free $G$-action which is furthermore (nonequivariantly) contractible, for any Lie group $G$. 
+In Corollary~\ref{cor:EG}, we constructed spaces $EG$ with a free $G$-action which is furthermore (nonequivariantly) contractible, for any Lie group $G$. In this section, we will see that the projection $u\colon EG \to BG=EG/G$ is the universal example of a principal $G$-bundle, at least under the following mild condition on the topological group $G$:
+
+\begin{defn}
+A pair $(X,A)$ of spaces is an \emph{NDR pair} (for ``neighborhood deformation retract'') if there is a map $u\colon X \to [0,1]$ with $u^{-1}(0)=A$ and a homotopy $h\colon X \times [0,1] \to X$ rel $A$ from the identity map to a map $h_1$ which send $u^{-1}([0,1))$ into $A$.
+
+A pointed space $(X,x_0)$ is \emph{well-pointed} if $(X,\{x_0\})$ is an NDR pair.
+\end{defn}
+
+\begin{example}
+Manifolds are well-pointed since they are locally homeomorphic to $\R^n$.
+\end{example}
+
+It is elementary to see that pushouts and products of NDR pairs are NDR pairs, where products are defined as $(X,A) \times (X',A') = (X\times X',X \times A'\cup_{A \cup A'} A \times X')$. Moreover, if $A \subseteq X_0 \subseteq X_1 \subseteq \cdots$ then $(\bigcup_{n} X_n,A)$ is an NDR pair if every $(X_n,X_{n-1})$ is an NDR pair.
 
 \begin{lemma}
-For a Lie group $G$, $EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
-\end{lemma}\marginpar{Add a proof for general $G$ (we'll need that when we iterate the $B$ construction in Chapter 4).}
+For a well-pointed topological group $G$, $u\colon EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
+\end{lemma}
 \begin{proof}
-Segal notes in \cite{segal:68} that this fails to be true for a general topological group $G$, but it does hold for Lie groups. See, for instance, \cite{may:classifying-spaces}, where May shows that it suffices for a topological group $G$ to be well-pointed for this to hold.
+This proof follows Peter May's argument \cite[Theorem~8.2]{may:classifying-spaces}.
+
+Since $G$ acts freely on $EG$, it is clear that $EG$ is a $G$-space over $BG$ with fibers $G$; the only thing to check is local triviality.
+
+By the pushout property and induction, $(E^{(n)}G,E^{(n-1)}G)$ is a NDR pair, a fortiori of $G$-spaces (i.e. the maps and homotopies are all $G$-equivariant). Hence also $(EG,E^{(n)}G$ is a $G$-equivariant NDR pair. Let $u_n\colon EG \to [0,1]$ and $h_n\colon EG \times [0,1] \to EG$ be the NDR data of these pairs.
+
+Inductively define maps $\rho_n\colon EG \to [0,1]$ by
+\[
+\rho_0(x) = 1-u_n(x); \quad \rho_n(x) = (1-u_n(x))u_{n-1}(h_n(x,1)).
+\]
+Now we have that
+\[
+\quad E^{(n)}G-E^{(n-1)}G \subseteq \rho_n^{-1}((0,1]) \subseteq h_{n,1}^{-1}(E^{(n)}-EG^{(n-1)}G),
+\]
+where $h_{n,1}(x) = h_n(x,1)$ and we agree that $E^{(-1)}G = \emptyset$.
+
+We collect these maps into new maps $\pi_n\colon EG \to [0,1]$ with
+\[
+\pi_n(x) = \max\Bigl(0,\rho_n(x)-n\sum_{i=0}^{n-1}\rho_i(x)\Bigr).
+\]
+Now define $V_n = \pi_n^{-1}((0,1]) \subseteq EG $ and $U_n = p(V_n) \subseteq BG$ its projection to $BG$. Then $\{V_n\}$ is a locally finite open cover of $BG$.
+
+We have an equivariant homeomorphism
+\[
+E^{(n)}G - E^{(n-1)}G \cong (B^{(n)}G - B^{(n-1)}G) \times G
+\]
+and define $\gamma_n\colon V_n \to G$ by the composition of $h_{n,1}\colon V_n \to E^{(n)}G-E^{(n-1)}G$ and the projection to the $G$-factor of the above homeomorphism.
+
+We obtain a map 
+\[
+\xi_n\colon V_n \times G \to V_n, \quad (y,g) \mapsto y \gamma_n(y)^{-1}g
+\]
+which is $G$-invariant in the first factor and thus descends to a trivialization
+\[
+\bar\xi_n\colon U_n \times G \xrightarrow{\cong} V_n
+\]
+(the inverse is given by $(p,\gamma_n)$.)
 \end{proof}
 
 The principal $G$-bundle $u\colon EG \to BG$ is called the \emph{universal principal $G$-bundle} for the following reason:
@@ -2207,13 +2259,27 @@ The inclusion maps $O(n) \to \GL_n(\R)$ and $U(n) \to \GL_n(\CC)$ are homotopy e
 are isomorphisms.
 \end{proof}
 
+Our construction of the universal $G$-bundle $EG \to BG$ is only one of many possible models. To see this, we need a homotopy-theoretic preparatory theorem:
+\begin{thm}\label{thm:fiber-homotopy-theorem}
+Let $f\colon E_1 \to E_2$ be a map of fiber bundles over a connected paracompact space $B$. If $f$ induces a homotopy equivalence on any fiber then $f$ is an equivalence of fiber bundles.
+\end{thm}
+\begin{proof}
+First note that the theorem is true for trivial bundles: if $E_1 = B \times F_1$ and $E_2 = B \times F_2$ then $f$ is uniquely determined by the map $f_b\colon F_1 \to F_2$ at any base point $b\in B$, and an equivalence if and only if $f_b$ is.
+
+By paracompactness, there exists a locally finite cover $\mathcal U=(U_\alpha)_{\alpha \in I}$ of $B$ which trivializes both $E_1$ and $E_2$, and $f$ restricts to homotopy equivalences over each $U_\alpha$ by the above. Let $\alpha_i\colon B \to [0,1]$ be a partition of unity with respect to $\mathcal U$. Give $I$ a total order (using the axiom of choice) and define
+\[
+A_i = \{ b \in B \mid \sum_{j<i} \alpha_j(b) = 1\} \quad \text{for each $i \in I$.}
+\]
+
+\end{proof}
+
 We can also use universal bundles to compare $BG$ for $G=O(n)$ or $G=U(n)$ with certain infinite-dimensional versions of Grassmannians up to homotopy.
 
 \begin{corollary}\label{cor:characterizationfouniversalGspaces}
-Let $G$ be a Lie group and $E$ a contractible paracompact space with a free $G$-action. Then $E/G \simeq BG$ and, moreover, the principal $G$-bundle $E \to E/G$ is universal.
+Let $p\colon E \to B$ be a principal $G$-bundle with contractible, paracompact total space $E$ and paracompact $B$. Then $p$ is equivalent, as principal $G$-bundles, to $EG \to BG$.
 \end{corollary}
 \begin{proof}
-By Theorem~\ref{thm:classifying-space}, there is a map $f\colon E/G \to BG$ such that $E \cong f^*u$. This bundle map must come from a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $E/G \to BG$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
+By Theorem~\ref{thm:classifying-space}, there is a map $f\colon B \to BG$ such that $p \cong f^*u$, covered by a $G$-equivariant map $\tilde f\colon E \to EG$ which induces $f$ when taking $G$-quotients. Since both $E$ and $EG$ are contractible, $\tilde f$ is a homotopy equivalence. Since $E$ and $EG$ are $G$-free, $\tilde f$ induces an isomorphism on all fibers. It follows that $f$ is a homotopy equivalence. (It's true locally and hence globally by paracompactness.)
 \end{proof}\marginpar{This last argument is a bit terse, add details.}
 
 Now consider the Grassmannians $G_n(k^N)$ for $k=\R$ or $\CC$. There are embeddings $i\colon G_n(k^N) \to G_n(k^{N+1})$ given by a linear inclusion of $k^N$ into $k^{N+1}$ (for instance by letting the last coordinate be zero). We define $G_n(k^\infty) = \bigcup_{N=1}^\infty G_n(k^N)$ to be the colimit, or union, of all of the finite-dimensional Grassmannians. 
