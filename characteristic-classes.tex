@@ -2686,62 +2686,69 @@ By assumption, $0 \to C^n_{\mathcal U}(X;F') \to C^n_{\mathcal U}(X;F) \to C^n_{
 
 
 \begin{defn}
-Let $(X,x_0)$ be a pointed space. Then the $n$th \emph{reduced cohomology group} with coefficients in a presheaf of abelian groups $F$ is defined by
+Let $i\colon K \hookrightarrow X$ be an inclusion of topological spaces and $\mathcal U$ an open cover of $X$. The \emph{relative \v Cech complex} for $(X,A)$ with coefficients in a presheaf $F$ of abelian groups on $X$ is
+\[
+C^n_{\mathcal U}(X,K;F) = \prod_{\alpha_0,\dots,\alpha_n} \ker\Bigl(F(U_{\alpha_0\dots\alpha_n}) \to (i^*F)(U_{\alpha_0\dots\alpha_n}\cap K\Bigr).
+\]
+In other words, it is the subgroup of chains that vanish in a neighborhood of $K$. These subgroups are stable under the coface and codegeneracy maps, and also natural in the open cover, so that we have induced relative cohomology groups
+\[
+H^n_{\mathcal U}(X,K;F) \quad \text{and} \quad H^n(X,K;F) = \colim_{\mathcal U} H^n_{\mathcal U}(X,K;F),
+\]
+generalizing the absolute case for $K=\emptyset$.
+
+A special case is when $A=\{x_0\}$ is a singleton. In that case, we call
+\[
+\tilde H^n(X;F) = H^n(X,\{x_0\};F)
+\]
+the $n$th \emph{reduced cohomology group}. In this case, we have
 \[
 \tilde H^n(X;F) = \ker(H^n(X;F) \to H^n(\{x_0\};F_{x_0})).
 \]
-In the particular case where $F=\map(-,A)$ is representable, we can define
-\[
-\tilde C^n_{\mathcal U}(X;A) = \prod_{\alpha_0,\cdots,\alpha_n} \map_*(U_{\alpha_0\cdots\alpha_n},A),
-\]
-where $\map_*$ denotes the maps that send the base point $x_0$ to $0$ if it belongs to $U_{\alpha_0\cdots\alpha_n}$. Then the reduced cohomology is given by the cohomology of $\tilde C^n_{\mathcal U}(X;A)$.
 \end{defn}
 
-\begin{lemma}\label{lemma:cohomologyofquotient}
-Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some open $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. Let $F = \ker(A \to i_*i^*A)$. This sheaf is given by
+\begin{lemma}\label{lemma:relativecohomology}
+Let $K \subseteq X$ be a closed subset and $F$ a sheaf of abelian groups on $X$. Denote by $i\colon X-K \to X$ the inclusion. Then there is a natural isomorphism
 \[
-F(V) = \{f\colon V \to A \mid f \text{ vanishes in a neighborhood of $V \cap K$}\}.
+H^*(X,K;F) \cong H^*(X-K;i^*F).
 \]
-Then $H^n(X;F) \cong \tilde H^n(X/K;A)$.
 \end{lemma}
 \begin{proof}
-Note that for $L \subseteq K$ open in $K$, 
+For any open cover $\mathcal U$ of $X$, the map
 \[
-(i^*(A))(L) = \colim_{V \supseteq i(L)} A(V) = \colim_V \map(V,A),
+i^*\colon C^n_{i^*\mathcal U}(X-K;i^*F) \to C^n_{\mathcal U}(X;F)
 \]
-where $V$ runs over the open subsets of $X$ containing $L$. The restriction map
+is an isomorphism: an element in $F(U)$ vanishing in a neighborhood of $V$ of $K$ is uniquely determined by its restrictions to the opens $X-K$ and $V$ by the sheaf condition on $F$. Hence we obtain isomorphisms
 \[
-r\colon \colim_V \map(V,A) \to \map(L,A)
+H^n_{i^*\mathcal U}(X-K;i^*F) \cong H^n_{\mathcal U}(X;F)
 \]
-is surjective: if $p\colon U \to K$ denotes the neighborhood retraction then $p^{-1}(L)$ is open in $U$, hence in $X$, and any map $f\colon L \to A$ extends to $p^{-1}(L)$ as $j(f) =_{\operatorname{def}} f\circ p$. In fact, $(r,j)$ form a functorial homotopy equivalence, where $j$ is the map of sheaves $\map(-,A) \to i^*A: f \mapsto f \circ p$ on $K$. It follows that $F$ is homotopy equivalent to the kernel of $\map(-,A) \to (- \cap K, A)$ on $X$.
-
-Let $\mathcal U = \{U_\alpha\}$ be an open cover of $X$. By Lemma~\ref{lemma:cosimphomotopicmaps}, we have that $F(U_{\alpha_0\cdots\alpha_n}) \simeq \map_*(U_{\alpha_0\cdots\alpha_n}/K \cap U_{\alpha_0\cdots\alpha_n},A)$, where $\map_*$ denotes the maps that send the base point $K \cap U_{\alpha_0\cdots\alpha_n}$ to $0$. Thus we have
-\[
-H^n_{\mathcal U}(X;F) \cong \tilde H^n_{\mathcal U/K}(X/K;A)
-\]
-and since $\mathcal U/K$ ranges over all open covers of $X/K$ as $\mathcal U$ ranges over the open covers of $X$, we obtain the claimed result.
-\end{proof} \marginpar{improve this proof!}
+and the desired isomorphism in the colimit.
+\end{proof}
 
 \begin{corollary}\label{cor:sesforspaces}
-Let $K \subseteq X$ be a neighborhood retract and $A$ a topological abelian group. Then there is a long exact sequence in cohomology:
+Let $i\colon K \hookrightarrow X$ be a subset and $A$ a sheaf of abelian groups. Then there is a long exact sequence in cohomology:
 \[
-0 \to \tilde H^0(X/K;A) \to H^0(X;A) \to H^0(K;A) \to \tilde H^1(X/K;A) \to \cdots.
+0 \to H^0(X,K;A) \to H^0(X;A) \to H^0(K;i^*A) \to H^1(X,K;A) \to \cdots.
 \]
 \end{corollary}
 \begin{proof}
-The sequence
+Consider the sequence of presheaves 
 \[
-0 \to F \to A \to i_*i^*A \to 0
+0 \to F \to A \to i_*i^*A
 \]
-where $i \colon K \to X$ is the inclusion and $F$ as in Lemma~\ref{lemma:cohomologyofquotient}, is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-U$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
+where $i \colon K \to X$ is the inclusion and $F$ the kernel. Observe that
 \[
-0 \to F(\mathcal \nerve U) \to A(\mathcal \nerve U) \to i_*i^*\mathcal \nerve U \to 0
+F(V) = \{f \in A(V) \mid f|_U = 0 \text{ for some neighbordhood $U$ of $V \cap K$}\}.
+\]
+
+This sequence is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-U$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
+\[
+0 \to C^n_{i^*\mathcal U}(X;F) \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;i_*i^*A) \to 0
 \]
 and hence a long exact sequence
 \[
-0 \to \tilde H^0_{\mathcal U}(X/K;A) \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(K;A) \to \tilde H^1_{\mathcal U}(X/K;A) \to \cdots.
+0 \to H^0_{\mathcal U}(X,K;A) \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(X;i_*i^*A) \to H^1_{\mathcal U}(X,K;A) \to \cdots.
 \]
-Since such compatible open covers are cofinal in all open covers, we obtain the long exact sequence in \v Cech cohomology.
+Since such compatible open covers are cofinal in all open covers, we obtain the long exact sequence in \v Cech cohomology, noting that by Lemma~\ref{lemma:basechangeiso}, $H^n(X;i_*i^*A) \cong H^n(K;i^*A)$.
 \end{proof}
 
 
@@ -2788,15 +2795,16 @@ If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a so
 Let $X$ be a paracompact space and $A$ a soft sheaf of abelian groups on it. Then $H^n(X;A)=0$ for $n>0$.
 \end{prop}
 \begin{proof}
-Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J\colon U_J \to A)_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by paracompactness, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
+Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J \in A(U_J))_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by paracompactness, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
 
-Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K)) = (c_J)$. If $\{1,\dots,n-1\} \subseteq K$, choose $u_K$ arbitrarily, i.e.\ take some $K \subset J$ and some extension of $c_J$ to $U_K$. Now we use induction and assume that $u_K$ is defined for every $K$ such that $|K \cap \{1,\dots,N\}| = n-1$ for some $N$. If $|K \cap \{1,\dots,N+1\}| = n$, i.~e. $N+1 \in K$, let $k$ denote the smallest integer not in $K$ (necessarily less or equal to $N$) and define
-\[
-u_K = c_{K\cup\{k\}}+\sum_{i=1}^{n} (-1)^i u_{K_i \cup \{k\}},
-\]
-extended to all of $U_K$ in any way. Here $K_i$ denotes $K$ with the $i$th element omitted. The cocycle condition on $c_J$ guarantees that $d((u_K))=(c_J)$.
+Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. For simplicity, we will consider the countable case only. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K)) = (c_J)$. Order the set of $n$-element subsets of $I$ (considered as strictly increasing sequences) using the lexicographic order, i.e. with minimal element $\{1,\dots,n\}$, second element $\{1,\dots,n-1,n+1\}$ etc. 
+
+If $1 \in K$, choose $u_K$ arbitrarily, e.g. constant. For sets $K$ with $j=\min(K)>1$, we are looking to define sections $u_K \in A(U_K)$ satisfying
+\begin{equation}\label{eq:poincarelemma}
+u_K|_{U_m \cap U_K} = c_{K\cup\{m\}}+\sum_{i=1}^{n} (-1)^{i+1} u_{K_i \cup \{m\}}|_{U_m \cap U_K} \quad (1 \leq m < j),
+\end{equation}
+where $K_i$ denotes the set $K$ with the $i$th element omitted. By the cocycle condition on $c$, such a $u_K$ exists on $(U_1 \cup \cdots \cup U_{j-1}) \cap U_K$, and it can be extended in any way to all of $U_K$. Note that since $K_i \cup \{m\} < K$, for $m<j$, so \eqref{eq:poincarelemma} is a valid inductive definition of $u_K$, and by construction, $d((u_K))=(c_J)$.
 \end{proof}
-\marginpar{JH: This induction doesn't seem to work. The condition $|K \cap \{1,\dots,N+1\}| = n$ is not the same as $N+1 \in K, e.g. K = {1,...,n}$ , $N = n$ is a counter example. Also I don't see how $u_{K_i \cup \{k\}}$ can be assumed to be already defined.}
 
 \begin{corollary}\label{cor:Omodulecohomology}
 Let $X$ be a paracompact space and $N$ a $C^0_X$-module sheaf. Then $H^n(X;N)=0$ for $n>0$. Similarly, for $M$ a smooth manifold and $N$ a $C^\infty_X$-module sheaf, $H^n(X;N)=0$ for $n>0$.\qed
@@ -2809,7 +2817,7 @@ Now let $A$ be a topological abelian group. As shown in Corollary~\ref{cor:EG}, 
 is a short exact sequence of topological abelian groups.
 
 \begin{lemma}\label{lemma:EAfine}
-For any contractible space $F$ the sheaf on a paracompact space $X$ represented by $F$ is soft.
+For any contractible space $F$, the sheaf on a paracompact space $X$ represented by $F$ is soft.
 \end{lemma}
 \begin{proof}
 Let $h\colon F \times [0,1] \to F$ be a contracting homotopy, that is, $h_0$ is constant ($=p$) and $h_1=\id$. Let $K \subset X$ and $s\colon U \to F$ represent a section of $F$ over $X$ for some open $U \supset K$. Choose another open set $V \supset K$ such that $\overline V \subset U$. It suffices to extend $s|_V$ over all of $X$. Choose a map $f\colon X \to [0,1]$ with $f|_{\overline V} = 1$ and $f_{X-U}=0$. Now define $\tilde s\colon X \to F$ by
@@ -2827,7 +2835,7 @@ H^{n+1}(X;A) \cong H^n(X;BA).
 \]
 \end{corollary}
 \begin{proof}
-The short exact sequence $0 \to A \to EA \to BA \to 0$ induces a long exact sequence in \v Cech cohomology by Corollary~\ref{cor:lesfromsesofsheaves}. By Lemma~\ref{lemma:EAfine}, $EA$ is soft and hence, by Proposition~\ref{prop:finesheafcohomology}, $H^n(X;EA)=0$ for $n>0$. Thus the long exact sequence splits into isomorphisms
+The short exact sequence $0 \to A \to EA \to BA \to 0$ induces a long exact sequence in \v Cech cohomology by Corollary~\ref{cor:lesfromsesofpresheaves}. By Lemma~\ref{lemma:EAfine}, $EA$ is soft and hence, by Proposition~\ref{prop:finesheafcohomology}, $H^n(X;EA)=0$ for $n>0$. Thus the long exact sequence splits into isomorphisms
 \[
 H^n(X;BA) \xrightarrow{d} H^{n+1}(X;A)
 \]
@@ -2852,9 +2860,9 @@ When $A$ is a discrete abelian group, the space $B^nA$ is called an \emph{Eilenb
 \end{defn}
 
 \begin{corollary}\label{cor:cechcohomologyhomotopyinvariance}
-Let $f,\;g\colon X \to Y$ by two homotopic maps between paracompact spaces and $A$ a discrete abelian group. Then
+Let $f,\;g\colon X \to Y$ by two homotopic maps between paracompact spaces and $A$ a topological abelian group. Then
 \[
-f^*=g^*\colon H^n(Y;A) \to H^n(X;A).
+f^*=g^*\colon H^n(Y;A) \to H^n(X;A) \quad \text{for $n\geq 1$; also for $n=0$ if $A$ is discrete.}
 \] \qed 
 \end{corollary}
 
@@ -2866,7 +2874,7 @@ Let $\mathcal U$ be a contractible cover of a paracompact space. Then the canoni
 \[
 H^n_{\mathcal U}(X;A) \to H^n(X;A) 
 \]
-is an isomorphism for all $n \geq 0$ and all sheaves of abelian groups $A$.
+is an isomorphism for all $n \geq 0$ and all topological abelian groups $A$.
 \end{thm}
 \begin{proof}
 This is true by the sheaf property for $n=0$ and by Corollary~\ref{cor:H1realizedoncontractiblecovers} for $n=1$. The result follows for all $n$ by Corollary~\ref{cor:cechdimensionshift}. 
@@ -2878,19 +2886,34 @@ This gives in principle a method to reduce the computation of cohomology groups 
 Show that the sphere $\S^n$ has a contractible cover consisting of $n+1$ elements.
 \end{exer}
 
+We conclude this section with a comparison between relative cohomology and cohomology of quotients:
+
+\begin{lemma}\label{lemma:cohomologyofquotient}
+Let $K \subseteq X$ be a closed subset which is a neighborhood retract for some open $U \subseteq X$. Denote by $i\colon K \to X$ the inclusion, and let $A$ be a topological abelian group. 
+Then $H^n(X,K;A) \cong \tilde H^n(X/K;p_*A)$.
+\end{lemma}
+\begin{proof}
+
+Let $\mathcal U$ be an open cover of $X/K$ and $p^*\mathcal U$ the preimage in $X$, which is also an open cover. The projection $p\colon X \to X/K$ induces a natural isomorphism
+\[
+\tilde C^n_{\mathcal U}(X/K,p_*A) \to C^n_{p^*\mathcal U}(X,K;A)
+\]
+since reduced cochains in $X/K$ with values in $A$ are exactly cochains vanishing in a neighborhood of the basepoint $K \in X/K$. We thus obtain a natural isomorphism
+\[
+p^*\colon \tilde H_{\mathcal U}^n(X/K;p_*A) \to H^n_{p^*\mathcal U}(X,K;A)
+\]
+and hence a natural map in \v Cech cohomology
+\[
+p^*\colon \tilde H^n(X/K;p_*A) \to H^n(X,K;A)
+\]
+By homotopy invariance, $H^n(X,K;A) \cong H^n(X,U;A)$. To show that this map is surjective, let $z$ be a cocycle in $C^n_{\mathcal V}(X,K;A)$ for some open cover $\mathcal V$. We may, possible by refining $\mathcal V$, assume that every open set in $\mathcal V$ is either contained in $U$ or in $X-K$. Since $z$ vanishes on $U$, it is already defined on the coarser cover $\mathcal V'$ obtained from $\mathcal V$ by discarding all open sets contained in $U$ and replacing them by $U$. This new cover satisfied $\mathcal V' = p^*p(\mathcal V')$ and thus $z$ is in the image of $p^*$.
+
+Similarily, if a cocycle $y \in C^n_{\mathcal U}(X/K,p_*A)$ become a coboundary in $C^n_{p^*\mathcal U}(X,K;A)$ then a similary argument can be performed on the cochain in $C^{n-1}_{p^*\mathcal U}(X,K;A)$ that bounds $p^*(y)$ to see it can be lifted to $C^n_{\mathcal V}(X/K,p_*A)$ for a possibly finer $\mathcal V$.
+\end{proof}
+
 \subsection{\v Cech cohomology with coefficients in presheaves and sheafification}
 
-Note that the definition of \v Cech cohomology $H^*(X;F)$ does not require $F$ to be a sheaf -- a presheaf works just as well. However, just copying the definition of Section~\ref{sec:cechcohomology} for presheaves is less useful than the following:
-\begin{defn}
-Let $F$ be a presheaf with values in $C$ on a space $X$ and $Y \subseteq X$ open. The (augmented) \v Cech complex for an open cover $\mathcal U=(U_\alpha)$ of $Y$ is the (augmented) cosimplicial $C$-object
-\[
-C^\bullet_{\mathcal U}(X,F)\colon \Bigl( F(X) \xrightarrow{d_0^0} \Bigr) \prod_{\alpha} F(U_\alpha) \overset{d^0_1}{\underset{d^1_1}{\rightrightarrows}} \prod_{\alpha,\beta} F(U_{\alpha\beta}) \cdots
-\]
-and its \v Cech cohomology is the cohomology of the associated cochain complex.
-\end{defn}
-If $F$ sends coproducts to products (as sheaves do), then this definition agrees with the one given in Section~\ref{sec:cechcohomology}. The above definition does not come from applying a contravariant functor to a simplicial object; it should  not surprise that $C^\bullet_{\mathcal U}(X,F)$ is nevertheless a cosimplicial object. Similarly, we define the \v Cech cohomology to be the colimit of $H^*_{\mathcal U}(X,F)$ over all open covers $\mathcal U$.
-
-We see that the natural map
+Note that the definition of \v Cech cohomology $H^*(X;F)$ does not require $F$ to be a sheaf. The natural map
 \[
 d_0^0\colon F(Y) \xrightarrow{\iota} H^0_{\mathcal U}(Y;F)
 \]
@@ -2917,13 +2940,7 @@ First suppose that $F$ is any presheaf and $x,y \in F_0(Y)$ satisfy $d_0^0(x)=d_
 The second part is left as an exercise for the reader.
 \end{proof}
 
-
-(l.e.s. for s.e.s. of sheaves)
-If we only assume the exactness as sheaves then there is a short exact sequence of presheaves
-\[
-0 \to F' \xrightarrow{i} F \xrightarrow{j_0} P'' \to 0,
-\]
-and $P'' \to F''$ is sheafification. The result follows from the following theorem.
+It turns out that cohomology does not see the difference between a presheaf and its sheafification:
 
 \begin{thm}\label{thm:cohomologyinvariantundersheafification}
 For any paracompact space $X$ and presheaf $F$, sheafification induces an isomorphism
@@ -2932,9 +2949,10 @@ H^*(X;F) \to H^*(X;F^\#).
 \]
 \end{thm}
 \begin{proof}
-Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by the (already proven) presheaf part of Cor.~\ref{cor:lesfromsesofsheaves} to show the theorem when $F^\#=0$.
-
+Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by the (already proven) presheaf part of Cor.~\ref{cor:lesfromsesofpresheaves} to show the theorem when $F^\#=0$.
+\marginpar{Omitted, this far.}
 \end{proof}
+
 
 
 \section{The Mayer-Vietoris sequence}
@@ -2945,9 +2963,9 @@ Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups o
 \]
 is exact, where the right hand side map is the difference of the restriction maps. This sequence is not in general exact on the right, but it is on all $Y \subset X$ such that $Y \subseteq U$ or $Y \subseteq V$.
 
-Now let $\mathcal U$ be an open cover of $X$ with $\mathbf U = \coprod \mathcal U$. Assume that every element of $\mathcal U$ is either entirely contained in $U$ or entirely contained in $V$. Denote by $\mathcal U|_Y$ for $Y \subseteq X$ the intersection of the open cover with $Y$, and by $\mathbf U|_Y$ the associated topological groupoid. Then
+Now let $\mathcal U$ be an open cover of $X$. Assume that every element of $\mathcal U$ is either entirely contained in $U$ or entirely contained in $V$. Denote by $\mathcal U|_Y$ for $Y \subseteq X$ the intersection of the open cover with $Y$. Then
 \[
-0 \to A(\nerve \mathbf U) \to i_*A(\nerve \mathbf U|_U) \oplus j_*A(\nerve \mathbf U|_V) \to k_*A(\nerve \mathbf U|_{U \cap V}) \to 0
+0 \to C^n_{\mathcal U}(X,A) \to C^n_{\mathcal U}(X;i_*A|_U) \oplus C^n_{\mathcal U}(X;j_*A|_V) \to C^n_{\mathcal U}(X;k_*A|_{U \cap V})\to 0
 \]
 is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in cohomology. Since the poset of covers which are compatible with the union $U \cup V$ in the above sense is cofinal in all covers, we get a long exact sequence in \v Cech cohomology:
 \[
@@ -2971,7 +2989,7 @@ H^n(\CP^k;A) = \begin{cases} 0\; & n \text{ odd or } n>2k\\ A\; \text{ otherwise
 \]
 \end{corollary}
 \begin{proof}
-The inclusion of the equator $\CP^{k-1} \to \CP^k$ is a neighborhood retract with quotient $\S^{2k}$. Using our knowledge of the cohomology of $\S^n$ and Corollary~\ref{cor:sesforspaces}, we obtain the result by induction.
+The inclusion of the equator $\CP^{k-1} \to \CP^k$ is a neighborhood retract with quotient $\S^{2k}$. Using our knowledge of the cohomology of $\S^n$, Corollary~\ref{cor:sesforspaces}, and Lemma~\ref{lemma:cohomologyofquotient}, we obtain the result by induction.
 \end{proof}
 
 \begin{corollary}\label{cor:additivecohomologyofRPn}
@@ -2990,44 +3008,45 @@ Show that the map $\R P^{2n} \to \CP^n$ which sends a $1$-dimensional real subsp
 
 \section{The product in cohomology}
 
-Let $X$, $Y$ be spaces and $A$, $B$ sheaves of abelian groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. 
-\marginpar{Don't we need sheaves of R-modules in what follows?}
+Let $X$, $Y$ be spaces and $A$, $B$ presheaves of abelian groups on $X$ resp. $Y$. Furthermore let $\mathcal U$ and $\mathcal V$ be open covers of $X$ resp. $Y$. 
+%\marginpar{Don't we need sheaves of R-modules in what follows?}
 
-We can now consider the presheaf on $X \times Y$ given by
+We can now consider the presheaf $A \otimes B$ on $X \times Y$ given by
 \[
 U \times V \mapsto A(U) \otimes B(V),
 \]
-and extended to all opens of $X \times Y$ by the gluing condition. This, unfortunately, is often not a sheaf due to the fact that the tensor product does not preserve the equalizer diagram in the sheaf condition. We need to “sheafify”.
-
-\begin{prop}
-\label{prop:sheafification}
-Let $X$ be a topological space and $F\colon B^\op \to C$ a presheaf defined on some basis $B \subseteq \Open(X)$ of the topology of $X$ with values in a category $C$ that has all limits and directed colimits. As for sheaves, let $F_x$ denote the stalk of $F$ at $x \in B$ and, for $t \in F(V)$ and $x \in V$, let $t_x$ denote the image of $t$ in $F_x$. Define
+and extended to all opens of $X \times Y$ by the gluing condition:
 \[
-\tilde F\colon \Open(X)^\op \to C
+(A \otimes B)(W) = \lim_{U \times V \subseteq W} A(U) \otimes B(V),
 \]
-by $\tilde F(U) = \colim_{\mathcal U} F_{\mathcal U}(U)$ over all open covers $\mathcal U = \{U_\alpha\}_{\alpha \in I} \subseteq B$ of $U$, where for such an $\mathcal U$, $F_{\mathcal U}(U)$ is the equalizer
-\[
-F_{\mathcal U}(U) \to \prod_{\alpha} F(U_\alpha) \rightrightarrows \prod_{\alpha,\beta \in I,\; x \in U_{\alpha\beta}} F_x,
-\]
-where the maps are given by $t^\alpha \mapsto (t_x)^{\alpha,\beta}$ and $t^\alpha \mapsto (t_x)^{\beta,\alpha}$, respectively.
+where the limit is taken over all ``rectangular'' open subsets $U \times V$ of $W$ with $U$ open in $X$ and $V$ open in $Y$.
 
-Then $\tilde F$ is a sheaf on $X$ and the map of presheaves $F \to \tilde F$ given by restriction has the universal property that for any other sheaf $G$ on $X$,
-\[
-\Hom(F,G|_B) \cong \Hom(\tilde F,G).
-\]
-\end{prop}
-\begin{proof}
-Exercise.
-\end{proof}
+This is usually not a sheaf even if $A$ and $B$ were, as the tensor product is not left exact -- it does not preserve the equalizer diagram in the sheaf condition. 
 
-We apply this proposition for the basis $B=\{U \times V\}$ of $X \times Y$ to construct the sheaf $A \otimes B$ on $X \times Y$ as
-\[
-A \otimes B = (U \times V \mapsto A(U) \otimes B(V))^{\sim}
-\]
+% \begin{prop}
+% \label{prop:sheafification}
+% Let $X$ be a topological space and $F\colon B^\op \to C$ a presheaf defined on some basis $B \subseteq \Open(X)$ of the topology of $X$ with values in a category $C$ that has all limits and directed colimits. As for sheaves, let $F_x$ denote the stalk of $F$ at $x \in B$ and, for $t \in F(V)$ and $x \in V$, let $t_x$ denote the image of $t$ in $F_x$. Define
+% \[
+% \tilde F\colon \Open(X)^\op \to C
+% \]
+% by $\tilde F(U) = \colim_{\mathcal U} F_{\mathcal U}(U)$ over all open covers $\mathcal U = \{U_\alpha\}_{\alpha \in I} \subseteq B$ of $U$, where for such an $\mathcal U$, $F_{\mathcal U}(U)$ is the equalizer
+% \[
+% F_{\mathcal U}(U) \to \prod_{\alpha} F(U_\alpha) \rightrightarrows \prod_{\alpha,\beta \in I,\; x \in U_{\alpha\beta}} F_x,
+% \]
+% where the maps are given by $t^\alpha \mapsto (t_x)^{\alpha,\beta}$ and $t^\alpha \mapsto (t_x)^{\beta,\alpha}$, respectively.
 
-Now write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
+% Then $\tilde F$ is a sheaf on $X$ and the map of presheaves $F \to \tilde F$ given by restriction has the universal property that for any other sheaf $G$ on $X$,
+% \[
+% \Hom(F,G|_B) \cong \Hom(\tilde F,G).
+% \]
+% \end{prop}
+% \begin{proof}
+% Exercise.
+% \end{proof}
 
-Then we can define an “external product”
+Now given open covers $\mathcal U$ and $\mathcal V$ of $X$ and $Y$, respectively, write $\mathcal U \times \mathcal V$ for the open cover of $X \times Y$ by the open sets $U \times V$ with $U \in \mathcal U$ and $V \in \mathcal V$.
+
+Then we can define an ``external product''
 \begin{equation}\label{eq:crossproduct}
 C^m_{\mathcal U}(X;A) \otimes C^n_{\mathcal V}(Y;B) \to C^{m+n}_{\mathcal U \times \mathcal V}(X\times Y;A \otimes B)
 \end{equation}
@@ -3078,7 +3097,7 @@ F(M) = H^*(A) \otimes_R H^*(M); \quad G(M) = H^*(A \otimes_R M).
 \]
 Both functors are \emph{cohomological}, i.~e. they map short exact sequences of $R$-modules to long exact sequences and commute with (infinite) direct sums. This is true for $F$ because $H^*(A)$ is free and hence tensoring with it is an exact functor, and for $G$ because $A$ is free. (Flatness would of course suffice in both cases, but we will not need this added generality.) Furthermore, $F(R) = H^*(A) = G(R)$. By exactness and the long exact sequence, they agree on all chain complexes.
 \end{proof}
-\marginpar{JH: This proof seems to be missing something. The conclusion cannot be right, since the asumption on B is not used. The argument seems to work for free modules, but needs more work for chain complexes of free modules.}
+%\marginpar{JH: This proof seems to be missing something. The conclusion cannot be right, since the asumption on B is not used. The argument seems to work for free modules, but needs more work for chain complexes of free modules.}
 
 \begin{corollary}[Künneth Theorem]\label{cor:kunneth}
 Let $R$ be a ring and $X$, $Y$ spaces such that $H^i(X;R)$ is a finitely generated free $R$-module for all $i$. Then the cross product induces an isomorphism
