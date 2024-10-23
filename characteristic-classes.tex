@@ -2001,13 +2001,18 @@ Consider the Grassmannian $G_2(\mathbf{C}^4)$. There are exactly five nonzero co
 \begin{defn}
 Let $\mathcal U = \{U_\alpha\}_{\alpha \in I}$ be an open cover of a space $X$. We call $\mathcal U$ \emph{locally finite} if every $x \in X$ has a neighborhood that intersects $U_\alpha$ nontrivially for only finitely many $\alpha \in I$. A \emph{refinement} of $\mathcal U$ is another open cover $\mathcal V = \{V_\beta\}_{\beta \in J}$ such that every $V_\beta$ is contained in some $U_\alpha$. A space $X$ is called \emph{paracompact} if it is Hausdorff and every open cover has a locally finite refinement.
 
-A \emph{partition of unity} with respect to an open cover $\mathcal U$ is a family of functions $f_\beta\colon X \to [0,1]$, $\beta \in J$ such that $\sum_{\beta \in J} f_{\beta} = 1$ and such that for every $\beta \in J$, $\supp(f_\beta) \subseteq U_\alpha$ for some $\alpha \in I$. Here the support $\supp(f_\beta)$ is defined as the closure of $f_\beta^{-1}(0,1]$. In writing the infinite sum above, it is implicitly assumed that the sets $f_{\beta}^{-1}(0,1]$ form a locally finite cover of $X$, which means that for every $x \in X$, only finitely many $f_\beta(x)$ are different from $0$.
+A \emph{partition of unity} with respect to an open cover $\mathcal U=\{U_\alpha\}_{\alpha \in I}$ is a family of functions $f_\alpha\colon X \to [0,1]$, $\alpha \in I$, such that $\sum_{\alpha \in I} f_{\alpha} = 1$ and such that for every $\alpha \in I$, $\supp(f_\alpha) \subseteq U_\alpha$. Here the support $\supp(f_\alpha)$ is defined as the closure of $f_\alpha^{-1}(0,1]$. In writing the infinite sum above, it is implicitly assumed that the sets $f_{\alpha}^{-1}(0,1]$ form a locally finite cover of $X$, which means that for every $x \in X$, only finitely many $f_\alpha(x)$ are different from $0$.
 \end{defn}
 
 The following is a standard fact of point-set topology (cf.\ for example \cite[Chapter~I.12]{bredon:topology-geometry}):
 
 \begin{prop}
 A Hausdorff space $X$ is paracompact iff every open cover has an associated partition of unity. \qed
+\end{prop}
+
+A standard useful fact for paracompact spaces is the following:
+\begin{prop}\label{prop:shrinking}
+Let $X$ be a paracompact space with an open cover $\mathcal U = (U_\alpha)_{\alpha \in I}$. Then there exist open sets $V_\alpha$ with $\overline V_\alpha \subseteq U_\alpha$ that together still cover $X$. (This is called a \emph{shrinking} of $\mathcal U$). \qed
 \end{prop}
 
 Let us study the geometric realizations of \v Cech nerves of open covers. 
@@ -2609,9 +2614,32 @@ If $f\colon X \hookrightarrow Y$ is the inclusion of a closed subspace, the map 
 \begin{proof}
 By the definition of the subspace topology, every open set $U \subseteq X$ is the intersection $V \cap X$ of an open set $V \subseteq Y$ with $X$. Thus every open cover $\mathcal U = \{U_\alpha\}$ of $X$ is contained in $f^*\mathcal V$ for the open cover $\mathcal V = \{V_\alpha\} \cup \{Y-X\}$ of $Y$, where $U_\alpha = V_\alpha \cap X$. By Lemma~\ref{lemma:cofinality},
 \[
-H^n(X;F) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;F).\qedhere
+H^n(X;F) \cong \colim_{\mathcal V}H^n_{f^{-1}\mathcal V}(X;F).
 \]
 \end{proof}
+
+There is another kind of functoriality when we have a map $f\colon X \to Y$ and a presheaf $F$ on $Y$ (instead of $X$). In that case, we obtain an induced map
+\[
+f^*\colon H^n(Y;F) \to H^n(X;f^{-1}F)
+\]
+as follows. First note that for an open $V$ of $Y$,
+\[
+(f^{-1}F)(f^{-1}V) = \colim_{U \supseteq V \cap \im(f)} F(U),
+\]
+where $U$ runs over all opens containing $f(f^{-1}(V)) = V \cap \im(f)$. Note that $V$ itself is an instance of such a $U$ and thus there is a natural map $\iota_f\colon F(V) \to (f^{-1}F)(f^{-1}V)$. This map is an isomorphism when $f$ is surjective or open, since in that case, $V \cap \im(f)$ is itself open.
+
+Now, as before, there is a map
+\[
+\begin{tikzcd}
+C_{\mathcal V}^n(Y,F) \ar[r] \ar[d,"\cong"] & C_{f^{-1}\mathcal V}(X,f^*F) \ar[d,"\cong"]\\
+\prod\limits_{\alpha_0,\dots,\alpha_n} F(V_{\alpha_0\cdots\alpha_n}) \ar[r,"\iota_f"] & \prod\limits_{\alpha_0,\dots,\alpha_n} (f^{-1}F)(f^{-1}(V_{\alpha_0\cdots\alpha_n})) 
+\end{tikzcd}
+\]
+compatible with the cosimplicial structure and hence an induced map
+\[
+H^n_{\mathcal V}(Y;F) \to H^n_{f^{-1}\mathcal V}(X;f^{-1}F)
+\]
+which is an isomorphism when $f$ is surjective or open.
 
 We will now restrict our attention to a particular class of presheaves: representable sheaves, and in particular, locally constant sheaves.
 
@@ -2671,7 +2699,7 @@ The second part is a good exercise.
 
 \begin{corollary} \label{cor:lesfromsesofpresheaves}
 Let $0 \to F' \xrightarrow{i} F \xrightarrow{j} F'' \to 0$ be an exact sequence of presheaves of abelian groups.
-Then for any paracompact space $X$, there is a natural long exact sequence of Čech cohomology groups
+Then for any space $X$, there is a natural long exact sequence of Čech cohomology groups
 \[
 0 \to H^0_{\mathcal U}(X;F') \to H^0_{\mathcal U}(X;F) \to H^0_{\mathcal U}(X;F'') \xrightarrow{d} H^1_{\mathcal U}(X;F') \to \cdots
 \]
@@ -2795,7 +2823,7 @@ If $A$ is a fine sheaf of abelian groups then by definition, $\Hom(A,A)$ is a so
 Let $X$ be a paracompact space and $A$ a soft sheaf of abelian groups on it. Then $H^n(X;A)=0$ for $n>0$.
 \end{prop}
 \begin{proof}
-Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J \in A(U_J))_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by paracompactness, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
+Let $x \in H^n(X;A)$ be represented by a covering $\{U_\alpha\}_{\alpha \in I}$ and a cocycle $(c_J \in A(U_J))_{J \subseteq I}$, where $J$ runs through all $(n+1)$-element subsets of $I$. Since $U_J$ is open and not closed, it will in general be impossible to extend $c_J$ to any larger set. However, by the Shrinking Lemma~\ref{prop:shrinking}, we can shrink the covering, i.~e. pass to a covering $\{V_\alpha\}$ with $\overline V_\alpha \subset U_\alpha$, and $c_J|_{V_J}$ will still represent $x$, and can now be extended. Thus we may assume without loss of generality that every $c_J$ extends to any open set containing $U_J$.
 
 Choose a well-ordering on the index set, i.~e. assume $I=\{1,2,3,\dots\}$, possibly uncountable. For simplicity, we will consider the countable case only. We construct a cochain $(u_K\colon U_K \to A)$, where $K$ runs through all $n$-element subsets of $I$ and $d((u_K)) = (c_J)$. Order the set of $n$-element subsets of $I$ (considered as strictly increasing sequences) using the lexicographic order, i.e. with minimal element $\{1,\dots,n\}$, second element $\{1,\dots,n-1,n+1\}$ etc. 
 
@@ -2949,27 +2977,39 @@ H^*(X;F) \to H^*(X;F^\#).
 \]
 \end{thm}
 \begin{proof}
-Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by the (already proven) presheaf part of Cor.~\ref{cor:lesfromsesofpresheaves} to show the theorem when $F^\#=0$.
-\marginpar{Omitted, this far.}
+Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by Cor.~\ref{cor:lesfromsesofpresheaves} to show the theorem when $F^\#=0$.
+
+The condition $F^\#=0$ is equivalent with the following: for every open $U$, every $s \in F(U)$, and every $x \in U$, there exists an open $x \in V_{x,U} \subseteq U$ such that $s|_V=0$.
+
+Now suppose that $(s_{\alpha} \in F(U_\alpha)$ is a cocycle in $Z^{n}_{\mathcal U}(X,F)$ for some open cover $\mathcal U$ and $\alpha=(\alpha_0,\dots,\alpha_n) \in I^{n+1}$. We may without loss of generality assume that $\mathcal U$ is locally finite, since in a paracompact space, the locally finite covers are cofinal in the poset of all covers.
+
+For every point $x \in X$, we can choose an open neighborhood $\tilde W_x$ which only intersects finitely many opens of $\mathcal U$ (possible by local finiteness). Moreover, for any multi-index $\alpha$ such that $x \in U_\alpha$, the exists an open $x \in W_{x,\alpha} \subseteq \tilde W_x$ such that $s|_{W_{x,\alpha}} = 0$. Again by local finiteness, there are only finitely many such $\alpha$ for each $x$, thus $W_x = \bigcap_{\alpha} W_{x,\alpha}$ is an open neighborhood of $x$ such that all $s_{\alpha}|_{W_x}=0$ for each $\alpha$. Since $\mathcal W = \{W_x \mid x \in X\}$ is a refinement of $\mathcal U$, we find that $s$ maps to the zero cocycle in $Z_{\mathcal W}(X;F)$ and hence becomes zero in $H^*(X;F)$. 
 \end{proof}
 
-
+\begin{corollary}\label{cor:lesforsesofsheaves}
+A short exact sequence $0 \to F' \to F \to F'' \to 0$ of sheaves on a paracompact space $X$induces a natural long exact sequence
+\[
+\cdots \to H^n(X;F') \to H^n(X;F) \to H^n(F;F'') \to H^{n+1}(F;F') \to \cdots \qedhere
+\]\qed
+\end{corollary}
 
 \section{The Mayer-Vietoris sequence}
 
-Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups on $X$. Denote the inclusion maps by $i\colon U \to X$, $j\colon V \to X$, and $k\colon U \cap V \to X$. By the gluing axiom of sheaves, we have that
+Let $X=U \cup V$ be a union of two open sets and $A$ a sheaf of abelian groups on $X$. Denote the inclusion maps by $i\colon U \to X$, $j\colon V \to X$, $i'\colon U \cap V \to U$, and $j'\colon U \cap V \to V$.
+
+Let $Q$ be an open of $X$ and consider the sequence
 \[
-0 \to A \to i_*(A|_U) \oplus j_*(A|_V) \to k_*(A|_{U \cap V})
+0 \to A(Q) \xrightarrow{(i^*,j^*)} A(Q \cap U) \oplus A(Q \cap V) \xrightarrow{(i')^*-(j')^*} A(Q \cap U \cap V) \to 0
 \]
-is exact, where the right hand side map is the difference of the restriction maps. This sequence is not in general exact on the right, but it is on all $Y \subset X$ such that $Y \subseteq U$ or $Y \subseteq V$.
+This sequence is left exact for all $Q$ by the sheaf condition, and it is (quite trivially) exact if $Q$ is a subset of $U$ or a subset of $V$.
 
 Now let $\mathcal U$ be an open cover of $X$. Assume that every element of $\mathcal U$ is either entirely contained in $U$ or entirely contained in $V$. Denote by $\mathcal U|_Y$ for $Y \subseteq X$ the intersection of the open cover with $Y$. Then
 \[
-0 \to C^n_{\mathcal U}(X,A) \to C^n_{\mathcal U}(X;i_*A|_U) \oplus C^n_{\mathcal U}(X;j_*A|_V) \to C^n_{\mathcal U}(X;k_*A|_{U \cap V})\to 0
+0 \to C^n_{\mathcal U}(X,A) \xrightarrow{(i^*,j^*)} C^n_{\mathcal U|_U}(U;A|_U) \oplus C^n_{\mathcal U|_V}(V;A|_V) \xrightarrow{(i')^*-(j')^*} C^n_{\mathcal U|_{U \cap V}}(U \cap V;A|_{U \cap V})\to 0
 \]
-is a short exact sequence of chain complexes and therefore gives rise to a long exact sequence in cohomology. Since the poset of covers which are compatible with the union $U \cup V$ in the above sense is cofinal in all covers, we get a long exact sequence in \v Cech cohomology:
+is a short exact sequence of cosimplicial abelian groups by the above and therefore gives rise to a long exact sequence in cohomology. Since the poset of covers which are compatible with the union $U \cup V$ in the above sense is cofinal in all covers, we get a long exact sequence in \v Cech cohomology:
 \[
-0 \to H^0(X,A) \to H^0(U,A) \oplus H^0(V,A) \to H^0(U\cap V,A) \to H^1(X,A) \to \cdots.
+0 \to H^0(X,A) \to H^0(U,A|_U) \oplus H^0(V,A|_V) \to H^0(U\cap V,A|_{U \cap V}) \to H^1(X,A) \to \cdots.
 \]
 This is known as the Mayer-Vietoris sequence.
 
