@@ -2712,6 +2712,72 @@ as well as their colimits
 By assumption, $0 \to C^n_{\mathcal U}(X;F') \to C^n_{\mathcal U}(X;F) \to C^n_{\mathcal U}(X;F'') \to 0$ is exact for each $n$. By Lemma~\ref{lemma:les}, the first part follows. The second claim follows from the first by Lemma~\ref{lemma:colimexact}.
 \end{proof}
 
+\subsection{\v Cech cohomology with coefficients in presheaves and sheafification}
+
+Note that the definition of \v Cech cohomology $H^*(X;F)$ does not require $F$ to be a sheaf. The natural map
+\[
+d_0^0\colon F(Y) \xrightarrow{\iota} H^0_{\mathcal U}(Y;F)
+\]
+is an isomorphism if and only if $F$ is a sheaf for every open cover $\mathcal U$ of every open set $Y$. In particular, in this case $F(Y) = F_0(Y) =_{\operatorname{def}} H^0(Y,F)$.
+
+We will now construct a functor from presheaves to sheaves, called \emph{sheafification} $F \mapsto F^\#$, with a natural transformation $\eta\colon F \to F^\#$, such that $\eta$ induces a bijection
+\[
+\Hom_{\text{sheaves}}(F^\#,G) \xrightarrow[\cong]{\eta} \Hom_{\text{presheaves}}(F,G)
+\]
+for all sheaves $G$.
+
+It is tempting to guess that the functor $F_0$ is the sheafification, but this is not quite right as $F_0$ is not necessarily a sheaf. As a rule, it is generally not advisable to repeat something one knows not to work, but this case is an exception: the presheaf $(F_0)_0$ is a sheaf, and hence the sheafification of $F$:
+
+\begin{thm}\label{thm:sheafification}
+Call a presheaf $F$ \emph{separated} if the canonical map
+\[
+d_0^0\colon F(Y) \to H^0(Y;F)
+\]
+is injective for all open covers $\mathcal U=\{U_\alpha\}$ of any open subset $Y$. Then $F_0$ is separated for any presheaf $F$, and $F_0$ is a sheaf if $F$ is a separated presheaf.
+\end{thm}
+\begin{proof}
+First suppose that $F$ is any presheaf and $x,y \in F_0(Y)$ satisfy $d_0^0(x)=d_0^0(y)$ for some open cover $\mathcal U$. By directedness, there exists a refinement $\mathcal V$ of $\mathcal U$ such that $d_0^0(x)=d_0^0(y) \in H^0_{\mathcal V}(Y,F)$, which shows that $x=y$.
+
+The second part is left as an exercise for the reader.
+\end{proof}
+
+Recall that the stalk $F_x$ of a (pre-)sheaf $F$ at $x \in X$ is defined as the colimit $\colim_{U \ni x} F(U)$. Stalks are a good tool to understand sheafifications:
+\begin{lemma}\label{lemma:stalklemma}
+Let $F$ be a presheaf.
+\begin{enumerate}
+	\item The canonical map $F \to F^\#$ induces an isomorphism on all stalks.
+	\item If $F \to G$ is a morphism to a sheaf $G$ inducing an isomorphism on all stalks, then $G \cong F^\#$.
+	\item A map of sheaves $F \to G$ is injective (surjective) iff it is injective (surjective) on all stalks.
+\end{enumerate}
+\end{lemma}
+The proof is standard and left to the reader.
+
+It turns out that cohomology does not see the difference between a presheaf and its sheafification:
+
+\begin{thm}\label{thm:cohomologyinvariantundersheafification}
+For any paracompact space $X$ and presheaf $F$, sheafification induces an isomorphism
+\[
+H^*(X;F) \to H^*(X;F^\#).
+\]
+\end{thm}
+\begin{proof}
+Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by Cor.~\ref{cor:lesfromsesofpresheaves} to show the theorem when $F^\#=0$.
+
+The condition $F^\#=0$ is equivalent to $F_x=0$ for all $x$ by Lemma~\ref{lemma:stalklemma}.
+
+Now suppose that $(s_{\alpha}) \in F(U_\alpha)$ is a cocycle in $Z^{n}_{\mathcal U}(X,F)$ for some open cover $\mathcal U$ and $\alpha=(\alpha_0,\dots,\alpha_n) \in I^{n+1}$. We may without loss of generality assume that $\mathcal U$ is locally finite, since in a paracompact space, the locally finite covers are cofinal in the poset of all covers.
+
+For every point $x \in X$, we can choose an open neighborhood $\tilde W_x$ which only intersects finitely many opens of $\mathcal U$ (possible by local finiteness). Moreover, for any multi-index $\alpha$ such that $x \in U_\alpha$, the exists an open $x \in W_{x,\alpha} \subseteq \tilde W_x$ such that $s|_{W_{x,\alpha}} = 0$ because $F_x=0$. Again by local finiteness, there are only finitely many such $\alpha$ for each $x$, thus $W_x = \bigcap_{\alpha} W_{x,\alpha}$ is an open neighborhood of $x$ such that all $s_{\alpha}|_{W_x}=0$ for each $\alpha$. Since $\mathcal W = \{W_x \mid x \in X\}$ is a refinement of $\mathcal U$, we find that $s$ maps to the zero cocycle in $Z_{\mathcal W}(X;F)$ and hence becomes zero in $H^*(X;F)$. 
+\end{proof}
+
+\begin{corollary}\label{cor:lesforsesofsheaves}
+A short exact sequence $0 \to F' \to F \to F'' \to 0$ of sheaves on a paracompact space $X$induces a natural long exact sequence
+\[
+\cdots \to H^n(X;F') \to H^n(X;F) \to H^n(F;F'') \to H^{n+1}(F;F') \to \cdots \qedhere
+\]\qed
+\end{corollary}
+
+\subsection*{Relative cohomology and the long exact sequence for pairs of spaces}
 
 \begin{defn}
 Let $i\colon K \hookrightarrow X$ be an inclusion of topological spaces and $\mathcal U$ an open cover of $X$. The \emph{relative \v Cech complex} for $(X,A)$ with coefficients in a presheaf $F$ of abelian groups on $X$ is
@@ -2759,24 +2825,28 @@ Let $i\colon K \hookrightarrow X$ be a subset and $A$ a sheaf of abelian groups.
 \]
 \end{corollary}
 \begin{proof}
-Consider the sequence of presheaves 
-\[
-0 \to F \to A \to i_*i^*A
-\]
+Consider the sequence of sheaves 
+\begin{equation}\label{eq:sesofpresheavesforclosedsubspace}
+0 \to F \to A \to i_*i^*A \to 0
+\end{equation}
 where $i \colon K \to X$ is the inclusion and $F$ the kernel. Observe that
 \[
-F(V) = \{f \in A(V) \mid f|_U = 0 \text{ for some neighbordhood $U$ of $V \cap K$}\}.
+F(V) = \{f \in A(V) \mid f|_U = 0 \text{ for some neighborhood $U$ of $V \cap K$}\}.
 \]
 
-This sequence is not exact on the right, but it is whenever evaluated on an open set that lies either in the neighborhood $U$ of $K$ or in the complement $X-U$. For open covers consisting of such sets, we get a short exact sequence of chain complexes
+I claim that the sequence \eqref{eq:sesofpresheavesforclosedsubspace} is exact -- the only point here that does not follow from the construction is the surjectivity of $A \to i_*i^*A$. Note that we do need to sheafify the presheaf $i_*i^*A$ for this to hold. As presheaves,
 \[
-0 \to C^n_{i^*\mathcal U}(X;F) \to C^n_{\mathcal U}(X;A) \to C^n_{\mathcal U}(X;i_*i^*A) \to 0
+(i_*i^*A)(U) = \colim_{V \supseteq U \cap K} A(V),
 \]
-and hence a long exact sequence
+where $V$ runs through the open subsets containing $U \cap K$. 
+
+By Lemma~\ref{lemma:stalklemma}, we may verify surjectivity on stalks. If $x \not \in K$ then $(i_*i^*A)_x = 0$ and surjectivity holds trivially. If, on the other hand, $x \in K$ then $s \in (i_*i^*A)_x$ is represented by $\tilde s \in (i_*i^*A)(U)$ for some $U$, i.e. by $\tilde{\tilde s} \in A(V)$ for some $V$ containing $U \cap K$ and some $U$ containing $x$. This $V$ is in particular a neighborhood of $x$ and thus $\tilde{\tilde s}$ represents a preimage of $s$ in $A_x$.
+
+By Cor.~\ref{cor:lesforsesofsheaves}, we obtain a long exact sequence
 \[
 0 \to H^0_{\mathcal U}(X,K;A) \to H^0_{\mathcal U}(X;A) \to H^0_{\mathcal U}(X;i_*i^*A) \to H^1_{\mathcal U}(X,K;A) \to \cdots.
 \]
-Since such compatible open covers are cofinal in all open covers, we obtain the long exact sequence in \v Cech cohomology, noting that by Lemma~\ref{lemma:basechangeiso}, $H^n(X;i_*i^*A) \cong H^n(K;i^*A)$.
+By the exactness of the colimit and Lemma~\ref{lemma:basechangeiso}, $H^n(X;i_*i^*A) \cong H^n(K;i^*A)$ and the claim follows.
 \end{proof}
 
 
@@ -2939,59 +3009,7 @@ By homotopy invariance, $H^n(X,K;A) \cong H^n(X,U;A)$. To show that this map is 
 Similarily, if a cocycle $y \in C^n_{\mathcal U}(X/K,p_*A)$ become a coboundary in $C^n_{p^*\mathcal U}(X,K;A)$ then a similary argument can be performed on the cochain in $C^{n-1}_{p^*\mathcal U}(X,K;A)$ that bounds $p^*(y)$ to see it can be lifted to $C^n_{\mathcal V}(X/K,p_*A)$ for a possibly finer $\mathcal V$.
 \end{proof}
 
-\subsection{\v Cech cohomology with coefficients in presheaves and sheafification}
 
-Note that the definition of \v Cech cohomology $H^*(X;F)$ does not require $F$ to be a sheaf. The natural map
-\[
-d_0^0\colon F(Y) \xrightarrow{\iota} H^0_{\mathcal U}(Y;F)
-\]
-is an isomorphism if and only if $F$ is a sheaf for every open cover $\mathcal U$ of every open set $Y$. In particular, in this case $F(Y) = F_0(Y) =_{\operatorname{def}} H^0(Y,F)$.
-
-We will now construct a functor from presheaves to sheaves, called \emph{sheafification} $F \mapsto F^\#$, with a natural transformation $\eta\colon F \to F^\#$, such that $\eta$ induces a bijection
-\[
-\Hom_{\text{sheaves}}(F^\#,G) \xrightarrow[\cong]{\eta} \Hom_{\text{presheaves}}(F,G)
-\]
-for all sheaves $G$.
-
-It is tempting to guess that the functor $F_0$ is the sheafification, but this is not quite right as $F_0$ is not necessarily a sheaf. As a rule, it is generally not advisable to repeat something one knows not to work, but this case is an exception: the presheaf $(F_0)_0$ is a sheaf, and hence the sheafification of $F$:
-
-\begin{thm}\label{thm:sheafification}
-Call a presheaf $F$ \emph{separated} if the canonical map
-\[
-d_0^0\colon F(Y) \to H^0(Y;F)
-\]
-is injective for all open covers $\mathcal U=\{U_\alpha\}$ of any open subset $Y$. Then $F_0$ is separated for any presheaf $F$, and $F_0$ is a sheaf if $F$ is a separated presheaf.
-\end{thm}
-\begin{proof}
-First suppose that $F$ is any presheaf and $x,y \in F_0(Y)$ satisfy $d_0^0(x)=d_0^0(y)$ for some open cover $\mathcal U$. By directedness, there exists a refinement $\mathcal V$ of $\mathcal U$ such that $d_0^0(x)=d_0^0(y) \in H^0_{\mathcal V}(Y,F)$, which shows that $x=y$.
-
-The second part is left as an exercise for the reader.
-\end{proof}
-
-It turns out that cohomology does not see the difference between a presheaf and its sheafification:
-
-\begin{thm}\label{thm:cohomologyinvariantundersheafification}
-For any paracompact space $X$ and presheaf $F$, sheafification induces an isomorphism
-\[
-H^*(X;F) \to H^*(X;F^\#).
-\]
-\end{thm}
-\begin{proof}
-Let $K=\ker(F \to F^\#)$, $I = \im(F \to F^\#$, and $C = \coker(F \to F^\#)$, taken in the category of presheaves. Then we have short exact sequences of presheaves $0 \to K \to F \to I \to 0$ and $0 \to I \to F^\# \to C \to 0$. Both $K^\#$ and $C^\#=0$, so it suffices by Cor.~\ref{cor:lesfromsesofpresheaves} to show the theorem when $F^\#=0$.
-
-The condition $F^\#=0$ is equivalent with the following: for every open $U$, every $s \in F(U)$, and every $x \in U$, there exists an open $x \in V_{x,U} \subseteq U$ such that $s|_V=0$.
-
-Now suppose that $(s_{\alpha} \in F(U_\alpha)$ is a cocycle in $Z^{n}_{\mathcal U}(X,F)$ for some open cover $\mathcal U$ and $\alpha=(\alpha_0,\dots,\alpha_n) \in I^{n+1}$. We may without loss of generality assume that $\mathcal U$ is locally finite, since in a paracompact space, the locally finite covers are cofinal in the poset of all covers.
-
-For every point $x \in X$, we can choose an open neighborhood $\tilde W_x$ which only intersects finitely many opens of $\mathcal U$ (possible by local finiteness). Moreover, for any multi-index $\alpha$ such that $x \in U_\alpha$, the exists an open $x \in W_{x,\alpha} \subseteq \tilde W_x$ such that $s|_{W_{x,\alpha}} = 0$. Again by local finiteness, there are only finitely many such $\alpha$ for each $x$, thus $W_x = \bigcap_{\alpha} W_{x,\alpha}$ is an open neighborhood of $x$ such that all $s_{\alpha}|_{W_x}=0$ for each $\alpha$. Since $\mathcal W = \{W_x \mid x \in X\}$ is a refinement of $\mathcal U$, we find that $s$ maps to the zero cocycle in $Z_{\mathcal W}(X;F)$ and hence becomes zero in $H^*(X;F)$. 
-\end{proof}
-
-\begin{corollary}\label{cor:lesforsesofsheaves}
-A short exact sequence $0 \to F' \to F \to F'' \to 0$ of sheaves on a paracompact space $X$induces a natural long exact sequence
-\[
-\cdots \to H^n(X;F') \to H^n(X;F) \to H^n(F;F'') \to H^{n+1}(F;F') \to \cdots \qedhere
-\]\qed
-\end{corollary}
 
 \section{The Mayer-Vietoris sequence}
 
