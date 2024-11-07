@@ -2184,7 +2184,7 @@ Manifolds are well-pointed since they are locally homeomorphic to $\R^n$.
 
 It is elementary to see that pushouts and products of NDR pairs are NDR pairs, where products are defined as $(X,A) \times (X',A') = (X\times X',X \times A'\cup_{A \cup A'} A \times X')$. Moreover, if $A \subseteq X_0 \subseteq X_1 \subseteq \cdots$ then $(\bigcup_{n} X_n,A)$ is an NDR pair if every $(X_n,X_{n-1})$ is an NDR pair.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:wellpointedGprincipalEG}
 For a well-pointed topological group $G$, $u\colon EG \to BG$ is a principal $G$-bundle. In particular, if $G$ acts linearly on a finite dimensional vector space $V$, the vector space $EG \times_G V \to BG$ over $BG$ is a vector bundle.
 \end{lemma}
 \begin{proof}
@@ -2771,11 +2771,37 @@ For every point $x \in X$, we can choose an open neighborhood $\tilde W_x$ which
 \end{proof}
 
 \begin{corollary}\label{cor:lesforsesofsheaves}
-A short exact sequence $0 \to F' \to F \to F'' \to 0$ of sheaves on a paracompact space $X$induces a natural long exact sequence
+A short exact sequence $0 \to F' \to F \to F'' \to 0$ of sheaves on a paracompact space $X$ induces a natural long exact sequence
 \[
-\cdots \to H^n(X;F') \to H^n(X;F) \to H^n(F;F'') \to H^{n+1}(F;F') \to \cdots \qedhere
+\cdots \to H^n(X;F') \to H^n(X;F) \to H^n(X;F'') \to H^{n+1}(X;F') \to \cdots \qedhere
 \]\qed
 \end{corollary}
+
+Let us now consider a short exact sequence of topological abelian groups
+\[
+0 \to G' \to G \to G'' \to 0,
+\]
+let $F=\map(-,G)$ be the sheaf represented by $G$, and similarly for $F'$, $F''$. For now, we just assume that $G' \subseteq G$ is a closed subgroup with quotient $G''=G/G'$ equipped with the quotient topology.
+
+If $0 \to F' \to F \to F'' \to 0$ was exact as a sequence of presheaves, we would get an exact sequence in cohomology\. Injectivity of $F' \to F$ is clear. Moreover, if $f\colon U \to G$ is a map whose composition to $G''=G/G'$ is trivial then $\im(f) \subseteq G'$ and thus the sequence $F(U') \to F(U) \to F''(U)$ is exact for any $U$. But a moment's reflection shows that surjectivity of $F \to F''$ is too much to ask. For instance, if the sequence is $0 \to \Z \to \R \to \S^1 \to 0$, $X=\S^1$, then
+\[
+\map (X,\R) \to \map(X,\S^1)
+\]
+clearly is not surjective, as the identity map is not in the image. However, by Cor.~\ref{cor:lesforsesofsheaves} it suffices that $0 \to F' \to F \to F'' \to 0$ is exact as a short exact sequence of sheaves, which can be checked on stalks. And for the map $F_x \to F''_x$ to be surjective, it suffices to show that for every open neighborhood $U$ of $x$ and $f\colon U \to G''$, there exists a possibly smaller neighborhood $V$ of $x$ and a lift of $f|_V$ to $G$. This is true if $G \to G''$ has a local section around the identity (and hence around every point), and the universal case $X=G''$ shows that this is in fact necessary and sufficient. We thus define the problem away:
+
+\begin{defn}
+A sequence $0 \to G' \xrightarrow{i} G \xrightarrow{p} G'' \to 0$ of topological abelian groups is \emph{short exact} if $i$ is an embedding of a closed subgroup of $G$, $p$ induces a homeomorphism $G/G' \to G''$, and there exists a neighborhood $U$ of $e \in G''$ and a section $s\colon U \to G$ such that $p\circ s = \id_U$.
+\end{defn}
+
+Note that the last condition is equivalent to $G' \to G \to G''$ being a principal $G'$-bundle.
+
+\begin{corollary}\label{cor:lesforrepsheaves}
+Let $0 \to G' \to G \to G'' \to 0$ be a short exact sequence of topological abelian groups. Then there is an induced long exact sequence in cohomology
+\[
+\cdots \to H^n(X;G') \to H^n(X;G) \to H^n(X;G'') \to H^{n+1}(X;G') \to \cdots \qedhere
+\]
+\end{corollary}
+
 
 \subsection*{Relative cohomology and the long exact sequence for pairs of spaces}
 
@@ -2800,23 +2826,26 @@ the $n$th \emph{reduced cohomology group}. In this case, we have
 \]
 \end{defn}
 
-\begin{lemma}\label{lemma:relativecohomology}
-Let $K \subseteq X$ be a closed subset and $F$ a sheaf of abelian groups on $X$. Denote by $i\colon X-K \to X$ the inclusion. Then there is a natural isomorphism
-\[
-H^*(X,K;F) \cong H^*(X-K;i^*F).
-\]
-\end{lemma}
-\begin{proof}
-For any open cover $\mathcal U$ of $X$, the map
-\[
-i^*\colon C^n_{i^*\mathcal U}(X-K;i^*F) \to C^n_{\mathcal U}(X;F)
-\]
-is an isomorphism: an element in $F(U)$ vanishing in a neighborhood of $V$ of $K$ is uniquely determined by its restrictions to the opens $X-K$ and $V$ by the sheaf condition on $F$. Hence we obtain isomorphisms
-\[
-H^n_{i^*\mathcal U}(X-K;i^*F) \cong H^n_{\mathcal U}(X;F)
-\]
-and the desired isomorphism in the colimit.
-\end{proof}
+% The following isn't quite right. The cohomology of X-K must be taken as the colimit of all covers whose open sets have a closure in X that does not intersect K. Sort of like "compactly supported around K".
+%
+%
+% \begin{lemma}\label{lemma:relativecohomology}
+% Let $K \subseteq X$ be a closed subset and $F$ a sheaf of abelian groups on $X$. Denote by $i\colon X-K \to X$ the inclusion. Then there is a natural isomorphism
+% \[
+% H^*(X,K;F) \cong H^*(X-K;i^*F).
+% \]
+% \end{lemma}
+% \begin{proof}
+% For any open cover $\mathcal U$ of $X$, the map
+% \[
+% i^*\colon C^n_{i^*\mathcal U}(X-K;i^*F) \to C^n_{\mathcal U}(X;F)
+% \]
+% is an isomorphism: an element in $F(U)$ vanishing in a neighborhood of $V$ of $K$ is uniquely determined by its restrictions to the opens $X-K$ and $V$ by the sheaf condition on $F$. Hence we obtain isomorphisms
+% \[
+% H^n_{i^*\mathcal U}(X-K;i^*F) \cong H^n_{\mathcal U}(X;F)
+% \]
+% and the desired isomorphism in the colimit.
+% \end{proof}
 
 \begin{corollary}\label{cor:sesforspaces}
 Let $i\colon K \hookrightarrow X$ be a subset and $A$ a sheaf of abelian groups. Then there is a long exact sequence in cohomology:
@@ -2927,13 +2956,13 @@ Then $\tilde s|_V = s|_V$ and we are done.
 \end{proof}
 
 \begin{corollary} \label{cor:cechdimensionshift}
-For any space $X$, topological abelian group $A$, and integer $n\geq 1$, we have a natural isomorphism
+For any space $X$, well-pointed topological abelian group $A$, and integer $n\geq 1$, we have a natural isomorphism
 \[
 H^{n+1}(X;A) \cong H^n(X;BA).
 \]
 \end{corollary}
 \begin{proof}
-The short exact sequence $0 \to A \to EA \to BA \to 0$ induces a long exact sequence in \v Cech cohomology by Corollary~\ref{cor:lesfromsesofpresheaves}. By Lemma~\ref{lemma:EAfine}, $EA$ is soft and hence, by Proposition~\ref{prop:finesheafcohomology}, $H^n(X;EA)=0$ for $n>0$. Thus the long exact sequence splits into isomorphisms
+The sequence $0 \to A \to EA \to BA \to 0$ is a short exact sequence by Lemma~\ref{lemma:wellpointedGprincipalEG} and hence induces a long exact sequence in \v Cech cohomology by Corollary~\ref{cor:lesforrepsheaves}. By Lemma~\ref{lemma:EAfine}, $EA$ is soft and hence, by Proposition~\ref{prop:finesheafcohomology}, $H^n(X;EA)=0$ for $n>0$. Thus the long exact sequence splits into isomorphisms
 \[
 H^n(X;BA) \xrightarrow{d} H^{n+1}(X;A)
 \]
